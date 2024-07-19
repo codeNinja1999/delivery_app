@@ -1,0 +1,13 @@
+export 'bloc/kyc_verification_bloc.dart';
+export 'kyc_verification_page.dart';
+export 'current_address/current_address.dart';
+export 'document_back/document_back.dart';
+export 'document_front/document_front.dart';
+export 'document_information/view/document_information_page.dart';
+export 'document_information/bloc/document_information_bloc.dart';
+export 'document_thickness/document.thickness.dart';
+export 'id_selection/id_selection.dart';
+export 'instruction/bloc/verification_instruction_bloc.dart';
+export 'route/kyc_verification_route.dart';
+export 'selfie/selfie.dart';
+export 'verification_rule/verification_rule.dart';

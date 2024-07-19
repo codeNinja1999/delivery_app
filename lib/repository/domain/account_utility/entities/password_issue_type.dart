@@ -1,0 +1,4 @@
+enum PasswordIssueType {
+  reset,
+  update,
+}

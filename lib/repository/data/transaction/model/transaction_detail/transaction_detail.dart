@@ -1,0 +1,1 @@
+export 'transaction_detail_response_model.dart';

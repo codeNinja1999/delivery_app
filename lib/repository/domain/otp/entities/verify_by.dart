@@ -1,0 +1,1 @@
+enum VerifyBy { email, mobileNumber }
