@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'login_app_bar.dart';
 import 'login_form.dart';
 
 class LoginPage extends StatefulWidget {
@@ -19,12 +18,12 @@ class _LoginPageState extends State<LoginPage> {
       canPop: false,
       child: Scaffold(
         backgroundColor: Theme.of(context).colorScheme.surface,
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
-          surfaceTintColor: Theme.of(context).colorScheme.primary,
-          actions: const [LoginAppBar()],
-          elevation: 0,
-        ),
+        // appBar: AppBar(
+        //   automaticallyImplyLeading: false,
+        //   surfaceTintColor: Theme.of(context).colorScheme.primary,
+        //   actions: const [LoginAppBar()],
+        //   elevation: 0,
+        // ),
         body: const LoginForm(),
       ),
     );

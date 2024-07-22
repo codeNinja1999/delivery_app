@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:fresh_fold_delivery/sources/core/app_core.dart';
 import 'package:fresh_fold_delivery/sources/resources/resources.dart';
 
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -24,19 +24,31 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       automaticallyImplyLeading: false,
       surfaceTintColor: Theme.of(context).colorScheme.shadow,
+      leadingWidth: 65,
       leading: allowBack
-          ? IconButton(
-              icon: Icon(
-                Icons.arrow_back,
-                color: arrowColor ?? Colors.black,
+          ? Padding(
+              padding: const EdgeInsets.only(top: AppSize.inset, left: AppSize.viewMargin),
+              child: GestureDetector(
+                onTap: () {
+                  if (FocusScope.of(context).hasFocus) {
+                    FocusScope.of(context).requestFocus(FocusNode());
+                  }
+                  (backButtonAction != null) ? backButtonAction!() : Navigator.of(context).pop();
+                },
+                child: Container(
+                  padding: const EdgeInsets.only(left: AppSize.cornerRadiusMedium),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(AppSize.cornerRadiusMedium),
+                    border: Border.all(color: Theme.of(context).colorScheme.outline),
+                  ),
+                  alignment: Alignment.center,
+                  child: Icon(
+                    Icons.arrow_back_ios,
+                    size: 18,
+                    color: arrowColor ?? AppColors.black,
+                  ),
+                ),
               ),
-              color: AppColors.black,
-              onPressed: () {
-                if (FocusScope.of(context).hasFocus) {
-                  FocusScope.of(context).requestFocus(FocusNode());
-                }
-                (backButtonAction != null) ? backButtonAction!() : Navigator.of(context).pop();
-              },
             )
           : null,
       backgroundColor: backgroundColor ?? Theme.of(context).colorScheme.surface,

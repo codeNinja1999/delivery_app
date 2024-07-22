@@ -37,7 +37,7 @@ class ShortcutActionView extends StatelessWidget {
           const SizedBox(width: AppSize.inset * 0.75),
           TextButton(
             onPressed: () {
-              Navigator.pushNamed(context, AppRoute.checkRate);
+              // Navigator.pushNamed(context, AppRoute.checkRate);
             },
             style: TextButton.styleFrom(
               backgroundColor: theme.colorScheme.surface,

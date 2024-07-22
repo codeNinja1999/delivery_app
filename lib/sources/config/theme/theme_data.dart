@@ -18,6 +18,7 @@ final ThemeData lightTheme = ThemeData.light(useMaterial3: true).copyWith(
     onPrimary: AppColors.backgroundLight,
     error: AppColors.errorColor,
     surface: AppColors.backgroundLight,
+    surfaceContainer: AppColors.backgroundContainerLight,
     outline: AppColors.outlineColor,
     outlineVariant: AppColors.outlineVariantColor,
     tertiary: AppColors.moderatePrimary,
@@ -71,6 +72,8 @@ final ThemeData lightTheme = ThemeData.light(useMaterial3: true).copyWith(
       (states) {
         if (states.contains(WidgetState.selected)) {
           return AppColors.primary;
+        } else if (states.contains(WidgetState.disabled)) {
+          return AppColors.errorColor;
         } else {
           return AppColors.backgroundLight;
         }
@@ -81,55 +84,55 @@ final ThemeData lightTheme = ThemeData.light(useMaterial3: true).copyWith(
   listTileTheme: ListTileThemeData(iconColor: AppColors.iconColorLight),
   textTheme: TextTheme(
     titleLarge: TextStyle(
-      fontFamily: 'Figtree',
+      fontFamily: 'PlusJakartaSans',
       fontWeight: FontWeight.w700,
       color: AppColors.textColor,
       fontSize: 20,
     ),
     titleMedium: TextStyle(
-      fontFamily: 'Figtree',
+      fontFamily: 'PlusJakartaSans',
       fontWeight: FontWeight.w600,
       color: AppColors.textColor,
       fontSize: 16,
     ),
     titleSmall: TextStyle(
-      fontFamily: 'Figtree',
+      fontFamily: 'PlusJakartaSans',
       fontWeight: FontWeight.w600,
       color: AppColors.textColor,
       fontSize: 14,
     ),
     labelLarge: TextStyle(
-      fontFamily: 'Figtree',
+      fontFamily: 'PlusJakartaSans',
       fontWeight: FontWeight.w500,
       color: AppColors.textColor,
       fontSize: 14,
     ),
     labelMedium: TextStyle(
-      fontFamily: 'Figtree',
+      fontFamily: 'PlusJakartaSans',
       fontWeight: FontWeight.w500,
       color: AppColors.textColor,
       fontSize: 12,
     ),
     labelSmall: TextStyle(
-      fontFamily: 'Figtree',
+      fontFamily: 'PlusJakartaSans',
       fontWeight: FontWeight.w500,
       color: AppColors.textColor,
       fontSize: 11,
     ),
     bodyLarge: TextStyle(
-      fontFamily: 'Figtree',
+      fontFamily: 'PlusJakartaSans',
       fontWeight: FontWeight.w500,
       color: AppColors.textColor,
       fontSize: 16,
     ),
     bodyMedium: TextStyle(
-      fontFamily: 'Figtree',
+      fontFamily: 'PlusJakartaSans',
       fontWeight: FontWeight.w500,
       color: AppColors.textColor,
       fontSize: 14,
     ),
     bodySmall: TextStyle(
-      fontFamily: 'Figtree',
+      fontFamily: 'PlusJakartaSans',
       fontWeight: FontWeight.w500,
       color: AppColors.textColor,
       fontSize: 12,
@@ -176,7 +179,7 @@ final ThemeData darkTheme = ThemeData.dark(useMaterial3: true).copyWith(
   textButtonTheme: TextButtonThemeData(
     style: ButtonStyle(
       textStyle: WidgetStateProperty.resolveWith<TextStyle>((Set<WidgetState> states) {
-        return const TextStyle(fontFamily: 'figtree', fontWeight: FontWeight.w400, fontSize: 16);
+        return const TextStyle(fontFamily: 'PlusJakartaSans', fontWeight: FontWeight.w400, fontSize: 16);
       }),
       padding: WidgetStateProperty.all<EdgeInsets>(
         const EdgeInsets.fromLTRB(12, 12, 12, 12),
@@ -214,55 +217,55 @@ final ThemeData darkTheme = ThemeData.dark(useMaterial3: true).copyWith(
   listTileTheme: ListTileThemeData(iconColor: AppColors.iconColorDark),
   textTheme: const TextTheme(
     titleLarge: TextStyle(
-      fontFamily: 'Figtree',
+      fontFamily: 'PlusJakartaSans',
       fontWeight: FontWeight.w700,
       color: Colors.white,
       fontSize: 20,
     ),
     titleMedium: TextStyle(
-      fontFamily: 'Figtree',
+      fontFamily: 'PlusJakartaSans',
       fontWeight: FontWeight.w500,
       color: Colors.white,
       fontSize: 17,
     ),
     titleSmall: TextStyle(
-      fontFamily: 'Figtree',
+      fontFamily: 'PlusJakartaSans',
       fontWeight: FontWeight.w500,
       color: Colors.white,
       fontSize: 14,
     ),
     labelLarge: TextStyle(
-      fontFamily: 'Figtree',
+      fontFamily: 'PlusJakartaSans',
       fontWeight: FontWeight.w500,
       color: Colors.white,
       fontSize: 14,
     ),
     labelMedium: TextStyle(
-      fontFamily: 'Figtree',
+      fontFamily: 'PlusJakartaSans',
       fontWeight: FontWeight.w500,
       color: Colors.white,
       fontSize: 12,
     ),
     labelSmall: TextStyle(
-      fontFamily: 'Figtree',
+      fontFamily: 'PlusJakartaSans',
       fontWeight: FontWeight.w500,
       color: Colors.white,
       fontSize: 11,
     ),
     bodyLarge: TextStyle(
-      fontFamily: 'Figtree',
+      fontFamily: 'PlusJakartaSans',
       fontWeight: FontWeight.normal,
       color: Colors.white,
       fontSize: 16,
     ),
     bodyMedium: TextStyle(
-      fontFamily: 'Figtree',
+      fontFamily: 'PlusJakartaSans',
       fontWeight: FontWeight.normal,
       color: Colors.white,
       fontSize: 14,
     ),
     bodySmall: TextStyle(
-      fontFamily: 'Figtree',
+      fontFamily: 'PlusJakartaSans',
       fontWeight: FontWeight.normal,
       color: Colors.white,
       fontSize: 12,

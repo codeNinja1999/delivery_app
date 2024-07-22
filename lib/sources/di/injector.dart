@@ -6,21 +6,12 @@ import 'package:fresh_fold_delivery/repository/data/transaction/transaction.dart
 import '../core/app_core.dart';
 import '../presentation/app_account_utility/app_account_utility.dart';
 import '../presentation/beneficiary/beneficiary.dart';
-import '../presentation/check_rate/bloc/check_rate_bloc.dart';
-import '../presentation/currency_changer/bloc/currency_changer_bloc.dart';
 import '../presentation/dashboard/dashboard.dart';
-import '../presentation/device_verification/device_verification.dart';
-import '../presentation/registration/existing_member/existing_member.dart';
 import '../presentation/forgot_password/forgot_password.dart';
 import '../presentation/history/history.dart';
-import '../presentation/home_tab/home_tab_bar.dart';
-import '../presentation/kyc/kyc_verification.dart';
-import '../presentation/kyc/personal_information/personal_information.dart';
 import '../presentation/login/login.dart';
-import '../presentation/registration/new_member/new_member.dart';
+import '../presentation/new_member/new_member.dart';
 import '../presentation/notification/bloc/notification_list_bloc.dart';
-import '../presentation/promotion/bloc/promotion_bloc.dart';
-import '../presentation/send_money/send_money.dart';
 import '../presentation/splash/bloc/splash_bloc.dart';
 import '../presentation/user_agreement/bloc/user_agreement_bloc.dart';
 
@@ -52,38 +43,6 @@ void blocsInjection() {
   sl.registerFactory(() => AccountOtpVerifyBloc(otpRepository: sl()));
   sl.registerFactory(() => RegisterFormBloc(userRegistrationRepository: sl()));
 
-  //existing member
-  sl.registerFactory(() => ExistingMemberBloc());
-  sl.registerFactory(() => VerifyNumberBloc(otpRepository: sl()));
-  sl.registerFactory(() => VerifyEmailBloc(otpRepository: sl()));
-  sl.registerFactory(() => IdValidateBloc(catalogRepository: sl(), existingMemberRepository: sl()));
-  sl.registerFactory(() => VerifyOtpBloc(otpRepository: sl()));
-  sl.registerFactory(() => NewPasswordBloc(existingMemberRepository: sl()));
-  sl.registerFactory(() => SelfieBloc(userUtilitiesRepository: sl(), userVerificationRepository: sl()));
-
-  //Kyc
-  sl.registerFactory(
-    () => DocumentBackBloc(userVerificationRepository: sl(), userUtilitiesRepository: sl()),
-  );
-  sl.registerFactory(() => DocumentThicknessBloc(userVerificationRepository: sl()));
-  sl.registerFactory(() => VerificationInstructionBloc());
-  sl.registerFactory(() => KycVerificationBloc(userUtilitiesRepository: sl()));
-  sl.registerFactory(() => CurrentAddressBloc(catalogRepository: sl(), userUtilitiesRepository: sl()));
-  sl.registerFactory(() => PromotionBloc(appAuthenticationRepository: sl()));
-  sl.registerFactory(() => IdSelectionBloc(catalogRepository: sl(), userUtilitiesRepository: sl()));
-  sl.registerFactory(
-    () => SelfiePageBloc(userVerificationRepository: sl(), userUtilitiesRepository: sl()),
-  );
-  sl.registerFactory(() => DocumentFrontBloc(userVerificationRepository: sl()));
-  sl.registerFactory(() => DocumentInformationBloc(
-        catalogRepository: CatalogRepositoryImpl(userNetworkClient: userAuthenticationNetworkClient()),
-        userUtilitiesRepository: sl(),
-        userVerificationRepository: sl(),
-      ));
-  sl.registerFactory(
-    () => PersonalInformationBloc(catalogRepository: sl(), userUtilitiesRepository: sl()),
-  );
-
   //login
   sl.registerFactory(() => SetPinBloc());
   sl.registerFactory(() => ForgotPasswordBloc());
@@ -91,14 +50,10 @@ void blocsInjection() {
   sl.registerFactory(() => VerifyUserIdBloc(otpRepository: sl()));
   sl.registerFactory(() => LoginBloc(userAuthenticationRepository: sl()));
   sl.registerFactory(
-    () => DeviceVerificationBloc(otpRepository: sl(), userAuthenticationRepository: sl()),
-  );
-  sl.registerFactory(
     () => ResetPasswordBloc(passwordRepository: PasswordRepositoryImpl(networkClient: appAuthenticationNetworkClient())),
   );
 
   //dashboard
-  sl.registerFactory(() => HomeTabBarBloc(userUtilitiesRepository: sl()));
   sl.registerFactory(
     () => DashboardBloc(
       userUtilitiesRepository: sl(),
@@ -111,17 +66,6 @@ void blocsInjection() {
   sl.registerFactory(
     () => ChangePasswordBloc(
       passwordRepository: PasswordRepositoryImpl(networkClient: userAuthenticationNetworkClient()),
-    ),
-  );
-  sl.registerFactory(
-    () => CheckRateBloc(
-      transactionActivityRepository: sl(),
-      catalogRepository: CatalogRepositoryImpl(userNetworkClient: userAuthenticationNetworkClient()),
-    ),
-  );
-  sl.registerFactory(
-    () => CurrencyChangerBloc(
-      catalogRepository: CatalogRepositoryImpl(userNetworkClient: userAuthenticationNetworkClient()),
     ),
   );
 
@@ -160,34 +104,6 @@ void blocsInjection() {
   sl.registerFactory(() => AccountBloc(userUtilitiesRepository: sl()));
   sl.registerFactory(
     () => UserPersonalInfoBloc(userUtilitiesRepository: sl(), changeProfilePicRepository: sl()),
-  );
-
-  //send money
-  sl.registerFactory(() => SendMoneyBloc());
-  sl.registerFactory(() => SendMoneySuccessBloc());
-  sl.registerFactory(
-    () => ConfirmDetailsBloc(transactionActivityRepository: sl(), userUtilitiesRepository: sl()),
-  );
-  sl.registerFactory(
-    () => ReceiverListBloc(
-      receiverRepository: sl(),
-      catalogRepository: CatalogRepositoryImpl(userNetworkClient: userAuthenticationNetworkClient()),
-      transactionActivityRepository: sl(),
-    ),
-  );
-  sl.registerFactory(
-    () => PurposeOfTransferBloc(
-      receiverRepository: sl(),
-      transactionActivityRepository: sl(),
-      catalogRepository: CatalogRepositoryImpl(userNetworkClient: userAuthenticationNetworkClient()),
-    ),
-  );
-  sl.registerFactory(
-    () => ExchangeRateBloc(
-      userUtilitiesRepository: sl(),
-      transactionActivityRepository: sl(),
-      catalogRepository: CatalogRepositoryImpl(userNetworkClient: userAuthenticationNetworkClient()),
-    ),
   );
 
   //transaction

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fresh_fold_delivery/sources/resources/resources.dart';
 
 import 'package:fresh_fold_delivery/sources/route/route.dart';
 import 'package:fresh_fold_delivery/sources/core/app_core.dart';
 import 'package:fresh_fold_delivery/sources/presentation/widgets/widgets.dart';
-import 'package:fresh_fold_delivery/sources/presentation/app_account_utility/app_account_utility.dart';
 import '../bloc/login_bloc.dart';
 
 class LoginForm extends StatefulWidget {
@@ -28,9 +28,7 @@ class _LoginBodyState extends State<LoginForm> {
         final status = state.status;
         (status is InProgress) ? LoadingView.show() : LoadingView.hide();
         if (status is Success) {
-          Navigator.pushNamed(context, AppRoute.home);
-        } else if (state.shouldVerifyDevice) {
-          Navigator.pushNamed(context, AppRoute.newDeviceVerification, arguments: state.loginViewModel);
+          Navigator.pushNamed(context, AppRoute.dashboard);
         } else if (status is SubmissionFailure) {
           ErrorResolver.resolve(context, status);
         }
@@ -46,10 +44,12 @@ class _LoginBodyState extends State<LoginForm> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    const SizedBox(height: AppSize.spacedViewSpacing),
+                    Center(child: Image.asset(AppImages.logo, width: MediaQuery.of(context).size.width / 2.5)),
                     Padding(
                       padding: const EdgeInsets.only(bottom: 8.0, top: AppSize.inset),
                       child: Text(
-                        "${LocaleKeys.login.value} ${appFlavor?.toLowerCase() == "prod" ? "" : "UAT"}",
+                        "${LocaleKeys.hi.value} ${LocaleKeys.welcome.value}",
                         style: theme.textTheme.titleMedium?.copyWith(fontSize: 36),
                       ),
                     ),
@@ -59,18 +59,18 @@ class _LoginBodyState extends State<LoginForm> {
                     _PasswordInput(),
                     const SizedBox(height: AppSize.inset),
                     const RememberView(),
-                    const SizedBox(height: AppSize.viewSpacing),
+                    const SizedBox(height: AppSize.viewSpacing * 2),
                     CustomButton(
                       title: LocaleKeys.login.value,
                       onPressed: () {
-                        if (formKey.currentState!.validate()) {
-                          KeyboardUtil.hideKeyboard(context);
-                          BlocProvider.of<LoginBloc>(context).add(AuthenticateUser());
-                        }
+                        KeyboardUtil.hideKeyboard(context);
+                        Navigator.pushNamed(context, AppRoute.dashboard);
+                        // if (formKey.currentState!.validate()) {
+                        //   BlocProvider.of<LoginBloc>(context).add(AuthenticateUser());
+                        // }
                       },
                     ),
                     const SizedBox(height: AppSize.inset),
-                    const CreateAccountView(),
                   ],
                 ),
               ),
@@ -89,17 +89,19 @@ class _FooterWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverFillRemaining(
       hasScrollBody: false,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          const Spacer(),
-          Padding(
-            padding: const EdgeInsets.only(top: AppSize.viewSpacing, bottom: AppSize.viewSpacing),
-            child: SupportView(
-              onSupport: () => Navigator.pushNamed(context, AppAccountUtilityRoute.customerCare),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: AppSize.viewSpacing),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            const Spacer(),
+            TextButton(
+              onPressed: () {},
+              child: Text(LocaleKeys.loginAsGuest.value, style: Theme.of(context).textTheme.bodyLarge),
             ),
-          ),
-        ],
+            const CreateAccountView(),
+          ],
+        ),
       ),
     );
   }
@@ -122,8 +124,8 @@ class UserNameInput extends StatelessWidget {
         return AppTextfield(
           controller: textController,
           maxLength: 254,
-          title: LocaleKeys.loginId.value,
-          placeHolder: LocaleKeys.loginIdPlaceholder.value,
+          title: LocaleKeys.emailAddressTitle.value,
+          placeHolder: LocaleKeys.emailAddressPlaceholder.value,
           validator: (_) => state.usernameValidation,
           onChanged: (username) {
             context.read<LoginBloc>().add(UsernameNumberChanged(username));
@@ -142,7 +144,7 @@ class _PasswordInput extends StatelessWidget {
       builder: (context, state) {
         return AppTextfield(
           obscureSign: "•",
-          title: LocaleKeys.password.value,
+          title: LocaleKeys.passwordTitle.value,
           placeHolder: LocaleKeys.enterPassword.value,
           isObscure: true,
           textInputType: TextInputType.visiblePassword,
@@ -244,10 +246,10 @@ class CreateAccountView extends StatelessWidget {
         const SizedBox(width: AppSize.cornerRadiusMedium),
         InkWell(
           onTap: () {
-            memberBottomSheet(context);
+            Navigator.pushNamed(context, AppRoute.newMemberPage);
           },
           child: Text(
-            LocaleKeys.createAccount.value,
+            LocaleKeys.signUp.value,
             style: theme.textTheme.titleMedium?.copyWith(
               decoration: TextDecoration.underline,
               color: theme.primaryColor,

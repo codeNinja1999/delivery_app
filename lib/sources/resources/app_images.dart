@@ -1,6 +1,7 @@
 class AppImages {
   // static String appLogo = 'assets/images/image/arrow2.png';
   static String logo = 'assets/images/image/logo_transparent.png';
+  static String promotionBackground = 'assets/images/image/promotion_background.png';
   static String id = 'assets/images/image/id.png';
   static String call = 'assets/images/icon/call.png';
   static String limitAlert = 'assets/images/icon/limit_alert.png';

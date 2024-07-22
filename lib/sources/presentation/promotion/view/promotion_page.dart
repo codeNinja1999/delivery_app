@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fresh_fold_delivery/sources/resources/resources.dart';
 
 import 'package:fresh_fold_delivery/sources/route/route.dart';
 import 'package:fresh_fold_delivery/sources/core/app_core.dart';
-import 'package:fresh_fold_delivery/sources/config/config.dart';
 import 'package:fresh_fold_delivery/sources/presentation/widgets/widgets.dart';
-import '../bloc/promotion_bloc.dart';
-import 'promotion_slider_view.dart';
 
 class PromotionPage extends StatefulWidget {
   const PromotionPage({super.key});
@@ -24,46 +21,63 @@ class _PromotionPageState extends State<PromotionPage> {
       canPop: false,
       child: Scaffold(
         backgroundColor: theme.colorScheme.surface,
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
-          elevation: 0,
-          actions: [
-            BlocBuilder<PromotionBloc, PromotionState>(
-              buildWhen: (previous, current) => previous.changeLanguage != current.changeLanguage,
-              builder: (context, state) {
-                return ChangeLanguageButton(
-                  onChangeLanguage: () => Navigator.pushNamed(context, AppRoute.changeLanguage),
-                  selectedLanguage: StringUtils.getCountryName(context.locale.countryCode ?? ""),
-                );
-              },
+        // appBar: AppBar(
+        //   automaticallyImplyLeading: false,
+        //   elevation: 0,
+        //   actions: [
+        //     BlocBuilder<PromotionBloc, PromotionState>(
+        //       buildWhen: (previous, current) => previous.changeLanguage != current.changeLanguage,
+        //       builder: (context, state) {
+        //         return ChangeLanguageButton(
+        //           onChangeLanguage: () => Navigator.pushNamed(context, AppRoute.changeLanguage),
+        //           selectedLanguage: StringUtils.getCountryName(context.locale.countryCode ?? ""),
+        //         );
+        //       },
+        //     ),
+        //     const SizedBox(width: AppSize.inset),
+        //   ],
+        // ),
+        body: Stack(
+          children: [
+            Image.asset(AppImages.promotionBackground),
+            Padding(
+              padding: const EdgeInsets.all(AppSize.viewMargin),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  // const PromotionSliderView(),
+                  const Spacer(),
+                  CustomButton(
+                    buttonType: ButtonType.bordered,
+                    title: LocaleKeys.createAccount.value,
+                    onPressed: () {},
+                  ),
+                  const SizedBox(height: AppSize.inset),
+                  CustomButton(
+                    title: LocaleKeys.logIn.value,
+                    onPressed: () {
+                      // context.read<PromotionBloc>().add(SetAppLaunchStatus());
+                      Navigator.of(context).pushNamed(AppRoute.login);
+                    },
+                  ),
+                  CustomButton(
+                    title: LocaleKeys.register.value,
+                    onPressed: () {
+                      // context.read<PromotionBloc>().add(SetAppLaunchStatus());
+                      Navigator.of(context).pushNamed(AppRoute.newMemberPage);
+                    },
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      // context.read<PromotionBloc>().add(SetAppLaunchStatus());
+                      // Navigator.of(context).pushNamed(AppRoute.newMemberPage);
+                    },
+                    child: Text(LocaleKeys.continueAsGuest.value),
+                  ),
+                ],
+              ),
             ),
-            const SizedBox(width: AppSize.inset),
           ],
-        ),
-        body: SingleChildScrollView(
-          padding: const EdgeInsets.all(AppSize.viewMargin),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              const PromotionSliderView(),
-              const SizedBox(height: AppSize.spacedViewSpacing),
-              CustomButton(
-                buttonType: ButtonType.bordered,
-                title: LocaleKeys.createAccount.value,
-                onPressed: () {
-                  memberBottomSheet(context);
-                },
-              ),
-              const SizedBox(height: AppSize.inset),
-              CustomButton(
-                title: LocaleKeys.logIn.value,
-                onPressed: () {
-                  context.read<PromotionBloc>().add(SetAppLaunchStatus());
-                  Navigator.of(context).pushNamed(AppRoute.login);
-                },
-              ),
-            ],
-          ),
         ),
       ),
     );

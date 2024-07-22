@@ -11,9 +11,8 @@ class LoginState extends Equatable {
   final LoginViewModel? loginViewModel;
 
   String? get usernameValidation =>
-      (username != "") ? null : LocaleKeys.userIdErrorMessage.value;
-  String? get passwordValidation =>
-      (password != "") ? null : LocaleKeys.passwordErrorMessage.value;
+      (AppRegex.email.hasMatch(username) && username != "") ? null : LocaleKeys.emailAddressErrorMessage.value;
+  String? get passwordValidation => (password != "") ? null : LocaleKeys.passwordErrorMessage.value;
 
   LoginState({
     this.persistUsername = '',

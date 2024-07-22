@@ -3,8 +3,6 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 
 import 'package:fresh_fold_delivery/sources/core/app_core.dart';
@@ -1630,8 +1628,8 @@ class PinputConstants {
   );
 
   static const _defaultPinTheme = PinTheme(
-    width: 56,
-    height: 60,
+    width: 70,
+    height: 70,
     textStyle: TextStyle(),
     decoration: _defaultPinputDecoration,
   );

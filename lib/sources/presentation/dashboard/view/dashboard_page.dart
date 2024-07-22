@@ -1,16 +1,13 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:fresh_fold_delivery/sources/core/app_core.dart';
 import 'package:fresh_fold_delivery/sources/presentation/dashboard/widgets/widgets.dart';
-import '../bloc/dashboard_bloc.dart';
 import 'dashboard_view.dart';
 
 class DashboardPage extends StatefulWidget {
-  const DashboardPage({super.key, required this.sendMoneyCallBack});
-  final VoidCallback sendMoneyCallBack;
+  const DashboardPage({super.key});
 
   @override
   State<DashboardPage> createState() => _DashboardHomeState();
@@ -20,10 +17,10 @@ class _DashboardHomeState extends State<DashboardPage> {
   @override
   void initState() {
     super.initState();
-    final bloc = context.read<DashboardBloc>();
-    bloc.add(GetDashboardData());
-    bloc.add(UserInfoSubscriptionRequested());
-    bloc.add(TransactionListSubscriptionRequested());
+    // final bloc = context.read<DashboardBloc>();
+    // bloc.add(GetDashboardData());
+    // bloc.add(UserInfoSubscriptionRequested());
+    // bloc.add(TransactionListSubscriptionRequested());
   }
 
   @override
@@ -41,16 +38,29 @@ class _DashboardHomeState extends State<DashboardPage> {
         child: Scaffold(
           backgroundColor: Theme.of(context).colorScheme.surface,
           body: RefreshIndicator(
-            onRefresh: () async => context.read<DashboardBloc>().add(GetDashboardData()),
-            child: const CustomScrollView(
-              physics: AlwaysScrollableScrollPhysics(),
+            onRefresh: () async {},
+            // context.read<DashboardBloc>().add(GetDashboardData()),
+            child: CustomScrollView(
+              physics: const AlwaysScrollableScrollPhysics(),
               slivers: [
                 CustomDynamicSliverAppBar(
                   toolbarHeight: AppSize.buttonHeight * 4,
-                  flexibleSpace: ProfileView(),
+                  flexibleSpace: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: AppSize.viewMargin),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "${LocaleKeys.hi.value} ${LocaleKeys.appName.value}",
+                          style: Theme.of(context).textTheme.bodyLarge,
+                        ),
+                        const NotificationBadge(),
+                      ],
+                    ),
+                  ),
                   automaticallyImplyLeading: false,
                 ),
-                SliverToBoxAdapter(child: DashboardView()),
+                const SliverToBoxAdapter(child: DashboardView()),
               ],
             ),
           ),

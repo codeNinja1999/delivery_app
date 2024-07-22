@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fresh_fold_delivery/sources/config/config.dart';
 
 import 'package:fresh_fold_delivery/sources/core/app_core.dart';
 import 'package:fresh_fold_delivery/sources/presentation/widgets/widgets.dart';
@@ -15,14 +16,12 @@ class OtpVerifyForm extends StatelessWidget {
 
   final formKey = GlobalKey<FormState>();
   final String code = "";
-  final int numDigitType = 6;
+  // final int numDigitType = 6;
 
-  final TextEditingController _fieldOne = TextEditingController();
-  final TextEditingController _fieldTwo = TextEditingController();
-  final TextEditingController _fieldThree = TextEditingController();
-  final TextEditingController _fieldFour = TextEditingController();
-  final TextEditingController _fieldFive = TextEditingController();
-  final TextEditingController _fieldSix = TextEditingController();
+  // final TextEditingController _fieldOne = TextEditingController();
+  // final TextEditingController _fieldTwo = TextEditingController();
+  // final TextEditingController _fieldThree = TextEditingController();
+  // final TextEditingController _fieldFour = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -59,55 +58,42 @@ class OtpVerifyForm extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
+                    const SizedBox(height: AppSize.spacedViewSpacing),
+
                     Text(LocaleKeys.verificationCode.value, style: theme.textTheme.titleMedium?.copyWith(fontSize: 36)),
                     const SizedBox(height: AppSize.inset),
-                    Text(LocaleKeys.verificationCodeSentMessage.value, style: theme.textTheme.bodyLarge),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: AppSize.inset),
-                      child: Text(
-                        LocaleKeys.enterVerificationCode.value,
-                        style: theme.textTheme.bodyLarge,
-                      ),
-                    ),
-                    //const OtpNumberBox(),
-                    Padding(
-                      padding: const EdgeInsets.only(top: AppSize.inset, bottom: AppSize.cornerRadiusSmall * 2),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          RegisterOtpInput(
-                            first: true,
-                            last: false,
-                            controller: _fieldOne,
-                          ),
-                          RegisterOtpInput(
-                            first: false,
-                            last: false,
-                            controller: _fieldTwo,
-                          ),
-                          RegisterOtpInput(
-                            first: false,
-                            last: false,
-                            controller: _fieldThree,
-                          ),
-                          RegisterOtpInput(
-                            first: false,
-                            last: false,
-                            controller: _fieldFour,
-                          ),
-                          RegisterOtpInput(
-                            first: false,
-                            last: false,
-                            controller: _fieldFive,
-                          ),
-                          RegisterOtpInput(
-                            first: false,
-                            last: true,
-                            controller: _fieldSix,
-                          ),
-                        ],
-                      ),
-                    ),
+                    Text(LocaleKeys.verificationCodeSentMessage.tr(args: ["example@gmail.com"]),
+                        style: theme.textTheme.bodyLarge),
+                    const SizedBox(height: AppSize.viewSpacing),
+                    const PinputExample(),
+                    // Padding(
+                    //   padding: const EdgeInsets.only(top: AppSize.inset, bottom: AppSize.cornerRadiusSmall * 2),
+                    //   child: Row(
+                    //     // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //     children: [
+                    //       RegisterOtpInput(
+                    //         first: true,
+                    //         last: false,
+                    //         controller: _fieldOne,
+                    //       ),
+                    //       RegisterOtpInput(
+                    //         first: false,
+                    //         last: false,
+                    //         controller: _fieldTwo,
+                    //       ),
+                    //       RegisterOtpInput(
+                    //         first: false,
+                    //         last: false,
+                    //         controller: _fieldThree,
+                    //       ),
+                    //       RegisterOtpInput(
+                    //         first: false,
+                    //         last: false,
+                    //         controller: _fieldFour,
+                    //       ),
+                    //     ],
+                    //   ),
+                    // ),
                   ],
                 ),
               ),
@@ -175,27 +161,22 @@ class OtpVerifyForm extends StatelessWidget {
                             DividerButton(
                               nextTitle: LocaleKeys.submit.value,
                               nextButtonAction: () {
-                                if (_fieldOne.text != "" &&
-                                    _fieldTwo.text != "" &&
-                                    _fieldThree.text != "" &&
-                                    _fieldFour.text != "" &&
-                                    _fieldFive.text != "" &&
-                                    _fieldSix.text != "") {
-                                  var otpCode = _fieldOne.text +
-                                      _fieldTwo.text +
-                                      _fieldThree.text +
-                                      _fieldFour.text +
-                                      _fieldFive.text +
-                                      _fieldSix.text;
-                                  final resetState = context.read<ForgotPasswordBloc>().state;
-                                  context.read<OtpVerifyBloc>().add(
-                                        VerifyResetOTP(
-                                          verificationCode: otpCode,
-                                          processID: state.processID ?? resetState.otpVerifyProcessID,
-                                          isEmail: resetState.isEmail,
-                                        ),
-                                      );
-                                }
+                                Navigator.of(context).pushReplacementNamed(ResetPasswordRoute.resetPassword);
+
+                                // if (_fieldOne.text != "" &&
+                                //     _fieldTwo.text != "" &&
+                                //     _fieldThree.text != "" &&
+                                //     _fieldFour.text != "") {
+                                //   var otpCode = _fieldOne.text + _fieldTwo.text + _fieldThree.text + _fieldFour.text;
+                                //   final resetState = context.read<ForgotPasswordBloc>().state;
+                                //   context.read<OtpVerifyBloc>().add(
+                                //         VerifyResetOTP(
+                                //           verificationCode: otpCode,
+                                //           processID: state.processID ?? resetState.otpVerifyProcessID,
+                                //           isEmail: resetState.isEmail,
+                                //         ),
+                                //       );
+                                // }
                               },
                             ),
                           ],
@@ -229,7 +210,7 @@ class RegisterOtpInput extends StatelessWidget {
     return Expanded(
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: AppSize.cornerRadiusSmall),
-        width: AppSize.buttonHeight,
+        width: AppSize.inset,
         height: AppSize.buttonHeight,
         child: TextField(
           // inputFormatters: [

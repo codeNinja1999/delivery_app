@@ -1,14 +1,16 @@
 import 'package:fresh_fold_delivery/sources/core/app_core.dart';
 
 class AppColors {
-  static final primary = HexColor("#00C752");
+  static final primary = HexColor("#3045B3");  //blue
+  // static final primary = HexColor("#F2890C"); //orange
   static final moderatePrimary = HexColor('#E6E8FF');
 
   static final lightPrimary = HexColor('#F8F9FE');
   static final textColor = HexColor("#101318");
   static final homeTabBarBackgroundColor = HexColor("#1C2431");
   static final homeTabBarBorderColor = HexColor("#27002E");
-  static final backgroundLight = HexColor('#FFFFFF');
+  static final backgroundContainerLight = HexColor('#FFFFFF');
+  static final backgroundLight = HexColor('#F5F5F5');
   static const bottomApBarColor = Color(0xFF1C2431);
   static final hintTextColor = HexColor('#767C8A');
   static final errorColor = HexColor('#B3261E');
@@ -17,7 +19,7 @@ class AppColors {
   static final black = HexColor('#000000');
   static final whiteColor = HexColor('#FFFFFF');
   static final greyColor = HexColor('#808080');
-  static final outlineColor = HexColor('#E1E4ED');
+  static final outlineColor = HexColor('#D8DADC');
   static final outlineVariantColor = HexColor('#5E72ED');
 
 //transaction status color

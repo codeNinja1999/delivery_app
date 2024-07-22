@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fresh_fold_delivery/sources/route/route.dart';
 import 'package:fresh_fold_delivery/sources/core/app_core.dart';
 import 'package:fresh_fold_delivery/repository/data/core/core.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../bloc/splash_bloc.dart';
 import 'maintenance_view.dart';
 import 'new_update_view.dart';
@@ -21,8 +22,24 @@ class _SplashPageState extends State<SplashPage> with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
-    context.read<SplashBloc>().add(GenerateKey());
+    // context.read<SplashBloc>().add(GenerateKey());
     WidgetsBinding.instance.addObserver(this);
+        checkFirstSeen();
+
+  }
+    Future checkFirstSeen() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    int firstTime = (pref.getInt('onboard') ?? 0);
+    if (firstTime == 0) {
+      await pref.setInt('onboard', 1);
+      await Future.delayed(const Duration(seconds: 2)).then(
+        (value) => Navigator.pushReplacementNamed(context, AppRoute.newMemberPage),
+      );
+    } else {
+      await Future.delayed(const Duration(seconds: 3)).then(
+        (value) => Navigator.pushReplacementNamed(context, AppRoute.login),
+      );
+    }
   }
 
   @override

@@ -54,17 +54,15 @@ class _VerifyUserIdPageState extends State<VerifyUserIdPage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
+                      const SizedBox(height: AppSize.spacedViewSpacing),
                       Text(
-                        LocaleKeys.resetPassword.value,
+                        LocaleKeys.forgotPassword.value,
                         style: theme.textTheme.titleMedium?.copyWith(fontSize: 36),
                       ),
                       const SizedBox(height: AppSize.inset),
                       LoginIdInput(usernameEditingController: usernameEditingController),
                       const SizedBox(height: AppSize.inset),
-
-                      IdToggle(usernameEditingController: usernameEditingController),
-
-                      // AppRegex.email
+                      // IdToggle(usernameEditingController: usernameEditingController),
                     ],
                   ),
                 ),
@@ -80,11 +78,13 @@ class _VerifyUserIdPageState extends State<VerifyUserIdPage> {
                       child: DividerButton(
                         nextTitle: LocaleKeys.getVerificationCode.value,
                         nextButtonAction: () {
-                          if (formKey.currentState!.validate()) {
-                            KeyboardUtil.hideKeyboard(context);
-                            context.read<VerifyUserIdBloc>().add(VerifyLoginId());
-                            // state.email
-                          }
+                          Navigator.pushNamed(context, ResetPasswordRoute.otpVerify);
+
+                          // if (formKey.currentState!.validate()) {
+                          //   KeyboardUtil.hideKeyboard(context);
+                          //   context.read<VerifyUserIdBloc>().add(VerifyLoginId());
+                          //   // state.email
+                          // }
                         },
                       ),
                     ),

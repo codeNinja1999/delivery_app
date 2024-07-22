@@ -53,7 +53,7 @@ class CustomButton extends StatelessWidget {
     final ShapeBorder? shape = buttonType == ButtonType.bordered
         ? RoundedRectangleBorder(
             side: BorderSide(color: borderColor ?? theme.colorScheme.primary),
-            borderRadius: BorderRadius.circular(cornerRadius ?? AppSize.inset * 2),
+            borderRadius: BorderRadius.circular(cornerRadius ?? AppSize.cornerRadiusMedium),
           )
         : null;
     final Color foregroundColor = (buttonType == ButtonType.primary) ? Colors.white : theme.colorScheme.primary;
@@ -70,7 +70,7 @@ class CustomButton extends StatelessWidget {
         padding: contentPadding,
         color: color,
         disabledColor: color?.withOpacity(0.5) ?? CupertinoColors.quaternarySystemFill,
-        borderRadius: BorderRadius.circular(cornerRadius ?? 32),
+        borderRadius: BorderRadius.circular(cornerRadius ?? AppSize.cornerRadiusMedium),
         child: Center(
           child: Text(
             title,

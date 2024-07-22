@@ -5,7 +5,6 @@ import 'package:fresh_fold_delivery/sources/route/route.dart';
 import 'package:fresh_fold_delivery/sources/core/app_core.dart';
 import 'package:fresh_fold_delivery/sources/resources/resources.dart';
 import 'package:fresh_fold_delivery/sources/presentation/widgets/widgets.dart';
-import '../../../bloc/forgot_password_bloc.dart';
 import '../bloc/reset_password_bloc.dart';
 
 class ResetPasswordForm extends StatelessWidget {
@@ -33,12 +32,13 @@ class ResetPasswordForm extends StatelessWidget {
           slivers: [
             SliverToBoxAdapter(
               child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: AppSize.viewMargin, horizontal: AppSize.inset),
+                padding: const EdgeInsets.symmetric(horizontal: AppSize.inset),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(LocaleKeys.newPassword.value, style: theme.textTheme.titleMedium?.copyWith(fontSize: 36)),
+                    const SizedBox(height: AppSize.spacedViewSpacing),
+                    Text(LocaleKeys.resetPassword.value, style: theme.textTheme.titleMedium?.copyWith(fontSize: 36)),
                     const SizedBox(height: AppSize.viewMargin),
                     const NewPasswordInput(),
                     const SizedBox(height: AppSize.inset),
@@ -55,42 +55,25 @@ class ResetPasswordForm extends StatelessWidget {
                   const Spacer(),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: AppSize.viewSpacing),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(
-                            left: AppSize.inset,
-                            right: AppSize.inset,
-                            bottom: AppSize.inset,
-                          ),
-                          child: CustomInformationBox(
-                            leading: Icon(Icons.lock, color: AppColors.black, size: 20),
-                            title: LocaleKeys.securityMessage.value,
-                            titleTextStyle: theme.textTheme.bodyMedium
-                                ?.copyWith(fontWeight: FontWeight.w400, fontSize: AppSize.cornerRadiusSmall * 2.5),
-                          ),
-                        ),
-                        BlocBuilder<ResetPasswordBloc, ResetPasswordState>(
-                          buildWhen: (previous, current) => previous.confirmPassword != current.confirmPassword,
-                          builder: (context, state) {
-                            return DividerButton(
-                              nextTitle: LocaleKeys.resetPassword.value,
-                              nextButtonAction: () {
-                                if (formKey.currentState!.validate()) {
-                                  KeyboardUtil.hideKeyboard(context);
-                                  context.read<ResetPasswordBloc>().add(
-                                        SetPassword(
-                                          processID: context.read<ForgotPasswordBloc>().state.resetProcessID,
-                                          confirmPassword: state.confirmPassword,
-                                        ),
-                                      );
-                                }
-                              },
-                            );
+                    child: BlocBuilder<ResetPasswordBloc, ResetPasswordState>(
+                      buildWhen: (previous, current) => previous.confirmPassword != current.confirmPassword,
+                      builder: (context, state) {
+                        return DividerButton(
+                          nextTitle: LocaleKeys.resetPassword.value,
+                          nextButtonAction: () {
+                            KeyboardUtil.hideKeyboard(context);
+                            Navigator.of(context, rootNavigator: true).pushNamed(AppRoute.login);
+                            // if (formKey.currentState!.validate()) {
+                            //   context.read<ResetPasswordBloc>().add(
+                            //         SetPassword(
+                            //           processID: context.read<ForgotPasswordBloc>().state.resetProcessID,
+                            //           confirmPassword: state.confirmPassword,
+                            //         ),
+                            //       );
+                            // }
                           },
-                        ),
-                      ],
+                        );
+                      },
                     ),
                   ),
                 ],

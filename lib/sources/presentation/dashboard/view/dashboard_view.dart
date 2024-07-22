@@ -7,8 +7,7 @@ import 'package:fresh_fold_delivery/sources/core/app_core.dart';
 import 'package:fresh_fold_delivery/sources/presentation/widgets/widgets.dart';
 import '../../history/history.dart';
 import '../bloc/dashboard_bloc.dart';
-import '../widgets/shortcut_action_view.dart';
-import 'exchange_rate_graph_view.dart';
+import '../widgets/balance_view.dart';
 import 'kyc_notice_view.dart';
 
 class DashboardView extends StatelessWidget {
@@ -25,24 +24,13 @@ class DashboardView extends StatelessWidget {
           ErrorResolver.resolve(context, status);
         }
       },
-      child: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(vertical: AppSize.viewSpacing),
+      child: const SingleChildScrollView(
+        padding: const EdgeInsets.symmetric(horizontal: AppSize.viewSpacing),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          const KycStatusWidget(),
-          // const BalanceView(),
-          const ShortcutActionView(),
+          const BalanceView(),
           const PendingTransactionList(),
           const SizedBox(height: AppSize.viewSpacing),
-          Padding(
-            padding: const EdgeInsets.all(AppSize.inset),
-            child: Text(
-              LocaleKeys.exchangeRate.value,
-              style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    fontSize: AppSize.viewSpacing,
-                  ),
-            ),
-          ),
-          const ExchangeRateGraphView(),
+
         ]),
       ),
     );
