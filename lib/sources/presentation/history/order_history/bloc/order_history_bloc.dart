@@ -5,8 +5,8 @@ import 'package:fresh_fold_delivery/repository/repository.dart';
 import 'package:fresh_fold_delivery/sources/core/app_core.dart';
 import '../model/transaction_list_view_model.dart';
 
-part 'transaction_list_event.dart';
-part 'transaction_list_state.dart';
+part 'order_history_event.dart';
+part 'order_history_state.dart';
 
 class TransactionListBloc extends Bloc<TransactionListEvent, TransactionListState> {
   final TransactionActivityRepository transactionActivityRepository;

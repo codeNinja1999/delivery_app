@@ -12,7 +12,7 @@ class PromotionPage extends StatefulWidget {
   State<PromotionPage> createState() => _PromotionPageState();
 }
 
-class _PromotionPageState extends State<PromotionPage> {
+class _PromotionPageState extends State<PromotionPage> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -39,20 +39,30 @@ class _PromotionPageState extends State<PromotionPage> {
         // ),
         body: Stack(
           children: [
-            Image.asset(AppImages.promotionBackground),
+            Image.asset(AppImages.promotionBackground, opacity: AnimationController(vsync: this, value: .9)),
             Padding(
-              padding: const EdgeInsets.all(AppSize.viewMargin),
+              padding: const EdgeInsets.all(
+                AppSize.viewMargin,
+              ),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   // const PromotionSliderView(),
                   const Spacer(),
-                  CustomButton(
-                    buttonType: ButtonType.bordered,
-                    title: LocaleKeys.createAccount.value,
-                    onPressed: () {},
+                  Text(
+                    "Laundry Made Easy",
+                    style: theme.textTheme.titleLarge?.copyWith(
+                      fontSize: AppSize.inset * 2,
+                      color: AppColors.whiteColor,
+                    ),
                   ),
-                  const SizedBox(height: AppSize.inset),
+                  Text(
+                    "One stop for all your laundry",
+                    style: theme.textTheme.bodyLarge?.copyWith(
+                      color: AppColors.whiteColor,
+                    ),
+                  ),
+                  const SizedBox(height: AppSize.spacedViewSpacing),
+
                   CustomButton(
                     title: LocaleKeys.logIn.value,
                     onPressed: () {
@@ -60,13 +70,21 @@ class _PromotionPageState extends State<PromotionPage> {
                       Navigator.of(context).pushNamed(AppRoute.login);
                     },
                   ),
+                  const SizedBox(height: AppSize.inset),
+
                   CustomButton(
+                    buttonType: ButtonType.bordered,
                     title: LocaleKeys.register.value,
+                    backgroundColor: Colors.transparent,
+                    borderColor: Colors.white,
+                    titleColor: Colors.white,
                     onPressed: () {
                       // context.read<PromotionBloc>().add(SetAppLaunchStatus());
                       Navigator.of(context).pushNamed(AppRoute.newMemberPage);
                     },
                   ),
+                  const SizedBox(height: AppSize.inset),
+
                   TextButton(
                     onPressed: () {
                       // context.read<PromotionBloc>().add(SetAppLaunchStatus());

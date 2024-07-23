@@ -6,8 +6,8 @@ import 'package:fresh_fold_delivery/sources/resources/resources.dart';
 import 'package:fresh_fold_delivery/sources/presentation/widgets/widgets.dart';
 import '../model/transaction_list_view_model.dart';
 
-class RecentTransactionListView extends StatelessWidget {
-  const RecentTransactionListView({super.key, this.data, this.onTap});
+class RecentOrderHistoryListView extends StatelessWidget {
+  const RecentOrderHistoryListView({super.key, this.data, this.onTap});
   final TransactionListViewModel? data;
   final Function()? onTap;
 
@@ -60,15 +60,6 @@ class RecentTransactionListView extends StatelessWidget {
                 ),
               ),
               TransactionStatusColorMappingView(transactionStatus: data?.transactionStatus),
-              // Container(
-              //   color: theme.colorScheme.surface,
-              //   child: Text(
-              //     data?.transactionStatus?.value ?? "",
-              //     style: theme.textTheme.labelLarge?.copyWith(
-              //       color: data?.transactionStatus?.type.getValue(),
-              //     ),
-              //   ),
-              // ),
             ],
           ),
         ),

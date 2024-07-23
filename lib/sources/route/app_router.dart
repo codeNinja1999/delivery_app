@@ -107,11 +107,12 @@ class AppRouter {
           );
 
 
-        case AppRoute.transactionList:
+
+        case AppRoute.orderHistory:
           return MaterialPageRoute(
             builder: (_) => BlocProvider.value(
               value: sl<TransactionListBloc>(),
-              child: const TransactionListPage(),
+              child: const OrderHistoryPage(),
             ),
           );
 

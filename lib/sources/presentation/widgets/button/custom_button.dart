@@ -56,7 +56,7 @@ class CustomButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(cornerRadius ?? AppSize.cornerRadiusMedium),
           )
         : null;
-    final Color foregroundColor = (buttonType == ButtonType.primary) ? Colors.white : theme.colorScheme.primary;
+    final Color? foregroundColor = (buttonType == ButtonType.primary) ? Colors.white : titleColor;
 
     final contentPadding = padding ?? const EdgeInsets.all(15);
 

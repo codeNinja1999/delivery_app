@@ -1,4 +1,4 @@
-part of 'transaction_list_bloc.dart';
+part of 'order_history_bloc.dart';
 
 abstract class TransactionListEvent {}
 

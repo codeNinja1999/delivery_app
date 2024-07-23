@@ -24,20 +24,20 @@ class _SplashPageState extends State<SplashPage> with WidgetsBindingObserver {
     super.initState();
     // context.read<SplashBloc>().add(GenerateKey());
     WidgetsBinding.instance.addObserver(this);
-        checkFirstSeen();
-
+    checkFirstSeen();
   }
-    Future checkFirstSeen() async {
+
+  Future checkFirstSeen() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     int firstTime = (pref.getInt('onboard') ?? 0);
     if (firstTime == 0) {
       await pref.setInt('onboard', 1);
       await Future.delayed(const Duration(seconds: 2)).then(
-        (value) => Navigator.pushReplacementNamed(context, AppRoute.newMemberPage),
+        (value) => Navigator.pushReplacementNamed(context, AppRoute.starting),
       );
     } else {
       await Future.delayed(const Duration(seconds: 3)).then(
-        (value) => Navigator.pushReplacementNamed(context, AppRoute.login),
+        (value) => Navigator.pushReplacementNamed(context, AppRoute.starting),
       );
     }
   }

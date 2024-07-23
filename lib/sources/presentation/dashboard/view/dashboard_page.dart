@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'package:fresh_fold_delivery/sources/core/app_core.dart';
 import 'package:fresh_fold_delivery/sources/presentation/dashboard/widgets/widgets.dart';
+import 'package:fresh_fold_delivery/sources/presentation/widgets/overlay_helper/overlay_helper.dart';
 import 'dashboard_view.dart';
 
 class DashboardPage extends StatefulWidget {
@@ -25,43 +26,43 @@ class _DashboardHomeState extends State<DashboardPage> {
 
   @override
   Widget build(BuildContext context) {
-    SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent,
-      statusBarIconBrightness:
-          PlatformDispatcher.instance.platformBrightness == Brightness.dark ? Brightness.light : Brightness.dark,
-      statusBarBrightness:
-          PlatformDispatcher.instance.platformBrightness == Brightness.dark ? Brightness.light : Brightness.dark,
-    );
+    // SystemUiOverlayStyle(
+    //   statusBarColor: Colors.transparent,
+    //   statusBarIconBrightness:
+    //       PlatformDispatcher.instance.platformBrightness == Brightness.dark ? Brightness.light : Brightness.dark,
+    //   statusBarBrightness:
+    //       PlatformDispatcher.instance.platformBrightness == Brightness.dark ? Brightness.light : Brightness.dark,
+    // );
     return PopScope(
-      canPop: false,
+      canPop: true,
       child: SafeArea(
-        child: Scaffold(
-          backgroundColor: Theme.of(context).colorScheme.surface,
-          body: RefreshIndicator(
-            onRefresh: () async {},
-            // context.read<DashboardBloc>().add(GetDashboardData()),
-            child: CustomScrollView(
-              physics: const AlwaysScrollableScrollPhysics(),
-              slivers: [
-                CustomDynamicSliverAppBar(
-                  toolbarHeight: AppSize.buttonHeight * 4,
-                  flexibleSpace: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: AppSize.viewMargin),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "${LocaleKeys.hi.value} ${LocaleKeys.appName.value}",
-                          style: Theme.of(context).textTheme.bodyLarge,
-                        ),
-                        const NotificationBadge(),
-                      ],
+        child: AnnotatedRegion(
+          value: overlay,
+          child: Scaffold(
+            backgroundColor: Theme.of(context).colorScheme.surface,
+            body: RefreshIndicator(
+              onRefresh: () async {},
+              // context.read<DashboardBloc>().add(GetDashboardData()),
+              child: CustomScrollView(
+                physics: const AlwaysScrollableScrollPhysics(),
+                slivers: [
+                  CustomDynamicSliverAppBar(
+                    toolbarHeight: AppSize.buttonHeight * 4,
+                    flexibleSpace: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: AppSize.viewMargin),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(""),
+                          const NotificationBadge(),
+                        ],
+                      ),
                     ),
+                    automaticallyImplyLeading: false,
                   ),
-                  automaticallyImplyLeading: false,
-                ),
-                const SliverToBoxAdapter(child: DashboardView()),
-              ],
+                  const SliverToBoxAdapter(child: DashboardView()),
+                ],
+              ),
             ),
           ),
         ),

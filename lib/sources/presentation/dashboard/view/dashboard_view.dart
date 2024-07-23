@@ -24,13 +24,21 @@ class DashboardView extends StatelessWidget {
           ErrorResolver.resolve(context, status);
         }
       },
-      child: const SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(horizontal: AppSize.viewSpacing),
+      child: SingleChildScrollView(
+        padding: const EdgeInsets.all(AppSize.viewSpacing),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          const BalanceView(),
+          Text("${LocaleKeys.hi.value} ${LocaleKeys.appName.value}", style: Theme.of(context).textTheme.bodyLarge),
+          const SizedBox(height: AppSize.viewSpacing),
+          Text("Get your laundry done with Freshfold delivery", style: Theme.of(context).textTheme.titleLarge),
+          const SizedBox(height: AppSize.viewSpacing),
+          Text(
+            'What do you want to do today?',
+            style: Theme.of(context).textTheme.titleMedium,
+          ),
+          const SizedBox(height: AppSize.inset),
+          BalanceView(),
           const PendingTransactionList(),
           const SizedBox(height: AppSize.viewSpacing),
-
         ]),
       ),
     );
@@ -106,7 +114,7 @@ class PendingTransactionList extends StatelessWidget {
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
                       itemBuilder: (context, index) {
-                        return RecentTransactionListView(
+                        return RecentOrderHistoryListView(
                           data: state.pendingList[index],
                           onTap: () => (state.pendingList[index].transactionId != null)
                               ? Navigator.pushNamed(

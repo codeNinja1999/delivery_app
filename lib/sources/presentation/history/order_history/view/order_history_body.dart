@@ -6,20 +6,20 @@ import 'package:fresh_fold_delivery/sources/route/route.dart';
 import 'package:fresh_fold_delivery/sources/core/app_core.dart';
 import 'package:fresh_fold_delivery/sources/resources/resources.dart';
 import 'package:fresh_fold_delivery/sources/presentation/widgets/widgets.dart';
-import '../bloc/transaction_list_bloc.dart';
+import '../bloc/order_history_bloc.dart';
 import '../model/transaction_list_view_model.dart';
 import '../widget/history_type_selection.dart';
 import '../widget/recent_transaction_list_header.dart';
 import 'recent_transaction_list_view.dart';
 
-class TransactionListBody extends StatefulWidget {
-  const TransactionListBody({super.key});
+class OrderHistoryBody extends StatefulWidget {
+  const OrderHistoryBody({super.key});
 
   @override
-  State<TransactionListBody> createState() => _TransactionListBodyState();
+  State<OrderHistoryBody> createState() => _OrderHistoryBodyState();
 }
 
-class _TransactionListBodyState extends State<TransactionListBody> {
+class _OrderHistoryBodyState extends State<OrderHistoryBody> {
   final ScrollController _scrollController = ScrollController();
 
   @override
@@ -47,7 +47,6 @@ class _TransactionListBodyState extends State<TransactionListBody> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     return BlocListener<TransactionListBloc, TransactionListState>(
       listenWhen: (previous, current) => previous.status != current.status,
       listener: (context, state) {
@@ -58,22 +57,13 @@ class _TransactionListBodyState extends State<TransactionListBody> {
           ErrorResolver.resolve(context, status);
         }
       },
-      child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-        const HistoryTypeSelection(),
-        const SizedBox(height: AppSize.inset),
-        Divider(color: theme.dividerColor),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: AppSize.viewMargin, vertical: AppSize.inset),
-          child: Text(LocaleKeys.allTransactions.value),
-        ),
-        TransactionListView(scrollController: _scrollController),
-      ]),
+      child: OrderHistoryListView(scrollController: _scrollController),
     );
   }
 }
 
-class TransactionListView extends StatelessWidget {
-  const TransactionListView({super.key, required this.scrollController});
+class OrderHistoryListView extends StatelessWidget {
+  const OrderHistoryListView({super.key, required this.scrollController});
 
   final ScrollController scrollController;
 
@@ -95,7 +85,7 @@ class TransactionListView extends StatelessWidget {
                 child: ListView.builder(
                   padding: EdgeInsets.zero,
                   itemCount: 10,
-                  itemBuilder: (context, index) => const RecentTransactionListView(),
+                  itemBuilder: (context, index) => const RecentOrderHistoryListView(),
                 ),
               );
             } else {
@@ -115,7 +105,7 @@ class TransactionListView extends StatelessWidget {
                             final menuItem = state.transactionList[index];
                             return menuItem.itemType == RemittanceMenuItemType.heading
                                 ? RecentTransactionHeaderView(title: menuItem.date)
-                                : RecentTransactionListView(
+                                : RecentOrderHistoryListView(
                                     data: state.transactionList[index],
                                     onTap: () {
                                       context.read<TransactionListBloc>().add(

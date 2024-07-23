@@ -1,8 +1,8 @@
 import 'package:fresh_fold_delivery/sources/core/app_core.dart';
 
 class AppColors {
-  static final primary = HexColor("#3045B3");  //blue
-  // static final primary = HexColor("#F2890C"); //orange
+  // static final primary = HexColor("#3045B3");  //blue
+  static final primary = HexColor("#F2890C"); //orange
   static final moderatePrimary = HexColor('#E6E8FF');
 
   static final lightPrimary = HexColor('#F8F9FE');

@@ -22,7 +22,7 @@ class AppRoute {
   static const sendMoney = "/send_money";
   static const beneficiary = "/beneficiary";
   static const beneficiaryDetail = "/beneficiary_detail";
-  static const history = "/history";
+  static const orderHistory = "/order_history";
   static const userAgreement = "userAgreement";
   static const changeCurrency = "/change_currency";
   static const bottomTabBar = "/bottom_tab_bar";

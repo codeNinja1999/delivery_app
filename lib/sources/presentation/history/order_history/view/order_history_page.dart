@@ -3,17 +3,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:fresh_fold_delivery/sources/core/app_core.dart';
 import 'package:fresh_fold_delivery/sources/presentation/widgets/widgets.dart';
-import '../bloc/transaction_list_bloc.dart';
-import 'transaction_list_body.dart';
+import '../bloc/order_history_bloc.dart';
+import 'order_history_body.dart';
 
-class TransactionListPage extends StatefulWidget {
-  const TransactionListPage({super.key});
+class OrderHistoryPage extends StatefulWidget {
+  const OrderHistoryPage({super.key});
 
   @override
-  State<TransactionListPage> createState() => TransactionListPageState();
+  State<OrderHistoryPage> createState() => OrderHistoryPageState();
 }
 
-class TransactionListPageState extends State<TransactionListPage> {
+class OrderHistoryPageState extends State<OrderHistoryPage> {
   @override
   void initState() {
     super.initState();
@@ -26,7 +26,7 @@ class TransactionListPageState extends State<TransactionListPage> {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: MyAppBar(title: LocaleKeys.transactionHistoryTitle.value),
-      body: const TransactionListBody(),
+      body: const OrderHistoryBody(),
     );
   }
 }
