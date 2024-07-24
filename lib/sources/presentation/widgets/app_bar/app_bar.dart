@@ -40,6 +40,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(AppSize.cornerRadiusMedium),
                     border: Border.all(color: Theme.of(context).colorScheme.outline),
+                    color: Theme.of(context).colorScheme.surfaceContainer,
                   ),
                   alignment: Alignment.center,
                   child: Icon(

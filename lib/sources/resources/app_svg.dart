@@ -1,6 +1,7 @@
 class AppSvg {
   static String newUpdate = 'assets/images/image/img_update.svg';
   static String download = 'assets/images/icon/download.svg';
+  static String noNotification = 'assets/images/svg/no_notification.svg';
 
   //kyc
   static String kycSuccess = 'assets/images/image/kyc_success.svg';

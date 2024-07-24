@@ -4,12 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:fresh_fold_delivery/sources/route/route.dart';
 import 'package:fresh_fold_delivery/sources/core/app_core.dart';
-import 'package:fresh_fold_delivery/sources/resources/resources.dart';
-import 'package:fresh_fold_delivery/sources/presentation/widgets/widgets.dart';
 import '../bloc/order_history_bloc.dart';
-import '../model/transaction_list_view_model.dart';
-import '../widget/history_type_selection.dart';
-import '../widget/recent_transaction_list_header.dart';
 import 'recent_transaction_list_view.dart';
 
 class OrderHistoryBody extends StatefulWidget {
@@ -25,7 +20,7 @@ class _OrderHistoryBodyState extends State<OrderHistoryBody> {
   @override
   void initState() {
     super.initState();
-    _scrollController.addListener(_loadMoreData);
+    // _scrollController.addListener(_loadMoreData);
   }
 
   void _loadMoreData() {
@@ -69,91 +64,94 @@ class OrderHistoryListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
+    // final theme = Theme.of(context);
     return Expanded(
       child: RefreshIndicator(
-        onRefresh: () async => context.read<TransactionListBloc>().add(GetTransactionList(1, true)),
+        onRefresh: () async {},
         child: BlocBuilder<TransactionListBloc, TransactionListState>(
           buildWhen: (previous, current) =>
               previous.status != current.status || previous.paginationStatus != current.paginationStatus,
           builder: (context, state) {
-            if (state.status is InProgress) {
-              return Skeleton.fromColors(
-                baseColor: theme.highlightColor.withOpacity(0.3),
-                highlightColor: theme.highlightColor.withOpacity(0.1),
-                enabled: true,
-                child: ListView.builder(
-                  padding: EdgeInsets.zero,
-                  itemCount: 10,
-                  itemBuilder: (context, index) => const RecentOrderHistoryListView(),
+            // if (state.status is InProgress) {
+            // return Skeleton.fromColors(
+            //   baseColor: theme.highlightColor.withOpacity(0.3),
+            //   highlightColor: theme.highlightColor.withOpacity(0.1),
+            //   enabled: true,
+            //   child: ListView.builder(
+            //     padding: EdgeInsets.zero,
+            //     itemCount: 5,
+            //     itemBuilder: (context, index) => const RecentOrderHistoryListView(),
+            //   ),
+            // );
+            // // } else {
+            // //   if (state.transactionList.isNotEmpty) {
+            return SizedBox.expand(
+              child: SingleChildScrollView(
+                controller: scrollController,
+                padding: const EdgeInsets.all(AppSize.viewMargin),
+                physics: const AlwaysScrollableScrollPhysics(),
+                child: Column(
+                  children: [
+                    ListView.separated(
+                      padding: EdgeInsets.zero,
+                      itemCount: 5,
+                      shrinkWrap: true,
+                      separatorBuilder: (context, index) => const SizedBox(height: AppSize.viewMargin),
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemBuilder: (context, index) {
+                        // final menuItem = state.transactionList[index];
+                        // return menuItem.itemType == RemittanceMenuItemType.heading
+                        //     ? RecentTransactionHeaderView(title: menuItem.date)
+                        //     :
+                        return const RecentOrderHistoryListView(
+                            // data: state.transactionList[index],
+                            // onTap: () {
+                            //   context.read<TransactionListBloc>().add(
+                            //         ValidateTransactionId(state.transactionList[index].transactionId ?? ""),
+                            //       );
+                            // },
+                            );
+                      },
+                    ),
+                    (state.paginationStatus is InProgress) ? const CupertinoActivityIndicator() : Container(),
+                    state.paginationEnd
+                        ? const Padding(
+                            padding: EdgeInsets.only(bottom: AppSize.cornerRadiusMedium),
+                            child: Text("No more data available"),
+                          )
+                        : const SizedBox(),
+                  ],
                 ),
-              );
-            } else {
-              if (state.transactionList.isNotEmpty) {
-                return SizedBox.expand(
-                  child: SingleChildScrollView(
-                    controller: scrollController,
-                    physics: const AlwaysScrollableScrollPhysics(),
-                    child: Column(
-                      children: [
-                        ListView.builder(
-                          padding: EdgeInsets.zero,
-                          itemCount: state.transactionList.length,
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemBuilder: (context, index) {
-                            final menuItem = state.transactionList[index];
-                            return menuItem.itemType == RemittanceMenuItemType.heading
-                                ? RecentTransactionHeaderView(title: menuItem.date)
-                                : RecentOrderHistoryListView(
-                                    data: state.transactionList[index],
-                                    onTap: () {
-                                      context.read<TransactionListBloc>().add(
-                                            ValidateTransactionId(state.transactionList[index].transactionId ?? ""),
-                                          );
-                                    },
-                                  );
-                          },
-                        ),
-                        (state.paginationStatus is InProgress) ? const CupertinoActivityIndicator() : Container(),
-                        state.paginationEnd
-                            ? const Padding(
-                                padding: EdgeInsets.only(bottom: AppSize.cornerRadiusMedium),
-                                child: Text("No more data available"),
-                              )
-                            : const SizedBox(),
-                      ],
-                    ),
-                  ),
-                );
-              } else {
-                return SingleChildScrollView(
-                  physics: const AlwaysScrollableScrollPhysics(),
-                  child: Container(
-                    height: MediaQuery.of(context).size.height * 0.6,
-                    alignment: Alignment.center,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Image.asset(
-                          AppImages.noBeneficiary,
-                          height: AppSize.viewSpacing * 6,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: AppSize.inset, bottom: AppSize.inset),
-                          child: Text(
-                            LocaleKeys.noTransactionCreatedYet.value,
-                            style: theme.textTheme.bodyLarge,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                );
-              }
-            }
+              ),
+            );
+            //   } else {
+            //     return SingleChildScrollView(
+            //       physics: const AlwaysScrollableScrollPhysics(),
+            //       child: Container(
+            //         height: MediaQuery.of(context).size.height * 0.6,
+            //         alignment: Alignment.center,
+            //         child: Column(
+            //           mainAxisAlignment: MainAxisAlignment.center,
+            //           crossAxisAlignment: CrossAxisAlignment.center,
+            //           mainAxisSize: MainAxisSize.min,
+            //           children: [
+            //             Image.asset(
+            //               AppImages.noBeneficiary,
+            //               height: AppSize.viewSpacing * 6,
+            //             ),
+            //             Padding(
+            //               padding: const EdgeInsets.only(top: AppSize.inset, bottom: AppSize.inset),
+            //               child: Text(
+            //                 LocaleKeys.noTransactionCreatedYet.value,
+            //                 style: theme.textTheme.bodyLarge,
+            //               ),
+            //             ),
+            //           ],
+            //         ),
+            //       ),
+            //     );
+            //   }
+            // }
           },
         ),
       ),

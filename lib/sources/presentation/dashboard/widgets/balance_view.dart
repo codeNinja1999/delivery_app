@@ -6,8 +6,8 @@ import 'package:fresh_fold_delivery/sources/resources/app_colors.dart';
 import 'package:fresh_fold_delivery/sources/route/app_route.dart';
 import '../bloc/dashboard_bloc.dart';
 
-class BalanceView extends StatelessWidget {
-  const BalanceView({super.key});
+class ShortcutActionView extends StatelessWidget {
+  const ShortcutActionView({super.key});
 
   @override
   Widget build(BuildContext context) {

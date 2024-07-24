@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fresh_fold_delivery/sources/core/app_core.dart';
 
 import 'package:fresh_fold_delivery/sources/route/route.dart';
 
@@ -10,6 +11,7 @@ class NotificationBadge extends StatelessWidget {
     final theme = Theme.of(context);
     return GestureDetector(
       onTap: () {
+        print("hello");
         Navigator.of(context).pushNamed(AppRoute.notification);
       },
       child: Container(
@@ -19,12 +21,9 @@ class NotificationBadge extends StatelessWidget {
           shape: BoxShape.circle,
           color: theme.colorScheme.primary,
         ),
-        child: IconButton(
-          onPressed: () {},
-          icon: Icon(
-            Icons.notifications,
-            color: theme.colorScheme.surfaceContainer,
-          ),
+        child: Icon(
+          Icons.notifications,
+          color: theme.colorScheme.surfaceContainer,
         ),
       ),
     );

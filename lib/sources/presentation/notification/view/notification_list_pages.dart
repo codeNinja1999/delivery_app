@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:fresh_fold_delivery/sources/core/app_core.dart';
 import 'package:fresh_fold_delivery/sources/presentation/widgets/widgets.dart';
+import 'package:fresh_fold_delivery/sources/resources/app_svg.dart';
+import 'package:fresh_fold_delivery/sources/resources/resources.dart';
 
 import '../bloc/notification_list_bloc.dart';
 import 'recent_notification_list_view.dart';
@@ -15,11 +18,11 @@ class NotificationListPage extends StatefulWidget {
 }
 
 class _NotificationListPageState extends State<NotificationListPage> {
-  @override
-  void initState() {
-    super.initState();
-    context.read<NotificationListBloc>().add(GetNotificationList());
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   context.read<NotificationListBloc>().add(GetNotificationList());
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -36,32 +39,47 @@ class _NotificationListPageState extends State<NotificationListPage> {
           }
         },
         child: RefreshIndicator(
-          onRefresh: () async => context.read<NotificationListBloc>().add(GetNotificationList()),
+          onRefresh: () async {},
+          // context.read<NotificationListBloc>().add(GetNotificationList()),
           child: BlocBuilder<NotificationListBloc, NotificationListState>(
             builder: (context, state) {
-              if (state.status is InProgress) {
-                return Skeleton.fromColors(
-                  baseColor: theme.highlightColor.withOpacity(0.3),
-                  highlightColor: theme.highlightColor.withOpacity(0.1),
-                  enabled: true,
-                  child: ListView.builder(
-                    padding: EdgeInsets.zero,
-                    itemCount: 10,
-                    itemBuilder: (context, index) {
-                      return const RecentNotificationListView();
-                    },
+              // if (state.status is InProgress) {
+              //   return Skeleton.fromColors(
+              //     baseColor: theme.highlightColor.withOpacity(0.3),
+              //     highlightColor: theme.highlightColor.withOpacity(0.1),
+              //     enabled: true,
+              //     child: ListView.builder(
+              //       padding: EdgeInsets.zero,
+              //       itemCount: 10,
+              //       itemBuilder: (context, index) {
+              //         return const RecentNotificationListView();
+              //       },
+              //     ),
+              //   );
+              // } else {
+
+              return SizedBox.expand(
+                child: SingleChildScrollView(
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset(AppImages.noNotification),
+                      const SizedBox(height: AppSize.inset),
+                      Text("No Notifications yet", style: theme.textTheme.bodyLarge),
+                    ],
                   ),
-                );
-              } else {
-                return ListView.separated(
-                  padding: const EdgeInsets.symmetric(vertical: AppSize.inset),
-                  separatorBuilder: (context, index) => Divider(color: theme.disabledColor),
-                  itemCount: state.notificationList.length,
-                  itemBuilder: ((context, index) {
-                    return RecentNotificationListView(data: state.notificationList[index]);
-                  }),
-                );
-              }
+                ),
+              );
+              // return ListView.separated(
+              //   padding: const EdgeInsets.symmetric(vertical: AppSize.inset),
+              //   separatorBuilder: (context, index) => Divider(color: theme.disabledColor),
+              //   itemCount: state.notificationList.length,
+              //   itemBuilder: ((context, index) {
+              //     return RecentNotificationListView(data: state.notificationList[index]);
+              //   }),
+              // );
+              // }
             },
           ),
         ),

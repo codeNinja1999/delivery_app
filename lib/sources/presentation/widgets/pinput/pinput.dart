@@ -1615,7 +1615,7 @@ class PinputConstants {
 
   static const _animationDuration = Duration(milliseconds: 180);
 
-  static const _defaultLength = 6;
+  // static const _defaultLength = 6;
 
   static const _defaultSeparator = SizedBox(width: 8);
 

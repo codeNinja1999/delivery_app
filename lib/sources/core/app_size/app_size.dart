@@ -14,7 +14,7 @@ class AppSize {
     orientation = _mediaQueryData.orientation;
   }
 
-  static const double viewMargin = 24;
+  static const double viewMargin = 16;
   static const double viewSpacing = 24;
   static const double inset = 16;
   static const double cornerRadius = 16;

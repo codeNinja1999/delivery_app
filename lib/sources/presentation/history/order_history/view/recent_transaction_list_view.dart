@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:fresh_fold_delivery/sources/core/app_core.dart';
 import 'package:fresh_fold_delivery/sources/resources/resources.dart';
-import 'package:fresh_fold_delivery/sources/presentation/widgets/widgets.dart';
 import '../model/transaction_list_view_model.dart';
 
 class RecentOrderHistoryListView extends StatelessWidget {
@@ -19,51 +17,102 @@ class RecentOrderHistoryListView extends StatelessWidget {
         highlightColor: theme.colorScheme.shadow,
         splashColor: theme.colorScheme.shadow,
       ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: AppSize.inset,
-          vertical: AppSize.cornerRadiusMedium,
-        ),
-        child: ListTile(
-          onTap: onTap,
-          contentPadding: EdgeInsets.zero,
-          dense: true,
-          leading: CircleAvatar(
-            backgroundColor: theme.colorScheme.secondaryContainer,
-            child: SvgPicture.asset(AppSvg.transferIcon),
+      child: Container(
+          padding: const EdgeInsets.only(
+            left: AppSize.inset,
+            top: AppSize.inset,
+            bottom: AppSize.inset,
+            right: AppSize.inset,
           ),
-          title: Container(
-            margin: const EdgeInsets.only(bottom: 4),
-            color: theme.colorScheme.surface,
-            child: Text(
-              data?.beneficiaryName ?? "",
-              style: theme.textTheme.titleMedium,
-            ),
+          // margin: const EdgeInsets.all(AppSize.viewMargin),
+          decoration: BoxDecoration(
+            color: theme.colorScheme.surfaceContainer,
+            borderRadius: BorderRadius.circular(AppSize.inset),
           ),
-          subtitle: Container(
-            color: theme.colorScheme.surface,
-            child: Text(
-              data?.date ?? "",
-              style: theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400, fontSize: AppSize.inset * 0.75),
-            ),
-          ),
-          trailing: Column(
-            mainAxisSize: MainAxisSize.max,
-            crossAxisAlignment: CrossAxisAlignment.end,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Container(
-                margin: const EdgeInsets.only(bottom: 4),
-                color: theme.colorScheme.surface,
-                child: Text(
-                  data?.amount ?? "",
-                  style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w700),
+              ListItemView(
+                title: "08 Feb 2024",
+                value: "฿2200",
+                titleTextStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w700),
+                valueTextStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w700),
+              ),
+              const SizedBox(height: AppSize.inset),
+              Row(
+                children: List.generate(
+                  20,
+                  (ii) => Padding(
+                      padding: const EdgeInsets.only(right: 8),
+                      child: Container(
+                        height: 2,
+                        width: 8,
+                        color: theme.colorScheme.primary,
+                      )),
                 ),
               ),
-              TransactionStatusColorMappingView(transactionStatus: data?.transactionStatus),
+              const SizedBox(height: AppSize.inset),
+              ListItemView(
+                title: LocaleKeys.typeOfService.value,
+                value: "Regular wash",
+              ),
+              const SizedBox(height: AppSize.inset),
+              ListItemView(
+                title: LocaleKeys.weightOfLaundry.value,
+                value: "12kg",
+              ),
+              const SizedBox(height: AppSize.inset),
+              ListItemView(
+                title: LocaleKeys.pickupAddress.value,
+                value: "Phuket, Ban Tawan, 1415 Unit Near ABC Bus Stand ",
+              ),
+              const SizedBox(height: AppSize.inset),
+              ListItemView(
+                title: LocaleKeys.deliveryDateAndTime.value,
+                value: "10 Feb 2024, 8-9AM",
+              ),
             ],
+          )),
+    );
+  }
+}
+
+class ListItemView extends StatelessWidget {
+  final String title;
+  final String? value;
+  final TextStyle? titleTextStyle;
+  final TextStyle? valueTextStyle;
+  const ListItemView({
+    super.key,
+    required this.title,
+    this.value,
+    this.titleTextStyle,
+    this.valueTextStyle,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Expanded(
+          child: Text(
+            title,
+            style: (titleTextStyle != null)
+                ? titleTextStyle
+                : Theme.of(context).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w700, color: AppColors.greyColor),
           ),
         ),
-      ),
+        Expanded(
+          child: Text(
+            value ?? "",
+            textAlign: TextAlign.end,
+            style: (valueTextStyle != null)
+                ? valueTextStyle
+                : Theme.of(context).textTheme.labelMedium?.copyWith(fontWeight: FontWeight.w700),
+          ),
+        ),
+      ],
     );
   }
 }

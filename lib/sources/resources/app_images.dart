@@ -12,6 +12,7 @@ class AppImages {
   static const registered = 'assets/images/image/register.png';
   static String cancel = 'assets/images/icon/cancel.png';
   static String profile = 'assets/images/image/profile.png';
+  static String noNotification = 'assets/images/image/no_notification.png';
 
   //kyc
   static String kyc = 'assets/images/icon/kyc/kyc_verification.png';

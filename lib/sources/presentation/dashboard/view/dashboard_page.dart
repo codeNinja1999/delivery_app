@@ -1,10 +1,8 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
-
 import 'package:fresh_fold_delivery/sources/core/app_core.dart';
+
 import 'package:fresh_fold_delivery/sources/presentation/dashboard/widgets/widgets.dart';
-import 'package:fresh_fold_delivery/sources/presentation/widgets/overlay_helper/overlay_helper.dart';
+import 'package:fresh_fold_delivery/sources/presentation/widgets/widgets.dart';
 import 'dashboard_view.dart';
 
 class DashboardPage extends StatefulWidget {
@@ -40,30 +38,16 @@ class _DashboardHomeState extends State<DashboardPage> {
           value: overlay,
           child: Scaffold(
             backgroundColor: Theme.of(context).colorScheme.surface,
-            body: RefreshIndicator(
-              onRefresh: () async {},
-              // context.read<DashboardBloc>().add(GetDashboardData()),
-              child: CustomScrollView(
-                physics: const AlwaysScrollableScrollPhysics(),
-                slivers: [
-                  CustomDynamicSliverAppBar(
-                    toolbarHeight: AppSize.buttonHeight * 4,
-                    flexibleSpace: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: AppSize.viewMargin),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(""),
-                          const NotificationBadge(),
-                        ],
-                      ),
-                    ),
-                    automaticallyImplyLeading: false,
-                  ),
-                  const SliverToBoxAdapter(child: DashboardView()),
-                ],
-              ),
+            appBar: const MyAppBar(
+              allowBack: false,
+              actions: [
+                Padding(
+                  padding: EdgeInsets.only(right: AppSize.viewMargin),
+                  child: NotificationBadge(),
+                ),
+              ],
             ),
+            body: const DashboardView(),
           ),
         ),
       ),

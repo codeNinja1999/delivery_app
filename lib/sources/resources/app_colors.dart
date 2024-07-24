@@ -11,6 +11,7 @@ class AppColors {
   static final homeTabBarBorderColor = HexColor("#27002E");
   static final backgroundContainerLight = HexColor('#FFFFFF');
   static final backgroundLight = HexColor('#F5F5F5');
+  static final backgroundDark = HexColor('#000000');
   static const bottomApBarColor = Color(0xFF1C2431);
   static final hintTextColor = HexColor('#767C8A');
   static final errorColor = HexColor('#B3261E');
@@ -35,6 +36,7 @@ class AppColors {
   static final indicatorColorLight = HexColor("#A56BFF"); //secondarycolor
   static final placeholder = HexColor("#767C8A");
   static final card = HexColor("#2E1C4B");
+  static final cardDark = HexColor("#1B2026");
   static final avatar = HexColor("#FF9AD6");
   static final pink = HexColor("#FB4AB2");
   static final filter = HexColor("#A56BFF");

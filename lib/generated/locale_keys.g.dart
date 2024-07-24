@@ -492,7 +492,12 @@ abstract class  LocaleKeys {
   static const submit = 'submit';
   static const cancel = 'cancel';
   static const nextButtonTitle = 'nextButtonTitle';
+  static const typeOfService = 'typeOfService';
+  static const weightOfLaundry = 'weightOfLaundry';
+  static const pickupAddress = 'pickupAddress';
+  static const deliveryDateAndTime = 'deliveryDateAndTime';
   static const back = 'back';
+  static const orderHistoryTitle = 'orderHistoryTitle';
   static const thickness = 'thickness';
   static const confirm = 'confirm';
   static const getStarted = 'getStarted';
