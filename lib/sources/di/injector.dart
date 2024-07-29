@@ -6,6 +6,7 @@ import 'package:fresh_fold_delivery/repository/data/transaction/transaction.dart
 import '../core/app_core.dart';
 import '../presentation/app_account_utility/app_account_utility.dart';
 import '../presentation/beneficiary/beneficiary.dart';
+import '../presentation/user/add_location/bloc/add_location_bloc.dart';
 import '../presentation/user/bloc/user_bloc.dart';
 import '../presentation/user/dashboard/dashboard.dart';
 import '../presentation/forgot_password/forgot_password.dart';
@@ -95,6 +96,7 @@ void blocsInjection() {
   //user
   sl.registerFactory(() => UserBloc());
   sl.registerFactory(() => LocationBloc());
+  sl.registerFactory(() => AddLocationBloc());
   sl.registerFactory(() => ServiceSelectionBloc());
   sl.registerFactory(() => NotificationListBloc(userUtilitiesRepository: sl()));
   sl.registerFactory(() => OrderHistoryBloc(transactionActivityRepository: sl()));

@@ -126,7 +126,7 @@ class _AppDropDownState<T> extends State<AppDropDown<T>> {
                 prefixIconConstraints: widget.prefixIconConstraints,
                 hintStyle: TextStyle(color: AppColors.placeholder),
                 counterText: "",
-                fillColor: widget.fillColor ?? Theme.of(context).colorScheme.surface,
+                fillColor: widget.fillColor ?? Theme.of(context).colorScheme.surfaceContainer,
                 filled: true,
                 contentPadding: const EdgeInsets.symmetric(
                   horizontal: AppSize.inset,
@@ -246,7 +246,7 @@ class _AppDropDownState<T> extends State<AppDropDown<T>> {
           cursorColor: theme.primaryColor,
           decoration: InputDecoration(
             hintText: 'Search',
-            fillColor: theme.colorScheme.surface,
+            fillColor: theme.colorScheme.surfaceContainer,
             filled: true,
             contentPadding: const EdgeInsets.symmetric(
               horizontal: AppSize.inset,
@@ -350,7 +350,7 @@ class _AppDropDownState<T> extends State<AppDropDown<T>> {
           cursorColor: theme.primaryColor,
           decoration: InputDecoration(
             hintText: 'Search',
-            fillColor: theme.colorScheme.surface,
+            fillColor: theme.colorScheme.surfaceContainer,
             filled: true,
             contentPadding: const EdgeInsets.symmetric(horizontal: AppSize.inset, vertical: AppSize.cornerRadiusMedium),
             errorStyle: theme.textTheme.bodySmall?.copyWith(color: theme.colorScheme.error),
@@ -401,7 +401,7 @@ class _AppDropDownState<T> extends State<AppDropDown<T>> {
           cursorColor: theme.primaryColor,
           decoration: InputDecoration(
             hintText: 'Search',
-            fillColor: theme.colorScheme.surface,
+            fillColor: theme.colorScheme.surfaceContainer,
             filled: true,
             contentPadding: const EdgeInsets.symmetric(horizontal: AppSize.inset, vertical: AppSize.cornerRadiusMedium),
             errorStyle: theme.textTheme.bodySmall?.copyWith(color: theme.colorScheme.error),
@@ -491,7 +491,7 @@ class _AppDropDownState<T> extends State<AppDropDown<T>> {
           cursorColor: theme.primaryColor,
           decoration: InputDecoration(
             hintText: 'Search',
-            fillColor: theme.colorScheme.surface,
+            fillColor: theme.colorScheme.surfaceContainer,
             filled: true,
             contentPadding: const EdgeInsets.symmetric(horizontal: AppSize.inset, vertical: AppSize.cornerRadiusMedium),
             errorStyle: theme.textTheme.bodySmall?.copyWith(color: theme.colorScheme.error),

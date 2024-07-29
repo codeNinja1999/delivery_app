@@ -64,7 +64,7 @@ class _LoginBodyState extends State<LoginForm> {
                       title: LocaleKeys.login.value,
                       onPressed: () {
                         KeyboardUtil.hideKeyboard(context);
-                        Navigator.pushNamed(context, AppRoute.dashboard);
+                        Navigator.pushNamed(context, AppRoute.user);
                         // if (formKey.currentState!.validate()) {
                         //   BlocProvider.of<LoginBloc>(context).add(AuthenticateUser());
                         // }

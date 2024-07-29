@@ -25,59 +25,64 @@ class _ServiceSelectionPageState extends State<ServiceSelectionPage> {
     final theme = Theme.of(context);
 
     return Scaffold(
+      backgroundColor: theme.colorScheme.surface,
       appBar: const MyAppBar(
         title: "Service Location",
       ),
-      body: SingleChildScrollView(
+      body: Padding(
         padding: const EdgeInsets.all(AppSize.viewMargin),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Text(
-                    "Choose your Service",
-                    style: theme.textTheme.titleLarge,
-                  ),
-                  const SizedBox(height: AppSize.cornerRadiusMedium),
-                  Text(
-                    "Select  how you wish to do your laundry",
-                    style: theme.textTheme.bodySmall,
-                  ),
-                  const SizedBox(height: AppSize.inset),
-                  ListView.separated(
-                    itemCount: services.length,
-                    separatorBuilder: (context, index) {
-                      return const SizedBox(height: AppSize.inset);
-                    },
-                    itemBuilder: (context, index) {
-                      final service = services[index];
-                      return ListTile(
-                        tileColor: theme.colorScheme.surfaceContainer,
-                        contentPadding: const EdgeInsets.all(AppSize.inset),
-                        title: Text(
-                          service.title,
-                          style: theme.textTheme.titleMedium,
-                        ),
-                        trailing: Text(service.amount),
-                        onTap: () {},
-                      );
-                    },
-                  ),
-                  const SizedBox(height: AppSize.viewSpacing),
-                  Text(
-                    "Laundry Details",
-                    style: theme.textTheme.bodyMedium?.copyWith(color: theme.colorScheme.primary),
-                  ),
-                  const SizedBox(height: AppSize.inset),
-                  AppTextfield(
-                    title: "Enter total weight",
-                    placeHolder: "Example: 12kg",
-                  ),
-                  const SizedBox(height: AppSize.inset),
-                ],
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Text(
+                      "Choose your Service",
+                      style: theme.textTheme.titleLarge,
+                    ),
+                    const SizedBox(height: AppSize.cornerRadiusMedium),
+                    Text(
+                      "Select  how you wish to do your laundry",
+                      style: theme.textTheme.bodySmall,
+                    ),
+                    const SizedBox(height: AppSize.inset),
+                    ListView.separated(
+                      itemCount: services.length,
+                      separatorBuilder: (context, index) {
+                        return const SizedBox(height: AppSize.inset);
+                      },
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemBuilder: (context, index) {
+                        final service = services[index];
+                        return ListTile(
+                          tileColor: theme.colorScheme.surfaceContainer,
+                          // contentPadding: const EdgeInsets.all(AppSize.inset),
+                          title: Text(
+                            service.title,
+                            style: theme.textTheme.titleMedium,
+                          ),
+                          trailing: Text(service.amount),
+                          onTap: () {},
+                        );
+                      },
+                    ),
+                    const SizedBox(height: AppSize.viewSpacing),
+                    Text(
+                      "Laundry Details",
+                      style: theme.textTheme.titleLarge?.copyWith(color: theme.colorScheme.primary),
+                    ),
+                    const SizedBox(height: AppSize.inset),
+                    AppTextfield(
+                      title: "Enter total weight",
+                      placeHolder: "Example: 12kg",
+                    ),
+                    const SizedBox(height: AppSize.inset),
+                  ],
+                ),
               ),
             ),
             CustomButton(

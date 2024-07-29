@@ -8,6 +8,8 @@ import 'package:fresh_fold_delivery/sources/presentation/user/location/location_
 import 'package:fresh_fold_delivery/sources/presentation/user/route/user_route.dart';
 import 'package:fresh_fold_delivery/sources/presentation/user/service_selection/service_selection_page.dart';
 
+import '../add_location/add_location_page.dart';
+import '../add_location/bloc/add_location_bloc.dart';
 import '../location/bloc/location_bloc.dart';
 import '../notification/bloc/notification_list_bloc.dart';
 import '../notification/view/notification_list_pages.dart';
@@ -44,6 +46,14 @@ class UserRouter {
           ),
         );
 
+      case UserRoute.addLocation:
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (context) => sl<AddLocationBloc>(),
+            child: const AddLocationPage(),
+          ),
+        );
+
       case UserRoute.serviceSelection:
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
@@ -52,13 +62,13 @@ class UserRouter {
           ),
         );
 
-            case UserRoute.notification:
-          return MaterialPageRoute(
-            builder: (_) => BlocProvider.value(
-              value: sl<NotificationListBloc>(),
-              child: const NotificationListPage(),
-            ),
-          );
+      case UserRoute.notification:
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider.value(
+            value: sl<NotificationListBloc>(),
+            child: const NotificationListPage(),
+          ),
+        );
 
       default:
         return MaterialPageRoute(builder: ((_) => Container(color: Colors.green)));
