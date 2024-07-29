@@ -32,7 +32,7 @@ class _RecentTransactionHeaderViewState extends State<RecentTransactionHeaderVie
   @override
   Widget build(BuildContext context) {
     final String dateCategory = _getDateCategory(widget.title ?? "Today");
-    return BlocBuilder<TransactionListBloc, TransactionListState>(
+    return BlocBuilder<OrderHistoryBloc, OrderHistoryState>(
       builder: (context, state) {
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: AppSize.inset),

@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:fresh_fold_delivery/sources/core/app_core.dart';
 import 'package:fresh_fold_delivery/sources/resources/app_colors.dart';
-import 'package:fresh_fold_delivery/sources/route/app_route.dart';
+import 'package:fresh_fold_delivery/sources/presentation/user/route/user_route.dart';
 import '../bloc/dashboard_bloc.dart';
 
 class ShortcutActionView extends StatelessWidget {
@@ -18,39 +18,44 @@ class ShortcutActionView extends StatelessWidget {
         return Row(
           children: [
             Expanded(
-              child: Container(
-                padding: const EdgeInsets.symmetric(
-                  vertical: AppSize.inset,
-                  horizontal: AppSize.viewSpacing,
-                ),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(AppSize.inset),
-                  color: theme.colorScheme.primary,
-                  border: Border.all(color: theme.colorScheme.outline),
-                ),
-                child: Column(
-                  children: [
-                    Icon(
-                      Icons.add_reaction,
-                      size: AppSize.viewSpacing,
-                      color: AppColors.whiteColor,
-                    ),
-                    const SizedBox(height: AppSize.cornerRadiusMedium),
-                    Text(
-                      "New Order",
-                      style: theme.textTheme.titleMedium?.copyWith(
-                        fontWeight: FontWeight.w700,
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(context, UserRoute.location);
+                },
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: AppSize.inset,
+                    horizontal: AppSize.viewSpacing,
+                  ),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(AppSize.inset),
+                    color: theme.colorScheme.primary,
+                    border: Border.all(color: theme.colorScheme.outline),
+                  ),
+                  child: Column(
+                    children: [
+                      Icon(
+                        Icons.add_reaction,
+                        size: AppSize.viewSpacing,
                         color: AppColors.whiteColor,
                       ),
-                    ),
-                    const SizedBox(height: AppSize.cornerRadiusSmall),
-                    Text(
-                      "Do my Laundry",
-                      style: theme.textTheme.bodyMedium?.copyWith(
-                        color: AppColors.whiteColor,
+                      const SizedBox(height: AppSize.cornerRadiusMedium),
+                      Text(
+                        "New Order",
+                        style: theme.textTheme.titleMedium?.copyWith(
+                          fontWeight: FontWeight.w700,
+                          color: AppColors.whiteColor,
+                        ),
                       ),
-                    ),
-                  ],
+                      const SizedBox(height: AppSize.cornerRadiusSmall),
+                      Text(
+                        "Do my Laundry",
+                        style: theme.textTheme.bodyMedium?.copyWith(
+                          color: AppColors.whiteColor,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -58,7 +63,7 @@ class ShortcutActionView extends StatelessWidget {
             Expanded(
               child: GestureDetector(
                 onTap: () {
-                  Navigator.pushNamed(context, AppRoute.orderHistory);
+                  Navigator.pushNamed(context, UserRoute.orderHistory);
                 },
                 child: Container(
                   padding: const EdgeInsets.symmetric(

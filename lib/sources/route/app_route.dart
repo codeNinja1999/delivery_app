@@ -7,6 +7,7 @@ class AppRoute {
   static const beneficiaryList = "/beneficiaryList";
   static const changeLanguage = "/change_language";
   static const dashboard = "/dashboard";
+  static const user = "/user";
 
   static const idVerification = "/idVerification";
   static const transactionList = "/transactionList";
@@ -22,11 +23,9 @@ class AppRoute {
   static const sendMoney = "/send_money";
   static const beneficiary = "/beneficiary";
   static const beneficiaryDetail = "/beneficiary_detail";
-  static const orderHistory = "/order_history";
   static const userAgreement = "userAgreement";
   static const changeCurrency = "/change_currency";
   static const bottomTabBar = "/bottom_tab_bar";
-  static const notification = "/notification";
   static const transactionDetailPage = "/transactionDetailPage";
 
   //topUp

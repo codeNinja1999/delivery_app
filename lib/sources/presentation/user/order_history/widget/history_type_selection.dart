@@ -24,7 +24,7 @@ class _HistoryTypeSelectionState extends State<HistoryTypeSelection> {
     return Container(
       height: AppSize.cornerRadiusMedium * 7,
       padding: const EdgeInsets.only(top: AppSize.inset, left: AppSize.inset),
-      child: BlocBuilder<TransactionListBloc, TransactionListState>(
+      child: BlocBuilder<OrderHistoryBloc, OrderHistoryState>(
         builder: (context, state) {
           return ListView.builder(
             scrollDirection: Axis.horizontal,
@@ -38,7 +38,7 @@ class _HistoryTypeSelectionState extends State<HistoryTypeSelection> {
                 onTap: () {
                   setState(() {
                     sIndex = index;
-                    context.read<TransactionListBloc>().add(GetTransactionList(state.pageNumber, false));
+                    context.read<OrderHistoryBloc>().add(GetTransactionList(state.pageNumber, false));
                   });
                 },
                 title: filterList[index].filterType,

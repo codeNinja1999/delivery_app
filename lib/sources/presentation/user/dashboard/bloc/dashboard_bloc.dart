@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:fresh_fold_delivery/repository/repository.dart';
 import 'package:fresh_fold_delivery/sources/core/app_core.dart';
-import '../../history/order_history/model/transaction_list_view_model.dart';
+import '../../order_history/model/transaction_list_view_model.dart';
 import '../model/exchange_rate_history_view_model.dart';
 
 part 'dashboard_event.dart';

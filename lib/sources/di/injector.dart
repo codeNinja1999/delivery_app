@@ -6,13 +6,16 @@ import 'package:fresh_fold_delivery/repository/data/transaction/transaction.dart
 import '../core/app_core.dart';
 import '../presentation/app_account_utility/app_account_utility.dart';
 import '../presentation/beneficiary/beneficiary.dart';
-import '../presentation/dashboard/dashboard.dart';
+import '../presentation/user/bloc/user_bloc.dart';
+import '../presentation/user/dashboard/dashboard.dart';
 import '../presentation/forgot_password/forgot_password.dart';
 import '../presentation/history/history.dart';
 import '../presentation/login/login.dart';
 import '../presentation/new_member/new_member.dart';
-import '../presentation/notification/bloc/notification_list_bloc.dart';
+import '../presentation/user/notification/bloc/notification_list_bloc.dart';
 import '../presentation/splash/bloc/splash_bloc.dart';
+import '../presentation/user/location/bloc/location_bloc.dart';
+import '../presentation/user/service_selection/bloc/service_selection_bloc.dart';
 import '../presentation/user_agreement/bloc/user_agreement_bloc.dart';
 
 final sl = GetIt.instance;
@@ -69,9 +72,6 @@ void blocsInjection() {
     ),
   );
 
-// Notification
-  sl.registerFactory(() => NotificationListBloc(userUtilitiesRepository: sl()));
-
   //beneficiary
   sl.registerFactory(() => BeneficiaryBloc());
   sl.registerFactory(() => PersonalInfoBloc(catalogRepository: sl(), receiverRepository: sl()));
@@ -92,6 +92,13 @@ void blocsInjection() {
     ),
   );
 
+  //user
+  sl.registerFactory(() => UserBloc());
+  sl.registerFactory(() => LocationBloc());
+  sl.registerFactory(() => ServiceSelectionBloc());
+  sl.registerFactory(() => NotificationListBloc(userUtilitiesRepository: sl()));
+  sl.registerFactory(() => OrderHistoryBloc(transactionActivityRepository: sl()));
+
   //beneficiary list
   sl.registerFactory(() => FaqBloc());
   sl.registerFactory(() => BeneficiaryDetailBloc(receiverRepository: sl()));
@@ -107,7 +114,6 @@ void blocsInjection() {
   );
 
   //transaction
-  sl.registerFactory(() => TransactionListBloc(transactionActivityRepository: sl()));
   sl.registerFactory(
     () => TransactionDetailBloc(transactionActivityRepository: sl(), userUtilitiesRepository: sl()),
   );
@@ -121,10 +127,6 @@ void blocsInjection() {
   sl.registerFactory(
     () => ConfirmReceiptBloc(transactionActivityRepository: sl(), userVerificationRepository: sl()),
   );
-
-  //topUp
-  // sl.registerFactory(() => MoneyTopUpBloc(topUpRepository: sl()));
-  // sl.registerFactory(() => UploadSlipBloc());
 }
 
 ///repositories injection

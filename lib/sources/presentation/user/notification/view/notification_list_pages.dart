@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:fresh_fold_delivery/sources/core/app_core.dart';
 import 'package:fresh_fold_delivery/sources/presentation/widgets/widgets.dart';
-import 'package:fresh_fold_delivery/sources/resources/app_svg.dart';
 import 'package:fresh_fold_delivery/sources/resources/resources.dart';
 
 import '../bloc/notification_list_bloc.dart';
-import 'recent_notification_list_view.dart';
 
 class NotificationListPage extends StatefulWidget {
   const NotificationListPage({super.key});

@@ -6,15 +6,15 @@ import 'package:fresh_fold_delivery/repository/repository.dart';
 
 import '../presentation/app_account_utility/app_account_utility.dart';
 import '../presentation/beneficiary/beneficiary.dart';
-import '../presentation/dashboard/dashboard.dart';
+import '../presentation/user/bloc/user_bloc.dart';
 import '../presentation/forgot_password/forgot_password.dart';
 import '../presentation/history/history.dart';
 import '../presentation/login/login.dart';
 import '../presentation/new_member/new_member.dart';
-import '../presentation/notification/notification.dart';
 import '../presentation/promotion/promotion.dart';
 import '../presentation/promotion/view/promotion_page.dart';
 import '../presentation/splash/splash.dart';
+import '../presentation/user/view/user_page.dart';
 import '../presentation/user_agreement/user_agreement.dart';
 import 'app_route.dart';
 
@@ -43,12 +43,13 @@ class AppRouter {
               child: const PromotionPage(),
             ),
           );
-        case AppRoute.dashboard:
+
+        case AppRoute.user:
           return MaterialPageRoute(
             builder: (_) => BlocProvider(
-                create: (context) => sl<DashboardBloc>(),
-                child: DashboardPage(),
-              ),
+              create: (context) => sl<UserBloc>(),
+              child: const UserPage(),
+            ),
           );
 
         case AppRoute.changeLanguage:
@@ -106,18 +107,6 @@ class AppRouter {
             ),
           );
 
-
-
-        case AppRoute.orderHistory:
-          return MaterialPageRoute(
-            builder: (_) => BlocProvider.value(
-              value: sl<TransactionListBloc>(),
-              child: const OrderHistoryPage(),
-            ),
-          );
-
-
-
         case AppRoute.transactionDetail:
           final transactionId = settings.arguments as String;
           final transactionDetailBloc = sl<TransactionDetailBloc>();
@@ -140,7 +129,6 @@ class AppRouter {
             ),
           );
 
-
         case AppRoute.beneficiaryDetail:
           final beneficiaryID = settings.arguments as String;
           final beneficiaryDetailBloc = sl<BeneficiaryDetailBloc>();
@@ -158,14 +146,6 @@ class AppRouter {
             builder: (_) => BlocProvider(
               create: (context) => sl<UserAgreementBloc>(),
               child: UserAgreementPage(title: args),
-            ),
-          );
-
-        case AppRoute.notification:
-          return MaterialPageRoute(
-            builder: (_) => BlocProvider.value(
-              value: sl<NotificationListBloc>(),
-              child: const NotificationListPage(),
             ),
           );
 

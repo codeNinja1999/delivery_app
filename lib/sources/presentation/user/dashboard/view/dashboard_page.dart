@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fresh_fold_delivery/sources/core/app_core.dart';
 
-import 'package:fresh_fold_delivery/sources/presentation/dashboard/widgets/widgets.dart';
+import 'package:fresh_fold_delivery/sources/presentation/user/dashboard/widgets/widgets.dart';
 import 'package:fresh_fold_delivery/sources/presentation/widgets/widgets.dart';
 import 'dashboard_view.dart';
 

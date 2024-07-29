@@ -56,7 +56,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
       centerTitle: true,
       title: Text(
         title ?? "",
-        style: Theme.of(context).textTheme.titleMedium?.copyWith(fontSize: 18, fontWeight: FontWeight.w600),
+        style: Theme.of(context).textTheme.titleLarge?.copyWith(fontSize: 18),
       ),
       elevation: 0,
       iconTheme: Theme.of(context).iconTheme,

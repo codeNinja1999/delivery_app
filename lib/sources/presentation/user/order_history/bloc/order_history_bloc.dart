@@ -8,10 +8,10 @@ import '../model/transaction_list_view_model.dart';
 part 'order_history_event.dart';
 part 'order_history_state.dart';
 
-class TransactionListBloc extends Bloc<TransactionListEvent, TransactionListState> {
+class OrderHistoryBloc extends Bloc<OrderHistoryEvent, OrderHistoryState> {
   final TransactionActivityRepository transactionActivityRepository;
 
-  TransactionListBloc({required this.transactionActivityRepository}) : super(TransactionListState()) {
+  OrderHistoryBloc({required this.transactionActivityRepository}) : super(OrderHistoryState()) {
     on<GetTransactionList>(_onGetTransactionList);
     on<SearchTextChanged>(_onSearchTextChanged);
     on<ValidateTransactionId>(_onValidateTransactionId);
@@ -20,7 +20,7 @@ class TransactionListBloc extends Bloc<TransactionListEvent, TransactionListStat
 
   Future<void> _transactionListSubscriptionRequested(
     TransactionListSubscriptionRequested event,
-    Emitter<TransactionListState> emit,
+    Emitter<OrderHistoryState> emit,
   ) async {
     await emit.forEach<List<DetailedTransaction>?>(
       transactionActivityRepository.transactionList(),
@@ -58,7 +58,7 @@ class TransactionListBloc extends Bloc<TransactionListEvent, TransactionListStat
 
   Future<void> _onGetTransactionList(
     GetTransactionList event,
-    Emitter<TransactionListState> emit,
+    Emitter<OrderHistoryState> emit,
   ) async {
     if (state.paginationStatus is InProgress) {
       return;
@@ -86,7 +86,7 @@ class TransactionListBloc extends Bloc<TransactionListEvent, TransactionListStat
 
   void _onSearchTextChanged(
     SearchTextChanged event,
-    Emitter<TransactionListState> emit,
+    Emitter<OrderHistoryState> emit,
   ) {
     List<TransactionListViewModel>? filteredReceiverList = [];
     if (event.searchString == "") {
@@ -107,7 +107,7 @@ class TransactionListBloc extends Bloc<TransactionListEvent, TransactionListStat
 
   void _onValidateTransactionId(
     ValidateTransactionId event,
-    Emitter<TransactionListState> emit,
+    Emitter<OrderHistoryState> emit,
   ) {
     if (event.transactionId.isNotEmpty) {
       emit(state.copyWith(transactionId: event.transactionId, status: Success()));

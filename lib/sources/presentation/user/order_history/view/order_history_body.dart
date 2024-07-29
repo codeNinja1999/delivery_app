@@ -27,7 +27,7 @@ class _OrderHistoryBodyState extends State<OrderHistoryBody> {
     if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent) {
       // User has reached the end of the list
       // Load more data or trigger pagination in flutter
-      final mainBloc = context.read<TransactionListBloc>();
+      final mainBloc = context.read<OrderHistoryBloc>();
       if (!mainBloc.state.paginationEnd) {
         mainBloc.add(GetTransactionList(mainBloc.state.pageNumber + 1, false));
       }
@@ -42,7 +42,7 @@ class _OrderHistoryBodyState extends State<OrderHistoryBody> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<TransactionListBloc, TransactionListState>(
+    return BlocListener<OrderHistoryBloc, OrderHistoryState>(
       listenWhen: (previous, current) => previous.status != current.status,
       listener: (context, state) {
         final status = state.status;
@@ -68,7 +68,7 @@ class OrderHistoryListView extends StatelessWidget {
     return Expanded(
       child: RefreshIndicator(
         onRefresh: () async {},
-        child: BlocBuilder<TransactionListBloc, TransactionListState>(
+        child: BlocBuilder<OrderHistoryBloc, OrderHistoryState>(
           buildWhen: (previous, current) =>
               previous.status != current.status || previous.paginationStatus != current.paginationStatus,
           builder: (context, state) {
@@ -106,7 +106,7 @@ class OrderHistoryListView extends StatelessWidget {
                         return const RecentOrderHistoryListView(
                             // data: state.transactionList[index],
                             // onTap: () {
-                            //   context.read<TransactionListBloc>().add(
+                            //   context.read<OrderHistoryBloc>().add(
                             //         ValidateTransactionId(state.transactionList[index].transactionId ?? ""),
                             //       );
                             // },

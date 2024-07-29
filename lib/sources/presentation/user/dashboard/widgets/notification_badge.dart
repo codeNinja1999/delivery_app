@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:fresh_fold_delivery/sources/core/app_core.dart';
 
-import 'package:fresh_fold_delivery/sources/route/route.dart';
+import '../../route/user_route.dart';
 
 class NotificationBadge extends StatelessWidget {
   const NotificationBadge({super.key});
@@ -11,8 +10,7 @@ class NotificationBadge extends StatelessWidget {
     final theme = Theme.of(context);
     return GestureDetector(
       onTap: () {
-        print("hello");
-        Navigator.of(context).pushNamed(AppRoute.notification);
+        Navigator.of(context).pushNamed(UserRoute.notification);
       },
       child: Container(
         height: 40,

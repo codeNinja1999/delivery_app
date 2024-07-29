@@ -1,6 +1,6 @@
 part of 'order_history_bloc.dart';
 
-class TransactionListState extends Equatable {
+class OrderHistoryState extends Equatable {
   final List<TransactionListViewModel> defaultTransactionList;
   final List<TransactionListViewModel> transactionList;
   final String? transactionId;
@@ -9,7 +9,7 @@ class TransactionListState extends Equatable {
   final FormStatus status;
   final FormStatus paginationStatus;
 
-  TransactionListState({
+  OrderHistoryState({
     this.defaultTransactionList = const [],
     this.transactionList = const [],
     this.transactionId,
@@ -20,7 +20,7 @@ class TransactionListState extends Equatable {
   })  : paginationStatus = (paginationStatus != null) ? paginationStatus : InitialStatus(),
         status = (status != null) ? status : InitialStatus();
 
-  TransactionListState copyWith({
+  OrderHistoryState copyWith({
     List<TransactionListViewModel>? defaultTransactionList,
     List<TransactionListViewModel>? transactionList,
     String? transactionId,
@@ -29,7 +29,7 @@ class TransactionListState extends Equatable {
     bool? paginationEnd,
     FormStatus? paginationStatus,
   }) {
-    return TransactionListState(
+    return OrderHistoryState(
       defaultTransactionList: defaultTransactionList ?? this.defaultTransactionList,
       transactionList: transactionList ?? this.transactionList,
       transactionId: transactionId ?? this.transactionId,
