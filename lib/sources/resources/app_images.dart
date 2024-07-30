@@ -13,6 +13,7 @@ class AppImages {
   static String cancel = 'assets/images/icon/cancel.png';
   static String profile = 'assets/images/image/profile.png';
   static String noNotification = 'assets/images/image/no_notification.png';
+  static String orderSuccess = 'assets/images/image/order_success.png';
 
   //kyc
   static String kyc = 'assets/images/icon/kyc/kyc_verification.png';

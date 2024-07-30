@@ -1,4 +1,5 @@
 import 'package:fresh_fold_delivery/repository/repository.dart';
+import 'package:fresh_fold_delivery/sources/presentation/user/date_selection/bloc/date_selection_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:fresh_fold_delivery/repository/data/existing_member/repository/existing_member_repository_impl.dart';
 import 'package:fresh_fold_delivery/repository/data/transaction/transaction.dart';
@@ -8,6 +9,7 @@ import '../presentation/app_account_utility/app_account_utility.dart';
 import '../presentation/beneficiary/beneficiary.dart';
 import '../presentation/user/add_location/bloc/add_location_bloc.dart';
 import '../presentation/user/bloc/user_bloc.dart';
+import '../presentation/user/checkout/bloc/checkout_bloc.dart';
 import '../presentation/user/dashboard/dashboard.dart';
 import '../presentation/forgot_password/forgot_password.dart';
 import '../presentation/history/history.dart';
@@ -95,8 +97,10 @@ void blocsInjection() {
 
   //user
   sl.registerFactory(() => UserBloc());
+  sl.registerFactory(() => CheckoutBloc());
   sl.registerFactory(() => LocationBloc());
   sl.registerFactory(() => AddLocationBloc());
+  sl.registerFactory(() => DateSelectionBloc());
   sl.registerFactory(() => ServiceSelectionBloc());
   sl.registerFactory(() => NotificationListBloc(userUtilitiesRepository: sl()));
   sl.registerFactory(() => OrderHistoryBloc(transactionActivityRepository: sl()));

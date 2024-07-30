@@ -42,20 +42,17 @@ class _LocationPageState extends State<LocationPage> {
                       style: theme.textTheme.bodySmall,
                     ),
                     const SizedBox(height: AppSize.inset),
-                    SizedBox(
-                      // height: 100,
-                      child: ListTile(
-                        tileColor: theme.colorScheme.surfaceContainer,
-                        contentPadding: const EdgeInsets.all(AppSize.inset),
-                        leading: Radio(value: a, groupValue: a, onChanged: (value) {}),
-                        title: Text(
-                          "Phuket, Ban Tawan, 1415 Unit",
-                          style: theme.textTheme.titleMedium,
-                        ),
-                        subtitle: Text(
-                          "Near ABC Bus Stand",
-                          style: theme.textTheme.titleSmall,
-                        ),
+                    ListTile(
+                      tileColor: theme.colorScheme.surfaceContainer,
+                      contentPadding: const EdgeInsets.all(AppSize.inset),
+                      leading: Radio(value: a, groupValue: a, onChanged: (value) {}),
+                      title: Text(
+                        "Phuket, Ban Tawan, 1415 Unit",
+                        style: theme.textTheme.titleMedium,
+                      ),
+                      subtitle: Text(
+                        "Near ABC Bus Stand",
+                        style: theme.textTheme.titleSmall,
                       ),
                     ),
                     const SizedBox(height: AppSize.inset),
