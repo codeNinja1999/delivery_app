@@ -1,8 +1,8 @@
 part of 'date_selection_bloc.dart';
 
-sealed class DateSelectionEvent extends Equatable {
-  const DateSelectionEvent();
+abstract class DateSelectionEvent {}
 
-  @override
-  List<Object> get props => [];
+class DateSelected extends DateSelectionEvent {
+  final String pickupDate;
+  DateSelected(this.pickupDate);
 }

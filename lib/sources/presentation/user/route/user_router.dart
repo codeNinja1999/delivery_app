@@ -42,6 +42,13 @@ class UserRouter {
             child: const OrderHistoryPage(),
           ),
         );
+      case UserRoute.profile:
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (_) => sl<OrderHistoryBloc>(),
+            child: const OrderHistoryPage(),
+          ),
+        );
 
       case UserRoute.location:
         return MaterialPageRoute(

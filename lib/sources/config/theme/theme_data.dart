@@ -103,19 +103,19 @@ final ThemeData lightTheme = ThemeData.light(useMaterial3: true).copyWith(
     ),
     labelLarge: TextStyle(
       fontFamily: 'PlusJakartaSans',
-      fontWeight: FontWeight.w500,
+      fontWeight: FontWeight.w600,
       color: AppColors.textColor,
       fontSize: 14,
     ),
     labelMedium: TextStyle(
       fontFamily: 'PlusJakartaSans',
-      fontWeight: FontWeight.w500,
+      fontWeight: FontWeight.w600,
       color: AppColors.textColor,
       fontSize: 12,
     ),
     labelSmall: TextStyle(
       fontFamily: 'PlusJakartaSans',
-      fontWeight: FontWeight.w500,
+      fontWeight: FontWeight.w600,
       color: AppColors.textColor,
       fontSize: 11,
     ),

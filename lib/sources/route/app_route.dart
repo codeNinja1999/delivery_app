@@ -8,6 +8,7 @@ class AppRoute {
   static const changeLanguage = "/change_language";
   static const dashboard = "/dashboard";
   static const user = "/user";
+  static const operator = "/operator";
 
   static const idVerification = "/idVerification";
   static const transactionList = "/transactionList";

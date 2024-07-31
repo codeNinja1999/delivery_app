@@ -1,10 +1,16 @@
 part of 'date_selection_bloc.dart';
 
-sealed class DateSelectionState extends Equatable {
-  const DateSelectionState();
-  
-  @override
-  List<Object> get props => [];
-}
+class DateSelectionState extends Equatable {
+  final String pickupDate;
 
-final class DateSelectionInitial extends DateSelectionState {}
+  String? get dateValidation => pickupDate.isValidText ? null : "Please select date for pickup";
+
+  const DateSelectionState({this.pickupDate = ""});
+
+  DateSelectionState copyWith({String? pickupDate}) {
+    return DateSelectionState(pickupDate: pickupDate ?? this.pickupDate);
+  }
+
+  @override
+  List<Object> get props => [pickupDate];
+}

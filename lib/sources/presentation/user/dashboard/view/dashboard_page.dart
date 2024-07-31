@@ -43,7 +43,13 @@ class _DashboardHomeState extends State<DashboardPage> {
               actions: [
                 Padding(
                   padding: EdgeInsets.only(right: AppSize.viewMargin),
-                  child: NotificationBadge(),
+                  child: Row(
+                    children: [
+                      NotificationBadge(),
+                      SizedBox(width: AppSize.inset),
+                      CircleAvatar(child: Text("FD")),
+                    ],
+                  ),
                 ),
               ],
             ),

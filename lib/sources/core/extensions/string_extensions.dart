@@ -3,6 +3,10 @@ import 'package:encrypt/encrypt.dart';
 
 extension StringExtensions on String {
   String get value => this.tr();
+    bool get isValidText {
+    return trim().isNotEmpty;
+  }
+
 
   String encrypted({required String key}) {
     final encKey = Key.fromUtf8(key);

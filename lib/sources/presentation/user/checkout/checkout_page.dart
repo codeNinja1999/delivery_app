@@ -41,25 +41,41 @@ class _CheckoutPageState extends State<CheckoutPage> {
                       style: theme.textTheme.bodySmall,
                     ),
                     const SizedBox(height: AppSize.inset),
-                    ListTile(
-                      tileColor: theme.colorScheme.surfaceContainer,
-                      contentPadding: const EdgeInsets.all(AppSize.inset),
-                      title: Text(
-                        "Phuket, Ban Tawan, 1415 Unit",
-                        style: theme.textTheme.titleMedium,
-                      ),
-                      subtitle: Text(
-                        "Near ABC Bus Stand",
-                        style: theme.textTheme.titleSmall,
-                      ),
-                      trailing: Icon(Icons.edit),
+                    GestureDetector(
                       onTap: () => Navigator.pushNamed(context, UserRoute.addLocation),
+                      child: Container(
+                        padding: const EdgeInsets.all(AppSize.inset),
+                        decoration: BoxDecoration(
+                          color: theme.colorScheme.surfaceContainer,
+                          borderRadius: BorderRadius.circular(AppSize.cornerRadiusMedium),
+                        ),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                children: [
+                                  Text(
+                                    "Phuket, Ban Tawan, 1415 Unit",
+                                    style: theme.textTheme.titleMedium,
+                                  ),
+                                  Text(
+                                    "Near ABC Bus Stand",
+                                    style: theme.textTheme.titleSmall,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Icon(Icons.edit, color: theme.colorScheme.primary),
+                          ],
+                        ),
+                      ),
                     ),
                     const SizedBox(height: AppSize.inset),
                     Container(
                       padding: const EdgeInsets.all(AppSize.viewMargin),
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(AppSize.inset),
+                        borderRadius: BorderRadius.circular(AppSize.cornerRadiusMedium),
                         color: Theme.of(context).colorScheme.surfaceContainer,
                       ),
                       child: Column(
@@ -71,22 +87,38 @@ class _CheckoutPageState extends State<CheckoutPage> {
                               color: theme.colorScheme.primary,
                             ),
                           ),
+                          const SizedBox(height: AppSize.inset),
                           Row(
                             children: [
-                              Expanded(child: Text("Service Type")),
-                              Expanded(child: Text("Regular Wash")),
+                              Expanded(child: Text("Service Type : ")),
+                              Expanded(
+                                child: Text(
+                                  "Regular Wash",
+                                  textAlign: TextAlign.end,
+                                ),
+                              ),
                             ],
                           ),
+                          const SizedBox(height: AppSize.cornerRadiusMedium),
                           Row(
                             children: [
-                              Expanded(child: Text("Laundry Details")),
-                              Expanded(child: Text("12kg")),
+                              Expanded(child: Text("Laundry Details : ")),
+                              Expanded(
+                                  child: Text(
+                                "12kg",
+                                textAlign: TextAlign.end,
+                              )),
                             ],
                           ),
+                          const SizedBox(height: AppSize.cornerRadiusMedium),
                           Row(
                             children: [
-                              Expanded(child: Text("Total")),
-                              Expanded(child: Text("\$1300")),
+                              Expanded(child: Text("Total : ")),
+                              Expanded(
+                                  child: Text(
+                                "\$1300",
+                                textAlign: TextAlign.end,
+                              )),
                             ],
                           )
                         ],
@@ -94,14 +126,14 @@ class _CheckoutPageState extends State<CheckoutPage> {
                     ),
                     const SizedBox(height: AppSize.inset),
                     CustomTextField(
-                      prefixIcon: Icon(Icons.history),
+                      prefixIcon: Icon(Icons.label),
                       placeholder: "Add Instructions",
                     ),
                     const SizedBox(height: AppSize.inset),
                     Container(
                       padding: const EdgeInsets.all(AppSize.viewMargin),
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(AppSize.inset),
+                        borderRadius: BorderRadius.circular(AppSize.cornerRadiusMedium),
                         color: Theme.of(context).colorScheme.surfaceContainer,
                       ),
                       child: Column(
@@ -113,49 +145,93 @@ class _CheckoutPageState extends State<CheckoutPage> {
                               color: theme.colorScheme.primary,
                             ),
                           ),
-                          RadioListTile(title: Text("Credit Type"), value: true, groupValue: true, onChanged: (value) {}),
-                          Row(
-                            children: [
-                              Expanded(child: Text("Credit Type")),
-                              Radio(value: true, groupValue: true, onChanged: (value) {}),
-                            ],
+                          ListTile(
+                            title: Text(
+                              "Credit Card",
+                              style: theme.textTheme.bodyMedium,
+                            ),
+                            leading: Icon(Icons.credit_card, color: theme.colorScheme.primary),
+                            contentPadding: EdgeInsets.zero,
+                            trailing: Radio(value: true, groupValue: true, onChanged: (value) {}),
                           ),
-                          Row(
-                            children: [
-                              Expanded(child: Text("FPX")),
-                              Radio(value: true, groupValue: true, onChanged: (value) {}),
-                            ],
+                          ListTile(
+                            title: Text(
+                              "FPX",
+                              style: theme.textTheme.bodyMedium,
+                            ),
+                            leading: Icon(Icons.wallet, color: theme.colorScheme.primary),
+                            contentPadding: EdgeInsets.zero,
+                            trailing: Radio(value: false, groupValue: true, onChanged: (value) {}),
                           ),
-                          Row(
-                            children: [
-                              Expanded(child: Text("Manual Payment slip")),
-                              Radio(value: true, groupValue: true, onChanged: (value) {}),
-                            ],
+                          ListTile(
+                            title: Text(
+                              "Manual Payment Slip",
+                              style: theme.textTheme.bodyMedium,
+                            ),
+                            leading: Icon(Icons.wallet, color: theme.colorScheme.primary),
+                            contentPadding: EdgeInsets.zero,
+                            trailing: Radio(value: false, groupValue: true, onChanged: (value) {}),
                           ),
-                          Row(
-                            children: [
-                              Expanded(child: Text("Bank Name")),
-                              Expanded(child: Text("ABC Bank")),
-                            ],
+                          Container(
+                            padding: const EdgeInsets.all(AppSize.inset),
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Colors.red),
+                              borderRadius: BorderRadius.circular(AppSize.cornerRadiusMedium),
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: [
+                                Text(
+                                  "For Manual Payment Slip Option",
+                                  style: theme.textTheme.labelLarge?.copyWith(
+                                    color: theme.colorScheme.primary,
+                                  ),
+                                ),
+                                SizedBox(height: AppSize.inset),
+                                Row(
+                                  children: [
+                                    Expanded(child: Text("Bank Name : ")),
+                                    Expanded(
+                                        child: Text(
+                                      "ABC Bank",
+                                      textAlign: TextAlign.end,
+                                    )),
+                                  ],
+                                ),
+                                SizedBox(height: AppSize.cornerRadiusMedium),
+                                Row(
+                                  children: [
+                                    Expanded(child: Text("Account number : ")),
+                                    Expanded(
+                                        child: Text(
+                                      "1232343543",
+                                      textAlign: TextAlign.end,
+                                    )),
+                                  ],
+                                ),
+                                SizedBox(height: AppSize.cornerRadiusMedium),
+                                Row(
+                                  children: [
+                                    Expanded(child: Text("Deposit Amount : ")),
+                                    Expanded(
+                                        child: Text(
+                                      "\$1300",
+                                      textAlign: TextAlign.end,
+                                    )),
+                                  ],
+                                ),
+                                const SizedBox(height: AppSize.inset),
+                                Text(
+                                  "Note: Deposit the amount to the above bank detail and submit the receipt image to complete the order process",
+                                  style: theme.textTheme.bodyMedium?.copyWith(color: theme.colorScheme.error),
+                                ),
+                              ],
+                            ),
                           ),
-                          Row(
-                            children: [
-                              Expanded(child: Text("Account number")),
-                              Expanded(child: Text("1232343543")),
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              Expanded(child: Text("Deposit Amount")),
-                              Expanded(child: Text("\$1300")),
-                            ],
-                          ),
-
-
                         ],
                       ),
                     ),
-
+                    const SizedBox(height: AppSize.inset),
                   ],
                 ),
               ),

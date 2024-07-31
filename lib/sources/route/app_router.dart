@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:fresh_fold_delivery/repository/repository.dart';
+import 'package:fresh_fold_delivery/sources/presentation/operator/bloc/operator_bloc.dart';
+import 'package:fresh_fold_delivery/sources/presentation/operator/operator_page.dart';
 
 import '../presentation/app_account_utility/app_account_utility.dart';
 import '../presentation/beneficiary/beneficiary.dart';
@@ -49,6 +51,14 @@ class AppRouter {
             builder: (_) => BlocProvider(
               create: (context) => sl<UserBloc>(),
               child: const UserPage(),
+            ),
+          );
+
+        case AppRoute.operator:
+          return MaterialPageRoute(
+            builder: (_) => BlocProvider(
+              create: (context) => sl<OperatorBloc>(),
+              child: const OperatorPage(),
             ),
           );
 

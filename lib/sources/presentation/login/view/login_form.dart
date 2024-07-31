@@ -71,6 +71,17 @@ class _LoginBodyState extends State<LoginForm> {
                       },
                     ),
                     const SizedBox(height: AppSize.inset),
+                    CustomButton(
+                      title: "Operator login",
+                      onPressed: () {
+                        KeyboardUtil.hideKeyboard(context);
+                        Navigator.pushNamed(context, AppRoute.operator);
+                        // if (formKey.currentState!.validate()) {
+                        //   BlocProvider.of<LoginBloc>(context).add(AuthenticateUser());
+                        // }
+                      },
+                    ),
+                    const SizedBox(height: AppSize.inset),
                   ],
                 ),
               ),

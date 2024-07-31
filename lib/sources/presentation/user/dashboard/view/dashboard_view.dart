@@ -6,7 +6,7 @@ import 'package:fresh_fold_delivery/sources/core/app_core.dart';
 import 'package:fresh_fold_delivery/sources/presentation/widgets/widgets.dart';
 import '../../../history/history.dart';
 import '../bloc/dashboard_bloc.dart';
-import '../widgets/balance_view.dart';
+import '../widgets/shortcut_action_view.dart';
 
 String getGreeting() {
   DateTime now = DateTime.now();
