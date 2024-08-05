@@ -3,9 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:fresh_fold_delivery/repository/repository.dart';
 
-import '../../../core/app_core.dart';
-import '../../../config/config.dart';
-
 part 'new_member_event.dart';
 part 'new_member_state.dart';
 

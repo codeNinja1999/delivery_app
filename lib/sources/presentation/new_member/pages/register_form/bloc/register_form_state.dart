@@ -29,7 +29,7 @@ class RegisterFormState extends Equatable {
       ? null
       : LocaleKeys.passwordErrorMessage.value;
 
-  UserRegistrationInfo makeRegistrationInfo(String username, String processId) => _makeRegistrationInfo(username, processId);
+  // UserRegistrationInfo makeRegistrationInfo(String username, String processId) => _makeRegistrationInfo(username, processId);
 
   RegisterFormState({
     this.fullName = "",
@@ -67,51 +67,50 @@ class RegisterFormState extends Equatable {
     );
   }
 
-  UserRegistrationInfo _makeRegistrationInfo(String username, String processId) {
-    final encryptedUsername = username.encrypted(key: AppConfig.shared.appKey);
-    final encryptedPassword = password.encrypted(key: AppConfig.shared.appKey);
-    final encryptedEmail = (email != "") ? email.encrypted(key: AppConfig.shared.appKey) : "";
-    final encryptedNumber = (mobileNumber != "") ? mobileNumber.encrypted(key: AppConfig.shared.appKey) : "";
+  // UserRegistrationInfo _makeRegistrationInfo(String username, String processId) {
+  //   final encryptedUsername = username.encrypted(key: AppConfig.shared.appKey);
+  //   final encryptedPassword = password.encrypted(key: AppConfig.shared.appKey);
+  //   final encryptedEmail = (email != "") ? email.encrypted(key: AppConfig.shared.appKey) : "";
+  //   final encryptedNumber = (mobileNumber != "") ? mobileNumber.encrypted(key: AppConfig.shared.appKey) : "";
 
-    final loginInfo = LoginInfo(
-      userLoginCredential: UserLoginCredential(
-        username: encryptedUsername,
-        password: encryptedPassword,
-      ),
-      loginType: LoginType.phoneNumber,
-    );
+  //   final loginInfo = LoginInfo(
+  //     userLoginCredential: UserLoginCredential(
+  //       username: encryptedUsername,
+  //       password: encryptedPassword,
+  //     ),
+  //     loginType: LoginType.phoneNumber,
+  //   );
 
-    final nameParts = fullName.trim().split(' ');
-    final firstName = nameParts.first;
-    final lastName = nameParts.last;
-    final middleName = nameParts.length > 2 ? nameParts.sublist(1, nameParts.length - 1).join(' ') : '';
+  //   final nameParts = fullName.trim().split(' ');
+  //   final firstName = nameParts.first;
+  //   final lastName = nameParts.last;
+  //   final middleName = nameParts.length > 2 ? nameParts.sublist(1, nameParts.length - 1).join(' ') : '';
 
-    final userPersonalInfo = UserPersonalInfo(
-      nameEnglish: EnglishName(
-        firstName: firstName,
-        middleName: middleName,
-        lastName: lastName,
-      ),
-      nameAlternative: "",
-      fullName: fullName,
-    );
+  //   final userPersonalInfo = UserPersonalInfo(
+  //     nameEnglish: EnglishName(
+  //       firstName: firstName,
+  //       middleName: middleName,
+  //       lastName: lastName,
+  //     ),
+  //     fullName: fullName,
+  //   );
 
-    final contactInfo = UserContactInfo(
-      residentialContactInfo: ContactInfo(
-        emailAddress: isEmail ? encryptedUsername : encryptedEmail,
-        mobileNumber: isEmail ? encryptedNumber : encryptedUsername,
-      ),
-    );
+  //   final contactInfo = UserContactInfo(
+  //     residentialContactInfo: ContactInfo(
+  //       emailAddress: isEmail ? encryptedUsername : encryptedEmail,
+  //       mobileNumber: isEmail ? encryptedNumber : encryptedUsername,
+  //     ),
+  //   );
 
-    return UserRegistrationInfo(
-      autoLogin: false,
-      processID: processId,
-      country: const Catalog(id: AppConstants.senderCountryCode, value: AppConstants.senderCountry),
-      language: "en",
-      loginInfo: loginInfo,
-      userInfo: User(personalInfo: userPersonalInfo, userContactInfo: contactInfo),
-    );
-  }
+  //   return UserRegistrationInfo(
+  //     autoLogin: false,
+  //     processID: processId,
+  //     country: const Catalog(id: AppConstants.senderCountryCode, value: AppConstants.senderCountry),
+  //     language: "en",
+  //     loginInfo: loginInfo,
+  //     userInfo: User(personalInfo: userPersonalInfo, userContactInfo: contactInfo),
+  //   );
+  // }
 
   @override
   List<Object?> get props => [

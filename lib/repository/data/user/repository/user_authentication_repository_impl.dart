@@ -5,9 +5,7 @@ import 'package:fresh_fold_delivery/repository/data/user/data_store/user_credent
 import 'package:fresh_fold_delivery/repository/data/user/models/refresh_token/refresh_token_request_model.dart';
 import 'package:fresh_fold_delivery/repository/data/user/models/user_authentication/user_authentication_response_model.dart';
 import 'package:fresh_fold_delivery/repository/data/user/repository/mapping/user_authentication_response_mapping.dart';
-import 'package:fresh_fold_delivery/repository/data/user/repository/mapping/user_authentication_request_mapping.dart';
 import 'package:fresh_fold_delivery/repository/domain/user/entities/authentication/user_access_credential.dart';
-import 'package:fresh_fold_delivery/repository/domain/user/entities/authentication/login_info.dart';
 import 'package:fresh_fold_delivery/repository/domain/core/failure.dart';
 import 'package:fresh_fold_delivery/repository/domain/user/repository/user_authentication_repository.dart';
 import 'package:network/network.dart';
@@ -25,26 +23,27 @@ class UserAuthenticationRepositoryImpl implements UserAuthenticationRepository {
     return userCredentialStorage.getCredential();
   }
 
-  @override
-  Future<Either<Exception, UserAccessCredential>> authenticateUser(LoginInfo loginInfo) async {
-    final requestDataModel = loginInfo.toRequestData();
-    final postBody = jsonEncode(requestDataModel.toJson());
+  // @override
+  // Future<Either<Exception, UserAccessCredential>> authenticateUser(LoginInfo loginInfo) async {
+    // final requestDataModel = loginInfo.toRequestData();
+    // final postBody = jsonEncode(requestDataModel.toJson());
 
-    try {
-      final response = await networkClient.post(AppServiceEndpoints.login, body: postBody);
+    // try {
+    //   final response = await networkClient.post(AppServiceEndpoints.login, body: postBody);
 
-      final responseModel = UserAuthenticationResponseModel.fromJson(json.decode(response.asString));
-      if (responseModel.newDeviceFlag == true) {
-        return Left(NewDeviceDetected(responseModel.deviceVerificationProcessId ?? ""));
-      } else {
-        final credential = responseModel.toDomain();
-        await userCredentialStorage.saveCredential(credential);
-        return Right(credential);
-      }
-    } on Exception catch (error) {
-      return Left(error);
-    }
-  }
+    //   final responseModel = UserAuthenticationResponseModel.fromJson(json.decode(response.asString));
+    //   if (responseModel.newDeviceFlag == true) {
+    //     return Left(NewDeviceDetected(responseModel.deviceVerificationProcessId ?? ""));
+    //   } else {
+    //     final credential = responseModel.toDomain();
+    //     await userCredentialStorage.saveCredential(credential);
+    //     return Right(credential);
+    //   }
+    // } on Exception catch (error) {
+    //   return Left(error);
+    // }
+
+  // }
 
   @override
   Future<Either<Exception, UserAccessCredential>> refreshUserToken() async {

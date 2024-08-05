@@ -2,18 +2,15 @@ import 'dart:convert';
 import 'package:either_dart/either.dart';
 import 'package:fresh_fold_delivery/repository/data/core/app_service_endpoints.dart';
 import 'package:fresh_fold_delivery/repository/data/user/data_store/user_credential_data.dart';
-import 'package:fresh_fold_delivery/repository/data/user_utility/mapping/get_document_info_mapping.dart';
 import 'package:fresh_fold_delivery/repository/data/user_utility/mapping/update_userinfo_request_model.dart';
 import 'package:fresh_fold_delivery/repository/data/user_utility/mapping/update_userinfo_response_mapping.dart';
 import 'package:fresh_fold_delivery/repository/data/user_utility/mapping/notifications_data_response_mapping.dart';
-import 'package:fresh_fold_delivery/repository/data/user_utility/model/get_document/get_document_response_model.dart';
 import 'package:fresh_fold_delivery/repository/data/user_utility/model/get_userinfo/get_userinfo_reponse_model.dart';
 import 'package:fresh_fold_delivery/repository/data/user_utility/model/notifications/notifications_response_model.dart';
 import 'package:fresh_fold_delivery/repository/data/user_utility/model/update_user_info/update_user_info_response_model.dart';
 import 'package:fresh_fold_delivery/repository/domain/user/entities/update/user_update_info.dart';
 import 'package:fresh_fold_delivery/repository/domain/user/entities/user_info/user.dart';
 import 'package:fresh_fold_delivery/repository/domain/user/entities/notification/notification_data.dart';
-import 'package:fresh_fold_delivery/repository/domain/user/entities/user_info/user_document_info.dart';
 import 'package:network/network.dart';
 import 'package:fresh_fold_delivery/repository/domain/user/repository/user_utility_repository.dart';
 import 'package:rxdart/subjects.dart';
@@ -83,17 +80,6 @@ class UserUtilitiesRepositoryImpl implements UserUtilitiesRepository {
       } else {
         return Left(Exception("Data not found"));
       }
-    } on Exception catch (error) {
-      return Left(error);
-    }
-  }
-
-  @override
-  Future<Either<Exception, UserDocumentInfo>> getCustomerDocument() async {
-    try {
-      final reponse = await networkClient.get(AppServiceEndpoints.getCustomerDocument);
-      final getDocumentResponseModel = GetDocumentResponseModel.fromJson(reponse.asMap ?? {});
-      return Right(getDocumentResponseModel.documentImageList?.toDomain() ?? UserDocumentInfo());
     } on Exception catch (error) {
       return Left(error);
     }

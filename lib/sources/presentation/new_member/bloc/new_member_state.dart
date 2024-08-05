@@ -23,7 +23,7 @@ class NewMemberState extends Equatable {
     this.userPersonalInfo,
   });
 
-  UserRegistrationInfo makeRegistrationInfo(UserContactInfo userContactInfo) => _makeRegistrationInfo(userContactInfo);
+  // UserRegistrationInfo makeRegistrationInfo(UserContactInfo userContactInfo) => _makeRegistrationInfo(userContactInfo);
 
   NewMemberState copyWith({
     String? userName,
@@ -49,45 +49,45 @@ class NewMemberState extends Equatable {
     );
   }
 
-  UserRegistrationInfo _makeRegistrationInfo(UserContactInfo userContactInfo) {
-    final encryptedUsername = userName.encrypted(key: AppConfig.shared.appKey);
-    final encryptedPassword = pin.encrypted(key: AppConfig.shared.appKey);
+  // UserRegistrationInfo _makeRegistrationInfo(UserContactInfo userContactInfo) {
+  //   final encryptedUsername = userName.encrypted(key: AppConfig.shared.appKey);
+  //   final encryptedPassword = pin.encrypted(key: AppConfig.shared.appKey);
 
-    final loginInfo = LoginInfo(
-      userLoginCredential: UserLoginCredential(
-        username: encryptedUsername,
-        password: encryptedPassword,
-      ),
-      loginType: LoginType.phoneNumber,
-    );
+  //   final loginInfo = LoginInfo(
+  //     userLoginCredential: UserLoginCredential(
+  //       username: encryptedUsername,
+  //       password: encryptedPassword,
+  //     ),
+  //     loginType: LoginType.phoneNumber,
+  //   );
 
-    final finaluUerPersonalInfo = UserPersonalInfo(
-      nameEnglish: userPersonalInfo?.nameEnglish,
-      nameAlternative: userPersonalInfo?.nameAlternative,
-      fullName: userPersonalInfo?.fullName,
-      maritalStatus: userPersonalInfo?.maritalStatus,
-      dateOfBirth: userPersonalInfo?.dateOfBirth,
-      gender: userPersonalInfo?.gender,
-      occupation: userPersonalInfo?.occupation,
-      occupationAlternative: userPersonalInfo?.occupationAlternative,
-      monthlyIncome: userPersonalInfo?.monthlyIncome,
-      nationality: nationality,
-      residentialAddress: userPersonalInfo?.residentialAddress,
-    );
+  //   final finaluUerPersonalInfo = UserPersonalInfo(
+  //     nameEnglish: userPersonalInfo?.nameEnglish,
+  //     nameAlternative: userPersonalInfo?.nameAlternative,
+  //     fullName: userPersonalInfo?.fullName,
+  //     maritalStatus: userPersonalInfo?.maritalStatus,
+  //     dateOfBirth: userPersonalInfo?.dateOfBirth,
+  //     gender: userPersonalInfo?.gender,
+  //     occupation: userPersonalInfo?.occupation,
+  //     occupationAlternative: userPersonalInfo?.occupationAlternative,
+  //     monthlyIncome: userPersonalInfo?.monthlyIncome,
+  //     nationality: nationality,
+  //     residentialAddress: userPersonalInfo?.residentialAddress,
+  //   );
 
-    return UserRegistrationInfo(
-      autoLogin: false,
-      processID: registerProcessID,
-      country: const Catalog(id: "THA", value: "Thailand"),
-      language: "en",
-      loginInfo: loginInfo,
-      customerInviteCode: referralCode,
-      userInfo: User(
-        personalInfo: finaluUerPersonalInfo,
-        userContactInfo: userContactInfo,
-      ),
-    );
-  }
+  //   return UserRegistrationInfo(
+  //     autoLogin: false,
+  //     processID: registerProcessID,
+  //     country: const Catalog(id: "THA", value: "Thailand"),
+  //     language: "en",
+  //     loginInfo: loginInfo,
+  //     customerInviteCode: referralCode,
+  //     userInfo: User(
+  //       personalInfo: finaluUerPersonalInfo,
+  //       userContactInfo: userContactInfo,
+  //     ),
+  //   );
+  // }
 
   @override
   List<Object?> get props => [

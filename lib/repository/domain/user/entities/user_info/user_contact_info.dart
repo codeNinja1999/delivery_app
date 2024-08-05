@@ -4,11 +4,11 @@ class ContactInfo {
   final Catalog? country;
   final String? postalCode;
   final Catalog? state;
-  final String? stateAlternative;
+  final String? unitNumber;
   final Catalog? city;
   final String? streetAddress;
-  final String? japaneseSenderAddress;
-  final String? japaneseStreetAddress;
+  final String? houseNumber;
+  final String? dropboxNumber;
   final String? streetNumber;
   final String? streetName;
   final String? emailAddress;
@@ -19,25 +19,15 @@ class ContactInfo {
     this.country,
     this.postalCode,
     this.state,
-    this.stateAlternative,
+    this.unitNumber,
     this.streetNumber,
     this.city,
     this.streetAddress,
-    this.japaneseSenderAddress,
-    this.japaneseStreetAddress,
+    this.houseNumber,
+    this.dropboxNumber,
     this.streetName,
     this.emailAddress,
     this.mobileNumber,
     this.telephoneNumber,
-  });
-}
-
-class UserContactInfo {
-  final ContactInfo residentialContactInfo;
-  final ContactInfo? wordkContactInfo;
-
-  UserContactInfo({
-    required this.residentialContactInfo,
-    this.wordkContactInfo,
   });
 }

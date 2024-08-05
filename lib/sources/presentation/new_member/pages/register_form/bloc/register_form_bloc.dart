@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fresh_fold_delivery/repository/repository.dart';
 
 import 'package:fresh_fold_delivery/sources/core/app_core.dart';
-import 'package:fresh_fold_delivery/sources/config/config.dart';
 
 part 'register_form_event.dart';
 part 'register_form_state.dart';
@@ -52,7 +51,7 @@ class RegisterFormBloc extends Bloc<RegisterFormEvent, RegisterFormState> {
   ) async {
     emit(state.copyWith(status: InProgress()));
     final response = await userRegistrationRepository.register(
-      state.makeRegistrationInfo(event.username, event.processId),
+      // state.makeRegistrationInfo(event.username, event.processId),
     );
     emit(
       response.fold(

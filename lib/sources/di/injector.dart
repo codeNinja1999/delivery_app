@@ -1,4 +1,6 @@
 import 'package:fresh_fold_delivery/repository/repository.dart';
+import 'package:fresh_fold_delivery/sources/presentation/admin/admin_dashboard/admin_dashboard.dart';
+import 'package:fresh_fold_delivery/sources/presentation/admin/bloc/admin_bloc.dart';
 import 'package:fresh_fold_delivery/sources/presentation/operator/bloc/operator_bloc.dart';
 import 'package:fresh_fold_delivery/sources/presentation/operator/operator_dashboard/bloc/operator_dash_board_bloc.dart';
 import 'package:fresh_fold_delivery/sources/presentation/operator/operator_history/bloc/operator_history_bloc.dart';
@@ -8,7 +10,6 @@ import 'package:fresh_fold_delivery/repository/data/existing_member/repository/e
 import 'package:fresh_fold_delivery/repository/data/transaction/transaction.dart';
 
 import '../core/app_core.dart';
-import '../presentation/app_account_utility/app_account_utility.dart';
 import '../presentation/beneficiary/beneficiary.dart';
 import '../presentation/operator/pickup_order/bloc/pickup_order_bloc.dart';
 import '../presentation/user/add_location/bloc/add_location_bloc.dart';
@@ -73,11 +74,6 @@ void blocsInjection() {
     ),
   );
 
-  sl.registerFactory(
-    () => ChangePasswordBloc(
-      passwordRepository: PasswordRepositoryImpl(networkClient: userAuthenticationNetworkClient()),
-    ),
-  );
 
   //beneficiary
   sl.registerFactory(() => BeneficiaryBloc());
@@ -115,33 +111,20 @@ void blocsInjection() {
   sl.registerFactory(() => PickupOrderBloc());
   sl.registerFactory(() => OperatorHistoryBloc(transactionActivityRepository: sl()));
 
+  //admin
+  sl.registerFactory(() => AdminBloc());
+  sl.registerFactory(() => AdminDashboardBloc());
+
   //beneficiary list
-  sl.registerFactory(() => FaqBloc());
   sl.registerFactory(() => BeneficiaryDetailBloc(receiverRepository: sl()));
   sl.registerFactory(
     () => BeneficiaryListBloc(receiverRepository: sl(), userUtilitiesRepository: sl()),
   );
 
-  //settings
-  sl.registerFactory(() => ChangeLanguageBloc());
-  sl.registerFactory(() => AccountBloc(userUtilitiesRepository: sl()));
-  sl.registerFactory(
-    () => UserPersonalInfoBloc(userUtilitiesRepository: sl(), changeProfilePicRepository: sl()),
-  );
 
   //transaction
   sl.registerFactory(
     () => TransactionDetailBloc(transactionActivityRepository: sl(), userUtilitiesRepository: sl()),
-  );
-
-  //receipt
-  sl.registerFactory(() => ReceiptBloc());
-  sl.registerFactory(
-    () => DepositBankBloc(catalogRepository: CatalogRepositoryImpl(userNetworkClient: userAuthenticationNetworkClient())),
-  );
-  sl.registerFactory(() => UploadReceiptBloc(userVerificationRepository: sl()));
-  sl.registerFactory(
-    () => ConfirmReceiptBloc(transactionActivityRepository: sl(), userVerificationRepository: sl()),
   );
 }
 
@@ -180,10 +163,10 @@ void repositoriesInjection() {
   sl.registerLazySingleton<ChangeProfilePicRepository>(
     () => ChangeProfilePicRepositoryImpl(networkClient: userAuthenticationNetworkClient()),
   );
-  sl.registerFactory<UserVerificationRepository>(
-    () => UserVerificationRepositoryImpl(
-      networkClient: userAuthenticationNetworkClient(),
-      appAuthenticationNetworkClient: appAuthenticationNetworkClient(),
-    ),
-  );
+  // sl.registerFactory<UserVerificationRepository>(
+  //   () => UserVerificationRepositoryImpl(
+  //     networkClient: userAuthenticationNetworkClient(),
+  //     appAuthenticationNetworkClient: appAuthenticationNetworkClient(),
+  //   ),
+  // );
 }

@@ -7,5 +7,5 @@ abstract class UserAuthenticationRepository {
   Future<Either<Exception, String>> clearPersistUser();
   Future<Either<Exception, String>> persistUser(String username);
   Future<Either<Exception, UserAccessCredential>> refreshUserToken();
-  Future<Either<Exception, UserAccessCredential>> authenticateUser(LoginInfo loginInfo);
+  // Future<Either<Exception, UserAccessCredential>> authenticateUser(LoginInfo loginInfo);
 }

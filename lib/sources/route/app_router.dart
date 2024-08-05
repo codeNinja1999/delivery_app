@@ -6,7 +6,8 @@ import 'package:fresh_fold_delivery/repository/repository.dart';
 import 'package:fresh_fold_delivery/sources/presentation/operator/bloc/operator_bloc.dart';
 import 'package:fresh_fold_delivery/sources/presentation/operator/operator_page.dart';
 
-import '../presentation/app_account_utility/app_account_utility.dart';
+import '../presentation/admin/admin_page.dart';
+import '../presentation/admin/bloc/admin_bloc.dart';
 import '../presentation/beneficiary/beneficiary.dart';
 import '../presentation/user/bloc/user_bloc.dart';
 import '../presentation/forgot_password/forgot_password.dart';
@@ -24,11 +25,7 @@ T? tryCast<T>(dynamic object) => object is T ? object : null;
 
 class AppRouter {
   static Route<dynamic> onGenerateRoute(RouteSettings settings, BuildContext context) {
-    if (settings.name?.startsWith("utility") ?? false) {
-      return MaterialPageRoute(
-        builder: (_) => AppAccountUtilityPage(settings: settings),
-      );
-    } else {
+
       switch (settings.name) {
         case AppRoute.splash:
           return MaterialPageRoute(
@@ -61,12 +58,11 @@ class AppRouter {
               child: const OperatorPage(),
             ),
           );
-
-        case AppRoute.changeLanguage:
+        case AppRoute.admin:
           return MaterialPageRoute(
             builder: (_) => BlocProvider(
-              create: (context) => sl<ChangeLanguageBloc>(),
-              child: const ChangeLanguagePage(),
+              create: (context) => sl<AdminBloc>(),
+              child: const AdminPage(),
             ),
           );
 
@@ -128,17 +124,6 @@ class AppRouter {
             ),
           );
 
-        case AppRoute.uploadReceipt:
-          final transactionId = tryCast<String>(settings.arguments);
-          final bloc = sl<ReceiptBloc>();
-          bloc.add(GetTransactionId(transactionId));
-          return MaterialPageRoute(
-            builder: (_) => BlocProvider(
-              create: (context) => bloc,
-              child: const ReceiptPage(),
-            ),
-          );
-
         case AppRoute.beneficiaryDetail:
           final beneficiaryID = settings.arguments as String;
           final beneficiaryDetailBloc = sl<BeneficiaryDetailBloc>();
@@ -163,7 +148,6 @@ class AppRouter {
           return MaterialPageRoute(builder: ((_) => Container(color: Colors.green)));
       }
     }
-  }
 
   static void logoutUser(BuildContext context) {
     sl.resetLazySingleton<ReceiverRepository>();

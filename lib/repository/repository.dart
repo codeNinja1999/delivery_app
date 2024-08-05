@@ -36,14 +36,10 @@ export './domain/user/entities/user_info/user_personal_info.dart';
 export './domain/user/entities/user_info/user_contact_info.dart';
 export './domain/user/entities/user_info/user_identification_info.dart';
 export './domain/user/entities/update/user_update_info.dart';
-export './domain/user/entities/authentication/login_type.dart';
-export './domain/user/entities/authentication/third_party_credential.dart';
-export './domain/user/entities/authentication/user_login_credential.dart';
 export './domain/user/entities/authentication/user_access_credential.dart';
 export './domain/user/repository/user_authentication_repository.dart';
 export './domain/user/repository/user_registration_repository.dart';
 export './domain/user/repository/user_utility_repository.dart';
-export './domain/user/entities/registration/user_registration_info.dart';
 export './domain/user/entities/user_info/kyc_status.dart';
 
 export './data/user/interceptor/user_authentication_interceptor.dart';
@@ -101,4 +97,3 @@ export './data/receiver/repository/receiver_repository_impl.dart';
 //document
 export "./domain/user/entities/verification/document_image_upload_info.dart";
 export "./domain/user/repository/user_verification_repository.dart";
-export "./data/user/repository/user_verification_repository_impl.dart";

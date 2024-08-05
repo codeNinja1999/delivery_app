@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:fresh_fold_delivery/repository/repository.dart';
 import 'package:fresh_fold_delivery/sources/core/app_core.dart';
-import 'package:fresh_fold_delivery/sources/config/config.dart';
 import '../model/login_view_model.dart';
 
 part 'login_event.dart';
@@ -54,35 +53,30 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     Emitter<LoginState> emit,
   ) async {
     emit(state.copyWith(status: InProgress()));
-    final encryptedMobileNumber = state.username.encrypted(key: AppConfig.shared.appKey);
-    final password = state.password.encrypted(key: AppConfig.shared.appKey);
-    // final fcmToken = await FirebaseConfiguration.getFcmToken();
-    final userLoginCredential = UserLoginCredential(username: encryptedMobileNumber, password: password);
-    final thirdPartyCredential = ThirdPartyCredential(fcmToken: "fcmToken");
-    final loginInfo = LoginInfo(
-      userLoginCredential: userLoginCredential,
-      loginType: LoginType.phoneNumber,
-      thirdPartyCredential: thirdPartyCredential,
-    );
-    final response = await userAuthenticationRepository.authenticateUser(loginInfo);
+    // final loginInfo = LoginInfo(
+    //   email: "",
+    //   password: "",
+    //   fcmToken: "",
+    // );
+    // final response = await userAuthenticationRepository.authenticateUser(loginInfo);
 
-    response.fold((error) {
-      if (error is NewDeviceDetected) {
-        emit(state.copyWith(
-            shouldVerifyDevice: true,
-            loginViewModel: LoginViewModel(
-              username: state.username,
-              password: state.password,
-              deviceVerificationProcessId: error.toString(),
-              shouldRemember: state.shouldVerifyDevice,
-            )));
-      } else {
-        emit(state.copyWith(status: SubmissionFailure(error)));
-      }
-    }, (right) async {
-      updateUserPersistance();
-      emit(state.copyWith(status: Success()));
-    });
+    // response.fold((error) {
+    //   if (error is NewDeviceDetected) {
+    //     emit(state.copyWith(
+    //         shouldVerifyDevice: true,
+    //         loginViewModel: LoginViewModel(
+    //           username: state.username,
+    //           password: state.password,
+    //           deviceVerificationProcessId: error.toString(),
+    //           shouldRemember: state.shouldVerifyDevice,
+    //         )));
+    //   } else {
+    //     emit(state.copyWith(status: SubmissionFailure(error)));
+    //   }
+    // }, (right) async {
+    //   updateUserPersistance();
+    //   emit(state.copyWith(status: Success()));
+    // });
   }
 
   Future<Either<Exception, String>> updateUserPersistance() async {

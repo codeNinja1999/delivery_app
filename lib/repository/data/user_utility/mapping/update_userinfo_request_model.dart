@@ -8,12 +8,12 @@ extension UpdateuserinfoRequestDataMapping on UserUpdateInfo {
         firstName: userInfo?.personalInfo.fullName,
         middleName: userInfo?.personalInfo.fullName);
     final addressInfo = AddressInfo(
-        masterCode: "",
-        addressZipcode: userInfo?.userContactInfo.residentialContactInfo.postalCode,
-        addressStreet: userInfo?.userContactInfo.residentialContactInfo.streetAddress,
-        addressCity: userInfo?.userContactInfo.residentialContactInfo.city?.id,
-        addressState: userInfo?.userContactInfo.residentialContactInfo.state?.id,
-        addressInput: userInfo?.userContactInfo.residentialContactInfo.streetNumber);
+      masterCode: "",
+      addressStreet: userInfo?.userContactInfo?.streetAddress,
+      addressCity: userInfo?.userContactInfo?.city?.id,
+      addressState: userInfo?.userContactInfo?.state?.id,
+      addressInput: userInfo?.userContactInfo?.streetNumber,
+    );
     final memberInfo = MemberInfo(
         nameAlternate: name, nameEnglish: name, addressInfo: addressInfo, gender: userInfo?.personalInfo.gender?.id);
     final requestData = UserUpdateInfoRequestModel(tradePassword: tradePassword, memberInfo: memberInfo);

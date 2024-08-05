@@ -1,13 +1,5 @@
 class UserDocumentInfo {
-  final String? profileImage;
-  final String? selfieImage;
-  final String? documentFrontImage;
-  final String? documentBackImage;
+  final String? receiptImage;
 
-  UserDocumentInfo({
-    this.profileImage,
-    this.selfieImage,
-    this.documentFrontImage,
-    this.documentBackImage,
-  });
+  UserDocumentInfo({this.receiptImage});
 }

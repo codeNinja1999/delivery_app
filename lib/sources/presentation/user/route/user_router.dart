@@ -15,6 +15,8 @@ import 'package:fresh_fold_delivery/sources/presentation/user/service_selection/
 
 import '../add_location/add_location_page.dart';
 import '../add_location/bloc/add_location_bloc.dart';
+import '../edit_profile/bloc/edit_profile_bloc.dart';
+import '../edit_profile/edit_profile_page.dart';
 import '../location/bloc/location_bloc.dart';
 import '../notification/bloc/notification_list_bloc.dart';
 import '../notification/view/notification_list_pages.dart';
@@ -42,11 +44,20 @@ class UserRouter {
             child: const OrderHistoryPage(),
           ),
         );
+
       case UserRoute.profile:
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
             create: (_) => sl<OrderHistoryBloc>(),
             child: const OrderHistoryPage(),
+          ),
+        );
+
+      case UserRoute.editProfile:
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (_) => sl<EditProfileBloc>(),
+            child: const EditProfilePage(),
           ),
         );
 

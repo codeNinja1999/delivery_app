@@ -61,6 +61,17 @@ class _LoginBodyState extends State<LoginForm> {
                     const RememberView(),
                     const SizedBox(height: AppSize.viewSpacing * 2),
                     CustomButton(
+                      title: "Admin login",
+                      onPressed: () {
+                        KeyboardUtil.hideKeyboard(context);
+                        Navigator.pushNamed(context, AppRoute.admin);
+                        // if (formKey.currentState!.validate()) {
+                        //   BlocProvider.of<LoginBloc>(context).add(AuthenticateUser());
+                        // }
+                      },
+                    ),
+                    const SizedBox(height: AppSize.inset),
+                    CustomButton(
                       title: LocaleKeys.login.value,
                       onPressed: () {
                         KeyboardUtil.hideKeyboard(context);

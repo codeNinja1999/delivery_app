@@ -145,7 +145,8 @@ final ThemeData darkTheme = ThemeData.dark(useMaterial3: true).copyWith(
     selectionColor: Colors.blueAccent.withOpacity(0.5),
   ),
   colorScheme: ColorScheme.dark(
-    surface: AppColors.primaryDark,
+    surface: AppColors.backgroundDark,
+    surfaceContainer: AppColors.backgroundContainerDark,
     primary: AppColors.primary,
     error: AppColors.errorColor,
     outline: AppColors.outlineColor,

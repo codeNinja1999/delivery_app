@@ -1,6 +1,7 @@
 class UserRoute {
   static const dashboard = "/dashboard";
   static const profile = "/profile";
+  static const editProfile = "/edit-profile";
   static const orderHistory = "/order_history";
   static const location = "/location";
   static const notification = "/notification";

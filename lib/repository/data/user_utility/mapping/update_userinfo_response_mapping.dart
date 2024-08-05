@@ -16,27 +16,14 @@ extension UpdateUserInfoReponseMapping on MemberInfo {
       gender: Catalog(id: gender ?? "", value: gender ?? ""),
       dateOfBirth: birthday,
       nationality: Catalog(id: nationality ?? "", value: nationalityName ?? ""),
-      occupation: Catalog(id: occupationCode ?? "", value: occupationValue ?? ""),
-      occupationAlternative: occupationOthers,
-      sourceOfIncome: Catalog(id: occupationCode ?? "", value: occupationValue ?? ""),
-      sourceOfIncomeAlternative: occupationOthers,
-      isTradePinEnabled: "",
-      birtPlace: birthPlace,
-      visaType: Catalog(
-        id: identificationInfo?.secondaryIdTypeCode ?? "",
-        value: identificationInfo?.secondaryIdTypeValue ?? "",
-      ),
-      nameAlternative: nameAlternate?.firstName,
+
     );
     final usercontactinfo = ContactInfo(
       country: Catalog(id: addressInfo?.country ?? "", value: addressInfo?.country ?? ""),
       postalCode: addressInfo?.zipCode,
       state: Catalog(id: "", value: addressInfo?.addressState ?? ""),
-      stateAlternative: addressInfo?.addressState,
       city: Catalog(id: "", value: addressInfo?.addressCity ?? ""),
       streetAddress: addressInfo?.addressStreet,
-      japaneseSenderAddress: addressInfo?.addressStateJpn,
-      japaneseStreetAddress: addressInfo?.addressStateJpn2,
       emailAddress: emailAddress1,
       mobileNumber: mobilePhoneNumber,
       telephoneNumber: homePhoneNumber,
@@ -65,14 +52,7 @@ extension UpdateUserInfoReponseMapping on MemberInfo {
       walletPending,
       lastUpdateTs,
     );
-    final userCustomerImage = UserCustomerProfileInfo(
-      customerProfileImage: customerProfileDocument?.customerProfileImage,
-      customerSelfieImage: customerProfileDocument?.customerSelfieImage,
-      customerFrontImage: customerProfileDocument?.documentFrontImage,
-      customerBackImage: customerProfileDocument?.documentBackImage,
-      customerAdditionalFrontImage: customerProfileDocument?.additionalFrontImage,
-      customerAdditionalBackImage: customerProfileDocument?.additionalBackImage,
-    );
+
     final DetailedUser detailedUser = DetailedUser(
       userName: userName ?? "",
       id: customerId ?? "",
@@ -82,7 +62,6 @@ extension UpdateUserInfoReponseMapping on MemberInfo {
       walletInfo: walletInfo,
       personalInfo: userPersonalInfo,
       promotionalCode: campaignCode ?? "",
-      userImage: userCustomerImage,
     );
     final requestData = detailedUser;
     return requestData;

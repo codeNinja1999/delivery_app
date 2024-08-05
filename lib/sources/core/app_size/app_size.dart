@@ -16,6 +16,7 @@ class AppSize {
 
   static const double viewMargin = 16;
   static const double viewSpacing = 24;
+  static const double titleFont = 24;
   static const double inset = 16;
   static const double cornerRadius = 16;
   static const double spacedViewSpacing = 56;
