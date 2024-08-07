@@ -1,33 +1,19 @@
-import 'package:fresh_fold_delivery/repository/domain/catalog/entities/catalogs.dart';
-
 class UserContactInfo {
-  final Catalog? country;
   final String? postalCode;
-  final Catalog? state;
   final String? unitNumber;
-  final Catalog? city;
   final String? streetAddress;
   final String? houseNumber;
   final String? dropboxNumber;
-  final String? streetNumber;
-  final String? streetName;
   final String? emailAddress;
   final String? mobileNumber;
-  final String? telephoneNumber;
 
   UserContactInfo({
-    this.country,
     this.postalCode,
-    this.state,
     this.unitNumber,
-    this.streetNumber,
-    this.city,
     this.streetAddress,
     this.houseNumber,
     this.dropboxNumber,
-    this.streetName,
     this.emailAddress,
     this.mobileNumber,
-    this.telephoneNumber,
   });
 }

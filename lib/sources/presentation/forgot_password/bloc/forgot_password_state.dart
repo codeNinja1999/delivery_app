@@ -38,7 +38,7 @@ class ForgotPasswordState extends Equatable {
 
   VerifyOTP resetPasswordOtpVerify() {
     return VerifyOTP(
-      issueType: OTPIssueType.resetTransactionPin,
+      // issueType: OTPIssueType.resetTransactionPin,
       verificationCode: resetPin,
     );
   }

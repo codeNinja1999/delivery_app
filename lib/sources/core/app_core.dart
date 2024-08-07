@@ -9,7 +9,6 @@ export 'error_resolver/error_resolver.dart';
 
 //extension
 export 'extensions/color_extension.dart';
-export 'extensions/kyc_status_extension.dart';
 export 'extensions/navigator_observer_extension.dart';
 export 'extensions/string_extensions.dart';
 export 'extensions/transaction_status_extension.dart';

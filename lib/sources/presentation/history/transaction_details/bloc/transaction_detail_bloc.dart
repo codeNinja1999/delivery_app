@@ -28,7 +28,6 @@ class TransactionDetailBloc extends Bloc<TransactionDetailEvent, TransactionDeta
     required this.transactionActivityRepository,
     required this.userUtilitiesRepository,
   }) : super(TransactionDetailState()) {
-    on<Cancel>(_cancelTransaction);
     on<DownloadImage>(_downloadReceipt);
     on<FetchTransactionDetail>(_onFetchTransaction);
     on<UserInfoSubscriptionRequestedDetail>(_onSubscriptionRequested);
@@ -92,40 +91,11 @@ class TransactionDetailBloc extends Bloc<TransactionDetailEvent, TransactionDeta
     }
   }
 
-  void _cancelTransaction(
-    Cancel event,
-    Emitter<TransactionDetailState> emit,
-  ) async {
-    emit(state.copyWith(status: InProgress()));
-    final info = CancelTransactionInfo(tranno: transactionID);
-    final response = await transactionActivityRepository.cancelTransaction(info);
-    emit(
-      response.fold((error) => state.copyWith(status: SubmissionFailure(error)), (_) {
-        final filter = TransactionListFilter(pageNumber: "1", itemCount: "20", startDate: "", endDate: "", issueType: "02");
-        transactionActivityRepository.getTransactionList(filter);
-        return state.copyWith(status: TransactionCancelSuccess());
-      }),
-    );
-  }
-
   void _onFetchTransaction(
     FetchTransactionDetail event,
     Emitter<TransactionDetailState> emit,
   ) async {
     emit(state.copyWith(status: InProgress()));
-    final response = await transactionActivityRepository.getTransactionDetail(transactionID);
-    emit(
-      response.fold(
-        (error) => state.copyWith(status: SubmissionFailure(error)),
-        (detail) => state.copyWith(
-          status: Success(),
-          transactionDetailViewModel: TransactionDetailViewModel.fromTransactionDetail(
-            data: detail,
-            actualTransactionID: transactionID,
-          ),
-        ),
-      ),
-    );
   }
 
   Future<void> _onSubscriptionRequested(

@@ -32,7 +32,6 @@ class AccountOtpVerifyBloc extends Bloc<AccountOtpVerifyEvent, AccountOtpVerifyS
 
     final verificationCode = event.verificationCode.encrypted(key: AppConfig.shared.appKey);
     final verifyInfo = VerifyOTP(
-      issueType: OTPIssueType.register,
       verificationCode: verificationCode,
     );
 
@@ -52,13 +51,11 @@ class AccountOtpVerifyBloc extends Bloc<AccountOtpVerifyEvent, AccountOtpVerifyS
     ResendOtp event,
     Emitter<AccountOtpVerifyState> emit,
   ) async {
-    emit(state.copyWith(status: InProgress()));
+    // emit(state.copyWith(status: InProgress()));
 
     final mobileNo = event.recipient;
-    final userName = mobileNo.encrypted(key: AppConfig.shared.appKey);
     final data = GenerateOTP(
-      recipient: userName,
-      issueType: OTPIssueType.register,
+      userId: mobileNo,
     );
 
     final response = await otpRepository.generateOTP(data);

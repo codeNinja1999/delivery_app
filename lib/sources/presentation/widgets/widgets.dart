@@ -14,7 +14,6 @@ export 'pinput/pinput.dart';
 export 'pinput/pinput_example.dart';
 
 //status badge
-export 'status_badge/kyc_badge.dart';
 export 'status_badge/status_badge.dart';
 
 //overlay helper

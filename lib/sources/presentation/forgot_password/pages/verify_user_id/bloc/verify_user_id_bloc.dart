@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:fresh_fold_delivery/repository/repository.dart';
 import 'package:fresh_fold_delivery/sources/core/app_core.dart';
-import 'package:fresh_fold_delivery/sources/config/config.dart';
 
 part 'verify_user_id_event.dart';
 part 'verify_user_id_state.dart';
@@ -24,10 +23,8 @@ class VerifyUserIdBloc extends Bloc<VerifyUserIdEvent, VerifyUserIdState> {
       (event, emit) async {
         emit(state.copyWith(status: InProgress()));
         final mobileNo = "${""}${state.userId}";
-        final mobileNumber = mobileNo.encrypted(key: AppConfig.shared.appKey);
         final data = GenerateOTP(
-          recipient: mobileNumber,
-          issueType: OTPIssueType.resetTransactionPin,
+          userId: mobileNo,
         );
         final response = await otpRepository.generateOTP(data);
         emit(

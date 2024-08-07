@@ -1,4 +1,0 @@
-enum CalculationMode {
-  viaBase,
-  viaCounter,
-}

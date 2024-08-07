@@ -27,7 +27,6 @@ class OtpVerifyBloc extends Bloc<OtpVerifyEvent, OtpVerifyState> {
 
       final verificationCode = event.verificationCode.encrypted(key: AppConfig.shared.appKey);
       final verifyInfo = VerifyOTP(
-        issueType: OTPIssueType.resetTransactionPin,
         verificationCode: verificationCode,
       );
 
@@ -49,10 +48,8 @@ class OtpVerifyBloc extends Bloc<OtpVerifyEvent, OtpVerifyState> {
     emit(state.copyWith(status: InProgress()));
 
     final mobileNo = event.recepient;
-    final userName = mobileNo.encrypted(key: AppConfig.shared.appKey);
     final data = GenerateOTP(
-      recipient: userName,
-      issueType: OTPIssueType.resetTransactionPin,
+      userId: mobileNo,
     );
 
     final response = await otpRepository.generateOTP(data);

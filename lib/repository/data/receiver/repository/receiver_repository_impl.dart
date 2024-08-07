@@ -1,5 +1,4 @@
 import 'package:either_dart/either.dart';
-import 'package:fresh_fold_delivery/repository/data/app_authentication/data_store/app_credential_data_store.dart';
 import 'package:fresh_fold_delivery/repository/data/receiver/model/add_receiver/add_receiver_response_model.dart';
 import 'package:fresh_fold_delivery/repository/data/receiver/model/get_receiver/get_receiver_request_model.dart';
 import 'package:fresh_fold_delivery/repository/data/receiver/model/get_receiver/get_receiver_response_model.dart';
@@ -17,7 +16,6 @@ import 'package:rxdart/rxdart.dart';
 class ReceiverRepositoryImpl implements ReceiverRepository {
   ReceiverRepositoryImpl({required this.networkClient});
 
-  final appCredentialStorage = AppCredentialDataStore();
   NetworkClient networkClient;
   final _receiverListStreamController = BehaviorSubject<List<DetailedReceiver>?>.seeded(null);
 

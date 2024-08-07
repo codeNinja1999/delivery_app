@@ -1,18 +1,12 @@
-import 'package:fresh_fold_delivery/repository/domain/catalog/entities/catalogs.dart';
-
 class UserPersonalInfo {
-  final EnglishName? nameEnglish;
   final String? fullName;
-  final Catalog? gender;
-  final String? dateOfBirth;
-  final Catalog? nationality;
+  final String? email;
+  final String? phoneNumber;
 
   UserPersonalInfo({
-    this.nameEnglish,
     this.fullName,
-    this.gender,
-    this.dateOfBirth,
-    this.nationality,
+    this.email,
+    this.phoneNumber,
   });
 }
 

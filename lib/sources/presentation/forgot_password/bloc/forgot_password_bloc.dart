@@ -3,8 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:fresh_fold_delivery/repository/repository.dart';
 
-import 'package:fresh_fold_delivery/sources/core/app_core.dart';
-
 part 'forgot_password_event.dart';
 part 'forgot_password_state.dart';
 

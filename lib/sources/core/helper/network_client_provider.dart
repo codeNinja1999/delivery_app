@@ -13,15 +13,6 @@ class NetworkClientProvider {
     return client;
   }
 
-  NetworkClient provideAppAuthenticationClient() {
-    final client = NetworkClient();
-
-    final interceptor =
-        AppAuthenticationInterceptor(baseUrl: AppConfig.shared.baseUrl, signatureHelper: signatureHelper).interceptor();
-    client.interceptors.add(interceptor);
-    return client;
-  }
-
   NetworkClient provideUserAuthenticationClient(UserAuthenticationRepository userAuthenticationRepository) {
     final client = NetworkClient();
     final interceptor = UserAuthenticationInterceptor(

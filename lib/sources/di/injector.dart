@@ -10,7 +10,6 @@ import 'package:fresh_fold_delivery/repository/data/existing_member/repository/e
 import 'package:fresh_fold_delivery/repository/data/transaction/transaction.dart';
 
 import '../core/app_core.dart';
-import '../presentation/beneficiary/beneficiary.dart';
 import '../presentation/operator/pickup_order/bloc/pickup_order_bloc.dart';
 import '../presentation/user/add_location/bloc/add_location_bloc.dart';
 import '../presentation/user/bloc/user_bloc.dart';
@@ -29,8 +28,6 @@ import '../presentation/user_agreement/bloc/user_agreement_bloc.dart';
 final sl = GetIt.instance;
 
 NetworkClient defaultNetworkClient() => NetworkClientProvider().provideDefaultClient();
-
-NetworkClient appAuthenticationNetworkClient() => NetworkClientProvider().provideAppAuthenticationClient();
 
 NetworkClient userAuthenticationNetworkClient() => NetworkClientProvider().provideUserAuthenticationClient(sl());
 
@@ -61,7 +58,7 @@ void blocsInjection() {
   sl.registerFactory(() => VerifyUserIdBloc(otpRepository: sl()));
   sl.registerFactory(() => LoginBloc(userAuthenticationRepository: sl()));
   sl.registerFactory(
-    () => ResetPasswordBloc(passwordRepository: PasswordRepositoryImpl(networkClient: appAuthenticationNetworkClient())),
+    () => ResetPasswordBloc(passwordRepository: PasswordRepositoryImpl(networkClient: sl())),
   );
 
   //dashboard
@@ -70,28 +67,6 @@ void blocsInjection() {
       userUtilitiesRepository: sl(),
       transactionActivityRepository: sl(),
       catalogRepository: CatalogRepositoryImpl(userNetworkClient: userAuthenticationNetworkClient()),
-      exchangeRepository: sl(),
-    ),
-  );
-
-
-  //beneficiary
-  sl.registerFactory(() => BeneficiaryBloc());
-  sl.registerFactory(() => PersonalInfoBloc(catalogRepository: sl(), receiverRepository: sl()));
-  sl.registerFactory(
-    () => ReceivingCountryBloc(
-      catalogRepository: CatalogRepositoryImpl(userNetworkClient: userAuthenticationNetworkClient()),
-    ),
-  );
-  sl.registerFactory(() => PayoutInfoBloc(
-        receiverRepository: sl(),
-        catalogRepository: CatalogRepositoryImpl(userNetworkClient: userAuthenticationNetworkClient()),
-      ));
-  sl.registerFactory(
-    () => AddressInfoBloc(
-      catalogRepository: sl(),
-      receiverRepository: sl(),
-      userUtilitiesRepository: sl(),
     ),
   );
 
@@ -115,13 +90,6 @@ void blocsInjection() {
   sl.registerFactory(() => AdminBloc());
   sl.registerFactory(() => AdminDashboardBloc());
 
-  //beneficiary list
-  sl.registerFactory(() => BeneficiaryDetailBloc(receiverRepository: sl()));
-  sl.registerFactory(
-    () => BeneficiaryListBloc(receiverRepository: sl(), userUtilitiesRepository: sl()),
-  );
-
-
   //transaction
   sl.registerFactory(
     () => TransactionDetailBloc(transactionActivityRepository: sl(), userUtilitiesRepository: sl()),
@@ -131,22 +99,16 @@ void blocsInjection() {
 ///repositories injection
 void repositoriesInjection() {
   sl.registerFactory<ExistingMemberRepository>(
-    () => ExistingMemberRepositoryImpl(networkClient: appAuthenticationNetworkClient()),
+    () => ExistingMemberRepositoryImpl(networkClient: sl()),
   );
   sl.registerFactory<UserAuthenticationRepository>(
-    () => UserAuthenticationRepositoryImpl(networkClient: appAuthenticationNetworkClient()),
-  );
-  sl.registerFactory<AppAuthenticationRepository>(
-    () => AppAuthenticationRepositoryImpl(networkClient: defaultNetworkClient()),
+    () => UserAuthenticationRepositoryImpl(networkClient: sl()),
   );
   sl.registerFactory<UserRegistrationRepository>(
-    () => UserRegistrationRepositoryImpl(networkClient: appAuthenticationNetworkClient()),
-  );
-  sl.registerFactory<ExchangeRateRepository>(
-    () => ExchangeRateRepositoryImpl(networkClient: userAuthenticationNetworkClient()),
+    () => UserRegistrationRepositoryImpl(networkClient: sl()),
   );
   sl.registerFactory<OTPRepository>(
-    () => SendOtpRepositoryImpl(networkClient: appAuthenticationNetworkClient()),
+    () => SendOtpRepositoryImpl(networkClient: sl()),
   );
   sl.registerLazySingleton<ReceiverRepository>(
     () => ReceiverRepositoryImpl(networkClient: userAuthenticationNetworkClient()),
@@ -158,10 +120,7 @@ void repositoriesInjection() {
     () => TransactionRepositoryImpl(networkClient: userAuthenticationNetworkClient()),
   );
   sl.registerFactory<CatalogRepository>(
-    () => CatalogRepositoryImpl(networkClient: appAuthenticationNetworkClient()),
-  );
-  sl.registerLazySingleton<ChangeProfilePicRepository>(
-    () => ChangeProfilePicRepositoryImpl(networkClient: userAuthenticationNetworkClient()),
+    () => CatalogRepositoryImpl(networkClient: sl()),
   );
   // sl.registerFactory<UserVerificationRepository>(
   //   () => UserVerificationRepositoryImpl(

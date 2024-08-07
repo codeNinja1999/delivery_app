@@ -1,12 +1,10 @@
 import 'package:fresh_fold_delivery/repository/domain/catalog/entities/catalogs.dart';
 
-import '../../../exchange_rate/entities/entities.dart';
 import '../entities.dart';
 
 class CreateTransactionInfo {
   final TransactionSenderInfo? senderInfo;
   final TransactionReceiverInfo? receiverInfo;
-  final CalculationMode? calculationMode;
   final String? amount;
   final String? exchangeRate;
   final String? receivingAmount;
@@ -21,7 +19,6 @@ class CreateTransactionInfo {
   CreateTransactionInfo({
     this.senderInfo,
     this.receiverInfo,
-    this.calculationMode,
     this.amount,
     this.exchangeRate,
     this.receivingAmount,
@@ -40,7 +37,6 @@ class DetailedTransaction {
   final TransactionStatus? status;
   final DetailedTransactionSenderResult? senderResult;
   final TransactionReceiverResult? receiverResult;
-  final CalculationMode? calculationMode;
   final String? serviceFee;
   final String? discountFee;
   final String? totalAmountToPay;
@@ -59,7 +55,6 @@ class DetailedTransaction {
     this.status,
     this.senderResult,
     this.receiverResult,
-    this.calculationMode,
     this.serviceFee,
     this.discountFee,
     this.totalAmountToPay,
