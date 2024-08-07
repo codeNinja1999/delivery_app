@@ -1,6 +1,6 @@
 import 'package:fresh_fold_delivery/repository/domain/catalog/entities/catalogs.dart';
 
-class ContactInfo {
+class UserContactInfo {
   final Catalog? country;
   final String? postalCode;
   final Catalog? state;
@@ -15,7 +15,7 @@ class ContactInfo {
   final String? mobileNumber;
   final String? telephoneNumber;
 
-  ContactInfo({
+  UserContactInfo({
     this.country,
     this.postalCode,
     this.state,

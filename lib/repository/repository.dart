@@ -27,7 +27,6 @@ export './domain/otp/entities/otp_access_credential.dart';
 export './domain/otp/entities/otp_issue_type.dart';
 export './domain/otp/entities/verify_otp.dart';
 export './data/otp/repository/otp_repository_impl.dart';
-export './domain/otp/entities/verify_by.dart';
 
 //User
 export './domain/user/entities/authentication/login_info.dart';
@@ -35,7 +34,6 @@ export './domain/user/entities/user_info/user.dart';
 export './domain/user/entities/user_info/user_personal_info.dart';
 export './domain/user/entities/user_info/user_contact_info.dart';
 export './domain/user/entities/user_info/user_identification_info.dart';
-export './domain/user/entities/update/user_update_info.dart';
 export './domain/user/entities/authentication/user_access_credential.dart';
 export './domain/user/repository/user_authentication_repository.dart';
 export './domain/user/repository/user_registration_repository.dart';

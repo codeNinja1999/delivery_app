@@ -29,8 +29,6 @@ class OtpVerifyBloc extends Bloc<OtpVerifyEvent, OtpVerifyState> {
       final verifyInfo = VerifyOTP(
         issueType: OTPIssueType.resetTransactionPin,
         verificationCode: verificationCode,
-        processID: event.processID,
-        verifyBy: event.isEmail ? VerifyBy.email : VerifyBy.mobileNumber,
       );
 
       final response = await otpRepository.verifyOTP(verifyInfo);
@@ -55,7 +53,6 @@ class OtpVerifyBloc extends Bloc<OtpVerifyEvent, OtpVerifyState> {
     final data = GenerateOTP(
       recipient: userName,
       issueType: OTPIssueType.resetTransactionPin,
-      verifyBy: event.isEmail ? VerifyBy.email : VerifyBy.mobileNumber,
     );
 
     final response = await otpRepository.generateOTP(data);

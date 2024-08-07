@@ -38,10 +38,8 @@ class ForgotPasswordState extends Equatable {
 
   VerifyOTP resetPasswordOtpVerify() {
     return VerifyOTP(
-      processID: otpVerifyProcessID,
       issueType: OTPIssueType.resetTransactionPin,
       verificationCode: resetPin,
-      verifyBy: AppRegex.email.hasMatch(loginId) ? VerifyBy.email : VerifyBy.mobileNumber,
     );
   }
 }

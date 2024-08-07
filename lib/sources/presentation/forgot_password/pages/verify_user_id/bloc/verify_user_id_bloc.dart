@@ -28,7 +28,6 @@ class VerifyUserIdBloc extends Bloc<VerifyUserIdEvent, VerifyUserIdState> {
         final data = GenerateOTP(
           recipient: mobileNumber,
           issueType: OTPIssueType.resetTransactionPin,
-          verifyBy: state.isEmail == true ? VerifyBy.email : VerifyBy.mobileNumber,
         );
         final response = await otpRepository.generateOTP(data);
         emit(

@@ -5,12 +5,10 @@ abstract class AccountOtpVerifyEvent {}
 class VerifyNewAccountOTP extends AccountOtpVerifyEvent {
   final String processID;
   final String verificationCode;
-  final VerifyBy verifyBy;
 
   VerifyNewAccountOTP({
     required this.processID,
     required this.verificationCode,
-    required this.verifyBy,
   });
 }
 

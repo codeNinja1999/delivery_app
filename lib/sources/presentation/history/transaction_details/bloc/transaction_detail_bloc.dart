@@ -32,7 +32,7 @@ class TransactionDetailBloc extends Bloc<TransactionDetailEvent, TransactionDeta
     on<DownloadImage>(_downloadReceipt);
     on<FetchTransactionDetail>(_onFetchTransaction);
     on<UserInfoSubscriptionRequestedDetail>(_onSubscriptionRequested);
-    on<GetInfo>((event, emit) async => await userUtilitiesRepository.getUserInfo());
+    // on<GetInfo>((event, emit) async => await userUtilitiesRepository.getUserInfo());
   }
 
   void _downloadReceipt(

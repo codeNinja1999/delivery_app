@@ -39,14 +39,14 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
       if (result.every((element) => element == true)) {
         if (state.countryCodeForHistoryRate == null) {
           if (state.receivingCountryList.isNotEmpty) {
-            final isUserNationalityInList = state.receivingCountryList
-                .any((element) => element.countryCode == state.userInfo?.personalInfo.nationality?.id);
+            // final isUserNationalityInList = state.receivingCountryList
+            //     .any((element) => element.countryCode == state.userInfo?.personalInfo.nationality?.id);
 
-            if (isUserNationalityInList) {
-              add(GetExchangeRateHistoryList(state.userInfo?.personalInfo.nationality?.id));
-            } else {
-              add(GetExchangeRateHistoryList(state.receivingCountryList.first.id));
-            }
+            // if (isUserNationalityInList) {
+            //   add(GetExchangeRateHistoryList(state.userInfo?.personalInfo.nationality?.id));
+            // } else {
+            //   add(GetExchangeRateHistoryList(state.receivingCountryList.first.id));
+            // }
           }
         }
       }
@@ -86,7 +86,7 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
   }
 
   Future<bool> _onGetUserInfo(DashboardEvent event, Emitter<DashboardState> emit) async {
-    final _ = await userUtilitiesRepository.getUserInfo();
+    // final _ = await userUtilitiesRepository.getUserInfo();
     return true;
   }
 

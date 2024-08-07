@@ -1,15 +1,24 @@
 class AppServiceEndpoints {
   static const generateKey = "common/session-id";
+
+  static const generateOtp = "auth/register";
+  static const verifyOtp = "auth/verify-otp";
+  static const login = "auth/login";
+  static const logout = "auth/logout";
+  static const resendOtp = "auth/resend-otp";
+  static const resetPassword = "auth/reset-password";
+  static const generateForgotPasswordOtp = "auth/forgot-password-otp";
+  static const verifyForgotPassword = "auth/verify-forgot-password-otp";
+  static const register = "auth/me/complete-profile-registration";
+  static const updateUserProfile = "user/me/update-profile";
+
   static const createBeneficiary = "beneficiary/register-benificiary";
   static const updateBeneficiary = "beneficiary/update-benificiary/";
   static const beneficiaryInfo = "beneficiary/get-beneficiary-info/";
   static const deleteBeneficiary = "beneficiary/delete-benificiary/";
-  static const login = "common/login";
   static const azureKey = "fileupload/azure-key/";
   static const changePassword = "member/update-password";
-  static const resetPassword = "member/reset-password";
   static const changeTransactionpin = "member/trade-password";
-  static const register = "Member/registermember";
   static const sendOTP = "common/onetime-otp";
   static const verifyOTP = "common/onetime-otp/validate";
   static const catalogs = "catalogue/getcatalogue";

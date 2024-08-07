@@ -44,7 +44,6 @@ class AddressInfoBloc extends Bloc<AddressInfoEvent, AddressInfoState> {
       (error) => emit(state.copyWith(status: SubmissionFailure(error))),
       (detailedReceiver) {
         receiverRepository.getReceiverList();
-        userUtilitiesRepository.getUserInfo();
         // add(FetchReceiverDetail(receiverId: beneficiaryId));
         emit(state.copyWith(status: Success(), detailedReceiver: detailedReceiver));
       },

@@ -32,9 +32,7 @@ class AccountOtpVerifyBloc extends Bloc<AccountOtpVerifyEvent, AccountOtpVerifyS
 
     final verificationCode = event.verificationCode.encrypted(key: AppConfig.shared.appKey);
     final verifyInfo = VerifyOTP(
-      verifyBy: event.verifyBy,
       issueType: OTPIssueType.register,
-      processID: event.processID,
       verificationCode: verificationCode,
     );
 
@@ -61,7 +59,6 @@ class AccountOtpVerifyBloc extends Bloc<AccountOtpVerifyEvent, AccountOtpVerifyS
     final data = GenerateOTP(
       recipient: userName,
       issueType: OTPIssueType.register,
-      verifyBy: (event.isEmail) ? VerifyBy.email : VerifyBy.mobileNumber,
     );
 
     final response = await otpRepository.generateOTP(data);

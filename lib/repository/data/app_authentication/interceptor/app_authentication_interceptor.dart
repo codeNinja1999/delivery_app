@@ -14,17 +14,18 @@ class AppAuthenticationInterceptor {
   final appCredentialStorage = AppCredentialDataStore();
 
   Interceptor interceptor() {
-    Map<String, String> headers(String processKey, String signature) => {
+    Map<String, String> headers() => {
           "Accept": "application/json",
           "Content-Type": "application/json",
-          "Authorization": processKey,
-          "verify-signature": signature,
+          // "Authorization": processKey,
+          // "verify-signature": signature,
         };
 
     return Interceptor(onRequest: (request) async {
       final credential = await appCredentialStorage.getCredential();
       final newRequest = Request(
-        headers: headers(credential.processKey, signatureHelper.signature(request.body)),
+        // headers: headers(credential.processKey, signatureHelper.signature(request.body)),
+        headers: headers(),
         queryParameters: request.queryParameters,
         method: request.method,
         url: URLProvider(baseUrl: baseUrl, path: request.url.toString()).url(),

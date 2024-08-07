@@ -65,8 +65,8 @@ class OrderHistoryListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // final theme = Theme.of(context);
-    return Expanded(
-      child: RefreshIndicator(
+    return
+       RefreshIndicator(
         onRefresh: () async {},
         child: BlocBuilder<OperatorHistoryBloc, OperatorHistoryState>(
           buildWhen: (previous, current) =>
@@ -154,7 +154,7 @@ class OrderHistoryListView extends StatelessWidget {
             // }
           },
         ),
-      ),
-    );
+      );
+
   }
 }
