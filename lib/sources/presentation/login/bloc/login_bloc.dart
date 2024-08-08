@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:fresh_fold_delivery/repository/repository.dart';
 import 'package:fresh_fold_delivery/sources/core/app_core.dart';
-import '../model/login_view_model.dart';
 
 part 'login_event.dart';
 part 'login_state.dart';
@@ -56,7 +55,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     // final loginInfo = LoginInfo(
     //   email: "",
     //   password: "",
-    //   fcmToken: "",
     // );
     // final response = await userAuthenticationRepository.authenticateUser(loginInfo);
 

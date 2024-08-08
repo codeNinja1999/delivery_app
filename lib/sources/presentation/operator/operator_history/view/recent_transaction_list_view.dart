@@ -2,11 +2,9 @@ import 'package:flutter/material.dart';
 
 import 'package:fresh_fold_delivery/sources/core/app_core.dart';
 import 'package:fresh_fold_delivery/sources/resources/resources.dart';
-import '../model/transaction_list_view_model.dart';
 
 class RecentOrderHistoryListView extends StatelessWidget {
-  const RecentOrderHistoryListView({super.key, this.data, this.onTap});
-  final TransactionListViewModel? data;
+  const RecentOrderHistoryListView({super.key, this.onTap});
   final Function()? onTap;
 
   @override

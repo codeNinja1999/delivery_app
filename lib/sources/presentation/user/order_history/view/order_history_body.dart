@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:fresh_fold_delivery/sources/route/route.dart';
 import 'package:fresh_fold_delivery/sources/core/app_core.dart';
 import '../bloc/order_history_bloc.dart';
 import 'recent_transaction_list_view.dart';
@@ -47,7 +46,6 @@ class _OrderHistoryBodyState extends State<OrderHistoryBody> {
       listener: (context, state) {
         final status = state.status;
         if (status is Success) {
-          Navigator.pushNamed(context, AppRoute.transactionDetail, arguments: state.transactionId);
         } else if (status is SubmissionFailure) {
           ErrorResolver.resolve(context, status);
         }

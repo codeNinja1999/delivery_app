@@ -10,7 +10,6 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -18,12 +17,6 @@ class _LoginPageState extends State<LoginPage> {
       canPop: false,
       child: Scaffold(
         backgroundColor: Theme.of(context).colorScheme.surface,
-        // appBar: AppBar(
-        //   automaticallyImplyLeading: false,
-        //   surfaceTintColor: Theme.of(context).colorScheme.primary,
-        //   actions: const [LoginAppBar()],
-        //   elevation: 0,
-        // ),
         body: const LoginForm(),
       ),
     );

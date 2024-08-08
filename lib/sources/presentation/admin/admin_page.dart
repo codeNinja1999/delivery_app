@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'route/admin_route.dart';
-import 'route/user_router.dart';
+import 'route/admin_router.dart';
 
 class AdminPage extends StatefulWidget {
   const AdminPage({super.key});

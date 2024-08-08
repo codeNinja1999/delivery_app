@@ -13,128 +13,22 @@ class Catalog extends Equatable {
   String toString() => value;
 }
 
-class PaymentMode extends Catalog {
-  final String? receiverCurrency;
-  final String? paymentType;
-  final String? remittanceMethodType;
-
-  const PaymentMode({
-    required super.id,
-    required super.value,
-    this.receiverCurrency,
-    this.paymentType,
-    this.remittanceMethodType,
-  });
-}
-
-class Bank extends Catalog {
-  final String methodCode;
-  const Bank({
-    required super.id,
-    required super.value,
-    required this.methodCode,
-  });
-}
-
-class Branch extends Catalog {
-  const Branch({required super.id, required super.value});
-}
-
-class DepositBank extends Catalog {
-  final String? imageID;
-  final String? accountno;
-  final String? accountType;
-  final String? accountName;
-  final String? nativeAccountName;
-
-  const DepositBank({
-    required super.id,
-    required super.value,
-    this.imageID,
-    this.accountno,
-    this.accountType,
-    this.accountName,
-    this.nativeAccountName,
-  });
-}
-
 class DepositType extends Catalog {
-  final String? imageID;
-  final String? accountno;
-
-  const DepositType({
-    required super.id,
-    required super.value,
-    this.imageID,
-    this.accountno,
-  });
+  const DepositType({required super.id, required super.value});
 }
 
-class States extends Catalog {
-  const States({
-    required super.id,
-    required super.value,
-  });
+class ServiceType extends Catalog {
+  final String? price;
+  const ServiceType({required super.id, required super.value, this.price});
 }
 
-class Country extends Catalog {
-  final String? accountno;
-  final String? accounttype;
-  final String? language;
-  final String? telephoneCode;
-  final String? telephoneLength;
-  final String? countryCode;
-  final String? currencyCode;
-  const Country({
+class Location extends Catalog {
+  final String? houseNumber;
+  final String? address;
+  const Location({
     required super.id,
     required super.value,
-    this.accountno,
-    this.accounttype,
-    this.language,
-    this.telephoneCode,
-    this.telephoneLength,
-    this.countryCode,
-    this.currencyCode,
+    this.houseNumber,
+    this.address,
   });
-}
-
-class ReceivingCountry extends Catalog {
-  final String? accountno;
-  final String? accounttype;
-  final String? language;
-  final String? telephoneCode;
-  final String? telephoneLength;
-  final String? countryCode;
-  final String? currencyCode;
-  const ReceivingCountry({
-    required super.id,
-    required super.value,
-    this.accountno,
-    this.accounttype,
-    this.language,
-    this.telephoneCode,
-    this.telephoneLength,
-    this.countryCode,
-    this.currencyCode,
-  });
-}
-
-class PostalAddress extends Catalog {
-  final String? postalAddress;
-  final Catalog? state;
-  final Catalog? city;
-  final String? street;
-  final String? street2;
-  const PostalAddress({
-    required super.id,
-    required super.value,
-    this.state,
-    this.postalAddress,
-    this.city,
-    this.street,
-    this.street2,
-  });
-
-  @override
-  String toString() => value;
 }

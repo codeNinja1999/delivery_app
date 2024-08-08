@@ -10,6 +10,8 @@ import 'package:fresh_fold_delivery/repository/domain/core/failure.dart';
 import 'package:fresh_fold_delivery/repository/domain/user/repository/user_authentication_repository.dart';
 import 'package:network/network.dart';
 
+import '../../../domain/user/entities/authentication/login_info.dart';
+
 class UserAuthenticationRepositoryImpl implements UserAuthenticationRepository {
   UserAuthenticationRepositoryImpl({
     required this.networkClient,
@@ -25,23 +27,23 @@ class UserAuthenticationRepositoryImpl implements UserAuthenticationRepository {
 
   // @override
   // Future<Either<Exception, UserAccessCredential>> authenticateUser(LoginInfo loginInfo) async {
-    // final requestDataModel = loginInfo.toRequestData();
-    // final postBody = jsonEncode(requestDataModel.toJson());
+  //   final requestDataModel = loginInfo.toRequestData();
+  //   final postBody = jsonEncode(requestDataModel.toJson());
 
-    // try {
-    //   final response = await networkClient.post(AppServiceEndpoints.login, body: postBody);
+  //   try {
+  //     final response = await networkClient.post(AppServiceEndpoints.login, body: postBody);
 
-    //   final responseModel = UserAuthenticationResponseModel.fromJson(json.decode(response.asString));
-    //   if (responseModel.newDeviceFlag == true) {
-    //     return Left(NewDeviceDetected(responseModel.deviceVerificationProcessId ?? ""));
-    //   } else {
-    //     final credential = responseModel.toDomain();
-    //     await userCredentialStorage.saveCredential(credential);
-    //     return Right(credential);
-    //   }
-    // } on Exception catch (error) {
-    //   return Left(error);
-    // }
+  //     final responseModel = UserAuthenticationResponseModel.fromJson(json.decode(response.asString));
+  //     if (responseModel.newDeviceFlag == true) {
+  //       return Left(NewDeviceDetected(responseModel.deviceVerificationProcessId ?? ""));
+  //     } else {
+  //       final credential = responseModel.toDomain();
+  //       await userCredentialStorage.saveCredential(credential);
+  //       return Right(credential);
+  //     }
+  //   } on Exception catch (error) {
+  //     return Left(error);
+  //   }
 
   // }
 

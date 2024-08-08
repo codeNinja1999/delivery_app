@@ -171,7 +171,6 @@ class _AdminDashboardViewState extends State<AdminDashboardView> {
                 scrollDirection: Axis.horizontal,
                 itemCount: list.length,
                 shrinkWrap: true,
-                // physics: const NeverScrollableScrollPhysics(),
                 itemBuilder: (context, index) {
                   return GestureDetector(
                     onTap: () {
@@ -192,10 +191,220 @@ class _AdminDashboardViewState extends State<AdminDashboardView> {
                 },
               ),
             ),
-            Text("Hello"),
+            if (selectedIndex == 0) ...[
+              const HomeView(),
+            ],
+            if (selectedIndex == 5) ...[
+              const PriceView(),
+            ]
           ]),
         ),
       ),
+    );
+  }
+}
+
+class HomeView extends StatelessWidget {
+  const HomeView({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return Container(
+      color: Theme.of(context).colorScheme.surfaceContainer,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Text(
+                "Pending Confirmation",
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+              TextButton(
+                  onPressed: () {},
+                  child: Text(
+                    "View All",
+                    style: Theme.of(context).textTheme.titleSmall,
+                  )),
+            ],
+          ),
+          const SizedBox(height: AppSize.inset),
+          Expanded(
+            child: ListView.separated(
+              itemCount: 5,
+              shrinkWrap: true,
+              physics: const AlwaysScrollableScrollPhysics(),
+              separatorBuilder: (context, index) => const SizedBox(height: AppSize.inset),
+              itemBuilder: (context, index) {
+                return Container(
+                  padding: const EdgeInsets.all(AppSize.inset),
+                  decoration: BoxDecoration(
+                    color: theme.colorScheme.surfaceContainer,
+                    borderRadius: BorderRadius.circular(AppSize.cornerRadiusMedium),
+                  ),
+                  child: Column(
+                    children: [
+                      Row(
+                        textBaseline: TextBaseline.alphabetic,
+                        crossAxisAlignment: CrossAxisAlignment.baseline,
+                        children: [
+                          Expanded(
+                              child: Text(
+                            "John Doe",
+                            style: theme.textTheme.titleMedium,
+                          )),
+                          Expanded(
+                            child: Text(
+                              "(989)-223-222",
+                              style: theme.textTheme.titleMedium,
+                              textAlign: TextAlign.end,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: AppSize.inset),
+                      Row(
+                        textBaseline: TextBaseline.alphabetic,
+                        crossAxisAlignment: CrossAxisAlignment.baseline,
+                        children: [
+                          Expanded(
+                              child: Text(
+                            "Address",
+                            style: theme.textTheme.bodySmall,
+                          )),
+                          Expanded(
+                            child: Text(
+                              "Phuket, Ban Tawan, 1415 Unit Near ABC Bus Stand ",
+                              style: theme.textTheme.bodySmall,
+                              textAlign: TextAlign.end,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: AppSize.inset),
+                      Row(
+                        textBaseline: TextBaseline.alphabetic,
+                        crossAxisAlignment: CrossAxisAlignment.baseline,
+                        children: [
+                          Expanded(
+                              child: Text(
+                            "Type",
+                            style: theme.textTheme.bodySmall,
+                          )),
+                          Expanded(
+                            child: Text(
+                              "Pickup",
+                              style: theme.textTheme.bodySmall,
+                              textAlign: TextAlign.end,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: AppSize.inset),
+                      CustomButton(title: "View Details", onPressed: () {})
+                    ],
+                  ),
+                );
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class PriceView extends StatelessWidget {
+  const PriceView({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return Container(
+      color: theme.colorScheme.surfaceContainer,
+      child: Column(
+        children: [
+          Table(
+            border: const TableBorder(),
+            defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+            children: [
+              TableRow(children: [
+                Text(
+                  "Service Type",
+                  style: theme.textTheme.titleMedium,
+                ),
+                Text(
+                  "Price",
+                  style: theme.textTheme.titleMedium,
+                ),
+                Text(
+                  "Actions",
+                  style: theme.textTheme.titleMedium,
+                )
+              ]),
+              makeRow(
+                theme,
+                "Regular wash",
+                "\$100/kg",
+                () {},
+                () {},
+              ),
+              makeRow(
+                theme,
+                "Dry Cleaning",
+                "\$200/kg",
+                () {},
+                () {},
+              ),
+              makeRow(
+                theme,
+                "Ironing Only",
+                "\$50/kg",
+                () {},
+                () {},
+              ),
+              makeRow(
+                theme,
+                "Service 4",
+                "\$150/kg",
+                () {},
+                () {},
+              ),
+            ],
+          ),
+          const SizedBox(height: AppSize.inset),
+          CustomButton(title: "Add New Service", onPressed: () {}),
+        ],
+      ),
+    );
+  }
+
+  TableRow makeRow(ThemeData theme, String id, String price, Function() onEdit, Function() onDelete) {
+    return TableRow(
+      children: [
+        Text(
+          id,
+          style: theme.textTheme.titleMedium,
+        ),
+        Text(
+          price,
+          style: theme.textTheme.titleMedium,
+        ),
+        Row(
+          children: [
+            IconButton(
+              onPressed: onEdit,
+              icon: Icon(Icons.edit),
+            ),
+            IconButton(
+              onPressed: onDelete,
+              icon: Icon(Icons.delete),
+            )
+          ],
+        ),
+      ],
     );
   }
 }

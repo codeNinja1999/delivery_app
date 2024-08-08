@@ -46,9 +46,7 @@ class OperatorRouter {
   }
 
   static void logoutUser(BuildContext context) {
-    sl.resetLazySingleton<ReceiverRepository>();
     sl.resetLazySingleton<UserUtilitiesRepository>();
-    sl.resetLazySingleton<TransactionActivityRepository>();
 
     // Navigator.of(context, rootNavigator: true).pushNamedAndRemoveUntil(AppRoute.splash, (Route<dynamic> route) => false);
   }

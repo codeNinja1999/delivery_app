@@ -1,10 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/cupertino.dart';
-
-import 'package:fresh_fold_delivery/repository/domain/catalog/entities/catalogs.dart';
 
 import 'package:fresh_fold_delivery/sources/core/app_core.dart';
 import 'package:fresh_fold_delivery/sources/resources/resources.dart';
@@ -36,7 +33,6 @@ class AppDropDown<T> extends StatefulWidget {
     this.fillColor,
     this.leadingInitial = false,
     this.urlI = AppConstants.countryImageUrl,
-    this.isCountry,
     this.prefix,
     this.prefixIcon,
     this.prefixIconConstraints,
@@ -58,7 +54,6 @@ class AppDropDown<T> extends StatefulWidget {
   final String? Function(T?)? validator;
   final Future<List<T>> Function(String?)? onFind;
   final bool? enabled;
-  final bool? isCountry;
   final Color? fillColor;
   final TextEditingController? textController;
   final bool? leadingInitial;
@@ -185,54 +180,15 @@ class _AppDropDownState<T> extends State<AppDropDown<T>> {
         menuProps: MenuProps(backgroundColor: theme.colorScheme.surface, elevation: 5, shadowColor: AppColors.black),
         searchDelay: const Duration(milliseconds: 1),
         itemBuilder: (context, item, isSelected) {
-          final receivingCountry = tryCast<ReceivingCountry>(item);
-          final nationality = tryCast<Country>(item);
-          Color avatarBackgroundColor = getColorForName(
-            item.toString(),
-          );
-          // final data = item.toString();
-          final url = widget.imageUrl == "nationality"
-              ? "${widget.urlI}${nationality?.id.toLowerCase()}.svg"
-              : "${widget.urlI}${receivingCountry?.countryCode?.toLowerCase()}.svg";
           return Padding(
             padding: const EdgeInsets.only(top: AppSize.inset, bottom: AppSize.inset),
-            child: (widget.isCountry == true)
-                ? Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      ListTile(
-                        leading: SvgPicture.network(
-                          url,
-                          height: 30,
-                          width: 30,
-                        ),
-                        title: Text(
-                          item.toString(),
-                          style: theme.textTheme.titleSmall?.copyWith(fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                      Divider(
-                        thickness: 0.2,
-                        color: Theme.of(context).colorScheme.surface,
-                      ),
-                    ],
-                  )
-                : widget.leadingInitial == true
-                    ? ListTile(
-                        leading: CircleAvatar(
-                          backgroundColor: avatarBackgroundColor,
-                          radius: 20,
-                          child: Text(
-                            getInitials(item.toString()),
-                            style: theme.textTheme.titleSmall?.copyWith(fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                        title: Text(
-                          item.toString(),
-                          style: theme.textTheme.titleSmall?.copyWith(fontWeight: FontWeight.bold),
-                        ),
-                      )
-                    : Text(item.toString(), style: theme.textTheme.titleMedium),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(item.toString(), style: theme.textTheme.titleSmall),
+                Divider(color: theme.dividerColor),
+              ],
+            ),
           );
         },
         showSearchBox: widget.enableSearch,
@@ -288,42 +244,15 @@ class _AppDropDownState<T> extends State<AppDropDown<T>> {
         fit: FlexFit.tight,
         searchDelay: const Duration(milliseconds: 1),
         itemBuilder: (context, item, isSelected) {
-          final receivingCountry = tryCast<ReceivingCountry>(item);
-          final nationality = tryCast<Country>(item);
-          final data = item.toString();
-          Color avatarBackgroundColor = getColorForName(data);
-          final url = widget.imageUrl == "nationality"
-              ? "${widget.urlI}${nationality?.id.toLowerCase()}.svg"
-              : "${widget.urlI}${receivingCountry?.countryCode?.toLowerCase()}.svg";
           return Padding(
             padding: const EdgeInsets.only(top: AppSize.inset),
-            child: (widget.isCountry == true)
-                ? Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      ListTile(
-                        leading: SvgPicture.network(url, height: 25),
-                        title: Text(data, style: theme.textTheme.titleSmall),
-                      ),
-                      Divider(color: theme.disabledColor.withOpacity(0.5)),
-                    ],
-                  )
-                : widget.leadingInitial == true
-                    ? ListTile(
-                        leading: CircleAvatar(
-                          backgroundColor: avatarBackgroundColor,
-                          radius: 20,
-                          child: Text(getInitials(data), style: theme.textTheme.titleSmall),
-                        ),
-                        title: Text(data, style: theme.textTheme.titleSmall),
-                      )
-                    : Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          Text(item.toString(), style: theme.textTheme.titleSmall),
-                          Divider(color: theme.disabledColor),
-                        ],
-                      ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Text(item.toString(), style: theme.textTheme.titleSmall),
+                Divider(color: theme.dividerColor),
+              ],
+            ),
           );
         },
         bottomSheetProps: BottomSheetProps(
@@ -428,45 +357,17 @@ class _AppDropDownState<T> extends State<AppDropDown<T>> {
           ),
         ),
         itemBuilder: (context, item, a) {
-          final receivingCountry = tryCast<ReceivingCountry>(item);
-          final nationality = tryCast<Country>(item);
-          final data = item.toString();
-          Color avatarBackgroundColor = getColorForName(data);
-          final url = widget.imageUrl == "nationality"
-              ? "${widget.urlI}${nationality?.id.toLowerCase()}.svg"
-              : "${widget.urlI}${receivingCountry?.countryCode?.toLowerCase()}.svg";
           return Padding(
             padding: const EdgeInsets.only(
               top: AppSize.inset,
             ),
-            child: (widget.isCountry == true)
-                ? Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      ListTile(
-                        dense: true,
-                        leading: SvgPicture.network(url, height: 25),
-                        title: Text(data, style: theme.textTheme.titleSmall),
-                      ),
-                      Divider(color: theme.disabledColor.withOpacity(0.5)),
-                    ],
-                  )
-                : widget.leadingInitial == true
-                    ? ListTile(
-                        leading: CircleAvatar(
-                          backgroundColor: avatarBackgroundColor,
-                          radius: 20,
-                          child: Text(getInitials(data), style: theme.textTheme.titleSmall),
-                        ),
-                        title: Text(data, style: theme.textTheme.titleSmall),
-                      )
-                    : Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          Text(data, style: theme.textTheme.titleSmall),
-                          Divider(color: theme.disabledColor),
-                        ],
-                      ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Text(item.toString(), style: theme.textTheme.titleSmall),
+                Divider(color: theme.dividerColor),
+              ],
+            ),
           );
         },
         listViewProps: const ListViewProps(
@@ -518,42 +419,15 @@ class _AppDropDownState<T> extends State<AppDropDown<T>> {
           ),
         ),
         itemBuilder: (context, item, a) {
-          final receivingCountry = tryCast<ReceivingCountry>(item);
-          final nationality = tryCast<Country>(item);
-          final data = item.toString();
-          Color avatarBackgroundColor = getColorForName(data);
-          final url = widget.imageUrl == "nationality"
-              ? "${widget.urlI}${nationality?.id.toLowerCase()}.svg"
-              : "${widget.urlI}${receivingCountry?.countryCode?.toLowerCase()}.svg";
           return Padding(
             padding: const EdgeInsets.only(top: AppSize.inset),
-            child: (widget.isCountry == true)
-                ? Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      ListTile(
-                        leading: SvgPicture.network(url, height: 25),
-                        title: Text(data, style: theme.textTheme.titleSmall),
-                      ),
-                      Divider(color: theme.disabledColor.withOpacity(0.5)),
-                    ],
-                  )
-                : widget.leadingInitial == true
-                    ? ListTile(
-                        leading: CircleAvatar(
-                          backgroundColor: avatarBackgroundColor,
-                          radius: 20,
-                          child: Text(getInitials(data), style: theme.textTheme.titleSmall),
-                        ),
-                        title: Text(data, style: theme.textTheme.titleSmall),
-                      )
-                    : Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(data, style: theme.textTheme.titleSmall),
-                          Divider(color: theme.disabledColor.withOpacity(0.5)),
-                        ],
-                      ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(item.toString(), style: theme.textTheme.titleSmall),
+                Divider(color: theme.dividerColor),
+              ],
+            ),
           );
         },
         listViewProps: const ListViewProps(

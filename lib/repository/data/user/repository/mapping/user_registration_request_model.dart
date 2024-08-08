@@ -4,10 +4,7 @@ import '../../../../domain/user/entities/registration/registration_info.dart';
 
 extension UserRegistraionRequestDataMapping on RegistrationInfo {
   UserRegistrationRequestModel toRequestData() {
-
-
-    final requestData = UserRegistrationRequestModel(
-    );
+    final requestData = UserRegistrationRequestModel();
     return requestData;
   }
 }

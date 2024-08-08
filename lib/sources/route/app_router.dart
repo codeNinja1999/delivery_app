@@ -10,11 +10,8 @@ import '../presentation/admin/admin_page.dart';
 import '../presentation/admin/bloc/admin_bloc.dart';
 import '../presentation/user/bloc/user_bloc.dart';
 import '../presentation/forgot_password/forgot_password.dart';
-import '../presentation/history/history.dart';
 import '../presentation/login/login.dart';
 import '../presentation/new_member/new_member.dart';
-import '../presentation/promotion/promotion.dart';
-import '../presentation/promotion/view/promotion_page.dart';
 import '../presentation/splash/splash.dart';
 import '../presentation/user/view/user_page.dart';
 import '../presentation/user_agreement/user_agreement.dart';
@@ -30,14 +27,6 @@ class AppRouter {
           builder: (_) => BlocProvider(
             create: (context) => sl<SplashBloc>(),
             child: const SplashPage(),
-          ),
-        );
-
-      case AppRoute.starting:
-        return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (context) => sl<PromotionBloc>(),
-            child: const PromotionPage(),
           ),
         );
 
@@ -88,17 +77,6 @@ class AppRouter {
           ),
         );
 
-      case AppRoute.transactionDetail:
-        final transactionId = settings.arguments as String;
-        final transactionDetailBloc = sl<TransactionDetailBloc>();
-        transactionDetailBloc.transactionID = transactionId;
-        return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (context) => transactionDetailBloc,
-            child: const TransactionDetailPage(),
-          ),
-        );
-
       case AppRoute.userAgreement:
         final args = tryCast<String>(settings.arguments);
         return MaterialPageRoute(
@@ -114,9 +92,7 @@ class AppRouter {
   }
 
   static void logoutUser(BuildContext context) {
-    sl.resetLazySingleton<ReceiverRepository>();
     sl.resetLazySingleton<UserUtilitiesRepository>();
-    sl.resetLazySingleton<TransactionActivityRepository>();
 
     Navigator.of(context, rootNavigator: true).pushNamedAndRemoveUntil(AppRoute.splash, (Route<dynamic> route) => false);
   }

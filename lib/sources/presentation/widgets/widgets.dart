@@ -13,9 +13,6 @@ export 'app_dropdown/app_dropdown.dart';
 export 'pinput/pinput.dart';
 export 'pinput/pinput_example.dart';
 
-//status badge
-export 'status_badge/status_badge.dart';
-
 //overlay helper
 export 'overlay_helper/overlay_helper.dart';
 

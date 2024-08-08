@@ -22,19 +22,17 @@ class _LoginBodyState extends State<LoginForm> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return BlocListener<LoginBloc, LoginState>(
-      listenWhen: (previous, current) =>
-          previous.status != current.status || previous.shouldVerifyDevice != current.shouldVerifyDevice,
+      listenWhen: (previous, current) => previous.status != current.status,
       listener: (context, state) {
         final status = state.status;
         (status is InProgress) ? LoadingView.show() : LoadingView.hide();
         if (status is Success) {
-          Navigator.pushNamed(context, AppRoute.dashboard);
         } else if (status is SubmissionFailure) {
           ErrorResolver.resolve(context, status);
         }
       },
       child: Padding(
-        padding: const EdgeInsets.only(left: AppSize.viewMargin, right: AppSize.viewMargin),
+        padding: const EdgeInsets.symmetric(horizontal: AppSize.viewMargin),
         child: Form(
           key: formKey,
           child: CustomScrollView(
@@ -65,9 +63,6 @@ class _LoginBodyState extends State<LoginForm> {
                       onPressed: () {
                         KeyboardUtil.hideKeyboard(context);
                         Navigator.pushNamed(context, AppRoute.admin);
-                        // if (formKey.currentState!.validate()) {
-                        //   BlocProvider.of<LoginBloc>(context).add(AuthenticateUser());
-                        // }
                       },
                     ),
                     const SizedBox(height: AppSize.inset),
@@ -87,9 +82,6 @@ class _LoginBodyState extends State<LoginForm> {
                       onPressed: () {
                         KeyboardUtil.hideKeyboard(context);
                         Navigator.pushNamed(context, AppRoute.operator);
-                        // if (formKey.currentState!.validate()) {
-                        //   BlocProvider.of<LoginBloc>(context).add(AuthenticateUser());
-                        // }
                       },
                     ),
                     const SizedBox(height: AppSize.inset),
