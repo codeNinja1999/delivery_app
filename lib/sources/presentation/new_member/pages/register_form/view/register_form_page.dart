@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:fresh_fold_delivery/sources/core/app_core.dart';
 import 'package:fresh_fold_delivery/sources/resources/resources.dart';
 import 'package:fresh_fold_delivery/sources/presentation/widgets/widgets.dart';
 
-import '../../../bloc/new_member_bloc.dart';
-import '../bloc/register_form_bloc.dart';
 import 'register_form_view.dart';
 
 class RegisterFormPage extends StatefulWidget {
@@ -17,13 +14,6 @@ class RegisterFormPage extends StatefulWidget {
 }
 
 class _RegisterPersonalInfoPageState extends State<RegisterFormPage> {
-  @override
-  void initState() {
-    final isEmail = context.read<NewMemberBloc>().state.isEmail;
-    context.read<RegisterFormBloc>().add(UpdateVerification(isEmail));
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

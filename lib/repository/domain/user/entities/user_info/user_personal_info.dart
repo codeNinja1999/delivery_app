@@ -1,11 +1,19 @@
 class UserPersonalInfo {
+  final String? firstName;
+  final String? middleName;
+  final String? lastName;
   final String? fullName;
   final String? email;
+  final String? phoneCode;
   final String? phoneNumber;
 
   UserPersonalInfo({
     this.fullName,
+    this.firstName,
+    this.middleName,
+    this.lastName,
     this.email,
+    this.phoneCode,
     this.phoneNumber,
   });
 }

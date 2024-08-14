@@ -1,17 +1,7 @@
 class VerifyOtpRequestModel {
-  VerifyOtpRequestModel({
-    this.issueType,
-    this.verificationCode,
-    this.processID,
-  });
+  final String? otp;
 
-  String? issueType;
-  String? verificationCode;
-  String? processID;
+  VerifyOtpRequestModel({this.otp});
 
-  Map<String, dynamic> toJson() => {
-        "issue_type": issueType ?? "",
-        "verification_code": verificationCode ?? "",
-        "process_id": processID ?? ""
-      };
+  Map<String, dynamic> toJson() => {"otp": otp};
 }

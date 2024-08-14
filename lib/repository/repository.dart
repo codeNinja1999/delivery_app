@@ -1,6 +1,5 @@
 //Core Entities and helpers
 export 'domain/domain.dart';
-export 'data/data.dart';
 export 'domain/core/failure.dart';
 export 'package:either_dart/either.dart';
 export 'data/core/signature_helper.dart';

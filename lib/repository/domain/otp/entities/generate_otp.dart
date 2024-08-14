@@ -1,11 +1,11 @@
 class GenerateOTP {
   final String? role;
-  final String? userId;
-  final String? userToken;
+  final String? email;
+  final String? type;
 
   GenerateOTP({
     this.role,
-    this.userId,
-    this.userToken,
+    this.email,
+    this.type,
   });
 }

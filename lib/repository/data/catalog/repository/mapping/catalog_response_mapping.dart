@@ -1,5 +1,7 @@
 import 'package:fresh_fold_delivery/repository/repository.dart';
 
+import '../../model/catalog_response_model.dart';
+
 extension CatalogueResponseDataMapping on CatalogueList {
   Catalog toDomain() {
     final responseData = Catalog(id: data ?? "", value: value ?? "");

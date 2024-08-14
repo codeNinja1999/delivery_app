@@ -35,7 +35,7 @@ class AccountOtpVerifyBloc extends Bloc<AccountOtpVerifyEvent, AccountOtpVerifyS
       verificationCode: verificationCode,
     );
 
-    final response = await otpRepository.verifyOTP(verifyInfo);
+    final response = await otpRepository.verifyRegisterOTP(verifyInfo);
     emit(
       response.fold(
         (error) => state.copyWith(status: SubmissionFailure(error)),
@@ -55,10 +55,10 @@ class AccountOtpVerifyBloc extends Bloc<AccountOtpVerifyEvent, AccountOtpVerifyS
 
     final mobileNo = event.recipient;
     final data = GenerateOTP(
-      userId: mobileNo,
+      email: mobileNo,
     );
 
-    final response = await otpRepository.generateOTP(data);
+    final response = await otpRepository.resendOTP(data);
     response.fold((error) => emit(state.copyWith(status: SubmissionFailure(error))), (processID) {
       emit(state.copyWith(
         status: ResendRegisterOTPSuccess(),

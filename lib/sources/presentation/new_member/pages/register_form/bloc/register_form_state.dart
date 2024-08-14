@@ -2,13 +2,12 @@ part of 'register_form_bloc.dart';
 
 class RegisterFormState extends Equatable {
   final String fullName;
-  final String email;
   final String password;
+  final String confirmPassword;
   final String mobileNumber;
   final bool isEightCharacterValid;
   final bool isUpperCaseValid;
   final bool isNumericalValueValid;
-  final bool isEmail;
   final FormStatus status;
 
   String? get fullNameValidation {
@@ -28,18 +27,19 @@ class RegisterFormState extends Equatable {
           AppRegex.spacialAndNumeric.hasMatch(password))
       ? null
       : LocaleKeys.passwordErrorMessage.value;
+  String? get confirmPasswordValidation =>
+      (confirmPassword == password) ? null : LocaleKeys.confirmPasswordErrorMessage.value;
 
-  // UserRegistrationInfo makeRegistrationInfo(String username, String processId) => _makeRegistrationInfo(username, processId);
+  RegistrationInfo get makeRegistrationInfo => _makeRegistrationInfo();
 
   RegisterFormState({
     this.fullName = "",
-    this.email = "",
     this.password = "",
     this.mobileNumber = "",
+    this.confirmPassword = "",
     this.isEightCharacterValid = false,
     this.isUpperCaseValid = false,
     this.isNumericalValueValid = false,
-    this.isEmail = true,
     FormStatus? status,
   }) : status = status ?? InitialStatus();
 
@@ -48,80 +48,49 @@ class RegisterFormState extends Equatable {
     String? password,
     String? email,
     String? mobileNumber,
+    String? confirmPassword,
     bool? isEightCharacterValid,
     bool? isUpperCaseValid,
     bool? isNumericalValueValid,
-    bool? isEmail,
     FormStatus? status,
   }) {
     return RegisterFormState(
-      email: email ?? this.email,
       mobileNumber: mobileNumber ?? this.mobileNumber,
       fullName: fullName ?? this.fullName,
       password: password ?? this.password,
+      confirmPassword: confirmPassword ?? this.confirmPassword,
       isEightCharacterValid: isEightCharacterValid ?? this.isEightCharacterValid,
       isUpperCaseValid: isUpperCaseValid ?? this.isUpperCaseValid,
       isNumericalValueValid: isNumericalValueValid ?? this.isNumericalValueValid,
-      isEmail: isEmail ?? this.isEmail,
       status: status ?? this.status,
     );
   }
 
-  // UserRegistrationInfo _makeRegistrationInfo(String username, String processId) {
-  //   final encryptedUsername = username.encrypted(key: AppConfig.shared.appKey);
-  //   final encryptedPassword = password.encrypted(key: AppConfig.shared.appKey);
-  //   final encryptedEmail = (email != "") ? email.encrypted(key: AppConfig.shared.appKey) : "";
-  //   final encryptedNumber = (mobileNumber != "") ? mobileNumber.encrypted(key: AppConfig.shared.appKey) : "";
+  RegistrationInfo _makeRegistrationInfo() {
+    final nameParts = fullName.trim().split(' ');
+    final firstName = nameParts.first;
+    final lastName = nameParts.last;
+    final middleName = nameParts.length > 2 ? nameParts.sublist(1, nameParts.length - 1).join(' ') : '';
 
-  //   final loginInfo = LoginInfo(
-  //     userLoginCredential: UserLoginCredential(
-  //       username: encryptedUsername,
-  //       password: encryptedPassword,
-  //     ),
-  //     loginType: LoginType.phoneNumber,
-  //   );
-
-  //   final nameParts = fullName.trim().split(' ');
-  //   final firstName = nameParts.first;
-  //   final lastName = nameParts.last;
-  //   final middleName = nameParts.length > 2 ? nameParts.sublist(1, nameParts.length - 1).join(' ') : '';
-
-  //   final userPersonalInfo = UserPersonalInfo(
-  //     nameEnglish: EnglishName(
-  //       firstName: firstName,
-  //       middleName: middleName,
-  //       lastName: lastName,
-  //     ),
-  //     fullName: fullName,
-  //   );
-
-  //   final contactInfo = UserContactInfo(
-  //     residentialContactInfo: ContactInfo(
-  //       emailAddress: isEmail ? encryptedUsername : encryptedEmail,
-  //       mobileNumber: isEmail ? encryptedNumber : encryptedUsername,
-  //     ),
-  //   );
-
-  //   return UserRegistrationInfo(
-  //     autoLogin: false,
-  //     processID: processId,
-  //     country: const Catalog(id: AppConstants.senderCountryCode, value: AppConstants.senderCountry),
-  //     language: "en",
-  //     loginInfo: loginInfo,
-  //     userInfo: User(personalInfo: userPersonalInfo, userContactInfo: contactInfo),
-  //   );
-  // }
+    return RegistrationInfo(
+      firstName: firstName,
+      middleName: middleName,
+      lastName: lastName,
+      password: password,
+      confirmPassword: confirmPassword,
+      phoneCode: "60",
+      phoneNumber: mobileNumber,
+    );
+  }
 
   @override
   List<Object?> get props => [
         fullName,
-        email,
         mobileNumber,
         password,
         isEightCharacterValid,
         isUpperCaseValid,
         isNumericalValueValid,
-        isEmail,
         status,
       ];
 }

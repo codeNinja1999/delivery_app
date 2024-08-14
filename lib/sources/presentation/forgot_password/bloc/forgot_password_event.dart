@@ -2,24 +2,13 @@ part of 'forgot_password_bloc.dart';
 
 abstract class ForgotPasswordEvent {}
 
-class SaveResetOTPVerifyDetails extends ForgotPasswordEvent {
-  final String loginId;
-  final String processId;
-  final bool isEmail;
+class SaveEmail extends ForgotPasswordEvent {
+  final String email;
 
-  SaveResetOTPVerifyDetails({
-    required this.loginId,
-    required this.processId,
-    required this.isEmail,
-  });
+  SaveEmail({required this.email});
 }
 
-class SaveResetProcessID extends ForgotPasswordEvent {
-  final String resetProcessID;
-  SaveResetProcessID(this.resetProcessID);
-}
-
-class SetUserPin extends ForgotPasswordEvent {
-  final String pin;
-  SetUserPin(this.pin);
+class SaveOtp extends ForgotPasswordEvent {
+  final String otp;
+  SaveOtp(this.otp);
 }

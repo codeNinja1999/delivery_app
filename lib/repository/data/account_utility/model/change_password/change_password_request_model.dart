@@ -1,20 +1,13 @@
 class ChangePasswordRequestModel {
-  ChangePasswordRequestModel({
-    this.currentLoginPassword,
-    this.newLoginPassword,
-    this.issueType,
-    this.processId,
-  });
+  final String? currentPassword;
+  final String? password;
+  final String? confirmPassword;
 
-  final String? currentLoginPassword;
-  final String? newLoginPassword;
-  final String? issueType;
-  final String? processId;
+  ChangePasswordRequestModel({this.currentPassword, this.password, this.confirmPassword});
 
   Map<String, dynamic> toJson() => {
-        "current_login_password": currentLoginPassword,
-        "new_login_password": newLoginPassword,
-        "issue_type": issueType,
-        "process_id": processId,
+        "current_password": currentPassword,
+        "password": password,
+        "confirm_password": confirmPassword,
       };
 }

@@ -4,12 +4,7 @@ abstract class VerifyUserIdEvent {}
 
 class VerifyLoginId extends VerifyUserIdEvent {}
 
-class UserIdChanged extends VerifyUserIdEvent {
-  UserIdChanged(this.userId);
-  final String userId;
-}
-
-class IsEmailType extends VerifyUserIdEvent {
-  final bool isEmail;
-  IsEmailType(this.isEmail);
+class EmailChanged extends VerifyUserIdEvent {
+  EmailChanged(this.email);
+  final String email;
 }

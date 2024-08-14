@@ -8,26 +8,18 @@ class OtpCodeChanged extends OtpVerifyEvent {
 }
 
 class VerifyResetOTP extends OtpVerifyEvent {
-  final String processID;
+  final String email;
   final String verificationCode;
-  final bool isEmail;
 
   VerifyResetOTP({
-    required this.processID,
+    required this.email,
     required this.verificationCode,
-    required this.isEmail,
   });
 }
 
 class ResendOtp extends OtpVerifyEvent {
-  ResendOtp({
-    this.sendingCountryTelCode,
-    required this.recepient,
-    required this.isEmail,
-  });
-  final String? sendingCountryTelCode;
-  final String recepient;
-  final bool isEmail;
+  ResendOtp({required this.email});
+  final String email;
 }
 
 class SecondTicked extends OtpVerifyEvent {}

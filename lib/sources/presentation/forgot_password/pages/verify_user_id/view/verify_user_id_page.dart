@@ -16,7 +16,6 @@ class VerifyUserIdPage extends StatefulWidget {
 
 class _VerifyUserIdPageState extends State<VerifyUserIdPage> {
   final formKey = GlobalKey<FormState>();
-  final usernameEditingController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -31,13 +30,7 @@ class _VerifyUserIdPageState extends State<VerifyUserIdPage> {
           final status = state.status;
           (status is InProgress) ? LoadingView.show() : LoadingView.hide();
           if (status is Success) {
-            context.read<ForgotPasswordBloc>().add(
-                  SaveResetOTPVerifyDetails(
-                    loginId: state.userId,
-                    processId: state.processID,
-                    isEmail: state.isEmail,
-                  ),
-                );
+            context.read<ForgotPasswordBloc>().add(SaveEmail(email: state.email));
             Navigator.pushNamed(context, ResetPasswordRoute.otpVerify);
           }
           if (status is SubmissionFailure) {
@@ -60,9 +53,8 @@ class _VerifyUserIdPageState extends State<VerifyUserIdPage> {
                         style: theme.textTheme.titleMedium?.copyWith(fontSize: 36),
                       ),
                       const SizedBox(height: AppSize.inset),
-                      LoginIdInput(usernameEditingController: usernameEditingController),
+                      const EmailIdInput(),
                       const SizedBox(height: AppSize.inset),
-                      // IdToggle(usernameEditingController: usernameEditingController),
                     ],
                   ),
                 ),
@@ -99,69 +91,23 @@ class _VerifyUserIdPageState extends State<VerifyUserIdPage> {
   }
 }
 
-class LoginIdInput extends StatefulWidget {
-  const LoginIdInput({super.key, required this.usernameEditingController});
-  final TextEditingController usernameEditingController;
+class EmailIdInput extends StatelessWidget {
+  const EmailIdInput({super.key});
 
-  @override
-  State<LoginIdInput> createState() => _LoginIdInputState();
-}
-
-class _LoginIdInputState extends State<LoginIdInput> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<VerifyUserIdBloc, VerifyUserIdState>(
-      buildWhen: (previous, current) => previous.userId != current.userId || previous.isEmail != current.isEmail,
+      buildWhen: (previous, current) => previous.email != current.email,
       builder: (mainContext, state) {
-        final prefixIcon = !state.isEmail
-            ? const Padding(
-                padding: EdgeInsets.only(top: 14, left: 14),
-                child: Text(AppConstants.senderDialingCode),
-              )
-            : null;
         return AppTextfield(
-          maxLength: state.isEmail ? 254 : 11,
-          prefixIcon: prefixIcon,
-          title: state.isEmail ? LocaleKeys.emailAddressTitle.value : LocaleKeys.phoneNumberTitle.value,
-          placeHolder: state.isEmail ? LocaleKeys.emailAddressPlaceholder.value : LocaleKeys.phoneNumberPlaceholder.value,
-          textInputType: state.isEmail ? TextInputType.emailAddress : TextInputType.number,
-          inputFormatters: state.isEmail ? null : [FilteringTextInputFormatter.digitsOnly],
+          maxLength: 254,
+          title: LocaleKeys.emailAddressTitle.value,
+          placeHolder: LocaleKeys.emailAddressPlaceholder.value,
+          textInputType: TextInputType.emailAddress,
           validator: (_) => state.loginIdValidation,
-          onChanged: (loginId) {
-            context.read<VerifyUserIdBloc>().add(UserIdChanged(loginId));
+          onChanged: (email) {
+            context.read<VerifyUserIdBloc>().add(EmailChanged(email));
           },
-        );
-      },
-    );
-  }
-}
-
-//843087464
-
-class IdToggle extends StatelessWidget {
-  final TextEditingController usernameEditingController;
-
-  const IdToggle({super.key, required this.usernameEditingController});
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    return BlocBuilder<VerifyUserIdBloc, VerifyUserIdState>(
-      buildWhen: (previous, current) => previous.isEmail != current.isEmail,
-      builder: (context, state) {
-        return GestureDetector(
-          onTap: () {
-            context.read<VerifyUserIdBloc>().add(IsEmailType(!state.isEmail));
-            Form.of(context).reset();
-            usernameEditingController.clear();
-          },
-          child: Text(
-            state.isEmail ? LocaleKeys.usePhoneNumberInstead.value : LocaleKeys.useEmailAddressInstead.value,
-            style: theme.textTheme.bodyMedium?.copyWith(
-              decoration: TextDecoration.underline,
-              color: theme.primaryColor,
-            ),
-          ),
         );
       },
     );

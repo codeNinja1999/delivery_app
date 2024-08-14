@@ -16,10 +16,6 @@ class RegisterFormBloc extends Bloc<RegisterFormEvent, RegisterFormState> {
       emit(state.copyWith(fullName: event.fullName));
     });
 
-    on<EmailChanged>((event, emit) {
-      emit(state.copyWith(email: event.email));
-    });
-
     on<MobileChanged>((event, emit) {
       emit(state.copyWith(mobileNumber: event.mobileNumber));
     });
@@ -38,8 +34,9 @@ class RegisterFormBloc extends Bloc<RegisterFormEvent, RegisterFormState> {
         ),
       );
     });
-    on<UpdateVerification>((event, emit) {
-      emit(state.copyWith(isEmail: event.isEmail));
+
+    on<ConfirmPasswordChanged>((event, emit) {
+      emit(state.copyWith(confirmPassword: event.confirmPassword));
     });
 
     on<RegisterUser>(_onRegisterUser);
@@ -50,9 +47,7 @@ class RegisterFormBloc extends Bloc<RegisterFormEvent, RegisterFormState> {
     Emitter<RegisterFormState> emit,
   ) async {
     emit(state.copyWith(status: InProgress()));
-    final response = await userRegistrationRepository.register(
-      // state.makeRegistrationInfo(event.username, event.processId),
-    );
+    final response = await userRegistrationRepository.register(state.makeRegistrationInfo);
     emit(
       response.fold(
         (error) => state.copyWith(status: SubmissionFailure(error)),

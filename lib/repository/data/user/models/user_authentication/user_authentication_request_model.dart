@@ -1,16 +1,8 @@
 class UserAuthenticationRequestModel {
-  UserAuthenticationRequestModel({
-    this.username,
-    this.password,
-    this.grantType,
-    this.fcmToken,
-  });
+  final String? email;
+  final String? password;
 
-  String? username;
-  String? password;
-  String? grantType;
-  String? fcmToken;
+  UserAuthenticationRequestModel({this.email, this.password});
 
-  Map<String, dynamic> toJson() =>
-      {"username": username, "password": password, "grant_type": grantType, "fcm_registration_id": fcmToken};
+  Map<String, dynamic> toJson() => {"email": email, "password": password};
 }

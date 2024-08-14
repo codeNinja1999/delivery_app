@@ -27,9 +27,9 @@ class UsernameVerifyBloc extends Bloc<UsernameVerifyEvent, UsernameVerifyState> 
         final mobileNo = "${""}${state.userId}";
 
         final data = GenerateOTP(
-          userId: mobileNo,
+          email: mobileNo,
         );
-        final response = await otpRepository.generateOTP(data);
+        final response = await otpRepository.generateRegisterOTP(data);
         emit(
           response.fold(
             (error) => state.copyWith(status: SubmissionFailure(error)),

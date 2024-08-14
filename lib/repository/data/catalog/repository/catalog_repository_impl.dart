@@ -1,5 +1,12 @@
+import 'package:fresh_fold_delivery/repository/data/catalog/repository/mapping/catalog_request_model.dart';
+import 'package:fresh_fold_delivery/repository/data/catalog/repository/mapping/catalog_response_mapping.dart';
+import 'package:fresh_fold_delivery/repository/data/core/core.dart';
 import 'package:fresh_fold_delivery/repository/repository.dart';
 import 'dart:convert';
+
+import '../model/catalog_request_model.dart';
+import '../model/catalog_response_model.dart';
+import 'mapping/catalog_type_mapping.dart';
 
 class CatalogRepositoryImpl implements CatalogRepository {
   CatalogRepositoryImpl({this.networkClient, this.userNetworkClient});

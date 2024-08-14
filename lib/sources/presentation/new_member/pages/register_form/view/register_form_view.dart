@@ -50,9 +50,11 @@ class _RegistrationFormState extends State<RegisterForm> {
                     const SizedBox(height: AppSize.viewMargin),
                     const FullNameInput(),
                     const SizedBox(height: AppSize.inset),
-                    const EmailInput(),
+                    const MobileNumberInput(),
                     const SizedBox(height: AppSize.inset),
                     const PasswordInput(),
+                    const SizedBox(height: AppSize.inset),
+                    const ConfirmPasswordInput(),
                     const SizedBox(height: AppSize.inset),
                     const PasswordRulView(),
                   ],
@@ -136,36 +138,22 @@ class FullNameInput extends StatelessWidget {
   }
 }
 
-class EmailInput extends StatelessWidget {
-  const EmailInput({super.key});
+class MobileNumberInput extends StatelessWidget {
+  const MobileNumberInput({super.key});
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<RegisterFormBloc, RegisterFormState>(
-      buildWhen: (previous, current) =>
-          previous.email != current.email ||
-          previous.isEmail != current.isEmail ||
-          previous.mobileNumber != current.mobileNumber,
+      buildWhen: (previous, current) => previous.mobileNumber != current.mobileNumber,
       builder: (context, state) {
-        final isEmailVerification = state.isEmail;
-        final inputFormatter = isEmailVerification ? [FilteringTextInputFormatter.digitsOnly] : null;
-        final titleText = isEmailVerification
-            ? LocaleKeys.phoneNumberTitle.value
-            : "${LocaleKeys.emailAddressTitle.value}(${LocaleKeys.optional.value})";
-        final placeholderText = isEmailVerification ? LocaleKeys.phoneNumberTitle.value : LocaleKeys.emailAddressTitle.value;
-        final validation = isEmailVerification ? state.phoneNumberValidation : null;
-        final maxLength = isEmailVerification ? 11 : 254;
-
         return AppTextfield(
-          inputFormatters: inputFormatter,
-          title: titleText,
-          placeHolder: placeholderText,
-          maxLength: maxLength,
-          validator: (_) => validation,
-          onChanged: (value) {
-            isEmailVerification
-                ? context.read<RegisterFormBloc>().add(MobileChanged(value))
-                : context.read<RegisterFormBloc>().add(EmailChanged(value));
+          maxLength: 11,
+          title: LocaleKeys.phoneNumberTitle.value,
+          placeHolder: LocaleKeys.phoneNumberTitle.value,
+          validator: (_) => state.phoneNumberValidation,
+          inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+          onChanged: (mobileNumber) {
+            context.read<RegisterFormBloc>().add(MobileChanged(mobileNumber));
           },
         );
       },
@@ -192,6 +180,32 @@ class PasswordInput extends StatelessWidget {
           validator: (_) => state.passwordValidation,
           onChanged: (password) {
             context.read<RegisterFormBloc>().add(PasswordChanged(password));
+          },
+        );
+      },
+    );
+  }
+}
+
+class ConfirmPasswordInput extends StatelessWidget {
+  const ConfirmPasswordInput({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<RegisterFormBloc, RegisterFormState>(
+      buildWhen: (previous, current) => previous.confirmPassword != current.confirmPassword,
+      builder: (context, state) {
+        return AppTextfield(
+          textInputType: TextInputType.text,
+          isObscure: true,
+          inputFormatters: [
+            FilteringTextInputFormatter.deny(RegExp(r'\s')), // Deny whitespace characters
+          ],
+          title: LocaleKeys.confirmPassword.value,
+          placeHolder: LocaleKeys.confirmPasswordPlaceholder.value,
+          validator: (_) => state.confirmPasswordValidation,
+          onChanged: (confirmPassword) {
+            context.read<RegisterFormBloc>().add(ConfirmPasswordChanged(confirmPassword));
           },
         );
       },

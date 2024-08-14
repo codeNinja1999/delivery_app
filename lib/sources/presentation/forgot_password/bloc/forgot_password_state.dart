@@ -1,45 +1,21 @@
 part of 'forgot_password_bloc.dart';
 
 class ForgotPasswordState extends Equatable {
-  final String loginId;
-  final String otpVerifyProcessID;
-  final String resetProcessID;
-  final String resetPin;
-  final bool isEmail;
+  final String email;
+  final String otp;
 
-  const ForgotPasswordState({
-    this.loginId = "",
-    this.otpVerifyProcessID = "",
-    this.resetProcessID = "",
-    this.resetPin = "",
-    this.isEmail = true,
-  });
+  const ForgotPasswordState({this.email = "", this.otp = ""});
 
   ForgotPasswordState copyWith({
-    String? loginId,
-    String? otpVerifyProcessID,
-    String? resetProcessID,
-    String? resetPin,
-    bool? isEmail,
+    String? email,
+    String? otp,
   }) {
     return ForgotPasswordState(
-      loginId: loginId ?? this.loginId,
-      otpVerifyProcessID: otpVerifyProcessID ?? this.otpVerifyProcessID,
-      resetProcessID: resetProcessID ?? this.resetProcessID,
-      resetPin: resetPin ?? this.resetPin,
-      isEmail: isEmail ?? this.isEmail,
+      email: email ?? this.email,
+      otp: otp ?? this.otp,
     );
   }
 
   @override
-  List<Object?> get props => [loginId, otpVerifyProcessID, resetProcessID, resetPin, isEmail];
-
-  VerifyOTP get verifyOTP => resetPasswordOtpVerify();
-
-  VerifyOTP resetPasswordOtpVerify() {
-    return VerifyOTP(
-      // issueType: OTPIssueType.resetTransactionPin,
-      verificationCode: resetPin,
-    );
-  }
+  List<Object?> get props => [email, otp];
 }

@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:network/network.dart';
 import 'package:either_dart/either.dart';
 import 'package:fresh_fold_delivery/repository/data/otp/model/send_otp/send_otp_response_model.dart';
 import 'package:fresh_fold_delivery/repository/data/otp/model/verify_otp/verify_otp_response_model.dart';
@@ -7,9 +10,7 @@ import 'package:fresh_fold_delivery/repository/domain/otp/entities/otp_access_cr
 import 'package:fresh_fold_delivery/repository/domain/otp/entities/generate_otp.dart';
 import 'package:fresh_fold_delivery/repository/domain/otp/entities/verify_otp.dart';
 import 'package:fresh_fold_delivery/repository/domain/otp/repository/otp_repository.dart';
-import 'package:network/network.dart';
 import 'package:fresh_fold_delivery/repository/data/core/app_service_endpoints.dart';
-import 'dart:convert';
 
 class SendOtpRepositoryImpl implements OTPRepository {
   SendOtpRepositoryImpl({required this.networkClient});
@@ -17,29 +18,72 @@ class SendOtpRepositoryImpl implements OTPRepository {
   NetworkClient networkClient;
 
   @override
-  Future<Either<Exception, String>> generateOTP(GenerateOTP data) async {
-    final requestData = data.toRequestData();
+  Future<Either<Exception, String>> generateRegisterOTP(GenerateOTP data) async {
+    final requestData = data.toRegisterRequestData();
     final postBody = jsonEncode(requestData.toJson());
     try {
-      final response = await networkClient.post(AppServiceEndpoints.sendOTP, body: postBody);
+      final response = await networkClient.post(AppServiceEndpoints.generateRegisterOtp, body: postBody);
       final responseJson = json.decode(response.asString);
-      final responseData = SendOtpResponseModel.fromJson(responseJson);
-      return Right(responseData.processId ?? "");
+      final _ = SendOtpResponseModel.fromJson(responseJson);
+      return const Right("");
     } on Exception catch (error) {
       return Left(error);
     }
   }
 
   @override
-  Future<Either<Exception, OTPAccessCredential>> verifyOTP(VerifyOTP verifyInfo) async {
-    final requestData = verifyInfo.toRequestData();
+  Future<Either<Exception, OTPAccessCredential>> verifyRegisterOTP(VerifyOTP verifyInfo) async {
+    final requestData = verifyInfo.toRegisterRequestData();
     final postBody = jsonEncode(requestData.toJson());
 
     try {
-      final response = await networkClient.post(AppServiceEndpoints.verifyOTP, body: postBody);
+      final response = await networkClient.patch(AppServiceEndpoints.verifyRegisterOtp, body: postBody);
       final responseJson = json.decode(response.asString);
       final credential = VerifyOtpResponseModel.fromJson(responseJson);
       return Right(credential);
+    } on Exception catch (error) {
+      return Left(error);
+    }
+  }
+
+  @override
+  Future<Either<Exception, String>> generateForgotPasswordOTP(GenerateOTP data) async {
+    final requestData = data.toForgotPasswordGenerateOtp();
+    final postBody = jsonEncode(requestData.toJson());
+    try {
+      final response = await networkClient.post(AppServiceEndpoints.generateForgotPasswordOtp, body: postBody);
+      final responseJson = json.decode(response.asString);
+      final _ = SendOtpResponseModel.fromJson(responseJson);
+      return const Right("");
+    } on Exception catch (error) {
+      return Left(error);
+    }
+  }
+
+  @override
+  Future<Either<Exception, OTPAccessCredential>> verifyForgotPasswordOTP(VerifyOTP verifyInfo) async {
+    final requestData = verifyInfo.toForgotPasswordVerifyOtp();
+    final postBody = jsonEncode(requestData.toJson());
+
+    try {
+      final response = await networkClient.patch(AppServiceEndpoints.verifyForgotPassword, body: postBody);
+      final responseJson = json.decode(response.asString);
+      final credential = VerifyOtpResponseModel.fromJson(responseJson);
+      return Right(credential);
+    } on Exception catch (error) {
+      return Left(error);
+    }
+  }
+
+  @override
+  Future<Either<Exception, String>> resendOTP(GenerateOTP data) async {
+    final requestData = data.toResendOtp();
+    final postBody = jsonEncode(requestData.toJson());
+    try {
+      final response = await networkClient.post(AppServiceEndpoints.resendOtp, body: postBody);
+      final responseJson = json.decode(response.asString);
+      final _ = SendOtpResponseModel.fromJson(responseJson);
+      return const Right("Success");
     } on Exception catch (error) {
       return Left(error);
     }

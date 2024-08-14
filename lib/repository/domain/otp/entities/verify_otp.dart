@@ -1,7 +1,6 @@
 class VerifyOTP {
+  final String? email;
   final String verificationCode;
 
-  VerifyOTP({
-    required this.verificationCode,
-  });
+  VerifyOTP({this.email, required this.verificationCode});
 }

@@ -13,7 +13,8 @@ class ConfirmPasswordChanged extends ResetPasswordEvent {
 }
 
 class SetPassword extends ResetPasswordEvent {
-  final String processID;
+  final String otp;
+  final String email;
   final String confirmPassword;
-  SetPassword({required this.processID, required this.confirmPassword});
+  SetPassword({required this.otp, required this.email, required this.confirmPassword});
 }

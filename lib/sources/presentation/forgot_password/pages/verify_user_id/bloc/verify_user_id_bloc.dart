@@ -11,27 +11,18 @@ class VerifyUserIdBloc extends Bloc<VerifyUserIdEvent, VerifyUserIdState> {
   final OTPRepository otpRepository;
 
   VerifyUserIdBloc({required this.otpRepository}) : super(VerifyUserIdState()) {
-    on<UserIdChanged>((event, emit) {
-      emit(state.copyWith(userId: event.userId));
-    });
-
-    on<IsEmailType>((event, emit) {
-      emit(state.copyWith(isEmail: event.isEmail, userId: ""));
+    on<EmailChanged>((event, emit) {
+      emit(state.copyWith(email: event.email));
     });
 
     on<VerifyLoginId>(
       (event, emit) async {
         emit(state.copyWith(status: InProgress()));
-        final mobileNo = "${""}${state.userId}";
-        final data = GenerateOTP(
-          userId: mobileNo,
-        );
-        final response = await otpRepository.generateOTP(data);
-        emit(
-          response.fold(
-            (error) => state.copyWith(status: SubmissionFailure(error)),
-            (processID) => state.copyWith(status: Success(), processID: processID),
-          ),
+        final data = GenerateOTP(email: state.email);
+        final response = await otpRepository.generateForgotPasswordOTP(data);
+        response.fold(
+          (error) => emit(state.copyWith(status: SubmissionFailure(error))),
+          (processID) => emit(state.copyWith(status: Success())),
         );
       },
     );

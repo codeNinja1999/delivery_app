@@ -7,11 +7,6 @@ class FullNameChanged extends RegisterFormEvent {
   final String fullName;
 }
 
-class EmailChanged extends RegisterFormEvent {
-  EmailChanged(this.email);
-  final String email;
-}
-
 class MobileChanged extends RegisterFormEvent {
   MobileChanged(this.mobileNumber);
   final String mobileNumber;
@@ -22,14 +17,14 @@ class PasswordChanged extends RegisterFormEvent {
   final String password;
 }
 
+class ConfirmPasswordChanged extends RegisterFormEvent {
+  ConfirmPasswordChanged(this.confirmPassword);
+  final String confirmPassword;
+}
+
 class RegisterUser extends RegisterFormEvent {
   final String username;
   final String processId;
 
   RegisterUser({required this.username, required this.processId});
-}
-
-class UpdateVerification extends RegisterFormEvent {
-  final bool isEmail;
-  UpdateVerification(this.isEmail);
 }

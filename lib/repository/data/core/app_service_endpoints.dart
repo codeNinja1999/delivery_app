@@ -1,15 +1,18 @@
 class AppServiceEndpoints {
   static const generateKey = "common/session-id";
 
-  static const generateOtp = "auth/register";
-  static const verifyOtp = "auth/verify-otp";
-  static const login = "auth/login";
-  static const logout = "auth/logout";
-  static const resendOtp = "auth/resend-otp";
-  static const resetPassword = "auth/reset-password";
+  static const generateRegisterOtp = "auth/register";
+  static const verifyRegisterOtp = "auth/verify-otp";
+  static const register = "auth/me/complete-profile-registration";
+
   static const generateForgotPasswordOtp = "auth/forgot-password-otp";
   static const verifyForgotPassword = "auth/verify-forgot-password-otp";
-  static const register = "auth/me/complete-profile-registration";
+  static const resetPassword = "auth/reset-password";
+
+  static const resendOtp =  "auth/resend-otp";
+
+  static const login = "auth/login";
+  static const logout = "auth/logout";
   static const updateUserProfile = "user/me/update-profile";
 
   static const createBeneficiary = "beneficiary/register-benificiary";

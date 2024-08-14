@@ -29,18 +29,15 @@ class OtpVerifyForm extends StatelessWidget {
     return BlocListener<OtpVerifyBloc, OtpVerifyState>(
       listener: (context, state) {
         final status = state.status;
-        final mainBloc = context.read<ForgotPasswordBloc>();
 
         status is InProgress ? LoadingView.show() : LoadingView.hide();
         if (status is Success) {
-          mainBloc.add(SaveResetProcessID(state.processID ?? ""));
+          context.read<ForgotPasswordBloc>().add(SaveOtp(state.verificationCode));
           Navigator.of(context).pushReplacementNamed(ResetPasswordRoute.resetPassword);
         } else if (status is ResendResetOTPSuccess) {
           SnackbarUtils.showSnackbar(
             context,
-            message: (mainBloc.state.isEmail)
-                ? LocaleKeys.successfullySendOtpToYourEmail.value
-                : LocaleKeys.successfullySendOtpToYourNumber.value,
+            message: LocaleKeys.successfullySendOtpToYourEmail.value,
             icon: Icons.check,
             type: SnackBarType.success,
           );
@@ -146,12 +143,7 @@ class OtpVerifyForm extends StatelessWidget {
                                             recognizer: TapGestureRecognizer()
                                               ..onTap = () {
                                                 final mainState = context.read<ForgotPasswordBloc>().state;
-                                                context.read<OtpVerifyBloc>().add(
-                                                      ResendOtp(
-                                                        recepient: mainState.loginId,
-                                                        isEmail: mainState.isEmail,
-                                                      ),
-                                                    );
+                                                context.read<OtpVerifyBloc>().add(ResendOtp(email: mainState.email));
                                               },
                                           ),
                                         ],
@@ -168,14 +160,10 @@ class OtpVerifyForm extends StatelessWidget {
                                 //     _fieldThree.text != "" &&
                                 //     _fieldFour.text != "") {
                                 //   var otpCode = _fieldOne.text + _fieldTwo.text + _fieldThree.text + _fieldFour.text;
-                                //   final resetState = context.read<ForgotPasswordBloc>().state;
-                                //   context.read<OtpVerifyBloc>().add(
-                                //         VerifyResetOTP(
-                                //           verificationCode: otpCode,
-                                //           processID: state.processID ?? resetState.otpVerifyProcessID,
-                                //           isEmail: resetState.isEmail,
-                                //         ),
-                                //       );
+                                //   final mainState = context.read<ForgotPasswordBloc>().state;
+                                //   context
+                                //       .read<OtpVerifyBloc>()
+                                //       .add(VerifyResetOTP(verificationCode: otpCode, email: mainState.email));
                                 // }
                               },
                             ),
