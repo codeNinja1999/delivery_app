@@ -24,7 +24,7 @@ class UserAuthenticationInterceptor {
         "Authorization": accessToken,
         "Accept": "application/json",
         "Content-Type": "application/json",
-        "verify-signature": signature,
+        // "verify-signature": signature,
       };
 
   Interceptor interceptor() {
@@ -53,31 +53,9 @@ class UserAuthenticationInterceptor {
       log(name: "Actual Response:", apiResponse.asString);
       final responseJson = json.decode(apiResponse.asString);
       if (apiResponse.statusCode >= 200 && apiResponse.statusCode < 300) {
-        final response = ErrorDecodable.fromJson(responseJson);
-        if ((response.processResult == true) && (response.errorList?.isEmpty ?? true)) {
-          return apiResponse;
-        } else {
-          final errorMessage = response.errorList?.isNotEmpty ?? false
-              ? response.errorList!.first.errorMessage
-              : "Something went wrong. Contact customer support.";
-          throw Exception(errorMessage);
-        }
+        return apiResponse;
       } else if (apiResponse.statusCode == 401) {
-        final completer = Completer<bool>();
-
-        if (_tokenRefreshQueue.isEmpty) {
-          _tokenRefreshQueue.add(completer);
-          refreshToken();
-        } else {
-          _tokenRefreshQueue.add(completer);
-        }
-        try {
-          final _ = await completer.future;
-          final response = await recall(apiResponse.request);
-          return response;
-        } catch (error) {
-          rethrow;
-        }
+        throw SessionExpired("Session expired");
       } else {
         throw Exception(responseJson['Message'] ?? "Something went wrong. Contact customer support.");
       }

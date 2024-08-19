@@ -40,7 +40,6 @@ class AccountOtpVerifyBloc extends Bloc<AccountOtpVerifyEvent, AccountOtpVerifyS
       response.fold(
         (error) => state.copyWith(status: SubmissionFailure(error)),
         (verifiedCredential) => state.copyWith(
-          processID: verifiedCredential.processID,
           status: Success(),
         ),
       ),

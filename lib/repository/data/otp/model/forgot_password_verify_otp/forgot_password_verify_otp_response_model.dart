@@ -1,8 +1,9 @@
-import 'package:fresh_fold_delivery/repository/domain/otp/entities/otp_access_credential.dart';
+class ForgotPasswordVerifyOtpResponseModel {
+  final String? message;
 
-class VerifyOtpResponseModel extends OTPAccessCredential {
-  VerifyOtpResponseModel({required super.processID});
+  ForgotPasswordVerifyOtpResponseModel({this.message});
 
-  factory VerifyOtpResponseModel.fromJson(Map<String, dynamic> json) =>
-      VerifyOtpResponseModel(processID: json["process_id"]);
+  factory ForgotPasswordVerifyOtpResponseModel.fromJson(Map<String, dynamic> json) => ForgotPasswordVerifyOtpResponseModel(
+        message: json["message"],
+      );
 }

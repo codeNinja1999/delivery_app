@@ -8,6 +8,7 @@ import 'package:fresh_fold_delivery/sources/presentation/user/date_selection/blo
 import 'package:get_it/get_it.dart';
 
 import '../core/app_core.dart';
+import '../presentation/admin/price_edit/bloc/price_edit_bloc.dart';
 import '../presentation/operator/pickup_order/bloc/pickup_order_bloc.dart';
 import '../presentation/user/add_location/bloc/add_location_bloc.dart';
 import '../presentation/user/bloc/user_bloc.dart';
@@ -84,23 +85,24 @@ void blocsInjection() {
   //admin
   sl.registerFactory(() => AdminBloc());
   sl.registerFactory(() => AdminDashboardBloc());
+  sl.registerFactory(() => PriceEditBloc());
 }
 
 ///repositories injection
 void repositoriesInjection() {
   sl.registerFactory<UserAuthenticationRepository>(
-    () => UserAuthenticationRepositoryImpl(networkClient: sl()),
+    () => UserAuthenticationRepositoryImpl(networkClient: defaultNetworkClient()),
   );
   sl.registerFactory<UserRegistrationRepository>(
-    () => UserRegistrationRepositoryImpl(networkClient: sl()),
+    () => UserRegistrationRepositoryImpl(networkClient: userAuthenticationNetworkClient()),
   );
   sl.registerFactory<OTPRepository>(
-    () => SendOtpRepositoryImpl(networkClient: sl()),
+    () => SendOtpRepositoryImpl(networkClient: defaultNetworkClient()),
   );
   sl.registerLazySingleton<UserUtilitiesRepository>(
     () => UserUtilitiesRepositoryImpl(networkClient: userAuthenticationNetworkClient()),
   );
   sl.registerFactory<CatalogRepository>(
-    () => CatalogRepositoryImpl(networkClient: sl()),
+    () => CatalogRepositoryImpl(networkClient: defaultNetworkClient()),
   );
 }

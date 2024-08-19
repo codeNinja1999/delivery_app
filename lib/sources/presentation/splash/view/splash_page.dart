@@ -27,13 +27,13 @@ class _SplashPageState extends State<SplashPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
-      body: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-        Image.asset(
+      body: Center(
+        child: Image.asset(
           AppImages.logo,
           fit: BoxFit.scaleDown,
           width: MediaQuery.of(context).size.width * 0.7,
         ),
-      ]),
+      ),
     );
   }
 }

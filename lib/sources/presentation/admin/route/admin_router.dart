@@ -3,9 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fresh_fold_delivery/sources/di/injector.dart';
 
 import 'package:fresh_fold_delivery/repository/repository.dart';
+import 'package:fresh_fold_delivery/sources/presentation/admin/price_edit/price_edit_page.dart';
 import 'package:fresh_fold_delivery/sources/presentation/admin/route/admin_route.dart';
 import '../admin_dashboard/bloc/admin_dashboard_bloc.dart';
 import '../admin_dashboard/view/admin_dashboard_page.dart';
+import '../price_edit/bloc/price_edit_bloc.dart';
 
 T? tryCast<T>(dynamic object) => object is T ? object : null;
 
@@ -17,6 +19,14 @@ class AdminRouter {
           builder: (_) => BlocProvider(
             create: (_) => sl<AdminDashboardBloc>(),
             child: const AdminDashboardPage(),
+          ),
+        );
+
+      case AdminRoute.priceEdit:
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (_) => sl<PriceEditBloc>(),
+            child: const PriceEditPage(),
           ),
         );
 

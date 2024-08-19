@@ -4,17 +4,21 @@ import 'package:fresh_fold_delivery/sources/resources/resources.dart';
 
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String? title;
+  final TextStyle? titleStyle;
   final VoidCallback? backButtonAction;
   final Color? backgroundColor;
+  final Color? backButtonBackgroundColor;
   final bool allowBack;
   final List<Widget>? actions;
   final Color? arrowColor;
   const MyAppBar({
     super.key,
     this.title,
+    this.titleStyle,
     this.backgroundColor,
     this.backButtonAction,
     this.allowBack = true,
+    this.backButtonBackgroundColor,
     this.actions,
     this.arrowColor,
   });
@@ -40,7 +44,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(AppSize.cornerRadiusMedium),
                     border: Border.all(color: Theme.of(context).colorScheme.outline),
-                    color: Theme.of(context).colorScheme.surfaceContainer,
+                    color: backButtonBackgroundColor??Theme.of(context).colorScheme.surfaceContainer,
                   ),
                   alignment: Alignment.center,
                   child: Icon(
@@ -56,7 +60,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
       centerTitle: true,
       title: Text(
         title ?? "",
-        style: Theme.of(context).textTheme.titleLarge?.copyWith(fontSize: 18),
+        style: titleStyle ?? Theme.of(context).textTheme.titleLarge?.copyWith(fontSize: 18),
       ),
       elevation: 0,
       iconTheme: Theme.of(context).iconTheme,

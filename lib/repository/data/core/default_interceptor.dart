@@ -1,8 +1,9 @@
 import 'dart:convert';
 import 'dart:developer';
-import 'package:fresh_fold_delivery/repository/data/core/error_decodable.dart';
-import 'package:fresh_fold_delivery/repository/data/core/url_provider.dart';
 import 'package:network/network.dart';
+
+import 'package:fresh_fold_delivery/repository/data/core/url_provider.dart';
+import 'package:fresh_fold_delivery/repository/domain/core/core.dart';
 
 class DefaultInterceptor {
   DefaultInterceptor({required this.baseUrl});
@@ -20,28 +21,25 @@ class DefaultInterceptor {
         ..addAll(request.headers);
 
       final newRequest = Request(
-          headers: finalHeader,
-          queryParameters: request.queryParameters,
-          method: request.method,
-          url: URLProvider(baseUrl: baseUrl, path: request.url.toString()).url(),
-          encoding: Encoding.getByName("utf-8"),
-          body: request.body);
+        headers: finalHeader,
+        queryParameters: request.queryParameters,
+        method: request.method,
+        url: URLProvider(baseUrl: baseUrl, path: request.url.toString()).url(),
+        encoding: Encoding.getByName("utf-8"),
+        body: request.body,
+      );
 
       log(name: "Actual url:", newRequest.url.toString());
       log(name: "Actual body:", newRequest.body.toString());
       return newRequest;
     }, onResponse: (apiResponse) async {
       log(name: "Actual Response:", apiResponse.asString);
-
-      final responseJson = json.decode(apiResponse.asString);
-      final response = ErrorDecodable.fromJson(responseJson);
-      if ((response.processResult == true) && (response.errorList?.isEmpty ?? true)) {
+      if (apiResponse.statusCode >= 200 && apiResponse.statusCode < 300) {
         return apiResponse;
+      } else if (apiResponse.statusCode == 401) {
+        throw SessionExpired("Session expired");
       } else {
-        final errorMessage = response.errorList?.isNotEmpty ?? false
-            ? response.errorList!.first.errorMessage
-            : "Something went wrong. Contact customer support.";
-        throw Exception(errorMessage);
+        throw Exception("Something went wrong. Contact customer support.");
       }
     });
   }

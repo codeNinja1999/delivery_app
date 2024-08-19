@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fresh_fold_delivery/sources/core/app_core.dart';
 
-import 'package:fresh_fold_delivery/sources/presentation/user/dashboard/widgets/widgets.dart';
 import 'package:fresh_fold_delivery/sources/presentation/widgets/widgets.dart';
 import 'package:fresh_fold_delivery/sources/resources/resources.dart';
 
@@ -23,8 +22,9 @@ class _DashboardHomeState extends State<AdminDashboardPage> {
         data: ThemeData.dark(),
         child: Scaffold(
           backgroundColor: AppColors.backgroundDark,
-          appBar: const MyAppBar(
+          appBar: MyAppBar(
             allowBack: false,
+            backgroundColor: AppColors.backgroundDark,
             actions: [
               Padding(
                 padding: EdgeInsets.only(right: AppSize.viewMargin),
@@ -32,13 +32,39 @@ class _DashboardHomeState extends State<AdminDashboardPage> {
                   children: [
                     NotificationBadge(),
                     SizedBox(width: AppSize.inset),
-                    CircleAvatar(child: Text("FD")),
+                    CircleAvatar(
+                      child: Text("FD"),
+                      backgroundColor: AppColors.primary,
+                    ),
                   ],
                 ),
               ),
             ],
           ),
           body: const AdminDashboardView(),
+        ),
+      ),
+    );
+  }
+}
+
+class NotificationBadge extends StatelessWidget {
+  const NotificationBadge({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {},
+      child: Container(
+        height: 40,
+        width: 40,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: AppColors.primary,
+        ),
+        child: Icon(
+          Icons.notifications,
+          color: AppColors.backgroundContainerLight,
         ),
       ),
     );

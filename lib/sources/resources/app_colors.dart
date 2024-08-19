@@ -12,6 +12,7 @@ class AppColors {
   static final backgroundContainerLight = HexColor('#FFFFFF');
   static final backgroundContainerDark = HexColor('#1B2026');
   static final backgroundLight = HexColor('#F5F5F5');
+  static final cardContainer = HexColor('#32373b');
   static final backgroundDark = HexColor('#010101');
   static const bottomApBarColor = Color(0xFF1C2431);
   static final hintTextColor = HexColor('#767C8A');

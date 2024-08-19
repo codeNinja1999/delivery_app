@@ -5,6 +5,12 @@ import 'package:fresh_fold_delivery/sources/core/app_core.dart';
 import 'package:fresh_fold_delivery/sources/presentation/widgets/widgets.dart';
 import 'package:fresh_fold_delivery/sources/resources/app_colors.dart';
 import '../bloc/admin_dashboard_bloc.dart';
+import '../widgets/home_view.dart';
+import '../widgets/location_view.dart';
+import '../widgets/operator_view.dart';
+import '../widgets/price_view.dart';
+import '../widgets/sales_view.dart';
+import '../widgets/user_view.dart';
 
 String getGreeting() {
   DateTime now = DateTime.now();
@@ -50,7 +56,6 @@ class _AdminDashboardViewState extends State<AdminDashboardView> {
             Text("${getGreeting()} ${LocaleKeys.appName.value}", style: Theme.of(context).textTheme.bodyLarge),
             const SizedBox(height: AppSize.viewSpacing),
             Text("Admin", style: Theme.of(context).textTheme.titleLarge),
-            const SizedBox(height: AppSize.viewSpacing),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -58,11 +63,12 @@ class _AdminDashboardViewState extends State<AdminDashboardView> {
                 GestureDetector(
                   onTap: () {},
                   child: Chip(
-                    label: const Text("Filter"),
-                    side: BorderSide(color: theme.colorScheme.primary),
-                    // labelStyle: TextStyle(color: (state.isPickupOrder) ? Colors.white : Colors.black),
-                    // backgroundColor:
-                    //     (state.isPickupOrder) ? theme.colorScheme.primary : theme.colorScheme.surfaceContainer,
+                    label: Text(
+                      "Filter",
+                      style: theme.textTheme.bodyMedium,
+                    ),
+                    side: BorderSide(color: AppColors.primary),
+                    backgroundColor: AppColors.primary,
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppSize.inset)),
                   ),
                 ),
@@ -166,7 +172,9 @@ class _AdminDashboardViewState extends State<AdminDashboardView> {
                 ],
               ),
             ),
-            Flexible(
+            const SizedBox(height: AppSize.inset),
+            SizedBox(
+              height: 50,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
                 itemCount: list.length,
@@ -184,15 +192,28 @@ class _AdminDashboardViewState extends State<AdminDashboardView> {
                       labelStyle: TextStyle(
                         color: selectedIndex == index ? theme.colorScheme.surfaceContainer : AppColors.darkTextColor,
                       ),
-                      backgroundColor: selectedIndex == index ? theme.colorScheme.primary : theme.colorScheme.shadow,
+                      backgroundColor: selectedIndex == index ? AppColors.primary : theme.colorScheme.shadow,
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppSize.cornerRadiusMedium)),
                     ),
                   );
                 },
               ),
             ),
+            const SizedBox(height: AppSize.inset),
             if (selectedIndex == 0) ...[
               const HomeView(),
+            ],
+            if (selectedIndex == 1) ...[
+              const UserView(),
+            ],
+            if (selectedIndex == 2) ...[
+              const OperatorView(),
+            ],
+            if (selectedIndex == 3) ...[
+              const LocationView(),
+            ],
+            if (selectedIndex == 4) ...[
+              const SalesView(),
             ],
             if (selectedIndex == 5) ...[
               const PriceView(),
@@ -200,211 +221,6 @@ class _AdminDashboardViewState extends State<AdminDashboardView> {
           ]),
         ),
       ),
-    );
-  }
-}
-
-class HomeView extends StatelessWidget {
-  const HomeView({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    return Container(
-      color: Theme.of(context).colorScheme.surfaceContainer,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Text(
-                "Pending Confirmation",
-                style: Theme.of(context).textTheme.titleMedium,
-              ),
-              TextButton(
-                  onPressed: () {},
-                  child: Text(
-                    "View All",
-                    style: Theme.of(context).textTheme.titleSmall,
-                  )),
-            ],
-          ),
-          const SizedBox(height: AppSize.inset),
-          Expanded(
-            child: ListView.separated(
-              itemCount: 5,
-              shrinkWrap: true,
-              physics: const AlwaysScrollableScrollPhysics(),
-              separatorBuilder: (context, index) => const SizedBox(height: AppSize.inset),
-              itemBuilder: (context, index) {
-                return Container(
-                  padding: const EdgeInsets.all(AppSize.inset),
-                  decoration: BoxDecoration(
-                    color: theme.colorScheme.surfaceContainer,
-                    borderRadius: BorderRadius.circular(AppSize.cornerRadiusMedium),
-                  ),
-                  child: Column(
-                    children: [
-                      Row(
-                        textBaseline: TextBaseline.alphabetic,
-                        crossAxisAlignment: CrossAxisAlignment.baseline,
-                        children: [
-                          Expanded(
-                              child: Text(
-                            "John Doe",
-                            style: theme.textTheme.titleMedium,
-                          )),
-                          Expanded(
-                            child: Text(
-                              "(989)-223-222",
-                              style: theme.textTheme.titleMedium,
-                              textAlign: TextAlign.end,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: AppSize.inset),
-                      Row(
-                        textBaseline: TextBaseline.alphabetic,
-                        crossAxisAlignment: CrossAxisAlignment.baseline,
-                        children: [
-                          Expanded(
-                              child: Text(
-                            "Address",
-                            style: theme.textTheme.bodySmall,
-                          )),
-                          Expanded(
-                            child: Text(
-                              "Phuket, Ban Tawan, 1415 Unit Near ABC Bus Stand ",
-                              style: theme.textTheme.bodySmall,
-                              textAlign: TextAlign.end,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: AppSize.inset),
-                      Row(
-                        textBaseline: TextBaseline.alphabetic,
-                        crossAxisAlignment: CrossAxisAlignment.baseline,
-                        children: [
-                          Expanded(
-                              child: Text(
-                            "Type",
-                            style: theme.textTheme.bodySmall,
-                          )),
-                          Expanded(
-                            child: Text(
-                              "Pickup",
-                              style: theme.textTheme.bodySmall,
-                              textAlign: TextAlign.end,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: AppSize.inset),
-                      CustomButton(title: "View Details", onPressed: () {})
-                    ],
-                  ),
-                );
-              },
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class PriceView extends StatelessWidget {
-  const PriceView({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    return Container(
-      color: theme.colorScheme.surfaceContainer,
-      child: Column(
-        children: [
-          Table(
-            border: const TableBorder(),
-            defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-            children: [
-              TableRow(children: [
-                Text(
-                  "Service Type",
-                  style: theme.textTheme.titleMedium,
-                ),
-                Text(
-                  "Price",
-                  style: theme.textTheme.titleMedium,
-                ),
-                Text(
-                  "Actions",
-                  style: theme.textTheme.titleMedium,
-                )
-              ]),
-              makeRow(
-                theme,
-                "Regular wash",
-                "\$100/kg",
-                () {},
-                () {},
-              ),
-              makeRow(
-                theme,
-                "Dry Cleaning",
-                "\$200/kg",
-                () {},
-                () {},
-              ),
-              makeRow(
-                theme,
-                "Ironing Only",
-                "\$50/kg",
-                () {},
-                () {},
-              ),
-              makeRow(
-                theme,
-                "Service 4",
-                "\$150/kg",
-                () {},
-                () {},
-              ),
-            ],
-          ),
-          const SizedBox(height: AppSize.inset),
-          CustomButton(title: "Add New Service", onPressed: () {}),
-        ],
-      ),
-    );
-  }
-
-  TableRow makeRow(ThemeData theme, String id, String price, Function() onEdit, Function() onDelete) {
-    return TableRow(
-      children: [
-        Text(
-          id,
-          style: theme.textTheme.titleMedium,
-        ),
-        Text(
-          price,
-          style: theme.textTheme.titleMedium,
-        ),
-        Row(
-          children: [
-            IconButton(
-              onPressed: onEdit,
-              icon: Icon(Icons.edit),
-            ),
-            IconButton(
-              onPressed: onDelete,
-              icon: Icon(Icons.delete),
-            )
-          ],
-        ),
-      ],
     );
   }
 }
