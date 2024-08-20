@@ -4,6 +4,8 @@ import 'package:fresh_fold_delivery/sources/core/app_core.dart';
 import 'package:fresh_fold_delivery/sources/presentation/widgets/widgets.dart';
 import 'package:fresh_fold_delivery/sources/resources/app_colors.dart';
 
+import '../../route/admin_route.dart';
+
 class OperatorView extends StatelessWidget {
   const OperatorView({super.key});
 
@@ -15,7 +17,7 @@ class OperatorView extends StatelessWidget {
         padding: const EdgeInsets.all(AppSize.inset),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(AppSize.cornerRadiusMedium),
-          color: AppColors.cardDark,
+          color: theme.colorScheme.surfaceContainer,
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -28,7 +30,9 @@ class OperatorView extends StatelessWidget {
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
                 TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushNamed(context, AdminRoute.operatorList);
+                    },
                     child: Text(
                       "View All",
                       style: Theme.of(context).textTheme.titleSmall,
@@ -46,7 +50,7 @@ class OperatorView extends StatelessWidget {
                   return Container(
                     padding: const EdgeInsets.all(AppSize.inset),
                     decoration: BoxDecoration(
-                      color: AppColors.cardContainer,
+                      color: theme.colorScheme.secondaryContainer,
                       borderRadius: BorderRadius.circular(AppSize.cornerRadiusMedium),
                     ),
                     child: Column(

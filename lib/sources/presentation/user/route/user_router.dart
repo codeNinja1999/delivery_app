@@ -13,8 +13,8 @@ import 'package:fresh_fold_delivery/sources/presentation/user/order_success/orde
 import 'package:fresh_fold_delivery/sources/presentation/user/route/user_route.dart';
 import 'package:fresh_fold_delivery/sources/presentation/user/service_selection/service_selection_page.dart';
 
-import '../add_location/add_location_page.dart';
-import '../add_location/bloc/add_location_bloc.dart';
+import '../add_user_location/add_user_location_page.dart';
+import '../add_user_location/bloc/add_user_location_bloc.dart';
 import '../edit_profile/bloc/edit_profile_bloc.dart';
 import '../edit_profile/edit_profile_page.dart';
 import '../location/bloc/location_bloc.dart';
@@ -72,8 +72,8 @@ class UserRouter {
       case UserRoute.addLocation:
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
-            create: (_) => sl<AddLocationBloc>(),
-            child: const AddLocationPage(),
+            create: (_) => sl<AddUserLocationBloc>(),
+            child: const AddUserLocationPage(),
           ),
         );
 

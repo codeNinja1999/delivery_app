@@ -5,14 +5,14 @@ import 'package:fresh_fold_delivery/sources/presentation/widgets/app_dropdown/ap
 import 'package:fresh_fold_delivery/sources/presentation/widgets/button/custom_button.dart';
 import 'package:fresh_fold_delivery/sources/presentation/widgets/textfield/app_textfield.dart';
 
-class AddLocationPage extends StatefulWidget {
-  const AddLocationPage({super.key});
+class AddUserLocationPage extends StatefulWidget {
+  const AddUserLocationPage({super.key});
 
   @override
-  State<AddLocationPage> createState() => _AddLocationPageState();
+  State<AddUserLocationPage> createState() => _AddUserLocationPageState();
 }
 
-class _AddLocationPageState extends State<AddLocationPage> {
+class _AddUserLocationPageState extends State<AddUserLocationPage> {
   final a = true;
   @override
   Widget build(BuildContext context) {

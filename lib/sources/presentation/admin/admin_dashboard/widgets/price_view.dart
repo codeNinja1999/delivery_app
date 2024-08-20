@@ -16,7 +16,7 @@ class PriceView extends StatelessWidget {
         padding: const EdgeInsets.all(AppSize.inset),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(AppSize.cornerRadiusMedium),
-          color: AppColors.cardDark,
+          color: theme.colorScheme.surfaceContainer,
         ),
         child: Expanded(
           child: SingleChildScrollView(
@@ -75,7 +75,7 @@ class PriceView extends StatelessWidget {
                   backgroundColor: AppColors.primary,
                   title: "Add New Service",
                   onPressed: () {
-                    Navigator.pushNamed(context, AdminRoute.priceEdit);
+                    Navigator.pushNamed(context, AdminRoute.addServicePrice);
                   },
                 ),
               ],

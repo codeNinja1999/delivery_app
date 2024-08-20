@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fresh_fold_delivery/sources/config/config.dart';
 
 import 'route/admin_route.dart';
 import 'route/admin_router.dart';
@@ -16,17 +17,20 @@ class _AdminPageState extends State<AdminPage> {
 
   @override
   Widget build(BuildContext context) {
-    return NavigatorPopHandler(
-      onPop: () {
-        _navigatorKey.currentState!.pop();
-      },
-      child: Navigator(
-        key: _navigatorKey,
-        initialRoute: AdminRoute.adminDashboard,
-        onGenerateRoute: (setting) {
-          currentRoute = setting.name ?? AdminRoute.adminDashboard;
-          return AdminRouter.onGenerateRoute(setting, context);
+    return Theme(
+      data: darkTheme,
+      child: NavigatorPopHandler(
+        onPop: () {
+          _navigatorKey.currentState!.pop();
         },
+        child: Navigator(
+          key: _navigatorKey,
+          initialRoute: AdminRoute.adminDashboard,
+          onGenerateRoute: (setting) {
+            currentRoute = setting.name ?? AdminRoute.adminDashboard;
+            return AdminRouter.onGenerateRoute(setting, context);
+          },
+        ),
       ),
     );
   }

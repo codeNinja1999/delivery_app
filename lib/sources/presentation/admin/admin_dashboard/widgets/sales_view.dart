@@ -14,7 +14,7 @@ class SalesView extends StatelessWidget {
       padding: const EdgeInsets.all(AppSize.inset),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(AppSize.cornerRadiusMedium),
-        color: AppColors.cardDark,
+          color: theme.colorScheme.surfaceContainer,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

@@ -4,6 +4,8 @@ import 'package:fresh_fold_delivery/sources/core/app_core.dart';
 import 'package:fresh_fold_delivery/sources/presentation/widgets/widgets.dart';
 import 'package:fresh_fold_delivery/sources/resources/app_colors.dart';
 
+import '../../route/admin_route.dart';
+
 class LocationView extends StatelessWidget {
   const LocationView({super.key});
 
@@ -15,7 +17,7 @@ class LocationView extends StatelessWidget {
         padding: const EdgeInsets.all(AppSize.inset),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(AppSize.cornerRadiusMedium),
-          color: AppColors.cardDark,
+          color: theme.colorScheme.surfaceContainer,
         ),
         child: Expanded(
           child: SingleChildScrollView(
@@ -80,7 +82,9 @@ class LocationView extends StatelessWidget {
                 CustomButton(
                   backgroundColor: AppColors.primary,
                   title: "Add New Location",
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamed(context, AdminRoute.addLocation);
+                  },
                 ),
               ],
             ),

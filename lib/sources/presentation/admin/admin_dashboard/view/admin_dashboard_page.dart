@@ -16,33 +16,29 @@ class AdminDashboardPage extends StatefulWidget {
 class _DashboardHomeState extends State<AdminDashboardPage> {
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return PopScope(
       canPop: true,
-      child: Theme(
-        data: ThemeData.dark(),
-        child: Scaffold(
-          backgroundColor: AppColors.backgroundDark,
-          appBar: MyAppBar(
-            allowBack: false,
-            backgroundColor: AppColors.backgroundDark,
-            actions: [
-              Padding(
-                padding: EdgeInsets.only(right: AppSize.viewMargin),
-                child: Row(
-                  children: [
-                    NotificationBadge(),
-                    SizedBox(width: AppSize.inset),
-                    CircleAvatar(
-                      child: Text("FD"),
-                      backgroundColor: AppColors.primary,
-                    ),
-                  ],
-                ),
+      child: Scaffold(
+        backgroundColor: theme.colorScheme.surface,
+        appBar: const MyAppBar(
+          allowBack: false,
+          actions: [
+            Padding(
+              padding: EdgeInsets.only(right: AppSize.viewMargin),
+              child: Row(
+                children: [
+                  NotificationBadge(),
+                  SizedBox(width: AppSize.inset),
+                  CircleAvatar(
+                    child: Text("FD"),
+                  ),
+                ],
               ),
-            ],
-          ),
-          body: const AdminDashboardView(),
+            ),
+          ],
         ),
+        body: const AdminDashboardView(),
       ),
     );
   }

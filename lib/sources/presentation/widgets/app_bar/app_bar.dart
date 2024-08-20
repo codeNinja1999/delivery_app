@@ -11,6 +11,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   final bool allowBack;
   final List<Widget>? actions;
   final Color? arrowColor;
+
   const MyAppBar({
     super.key,
     this.title,
@@ -25,9 +26,10 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return AppBar(
       automaticallyImplyLeading: false,
-      surfaceTintColor: Theme.of(context).colorScheme.shadow,
+      surfaceTintColor: theme.colorScheme.shadow,
       leadingWidth: 65,
       leading: allowBack
           ? Padding(
@@ -43,8 +45,8 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
                   padding: const EdgeInsets.only(left: AppSize.cornerRadiusMedium),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(AppSize.cornerRadiusMedium),
-                    border: Border.all(color: Theme.of(context).colorScheme.outline),
-                    color: backButtonBackgroundColor??Theme.of(context).colorScheme.surfaceContainer,
+                    border: Border.all(color: theme.colorScheme.outline),
+                    color: backButtonBackgroundColor ?? AppColors.backgroundContainerLight,
                   ),
                   alignment: Alignment.center,
                   child: Icon(
@@ -56,14 +58,14 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
               ),
             )
           : null,
-      backgroundColor: backgroundColor ?? Theme.of(context).colorScheme.surface,
+      backgroundColor: backgroundColor ?? theme.colorScheme.surface,
       centerTitle: true,
       title: Text(
         title ?? "",
-        style: titleStyle ?? Theme.of(context).textTheme.titleLarge?.copyWith(fontSize: 18),
+        style: titleStyle ?? theme.textTheme.titleLarge?.copyWith(fontSize: 18, color: theme.primaryColor),
       ),
       elevation: 0,
-      iconTheme: Theme.of(context).iconTheme,
+      iconTheme: theme.iconTheme,
       actions: actions,
     );
   }

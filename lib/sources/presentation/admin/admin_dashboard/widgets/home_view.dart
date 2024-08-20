@@ -15,7 +15,7 @@ class HomeView extends StatelessWidget {
         padding: const EdgeInsets.all(AppSize.inset),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(AppSize.cornerRadiusMedium),
-          color: AppColors.cardDark,
+          color: theme.colorScheme.surfaceContainer,
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -46,7 +46,7 @@ class HomeView extends StatelessWidget {
                   return Container(
                     padding: const EdgeInsets.all(AppSize.inset),
                     decoration: BoxDecoration(
-                      color: AppColors.cardContainer,
+                      color: theme.colorScheme.secondaryContainer,
                       borderRadius: BorderRadius.circular(AppSize.cornerRadiusMedium),
                     ),
                     child: Column(

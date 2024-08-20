@@ -1,6 +1,7 @@
 import 'package:fresh_fold_delivery/repository/repository.dart';
 import 'package:fresh_fold_delivery/sources/presentation/admin/admin_dashboard/admin_dashboard.dart';
 import 'package:fresh_fold_delivery/sources/presentation/admin/bloc/admin_bloc.dart';
+import 'package:fresh_fold_delivery/sources/presentation/admin/operator_list/bloc/operator_list_bloc.dart';
 import 'package:fresh_fold_delivery/sources/presentation/operator/bloc/operator_bloc.dart';
 import 'package:fresh_fold_delivery/sources/presentation/operator/operator_dashboard/bloc/operator_dash_board_bloc.dart';
 import 'package:fresh_fold_delivery/sources/presentation/operator/operator_history/bloc/operator_history_bloc.dart';
@@ -8,9 +9,12 @@ import 'package:fresh_fold_delivery/sources/presentation/user/date_selection/blo
 import 'package:get_it/get_it.dart';
 
 import '../core/app_core.dart';
-import '../presentation/admin/price_edit/bloc/price_edit_bloc.dart';
+import '../presentation/admin/add_location/bloc/add_location_bloc.dart';
+import '../presentation/admin/add_service_price/bloc/add_service_price_bloc.dart';
+import '../presentation/admin/operator_details/bloc/operator_details_bloc.dart';
+import '../presentation/admin/update_operator/bloc/update_operator_bloc.dart';
 import '../presentation/operator/pickup_order/bloc/pickup_order_bloc.dart';
-import '../presentation/user/add_location/bloc/add_location_bloc.dart';
+import '../presentation/user/add_user_location/bloc/add_user_location_bloc.dart';
 import '../presentation/user/bloc/user_bloc.dart';
 import '../presentation/user/checkout/bloc/checkout_bloc.dart';
 import '../presentation/user/dashboard/dashboard.dart';
@@ -70,7 +74,7 @@ void blocsInjection() {
   sl.registerFactory(() => UserBloc());
   sl.registerFactory(() => CheckoutBloc());
   sl.registerFactory(() => LocationBloc());
-  sl.registerFactory(() => AddLocationBloc());
+  sl.registerFactory(() => AddUserLocationBloc());
   sl.registerFactory(() => DateSelectionBloc());
   sl.registerFactory(() => ServiceSelectionBloc());
   sl.registerFactory(() => NotificationListBloc(userUtilitiesRepository: sl()));
@@ -85,7 +89,11 @@ void blocsInjection() {
   //admin
   sl.registerFactory(() => AdminBloc());
   sl.registerFactory(() => AdminDashboardBloc());
-  sl.registerFactory(() => PriceEditBloc());
+  sl.registerFactory(() => AddLocationBloc());
+  sl.registerFactory(() => OperatorListBloc());
+  sl.registerFactory(() => AddServicePriceBloc());
+  sl.registerFactory(() => OperatorDetailsBloc());
+  sl.registerFactory(() => UpdateOperatorBloc());
 }
 
 ///repositories injection

@@ -10,9 +10,9 @@ class AppColors {
   static final homeTabBarBackgroundColor = HexColor("#1C2431");
   static final homeTabBarBorderColor = HexColor("#27002E");
   static final backgroundContainerLight = HexColor('#FFFFFF');
-  static final backgroundContainerDark = HexColor('#1B2026');
+  static final surfaceContainerDark = HexColor('#1B2026');
+  static final secondaryContainerDark = HexColor('#32373b');
   static final backgroundLight = HexColor('#F5F5F5');
-  static final cardContainer = HexColor('#32373b');
   static final backgroundDark = HexColor('#010101');
   static const bottomApBarColor = Color(0xFF1C2431);
   static final hintTextColor = HexColor('#767C8A');
@@ -39,7 +39,6 @@ class AppColors {
   static final placeholder = HexColor("#767C8A");
   static final card = HexColor("#2E1C4B");
   static final darkTextColor = HexColor("#9F9F9F");
-  static final cardDark = HexColor("#1B2026");
   static final avatar = HexColor("#FF9AD6");
   static final pink = HexColor("#FB4AB2");
   static final filter = HexColor("#A56BFF");
@@ -50,7 +49,7 @@ class AppColors {
   static final searchBackground = HexColor("#543883");
   static final fillColorLight = HexColor("#2E1C4B");
   static final primaryDark = HexColor("#040404");
-  static final secondarDark = HexColor("232323");
+  static final secondaryDark = HexColor("232323");
   static final backgroundLightDark = HexColor("#3C3C3C");
   static final hightLightColorDark = HexColor("#584f50");
   static final iconColorDark = HexColor("#C8C4CA");
