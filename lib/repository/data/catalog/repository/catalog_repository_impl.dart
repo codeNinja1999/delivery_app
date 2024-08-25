@@ -1,6 +1,5 @@
 import 'package:fresh_fold_delivery/repository/data/catalog/repository/mapping/catalog_request_model.dart';
 import 'package:fresh_fold_delivery/repository/data/catalog/repository/mapping/catalog_response_mapping.dart';
-import 'package:fresh_fold_delivery/repository/data/core/core.dart';
 import 'package:fresh_fold_delivery/repository/repository.dart';
 import 'dart:convert';
 
@@ -56,7 +55,7 @@ class CatalogRepositoryImpl implements CatalogRepository {
   Future<Either<Exception, CatalogResponseModel>> fetchCatalog(CatalogRequestModel requestModel) async {
     final requestQuery = requestModel.toJson();
 
-    final endPoint = userNetworkClient != null ? AppServiceEndpoints.memberCatalogs : AppServiceEndpoints.catalogs;
+    final endPoint = userNetworkClient;
 
     final newClient = networkClient ?? userNetworkClient;
 

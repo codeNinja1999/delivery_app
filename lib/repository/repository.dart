@@ -47,7 +47,6 @@ export './domain/account_utility/repository/password_repository.dart';
 export './domain/account_utility/repository/transaction_pin_repository.dart';
 
 export './data/account_utility/repository/password_repository_impl.dart';
-export './data/account_utility/repository/transaction_pin_repository_impl.dart';
 
 //Catalog
 export './domain/catalog/entities/catalog_filter.dart';

@@ -47,7 +47,7 @@ class UserUtilitiesRepositoryImpl implements UserUtilitiesRepository {
   @override
   Future<Either<Exception, List<NotificationData>>> getUserNotification() async {
     try {
-      final response = await networkClient.get(AppServiceEndpoints.notification);
+      final response = await networkClient.get(AppServiceEndpoints.createLocation);
       var responseJson = json.decode(response.asString);
       var notificationResponse = NotificationResponseModel.fromJson(responseJson);
       if (notificationResponse.resultList != null) {
@@ -83,7 +83,7 @@ class UserUtilitiesRepositoryImpl implements UserUtilitiesRepository {
   @override
   Future<Either<Exception, String>> logoutUser() async {
     try {
-      final _ = await networkClient.post(AppServiceEndpoints.logoutUser);
+      final _ = await networkClient.post(AppServiceEndpoints.logout);
       final userCredentialStorage = UserCredentialDataStore();
       userCredentialStorage.deleteCredential();
       return const Right('success');
