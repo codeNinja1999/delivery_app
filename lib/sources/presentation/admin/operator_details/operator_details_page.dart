@@ -18,6 +18,7 @@ class OperatorDetailsPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            const SizedBox(height: AppSize.inset),
             Row(
               textBaseline: TextBaseline.alphabetic,
               crossAxisAlignment: CrossAxisAlignment.baseline,
@@ -58,6 +59,7 @@ class OperatorDetailsPage extends StatelessWidget {
             const SizedBox(height: AppSize.inset),
             CustomButton(
                 title: "Edit Details",
+                buttonType: ButtonType.bordered,
                 onPressed: () {
                   Navigator.pushNamed(context, AdminRoute.updateOperator);
                 }),

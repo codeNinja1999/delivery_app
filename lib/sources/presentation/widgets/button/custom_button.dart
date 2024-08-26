@@ -58,14 +58,14 @@ class CustomButton extends StatelessWidget {
         : null;
     final Color? foregroundColor = (buttonType == ButtonType.primary) ? Colors.white : titleColor;
 
-    final contentPadding = padding ?? const EdgeInsets.all(15);
+    final contentPadding = padding ?? const EdgeInsets.all(AppSize.inset * 0.75);
 
     return Material(
       color: Colors.transparent,
       elevation: 0,
       shape: shape,
       child: CupertinoButton(
-        minSize: height ?? kMinInteractiveDimensionCupertino,
+        minSize: height ?? 32,
         onPressed: isEnabled ? onPressed : null,
         padding: contentPadding,
         color: color,

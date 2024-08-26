@@ -21,7 +21,7 @@ extension CatalogueResponseDataMapping on CatalogueList {
       id: data ?? "",
       value: value ?? "",
       houseNumber: additionalValue2,
-      address: additionalData,
+      city: additionalData,
     );
   }
 

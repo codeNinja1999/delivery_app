@@ -8,10 +8,14 @@ class AppServiceEndpoints {
   static const resetPassword = "auth/reset-password";
   static const verifyPendingOrder = "admin/dashboard/pending-confirmations/:id/verify";
   static const userUpdate = "admin/user";
+  static const fetchLocation = "admin/dashboard/locations";
   static const createOperator = "admin/operator";
   static const createLocation = "admin/location/create";
-  static const updateLocation = "admin/location/3";
+  static const updateLocation = "admin/location/";
+  static const deleteLocation = "admin/location/";
+  static const fetchServiceType = "admin/dashboard/services";
   static const updateService = "admin/service/3";
+  static const deleteService = "admin/service/";
   static const createService = "admin/service/create";
   static const resendOtp =  "auth/resend-otp";
   static const updateUserProfile = "user/me/update-profile";

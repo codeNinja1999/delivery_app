@@ -1,8 +1,5 @@
 part of 'update_operator_bloc.dart';
 
-sealed class UpdateOperatorEvent extends Equatable {
-  const UpdateOperatorEvent();
+abstract class UpdateOperatorEvent {}
 
-  @override
-  List<Object> get props => [];
-}
+class UpdateOperator extends UpdateOperatorEvent {}

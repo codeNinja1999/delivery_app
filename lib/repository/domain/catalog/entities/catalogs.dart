@@ -24,11 +24,17 @@ class ServiceType extends Catalog {
 
 class Location extends Catalog {
   final String? houseNumber;
-  final String? address;
+  final String? city;
+  final String? neighborhood;
+  final String? postalCode;
+  final String? countryCode;
   const Location({
     required super.id,
     required super.value,
     this.houseNumber,
-    this.address,
+    this.city,
+    this.postalCode,
+    this.countryCode,
+    this.neighborhood,
   });
 }
