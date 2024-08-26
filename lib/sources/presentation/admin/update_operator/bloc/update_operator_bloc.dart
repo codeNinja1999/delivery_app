@@ -12,10 +12,10 @@ class UpdateOperatorBloc extends Bloc<UpdateOperatorEvent, UpdateOperatorState> 
 
   _onUpdateOperator(UpdateOperator event, Emitter<UpdateOperatorState> emit) async {
     emit(state.copyWith(status: InProgress()));
-    final response = await userRegistrationRepository.register(event.userRegistrationInfo);
-    response.fold(
-      (error) => emit(state.copyWith(status: SubmissionFailure(error))),
-      (right) => emit(state.copyWith(status: RegisteredSuccess())),
-    );
+    // final response = await userRegistrationRepository.register(event.userRegistrationInfo);
+    // response.fold(
+    //   (error) => emit(state.copyWith(status: SubmissionFailure(error))),
+    //   (right) => emit(state.copyWith(status: RegisteredSuccess())),
+    // );
   }
 }
