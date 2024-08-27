@@ -13,27 +13,20 @@ class UsernameVerifyBloc extends Bloc<UsernameVerifyEvent, UsernameVerifyState> 
   UsernameVerifyBloc({
     required this.otpRepository,
   }) : super(UsernameVerifyState()) {
-    on<UserIdChanged>((event, emit) {
-      emit(state.copyWith(userId: event.userId));
+    on<EmailAddressChanged>((event, emit) {
+      emit(state.copyWith(emailAddress: event.emailAddress));
     });
 
-    on<IsEmailType>((event, emit) {
-      emit(state.copyWith(isEmail: event.isEmail, userId: ""));
-    });
-
-    on<VerifyUserID>(
+    on<VerifyEmailAddress>(
       (event, emit) async {
         emit(state.copyWith(status: InProgress()));
-        final mobileNo = "${""}${state.userId}";
 
-        final data = GenerateOTP(
-          email: mobileNo,
-        );
+        final data = GenerateOTP(email: state.emailAddress);
         final response = await otpRepository.generateRegisterOTP(data);
         emit(
           response.fold(
             (error) => state.copyWith(status: SubmissionFailure(error)),
-            (processID) => state.copyWith(status: Success(), processID: processID),
+            (processID) => state.copyWith(status: Success()),
           ),
         );
       },

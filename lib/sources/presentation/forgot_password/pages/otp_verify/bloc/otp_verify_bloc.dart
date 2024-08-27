@@ -21,9 +21,12 @@ class OtpVerifyBloc extends Bloc<OtpVerifyEvent, OtpVerifyState> {
     });
     on<ResendOtp>(_onResendOtp);
     on<SecondTicked>(_onSecondTicked);
+    on<VerificationCodeChanged>((event, emit) {
+      emit(state.copyWith(verificationCode: event.verificationCode));
+    });
     on<VerifyResetOTP>((event, emit) async {
       emit(state.copyWith(status: InProgress()));
-      final verifyInfo = VerifyOTP(email: event.email, verificationCode: event.verificationCode);
+      final verifyInfo = VerifyOTP(verificationCode: state.verificationCode);
       final response = await otpRepository.verifyForgotPasswordOTP(verifyInfo);
       emit(
         response.fold(
@@ -40,7 +43,8 @@ class OtpVerifyBloc extends Bloc<OtpVerifyEvent, OtpVerifyState> {
     Emitter<OtpVerifyState> emit,
   ) async {
     emit(state.copyWith(status: InProgress()));
-    final data = GenerateOTP(email: event.email, type: "forgot_password");
+    final data = GenerateOTP(email: event.emailAddress, type: "forgot_password");
+
     final response = await otpRepository.resendOTP(data);
     response.fold((error) => emit(state.copyWith(status: SubmissionFailure(error))), (processID) {
       emit(state.copyWith(

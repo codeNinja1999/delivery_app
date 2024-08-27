@@ -1,21 +1,18 @@
 part of 'forgot_password_bloc.dart';
 
 class ForgotPasswordState extends Equatable {
-  final String email;
-  final String otp;
+  final String emailAddress;
 
-  const ForgotPasswordState({this.email = "", this.otp = ""});
+  const ForgotPasswordState({this.emailAddress = ""});
 
   ForgotPasswordState copyWith({
-    String? email,
-    String? otp,
+    String? emailAddress,
   }) {
     return ForgotPasswordState(
-      email: email ?? this.email,
-      otp: otp ?? this.otp,
+      emailAddress: emailAddress ?? this.emailAddress,
     );
   }
 
   @override
-  List<Object?> get props => [email, otp];
+  List<Object?> get props => [emailAddress];
 }

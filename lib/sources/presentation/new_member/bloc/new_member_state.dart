@@ -1,49 +1,25 @@
 part of 'new_member_bloc.dart';
 
 class NewMemberState extends Equatable {
-  final String userName;
-  final String pin;
-  final String referralCode;
-  final String email;
-  final String verificationProcessID;
-  final String registerProcessID;
+  final String emailAddress;
   final Catalog? nationality;
-  final bool isEmail;
   final UserPersonalInfo? userPersonalInfo;
 
   const NewMemberState({
-    this.userName = "",
-    this.pin = "",
-    this.referralCode = "",
-    this.email = "",
-    this.verificationProcessID = "",
-    this.registerProcessID = "",
+    this.emailAddress = "",
     this.nationality,
-    this.isEmail = true,
     this.userPersonalInfo,
   });
 
   // UserRegistrationInfo makeRegistrationInfo(UserContactInfo userContactInfo) => _makeRegistrationInfo(userContactInfo);
 
   NewMemberState copyWith({
-    String? userName,
-    String? pin,
-    String? referralCode,
-    String? email,
-    String? verificationProcessID,
-    String? registerProcessID,
+    String? emailAddress,
     Catalog? nationality,
-    bool? isEmail,
     UserPersonalInfo? userPersonalInfo,
   }) {
     return NewMemberState(
-      userName: userName ?? this.userName,
-      pin: pin ?? this.pin,
-      referralCode: referralCode ?? this.referralCode,
-      email: email ?? this.email,
-      isEmail: isEmail ?? this.isEmail,
-      verificationProcessID: verificationProcessID ?? this.verificationProcessID,
-      registerProcessID: registerProcessID ?? this.registerProcessID,
+      emailAddress: emailAddress ?? this.emailAddress,
       userPersonalInfo: userPersonalInfo ?? this.userPersonalInfo,
       nationality: nationality ?? this.nationality,
     );
@@ -90,14 +66,5 @@ class NewMemberState extends Equatable {
   // }
 
   @override
-  List<Object?> get props => [
-        userName,
-        pin,
-        email,
-        isEmail,
-        verificationProcessID,
-        registerProcessID,
-        nationality,
-        userPersonalInfo,
-      ];
+  List<Object?> get props => [emailAddress, nationality, userPersonalInfo];
 }

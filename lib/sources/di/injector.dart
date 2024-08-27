@@ -56,7 +56,7 @@ void blocsInjection() {
   sl.registerFactory(() => SetPinBloc());
   sl.registerFactory(() => ForgotPasswordBloc());
   sl.registerFactory(() => OtpVerifyBloc(otpRepository: sl()));
-  sl.registerFactory(() => VerifyUserIdBloc(otpRepository: sl()));
+  sl.registerFactory(() => VerifyEmailBloc(otpRepository: sl()));
   sl.registerFactory(() => LoginBloc(userAuthenticationRepository: sl()));
   sl.registerFactory(
     () => ResetPasswordBloc(passwordRepository: PasswordRepositoryImpl(networkClient: sl())),

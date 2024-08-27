@@ -12,7 +12,7 @@ class ForgotPasswordPage extends StatefulWidget {
 
 class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   final _navigatorKey = GlobalKey<NavigatorState>();
-  var currentRoute = ResetPasswordRoute.verifyUserId;
+  var currentRoute = ResetPasswordRoute.verifyEmail;
 
   @override
   Widget build(BuildContext context) {
@@ -24,9 +24,9 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
       },
       child: Navigator(
         key: _navigatorKey,
-        initialRoute: ResetPasswordRoute.verifyUserId,
+        initialRoute: ResetPasswordRoute.verifyEmail,
         onGenerateRoute: (setting) {
-          currentRoute = setting.name ?? ResetPasswordRoute.verifyUserId;
+          currentRoute = setting.name ?? ResetPasswordRoute.verifyEmail;
           return ResetPasswordRouter.onGenerateRoute(setting, context);
         },
       ),

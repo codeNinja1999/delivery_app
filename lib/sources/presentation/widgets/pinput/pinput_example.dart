@@ -7,7 +7,8 @@ import 'pinput.dart';
 /// This is the basic usage of Pinput
 /// For more examples check out the demo directory
 class PinputExample extends StatefulWidget {
-  const PinputExample({Key? key}) : super(key: key);
+  const PinputExample({Key? key, required this.onChanged}) : super(key: key);
+  final Function(String)? onChanged;
 
   @override
   State<PinputExample> createState() => _PinputExampleState();
@@ -77,9 +78,7 @@ class _PinputExampleState extends State<PinputExample> {
               onCompleted: (pin) {
                 debugPrint('onCompleted: $pin');
               },
-              onChanged: (value) {
-                debugPrint('onChanged: $value');
-              },
+              onChanged: widget.onChanged,
               cursor: Column(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [

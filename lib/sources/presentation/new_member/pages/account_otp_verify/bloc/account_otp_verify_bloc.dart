@@ -3,9 +3,7 @@ import 'dart:async';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:fresh_fold_delivery/sources/config/config.dart';
 import 'package:fresh_fold_delivery/sources/core/app_core.dart';
-
 import 'package:fresh_fold_delivery/repository/repository.dart';
 
 part 'account_otp_verify_event.dart';
@@ -20,21 +18,20 @@ class AccountOtpVerifyBloc extends Bloc<AccountOtpVerifyEvent, AccountOtpVerifyS
   AccountOtpVerifyBloc({required this.otpRepository}) : super(AccountOtpVerifyState()) {
     on<ResendOtp>(_onResendOtp);
     on<SecondTicked>(_onSecondTicked);
-    on<VerifyNewAccountOTP>(_onVerifyOTP);
+    on<VerifyRegisterOTP>(_onVerifyOTP);
+    on<VerificationCodeChanged>((event, emit) {
+      emit(state.copyWith(verificationCode: event.verificationCode));
+    });
     _startTimer();
   }
 
   void _onVerifyOTP(
-    VerifyNewAccountOTP event,
+    VerifyRegisterOTP event,
     Emitter<AccountOtpVerifyState> emit,
   ) async {
     emit(state.copyWith(status: InProgress()));
 
-    final verificationCode = event.verificationCode.encrypted(key: AppConfig.shared.appKey);
-    final verifyInfo = VerifyOTP(
-      verificationCode: verificationCode,
-    );
-
+    final verifyInfo = VerifyOTP(verificationCode: state.verificationCode);
     final response = await otpRepository.verifyRegisterOTP(verifyInfo);
     emit(
       response.fold(
@@ -50,18 +47,12 @@ class AccountOtpVerifyBloc extends Bloc<AccountOtpVerifyEvent, AccountOtpVerifyS
     ResendOtp event,
     Emitter<AccountOtpVerifyState> emit,
   ) async {
-    // emit(state.copyWith(status: InProgress()));
-
-    final mobileNo = event.recipient;
-    final data = GenerateOTP(
-      email: mobileNo,
-    );
+    final data = GenerateOTP(email: event.emailAddress);
 
     final response = await otpRepository.resendOTP(data);
     response.fold((error) => emit(state.copyWith(status: SubmissionFailure(error))), (processID) {
       emit(state.copyWith(
         status: ResendRegisterOTPSuccess(),
-        processID: processID,
         resendDuration: const Duration(minutes: 3),
       ));
       _startTimer();

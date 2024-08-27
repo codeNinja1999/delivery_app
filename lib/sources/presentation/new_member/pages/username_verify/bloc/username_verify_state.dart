@@ -1,46 +1,24 @@
 part of 'username_verify_bloc.dart';
 
 class UsernameVerifyState extends Equatable {
-  final String userId;
-  final String processID;
-  final bool isEmail;
+  final String emailAddress;
   final FormStatus status;
 
-  RegExp get userNameRegex => isEmail ? AppRegex.email : AppRegex.mobileNumber;
-  String get invalidUsernameLocalize => isEmail ? LocaleKeys.emailIdErrorMessage : LocaleKeys.phoneNumberErrorMessage;
-
-  String? get usernameValidation => userId == ""
+  String? get emailValidation => emailAddress == ""
       ? LocaleKeys.emptyErrorMessage.value
-      : (userNameRegex.hasMatch(userId))
+      : (AppRegex.email.hasMatch(emailAddress))
           ? null
-          : invalidUsernameLocalize.value;
+          : LocaleKeys.emailIdErrorMessage.value;
 
-  UsernameVerifyState({
-    this.userId = "",
-    this.processID = "",
-    this.isEmail = true,
-    status,
-  }) : status = (status != null) ? status : InitialStatus();
+  UsernameVerifyState({this.emailAddress = "", status}) : status = (status != null) ? status : InitialStatus();
 
-  UsernameVerifyState copyWith({
-    String? userId,
-    String? processID,
-    bool? isEmail,
-    FormStatus? status,
-  }) {
+  UsernameVerifyState copyWith({String? emailAddress, FormStatus? status}) {
     return UsernameVerifyState(
-      userId: userId ?? this.userId,
-      processID: processID ?? this.processID,
-      isEmail: isEmail ?? this.isEmail,
+      emailAddress: emailAddress ?? this.emailAddress,
       status: status ?? InitialStatus(),
     );
   }
 
   @override
-  List<Object?> get props => [
-        userId,
-        processID,
-        isEmail,
-        status,
-      ];
+  List<Object?> get props => [emailAddress, status];
 }

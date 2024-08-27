@@ -2,25 +2,17 @@ part of 'account_otp_verify_bloc.dart';
 
 abstract class AccountOtpVerifyEvent {}
 
-class VerifyNewAccountOTP extends AccountOtpVerifyEvent {
-  final String processID;
+class VerifyRegisterOTP extends AccountOtpVerifyEvent {}
+
+class VerificationCodeChanged extends AccountOtpVerifyEvent {
   final String verificationCode;
 
-  VerifyNewAccountOTP({
-    required this.processID,
-    required this.verificationCode,
-  });
+  VerificationCodeChanged(this.verificationCode);
 }
 
 class ResendOtp extends AccountOtpVerifyEvent {
-  final String? sendingCountryTelCode;
-  final String recipient;
-  final bool isEmail;
-  ResendOtp({
-    this.sendingCountryTelCode,
-    required this.recipient,
-    required this.isEmail,
-  });
+  final String emailAddress;
+  ResendOtp({required this.emailAddress});
 }
 
 class SecondTicked extends AccountOtpVerifyEvent {}

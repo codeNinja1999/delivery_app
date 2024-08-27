@@ -7,19 +7,17 @@ class OtpCodeChanged extends OtpVerifyEvent {
   OtpCodeChanged(this.verificationCode);
 }
 
-class VerifyResetOTP extends OtpVerifyEvent {
-  final String email;
+class VerificationCodeChanged extends OtpVerifyEvent {
   final String verificationCode;
 
-  VerifyResetOTP({
-    required this.email,
-    required this.verificationCode,
-  });
+  VerificationCodeChanged(this.verificationCode);
 }
 
+class VerifyResetOTP extends OtpVerifyEvent {}
+
 class ResendOtp extends OtpVerifyEvent {
-  ResendOtp({required this.email});
-  final String email;
+  ResendOtp(this.emailAddress);
+  final String emailAddress;
 }
 
 class SecondTicked extends OtpVerifyEvent {}
