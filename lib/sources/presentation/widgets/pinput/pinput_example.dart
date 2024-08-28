@@ -41,8 +41,8 @@ class _PinputExampleState extends State<PinputExample> {
     Color borderColor = Theme.of(context).colorScheme.outline;
 
     final defaultPinTheme = PinTheme(
-      width: 77,
-      height: 77,
+      width: 56,
+      height: 56,
       textStyle: TextStyle(
         fontSize: 32,
         color: AppColors.black,
@@ -66,11 +66,11 @@ class _PinputExampleState extends State<PinputExample> {
             child: Pinput(
               // You can pass your own SmsRetriever implementation based on any package
               // in this example we are using the SmartAuth
-              length: 4,
+              length: 6,
               controller: pinController,
               focusNode: focusNode,
               defaultPinTheme: defaultPinTheme,
-              separatorBuilder: (index) => const SizedBox(width: 16),
+              separatorBuilder: (index) => const SizedBox(width: AppSize.cornerRadiusMedium),
               // validator: (value) {
               //   return value == '2222' ? null : 'Pin is incorrect';
               // },

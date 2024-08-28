@@ -26,7 +26,7 @@ class OtpVerifyBloc extends Bloc<OtpVerifyEvent, OtpVerifyState> {
     });
     on<VerifyResetOTP>((event, emit) async {
       emit(state.copyWith(status: InProgress()));
-      final verifyInfo = VerifyOTP(verificationCode: state.verificationCode);
+      final verifyInfo = VerifyOTP(verificationCode: int.parse(state.verificationCode));
       final response = await otpRepository.verifyForgotPasswordOTP(verifyInfo);
       emit(
         response.fold(

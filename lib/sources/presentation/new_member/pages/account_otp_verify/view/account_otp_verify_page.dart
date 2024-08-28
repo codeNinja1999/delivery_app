@@ -18,7 +18,6 @@ class _AccountOtpVerifyPageState extends State<AccountOtpVerifyPage> {
       backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: const MyAppBar(),
       body: const OtpVerifyForm(),
-      resizeToAvoidBottomInset: false,
     );
   }
 }

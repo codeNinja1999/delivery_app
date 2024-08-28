@@ -34,12 +34,22 @@ class DefaultInterceptor {
       return newRequest;
     }, onResponse: (apiResponse) async {
       log(name: "Actual Response:", apiResponse.asString);
+
       if (apiResponse.statusCode >= 200 && apiResponse.statusCode < 300) {
         return apiResponse;
       } else if (apiResponse.statusCode == 401) {
         throw SessionExpired("Session expired");
       } else {
-        throw Exception("Something went wrong. Contact customer support.");
+        final apiResponseString = apiResponse.asString;
+
+        if (apiResponseString.isEmpty) {
+          throw Exception("Something went wrong. Contact customer support.");
+        } else {
+          // Proceed with processing the response
+          final responseJson = json.decode(apiResponseString);
+          final errorMessage = responseJson['message'];
+          throw Exception(errorMessage);
+        }
       }
     });
   }

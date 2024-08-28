@@ -44,7 +44,7 @@ class _UsernameVerifyFormState extends State<UsernameVerifyForm> {
             slivers: [
               SliverToBoxAdapter(
                 child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-                  const SizedBox(height: AppSize.spacedViewSpacing),
+                  const SizedBox(height: AppSize.viewMargin),
                   Text(
                     LocaleKeys.signUp.value,
                     style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold, fontSize: 36),

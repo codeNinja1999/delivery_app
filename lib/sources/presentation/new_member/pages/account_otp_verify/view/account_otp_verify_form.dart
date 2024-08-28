@@ -1,9 +1,9 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fresh_fold_delivery/sources/config/config.dart';
 
 import 'package:fresh_fold_delivery/sources/core/app_core.dart';
+import 'package:fresh_fold_delivery/sources/config/config.dart';
 import 'package:fresh_fold_delivery/sources/presentation/widgets/widgets.dart';
 
 import '../../../bloc/new_member_bloc.dart';
@@ -55,7 +55,7 @@ class _OtpVerifyFormState extends State<OtpVerifyForm> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    const SizedBox(height: AppSize.spacedViewSpacing),
+                    const SizedBox(height: AppSize.viewMargin),
                     Text(LocaleKeys.verificationCode.value, style: theme.textTheme.titleMedium?.copyWith(fontSize: 36)),
                     const SizedBox(height: AppSize.inset),
                     Text(LocaleKeys.verificationCodeSentMessage.tr(args: [emailAddress]), style: theme.textTheme.bodyLarge),
@@ -125,7 +125,6 @@ class _OtpVerifyFormState extends State<OtpVerifyForm> {
                         title: LocaleKeys.nextButtonTitle.value,
                         onPressed: () {
                           KeyboardUtil.hideKeyboard(context);
-                          Navigator.pushReplacementNamed(context, NewMemberRoute.registerForm);
                           context.read<AccountOtpVerifyBloc>().add(VerifyRegisterOTP());
                         },
                       ),
