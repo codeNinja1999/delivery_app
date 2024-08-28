@@ -21,7 +21,7 @@ class UsernameVerifyBloc extends Bloc<UsernameVerifyEvent, UsernameVerifyState> 
       (event, emit) async {
         emit(state.copyWith(status: InProgress()));
 
-        final data = GenerateOTP(email: state.emailAddress);
+        final data = GenerateOTP(email: state.emailAddress, role: "user");
         final response = await otpRepository.generateRegisterOTP(data);
         emit(
           response.fold(

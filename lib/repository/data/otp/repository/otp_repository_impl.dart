@@ -1,8 +1,9 @@
 import 'dart:convert';
 
+import 'package:fresh_fold_delivery/repository/data/otp/repository/mapping/send_otp_response_model_mapping.dart';
+import 'package:fresh_fold_delivery/repository/data/user/data_store/data_store.dart';
 import 'package:network/network.dart';
 import 'package:either_dart/either.dart';
-
 
 import 'package:fresh_fold_delivery/repository/data/core/core.dart';
 import 'package:fresh_fold_delivery/repository/data/otp/repository/mapping/mapping.dart';
@@ -15,10 +16,13 @@ import '../model/resend_otp/resend_otp_response_model.dart';
 import '../model/send_otp/send_otp_response_model.dart';
 import '../model/verify_otp/verify_otp_response_model.dart';
 
-class SendOtpRepositoryImpl implements OTPRepository {
-  SendOtpRepositoryImpl({required this.networkClient});
+class OtpRepositoryImpl implements OTPRepository {
+  OtpRepositoryImpl({required this.networkClient,required  this.userNetworkClient}) : userCredentialStorage = UserCredentialDataStore();
 
   NetworkClient networkClient;
+  NetworkClient userNetworkClient;
+  
+  UserCredentialDataStore userCredentialStorage;
 
   @override
   Future<Either<Exception, String>> generateRegisterOTP(GenerateOTP data) async {
@@ -27,7 +31,10 @@ class SendOtpRepositoryImpl implements OTPRepository {
     try {
       final response = await networkClient.post(AppServiceEndpoints.generateRegisterOtp, body: postBody);
       final responseJson = json.decode(response.asString);
-      final _ = SendOtpResponseModel.fromJson(responseJson);
+      final responseModel = SendOtpResponseModel.fromJson(responseJson);
+      final credential = responseModel.toDomain();
+      await userCredentialStorage.saveCredential(credential);
+
       return const Right("");
     } on Exception catch (error) {
       return Left(error);
@@ -40,7 +47,7 @@ class SendOtpRepositoryImpl implements OTPRepository {
     final postBody = jsonEncode(requestData.toJson());
 
     try {
-      final response = await networkClient.patch(AppServiceEndpoints.verifyRegisterOtp, body: postBody);
+      final response = await userNetworkClient.patch(AppServiceEndpoints.verifyRegisterOtp, body: postBody);
       final responseJson = json.decode(response.asString);
       final _ = VerifyOtpResponseModel.fromJson(responseJson);
       return const Right("");

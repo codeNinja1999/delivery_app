@@ -1,63 +1,139 @@
 import 'package:fresh_fold_delivery/repository/domain/user/entities/authentication/user_access_credential.dart';
 
+import '../../../otp/model/send_otp/send_otp_response_model.dart';
+
 class UserCredentialData {
   final String? clientId;
-  final String? username;
   final bool? firstTimeLogin;
   final String? lastLoginTs;
   final String accessToken;
   final String? tokenType;
   final int? expiresIn;
-  final String refreshToken;
+  final String? refreshToken;
   final String? expires;
   final String? issued;
 
-  UserCredentialData(
-      {required this.clientId,
-      required this.username,
-      required this.firstTimeLogin,
-      required this.lastLoginTs,
-      required this.accessToken,
-      required this.tokenType,
-      required this.expiresIn,
-      required this.refreshToken,
-      required this.expires,
-      required this.issued});
+  final int? userId;
+  final String? firstName;
+  final String? middleName;
+  final String? lastName;
+  final String? userName;
+  final String? email;
+  final List<Role>? roles;
+  final dynamic phoneCode;
+  final dynamic phoneNumber;
+  final bool? otpVerified;
+  final bool? isVerified;
+  final dynamic verifiedDate;
+  final dynamic userAddress;
+  final bool? isGuest;
+
+  UserCredentialData({
+    this.clientId,
+    this.firstTimeLogin,
+    this.lastLoginTs,
+    required this.accessToken,
+    this.tokenType,
+    this.expiresIn,
+    this.refreshToken,
+    this.expires,
+    this.issued,
+    this.userId,
+    this.firstName,
+    this.middleName,
+    this.lastName,
+    this.userName,
+    this.email,
+    this.roles,
+    this.phoneCode,
+    this.phoneNumber,
+    this.otpVerified,
+    this.isVerified,
+    this.verifiedDate,
+    this.userAddress,
+    this.isGuest,
+  });
 
   UserCredentialData.fromCredential({required UserAccessCredential data})
       : clientId = data.clientId,
         accessToken = data.accessToken,
-        username = data.username,
+        userName = data.userName,
         firstTimeLogin = data.firstTimeLogin,
         lastLoginTs = data.lastLoginTs,
         tokenType = data.tokenType,
         expiresIn = data.expiresIn,
         refreshToken = data.refreshToken,
         expires = data.expires,
-        issued = data.issued;
+        issued = data.issued,
+        userId = data.userId,
+        email = data.email,
+        roles = data.roles,
+        firstName = data.firstName,
+        middleName = data.middleName,
+        lastName = data.lastName,
+        phoneCode = data.phoneCode,
+        phoneNumber = data.phoneNumber,
+        isVerified = data.isVerified,
+        verifiedDate = data.verifiedDate,
+        otpVerified = data.otpVerified,
+        isGuest = data.isGuest,
+        userAddress = data.userAddress;
 
-  factory UserCredentialData.fromJson(Map<String, dynamic> json) => UserCredentialData(
-      clientId: json["clientId"],
-      username: json["username"],
-      firstTimeLogin: json["firstTimeLogin"],
-      lastLoginTs: json["lastLoginTs"],
-      accessToken: json["accessToken"],
-      tokenType: json["tokenType"],
-      expiresIn: json["expiresIn"],
-      refreshToken: json["refreshToken"],
-      expires: json["expires"],
-      issued: json["issued"]);
+  factory UserCredentialData.fromJson(Map<String, dynamic> json) {
+    return UserCredentialData(
+      clientId: json['clientId'],
+      firstTimeLogin: json['firstTimeLogin'],
+      lastLoginTs: json['lastLoginTs'],
+      accessToken: json['accessToken'],
+      tokenType: json['tokenType'],
+      expiresIn: json['expiresIn'],
+      refreshToken: json['refreshToken'],
+      expires: json['expires'],
+      issued: json['issued'],
+      userId: json['userId'],
+      firstName: json['firstName'],
+      middleName: json['middleName'],
+      lastName: json['lastName'],
+      userName: json['userName'],
+      email: json['email'],
+      roles: (json['roles'] as List<dynamic>?)?.map((roleJson) => Role.fromJson(roleJson)).toList(),
+      phoneCode: json['phoneCode'],
+      phoneNumber: json['phoneNumber'],
+      otpVerified: json['otpVerified'],
+      isVerified: json['isVerified'],
+      verifiedDate: json['verifiedDate'],
+      userAddress: json['userAddress'],
+      isGuest: json['isGuest'],
+    );
+  }
 
-  Map<String, dynamic> toJson() => {
-        "clientId": clientId,
-        "username": username,
-        "firstTimeLogin": firstTimeLogin,
-        "lastLoginTs": lastLoginTs,
-        "accessToken": accessToken,
-        "tokenType": tokenType,
-        "expiresIn": expiresIn,
-        "refreshToken": refreshToken,
-        "expires": expires,
-        "issued": issued,
-      };
+  // Convert a UserCredentialData object to a JSON map
+  Map<String, dynamic> toJson() {
+    return {
+      'clientId': clientId,
+      'firstTimeLogin': firstTimeLogin,
+      'lastLoginTs': lastLoginTs,
+      'accessToken': accessToken,
+      'tokenType': tokenType,
+      'expiresIn': expiresIn,
+      'refreshToken': refreshToken,
+      'expires': expires,
+      'issued': issued,
+      'userId': userId,
+      'firstName': firstName,
+      'middleName': middleName,
+      'lastName': lastName,
+      'userName': userName,
+      'email': email,
+      'roles': roles?.map((role) => role.toJson()).toList(),
+      'phoneCode': phoneCode,
+      'phoneNumber': phoneNumber,
+      'otpVerified': otpVerified,
+      'isVerified': isVerified,
+      'verifiedDate': verifiedDate,
+      'userAddress': userAddress,
+      'isGuest': isGuest,
+    };
+  }
 }
+

@@ -18,7 +18,6 @@ class NetworkClientProvider {
     final interceptor = UserAuthenticationInterceptor(
       baseUrl: AppConfig.shared.baseUrl,
       userAuthenticationRepository: userAuthenticationRepository,
-      signatureHelper: signatureHelper,
     ).interceptor();
     client.interceptors.add(interceptor);
     return client;

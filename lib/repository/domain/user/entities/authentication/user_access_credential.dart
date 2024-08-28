@@ -1,3 +1,5 @@
+import '../../../../data/otp/model/send_otp/send_otp_response_model.dart';
+
 class UserAccessCredential {
   final String? clientId;
   final String? username;
@@ -6,9 +8,23 @@ class UserAccessCredential {
   final String accessToken;
   final String? tokenType;
   final int? expiresIn;
-  final String refreshToken;
+  final String? refreshToken;
   final String? expires;
   final String? issued;
+  final int? userId;
+  final String? firstName;
+  final String? middleName;
+  final String? lastName;
+  final String? userName;
+  final String? email;
+  final List<Role>? roles;
+  final dynamic phoneCode;
+  final dynamic phoneNumber;
+  final bool? otpVerified;
+  final bool? isVerified;
+  final dynamic verifiedDate;
+  final dynamic userAddress;
+  final bool? isGuest;
 
   UserAccessCredential({
     this.clientId,
@@ -18,8 +34,22 @@ class UserAccessCredential {
     required this.accessToken,
     this.tokenType,
     this.expiresIn,
-    required this.refreshToken,
+    this.refreshToken,
     this.expires,
     this.issued,
+    this.userId,
+    this.firstName,
+    this.middleName,
+    this.lastName,
+    this.userName,
+    this.email,
+    this.roles,
+    this.phoneCode,
+    this.phoneNumber,
+    this.otpVerified,
+    this.isVerified,
+    this.verifiedDate,
+    this.userAddress,
+    this.isGuest,
   });
 }

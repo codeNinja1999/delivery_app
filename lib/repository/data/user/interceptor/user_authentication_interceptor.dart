@@ -11,16 +11,20 @@ final Queue<Completer<bool>> _tokenRefreshQueue = Queue<Completer<bool>>();
 class UserAuthenticationInterceptor {
   UserAuthenticationInterceptor({
     required this.baseUrl,
-    required this.signatureHelper,
+    // required this.signatureHelper,
     required this.userAuthenticationRepository,
   });
 
   final String baseUrl;
   final userCredentialDataStore = UserCredentialDataStore();
-  final SignatureHelper signatureHelper;
+  // final SignatureHelper signatureHelper;
   UserAuthenticationRepository userAuthenticationRepository;
 
-  Map<String, String> generateHeaders(String accessToken, String signature) => {
+  Map<String, String> generateHeaders(
+    String accessToken,
+    // String signature,
+  ) =>
+      {
         "Authorization": accessToken,
         "Accept": "application/json",
         "Content-Type": "application/json",
@@ -31,7 +35,10 @@ class UserAuthenticationInterceptor {
     return Interceptor(onRequest: (request) async {
       final credential = await userCredentialDataStore.getCredential();
       final String accessToken = "${credential?.tokenType ?? "Bearer"} ${credential?.accessToken ?? ""}";
-      final headers = generateHeaders(accessToken, signatureHelper.signature(request.body));
+      final headers = generateHeaders(
+        accessToken,
+        // signatureHelper.signature(request.body),
+      );
       final finalHeader = <String, String>{}
         ..addAll(headers)
         ..addAll(request.headers);

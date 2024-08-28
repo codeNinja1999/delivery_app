@@ -13,8 +13,8 @@ class UserCredentialDataStore {
   AndroidOptions _getAndroidOptions() => const AndroidOptions(encryptedSharedPreferences: true, resetOnError: true);
 
   saveCredential(UserAccessCredential credential) async {
-    final credntialData = UserCredentialData.fromCredential(data: credential);
-    final credentialDataJson = jsonEncode(credntialData.toJson()).toString();
+    final credentialData = UserCredentialData.fromCredential(data: credential);
+    final credentialDataJson = jsonEncode(credentialData.toJson()).toString();
 
     await storage.write(
         key: StoreConstants.userCredential,
@@ -35,19 +35,33 @@ class UserCredentialDataStore {
     final data =
         await storage.read(iOptions: _getIOSOptions(), aOptions: _getAndroidOptions(), key: StoreConstants.userCredential);
     if (data != null) {
-      final credentialJosn = json.decode(data);
-      final credential = UserCredentialData.fromJson(credentialJosn);
+      final credentialJson = json.decode(data);
+      final credential = UserCredentialData.fromJson(credentialJson);
       return UserAccessCredential(
-          clientId: credential.clientId,
-          username: credential.username,
-          firstTimeLogin: credential.firstTimeLogin,
-          lastLoginTs: credential.lastLoginTs,
-          accessToken: credential.accessToken,
-          tokenType: credential.tokenType,
-          expiresIn: credential.expiresIn,
-          refreshToken: credential.refreshToken,
-          expires: credential.expires,
-          issued: credential.issued);
+        clientId: credential.clientId,
+        userName: credential.userName,
+        firstTimeLogin: credential.firstTimeLogin,
+        lastLoginTs: credential.lastLoginTs,
+        accessToken: credential.accessToken,
+        tokenType: credential.tokenType,
+        expiresIn: credential.expiresIn,
+        refreshToken: credential.refreshToken,
+        expires: credential.expires,
+        issued: credential.issued,
+        userId: credential.userId,
+        firstName: credential.firstName,
+        middleName: credential.middleName,
+        lastName: credential.lastName,
+        roles: credential.roles,
+        email: credential.email,
+        phoneCode: credential.phoneCode,
+        phoneNumber: credential.phoneNumber,
+        isVerified: credential.isVerified,
+        otpVerified: credential.otpVerified,
+        userAddress: credential.userAddress,
+        verifiedDate: credential.verifiedDate,
+        isGuest: credential.isGuest,
+      );
     } else {
       return null;
     }

@@ -105,7 +105,10 @@ void repositoriesInjection() {
     () => UserRegistrationRepositoryImpl(networkClient: userAuthenticationNetworkClient()),
   );
   sl.registerFactory<OTPRepository>(
-    () => SendOtpRepositoryImpl(networkClient: defaultNetworkClient()),
+    () => OtpRepositoryImpl(
+      networkClient: defaultNetworkClient(),
+      userNetworkClient: userAuthenticationNetworkClient(),
+    ),
   );
   sl.registerLazySingleton<UserUtilitiesRepository>(
     () => UserUtilitiesRepositoryImpl(networkClient: userAuthenticationNetworkClient()),
