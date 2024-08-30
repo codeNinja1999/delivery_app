@@ -1,5 +1,5 @@
 class VerifyOtpRequestModel {
-  final int? otp;
+  final String? otp;
 
   VerifyOtpRequestModel({this.otp});
 

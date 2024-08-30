@@ -29,8 +29,7 @@ class UserView extends StatelessWidget {
                 ),
                 TextButton(
                     onPressed: () {
-                                            Navigator.pushNamed(context, AdminRoute.userList);
-
+                      Navigator.pushNamed(context, AdminRoute.userList);
                     },
                     child: Text(
                       "View All",
@@ -49,7 +48,7 @@ class UserView extends StatelessWidget {
                   return Container(
                     padding: const EdgeInsets.all(AppSize.inset),
                     decoration: BoxDecoration(
-          color: theme.colorScheme.secondaryContainer,
+                      color: theme.colorScheme.secondaryContainer,
                       borderRadius: BorderRadius.circular(AppSize.cornerRadiusMedium),
                     ),
                     child: Column(

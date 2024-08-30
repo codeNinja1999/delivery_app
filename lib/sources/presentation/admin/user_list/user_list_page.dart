@@ -44,7 +44,7 @@ class UserListPage extends StatelessWidget {
               itemBuilder: (context, index) {
                 return GestureDetector(
                   onTap: () {
-                    Navigator.pushNamed(context, AdminRoute.operatorDetails);
+                    Navigator.pushNamed(context, AdminRoute.userDetails);
                   },
                   child: Container(
                     padding: const EdgeInsets.all(AppSize.inset),

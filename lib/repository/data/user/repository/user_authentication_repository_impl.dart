@@ -35,17 +35,13 @@ class UserAuthenticationRepositoryImpl implements UserAuthenticationRepository {
       final response = await networkClient.post(AppServiceEndpoints.login, body: postBody);
 
       final responseModel = UserAuthenticationResponseModel.fromJson(json.decode(response.asString));
-      if (responseModel.newDeviceFlag == true) {
-        return Left(NewDeviceDetected(responseModel.deviceVerificationProcessId ?? ""));
-      } else {
-        final credential = responseModel.toDomain();
-        await userCredentialStorage.saveCredential(credential);
-        return Right(credential);
-      }
+
+      final credential = responseModel.toDomain();
+      await userCredentialStorage.saveCredential(credential);
+      return Right(credential);
     } on Exception catch (error) {
       return Left(error);
     }
-
   }
 
   @override

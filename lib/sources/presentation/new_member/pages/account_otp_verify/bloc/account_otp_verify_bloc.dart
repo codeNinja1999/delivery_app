@@ -31,7 +31,7 @@ class AccountOtpVerifyBloc extends Bloc<AccountOtpVerifyEvent, AccountOtpVerifyS
   ) async {
     emit(state.copyWith(status: InProgress()));
 
-    final verifyInfo = VerifyOTP(verificationCode: int.parse(state.verificationCode));
+    final verifyInfo = VerifyOTP(verificationCode: state.verificationCode);
     final response = await otpRepository.verifyRegisterOTP(verifyInfo);
     emit(
       response.fold(

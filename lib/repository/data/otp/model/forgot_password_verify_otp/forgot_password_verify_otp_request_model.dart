@@ -1,6 +1,6 @@
 class ForgotPasswordVerifyOtpRequestModel {
   final String? email;
-  final int? otp;
+  final String? otp;
 
   ForgotPasswordVerifyOtpRequestModel({this.email, this.otp});
 

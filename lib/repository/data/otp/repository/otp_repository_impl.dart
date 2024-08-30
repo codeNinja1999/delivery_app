@@ -21,7 +21,7 @@ class OtpRepositoryImpl implements OTPRepository {
 
   NetworkClient networkClient;
   NetworkClient userNetworkClient;
-  
+
   UserCredentialDataStore userCredentialStorage;
 
   @override
@@ -35,7 +35,7 @@ class OtpRepositoryImpl implements OTPRepository {
       final credential = responseModel.toDomain();
       await userCredentialStorage.saveCredential(credential);
 
-      return const Right("");
+      return const Right("Success");
     } on Exception catch (error) {
       return Left(error);
     }

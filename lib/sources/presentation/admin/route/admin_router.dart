@@ -17,6 +17,12 @@ import '../operator_details/bloc/operator_details_bloc.dart';
 import '../operator_list/bloc/operator_list_bloc.dart';
 import '../operator_list/operator_list_page.dart';
 import '../update_operator/bloc/update_operator_bloc.dart';
+import '../user_details/bloc/user_details_bloc.dart';
+import '../user_details/user_details.dart';
+import '../user_list/bloc/user_list_bloc.dart';
+import '../user_list/user_list_page.dart';
+import '../user_update/bloc/user_update_bloc.dart';
+import '../user_update/user_update_page.dart';
 
 T? tryCast<T>(dynamic object) => object is T ? object : null;
 
@@ -28,14 +34,6 @@ class AdminRouter {
           builder: (_) => BlocProvider(
             create: (_) => sl<AdminDashboardBloc>(),
             child: Theme(data: darkTheme, child: const AdminDashboardPage()),
-          ),
-        );
-
-      case AdminRoute.operatorList:
-        return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (_) => sl<OperatorListBloc>(),
-            child: const OperatorListPage(),
           ),
         );
 
@@ -54,6 +52,15 @@ class AdminRouter {
             child: const AddServicePricePage(),
           ),
         );
+
+        case AdminRoute.operatorList:
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (_) => sl<OperatorListBloc>(),
+            child: const OperatorListPage(),
+          ),
+        );
+
       case AdminRoute.operatorDetails:
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
@@ -61,11 +68,36 @@ class AdminRouter {
             child: const OperatorDetailsPage(),
           ),
         );
+
       case AdminRoute.updateOperator:
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
             create: (_) => sl<UpdateOperatorBloc>(),
             child: const UpdateOperatorPage(),
+          ),
+        );
+
+        case AdminRoute.userList:
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (_) => sl<UserListBloc>(),
+            child: const UserListPage(),
+          ),
+        );
+
+      case AdminRoute.userUpdate:
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (_) => sl<UserUpdateBloc>(),
+            child: const UserUpdatePage(),
+          ),
+        );
+
+      case AdminRoute.userDetails:
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (_) => sl<UserDetailsBloc>(),
+            child: const UserDetailsPage(),
           ),
         );
 

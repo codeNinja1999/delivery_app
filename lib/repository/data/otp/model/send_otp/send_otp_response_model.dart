@@ -1,3 +1,6 @@
+
+import '../../../common/model/role.dart';
+
 class SendOtpResponseModel {
   final User? user;
   final String? token;
@@ -12,17 +15,17 @@ class SendOtpResponseModel {
 
 class User {
   final int? userId;
-  final dynamic firstName;
-  final dynamic middleName;
-  final dynamic lastName;
+  final String? firstName;
+  final String? middleName;
+  final String? lastName;
   final dynamic userName;
   final String? email;
   final List<Role>? roles;
-  final dynamic phoneCode;
-  final dynamic phoneNumber;
+  final String? phoneCode;
+  final String? phoneNumber;
   final bool? otpVerified;
   final bool? isVerified;
-  final dynamic verifiedDate;
+  final String? verifiedDate;
   final dynamic userAddress;
   final bool? isGuest;
 
@@ -59,21 +62,4 @@ class User {
         userAddress: json["user_address"],
         isGuest: json["is_guest"],
       );
-}
-
-class Role {
-  final int? id;
-  final String? name;
-
-  Role({this.id, this.name});
-
-  // Convert a JSON map to a Role object
-  factory Role.fromJson(Map<String, dynamic> json) {
-    return Role(id: json['id'], name: json['name']);
-  }
-
-  // Convert a Role object to a JSON map
-  Map<String, dynamic> toJson() {
-    return {'id': id, 'name': name};
-  }
 }

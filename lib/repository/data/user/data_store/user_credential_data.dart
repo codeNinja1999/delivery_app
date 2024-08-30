@@ -58,7 +58,6 @@ class UserCredentialDataStore {
         phoneNumber: credential.phoneNumber,
         isVerified: credential.isVerified,
         otpVerified: credential.otpVerified,
-        userAddress: credential.userAddress,
         verifiedDate: credential.verifiedDate,
         isGuest: credential.isGuest,
       );

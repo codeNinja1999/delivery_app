@@ -44,7 +44,7 @@ class _PinputExampleState extends State<PinputExample> {
       width: 56,
       height: 56,
       textStyle: TextStyle(
-        fontSize: 32,
+        fontSize: 28,
         color: AppColors.black,
       ),
       decoration: BoxDecoration(

@@ -52,29 +52,12 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     Emitter<LoginState> emit,
   ) async {
     emit(state.copyWith(status: InProgress()));
-    // final loginInfo = LoginInfo(
-    //   email: "",
-    //   password: "",
-    // );
-    // final response = await userAuthenticationRepository.authenticateUser(loginInfo);
+    final response = await userAuthenticationRepository.authenticateUser(state.makeData);
 
-    // response.fold((error) {
-    //   if (error is NewDeviceDetected) {
-    //     emit(state.copyWith(
-    //         shouldVerifyDevice: true,
-    //         loginViewModel: LoginViewModel(
-    //           username: state.username,
-    //           password: state.password,
-    //           deviceVerificationProcessId: error.toString(),
-    //           shouldRemember: state.shouldVerifyDevice,
-    //         )));
-    //   } else {
-    //     emit(state.copyWith(status: SubmissionFailure(error)));
-    //   }
-    // }, (right) async {
-    //   updateUserPersistance();
-    //   emit(state.copyWith(status: Success()));
-    // });
+    response.fold(
+      (error) => emit(state.copyWith(status: SubmissionFailure(error))),
+      (right) => emit(state.copyWith(status: Success())),
+    );
   }
 
   Future<Either<Exception, String>> updateUserPersistance() async {

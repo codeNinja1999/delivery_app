@@ -27,6 +27,7 @@ class _LoginBodyState extends State<LoginForm> {
         final status = state.status;
         (status is InProgress) ? LoadingView.show() : LoadingView.hide();
         if (status is Success) {
+          Navigator.of(context).pushNamed(AppRoute.home);
         } else if (status is SubmissionFailure) {
           ErrorResolver.resolve(context, status);
         }
@@ -70,10 +71,9 @@ class _LoginBodyState extends State<LoginForm> {
                       title: LocaleKeys.login.value,
                       onPressed: () {
                         KeyboardUtil.hideKeyboard(context);
-                        Navigator.pushNamed(context, AppRoute.user);
-                        // if (formKey.currentState!.validate()) {
-                        //   BlocProvider.of<LoginBloc>(context).add(AuthenticateUser());
-                        // }
+                        if (formKey.currentState!.validate()) {
+                          BlocProvider.of<LoginBloc>(context).add(AuthenticateUser());
+                        }
                       },
                     ),
                     const SizedBox(height: AppSize.inset),

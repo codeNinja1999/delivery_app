@@ -3,6 +3,7 @@ import 'package:fresh_fold_delivery/sources/core/app_core.dart';
 
 import 'package:fresh_fold_delivery/sources/presentation/user/dashboard/widgets/widgets.dart';
 import 'package:fresh_fold_delivery/sources/presentation/widgets/widgets.dart';
+import '../../route/user_route.dart';
 import 'dashboard_view.dart';
 
 class DashboardPage extends StatefulWidget {
@@ -38,16 +39,19 @@ class _DashboardHomeState extends State<DashboardPage> {
           value: overlay,
           child: Scaffold(
             backgroundColor: Theme.of(context).colorScheme.surface,
-            appBar: const MyAppBar(
+            appBar: MyAppBar(
               allowBack: false,
               actions: [
                 Padding(
-                  padding: EdgeInsets.only(right: AppSize.viewMargin),
+                  padding: const EdgeInsets.only(right: AppSize.viewMargin),
                   child: Row(
                     children: [
-                      NotificationBadge(),
-                      SizedBox(width: AppSize.inset),
-                      CircleAvatar(child: Text("FD")),
+                      const NotificationBadge(),
+                      const SizedBox(width: AppSize.inset),
+                      GestureDetector(
+                        onTap: () => Navigator.of(context).pushNamed(UserRoute.profile),
+                        child: const CircleAvatar(child: Text("Profile")),
+                      ),
                     ],
                   ),
                 ),

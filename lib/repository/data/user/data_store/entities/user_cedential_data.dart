@@ -1,6 +1,6 @@
 import 'package:fresh_fold_delivery/repository/domain/user/entities/authentication/user_access_credential.dart';
 
-import '../../../otp/model/send_otp/send_otp_response_model.dart';
+import '../../../common/model/role.dart';
 
 class UserCredentialData {
   final String? clientId;
@@ -20,12 +20,11 @@ class UserCredentialData {
   final String? userName;
   final String? email;
   final List<Role>? roles;
-  final dynamic phoneCode;
-  final dynamic phoneNumber;
+  final String? phoneCode;
+  final String? phoneNumber;
   final bool? otpVerified;
   final bool? isVerified;
-  final dynamic verifiedDate;
-  final dynamic userAddress;
+  final String? verifiedDate;
   final bool? isGuest;
 
   UserCredentialData({
@@ -50,7 +49,6 @@ class UserCredentialData {
     this.otpVerified,
     this.isVerified,
     this.verifiedDate,
-    this.userAddress,
     this.isGuest,
   });
 
@@ -76,9 +74,7 @@ class UserCredentialData {
         isVerified = data.isVerified,
         verifiedDate = data.verifiedDate,
         otpVerified = data.otpVerified,
-        isGuest = data.isGuest,
-        userAddress = data.userAddress;
-
+        isGuest = data.isGuest;
   factory UserCredentialData.fromJson(Map<String, dynamic> json) {
     return UserCredentialData(
       clientId: json['clientId'],
@@ -96,13 +92,12 @@ class UserCredentialData {
       lastName: json['lastName'],
       userName: json['userName'],
       email: json['email'],
-      roles: (json['roles'] as List<dynamic>?)?.map((roleJson) => Role.fromJson(roleJson)).toList(),
+      roles: json['roles']?.map((roleJson) => Role.fromJson(roleJson)).toList(),
       phoneCode: json['phoneCode'],
       phoneNumber: json['phoneNumber'],
       otpVerified: json['otpVerified'],
       isVerified: json['isVerified'],
       verifiedDate: json['verifiedDate'],
-      userAddress: json['userAddress'],
       isGuest: json['isGuest'],
     );
   }
@@ -131,9 +126,10 @@ class UserCredentialData {
       'otpVerified': otpVerified,
       'isVerified': isVerified,
       'verifiedDate': verifiedDate,
-      'userAddress': userAddress,
       'isGuest': isGuest,
     };
   }
+
+
 }
 

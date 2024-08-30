@@ -1,4 +1,5 @@
-import '../../../../data/otp/model/send_otp/send_otp_response_model.dart';
+import '../../../../data/common/model/role.dart';
+import '../user_info/user_contact_info.dart';
 
 class UserAccessCredential {
   final String? clientId;
@@ -18,12 +19,12 @@ class UserAccessCredential {
   final String? userName;
   final String? email;
   final List<Role>? roles;
-  final dynamic phoneCode;
-  final dynamic phoneNumber;
+  final String? phoneCode;
+  final String? phoneNumber;
   final bool? otpVerified;
   final bool? isVerified;
-  final dynamic verifiedDate;
-  final dynamic userAddress;
+  final String? verifiedDate;
+  final UserContactInfo? userAddress;
   final bool? isGuest;
 
   UserAccessCredential({

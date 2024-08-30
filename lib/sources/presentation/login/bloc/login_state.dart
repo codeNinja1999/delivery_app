@@ -10,6 +10,7 @@ class LoginState extends Equatable {
   String? get usernameValidation =>
       (AppRegex.email.hasMatch(username) && username != "") ? null : LocaleKeys.emailAddressErrorMessage.value;
   String? get passwordValidation => (password != "") ? null : LocaleKeys.passwordErrorMessage.value;
+  LoginInfo get makeData => _makeData();
 
   LoginState({
     this.persistUsername = '',
@@ -33,6 +34,10 @@ class LoginState extends Equatable {
       isRememberMe: isRememberMe ?? this.isRememberMe,
       status: status ?? InitialStatus(),
     );
+  }
+
+  _makeData() {
+    return LoginInfo(email: username, password: password);
   }
 
   @override

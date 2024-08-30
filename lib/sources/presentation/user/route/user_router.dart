@@ -22,6 +22,8 @@ import '../notification/bloc/notification_list_bloc.dart';
 import '../notification/view/notification_list_pages.dart';
 import '../order_history/bloc/order_history_bloc.dart';
 import '../order_history/view/order_history_page.dart';
+import '../profile/bloc/profile_bloc.dart';
+import '../profile/profile_page.dart';
 import '../service_selection/bloc/service_selection_bloc.dart';
 
 T? tryCast<T>(dynamic object) => object is T ? object : null;
@@ -48,8 +50,8 @@ class UserRouter {
       case UserRoute.profile:
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
-            create: (_) => sl<OrderHistoryBloc>(),
-            child: const OrderHistoryPage(),
+            create: (_) => sl<ProfileBloc>(),
+            child: const ProfilePage(),
           ),
         );
 

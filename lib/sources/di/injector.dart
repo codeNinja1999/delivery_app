@@ -13,6 +13,9 @@ import '../presentation/admin/add_location/bloc/add_location_bloc.dart';
 import '../presentation/admin/add_service_price/bloc/add_service_price_bloc.dart';
 import '../presentation/admin/operator_details/bloc/operator_details_bloc.dart';
 import '../presentation/admin/update_operator/bloc/update_operator_bloc.dart';
+import '../presentation/admin/user_details/bloc/user_details_bloc.dart';
+import '../presentation/admin/user_list/bloc/user_list_bloc.dart';
+import '../presentation/admin/user_update/bloc/user_update_bloc.dart';
 import '../presentation/operator/pickup_order/bloc/pickup_order_bloc.dart';
 import '../presentation/user/add_user_location/bloc/add_user_location_bloc.dart';
 import '../presentation/user/bloc/user_bloc.dart';
@@ -25,6 +28,7 @@ import '../presentation/user/notification/bloc/notification_list_bloc.dart';
 import '../presentation/splash/bloc/splash_bloc.dart';
 import '../presentation/user/location/bloc/location_bloc.dart';
 import '../presentation/user/order_history/bloc/order_history_bloc.dart';
+import '../presentation/user/profile/bloc/profile_bloc.dart';
 import '../presentation/user/service_selection/bloc/service_selection_bloc.dart';
 import '../presentation/user_agreement/bloc/user_agreement_bloc.dart';
 
@@ -77,6 +81,7 @@ void blocsInjection() {
   sl.registerFactory(() => AddUserLocationBloc());
   sl.registerFactory(() => DateSelectionBloc());
   sl.registerFactory(() => ServiceSelectionBloc());
+  sl.registerFactory(() => ProfileBloc(userUtilitiesRepository: sl()));
   sl.registerFactory(() => NotificationListBloc(userUtilitiesRepository: sl()));
   sl.registerFactory(() => OrderHistoryBloc());
 
@@ -90,10 +95,13 @@ void blocsInjection() {
   sl.registerFactory(() => AdminBloc());
   sl.registerFactory(() => AdminDashboardBloc());
   sl.registerFactory(() => AddLocationBloc());
-  sl.registerFactory(() => OperatorListBloc());
   sl.registerFactory(() => AddServicePriceBloc());
+  sl.registerFactory(() => OperatorListBloc());
   sl.registerFactory(() => OperatorDetailsBloc());
   sl.registerFactory(() => UpdateOperatorBloc());
+  sl.registerFactory(() => UserListBloc());
+  sl.registerFactory(() => UserDetailsBloc());
+  sl.registerFactory(() => UserUpdateBloc());
 }
 
 ///repositories injection

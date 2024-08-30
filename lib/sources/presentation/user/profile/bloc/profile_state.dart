@@ -1,10 +1,21 @@
 part of 'profile_bloc.dart';
 
-sealed class ProfileState extends Equatable {
-  const ProfileState();
-  
-  @override
-  List<Object> get props => [];
-}
+class ProfileState extends Equatable {
+  final DetailedUser? userInfo;
+  final FormStatus status;
 
-final class ProfileInitial extends ProfileState {}
+  ProfileState({this.userInfo, status}) : status = (status != null) ? status : InitialStatus();
+
+  ProfileState copyWith({
+    DetailedUser? userInfo,
+    FormStatus? status,
+  }) {
+    return ProfileState(
+      userInfo: userInfo ?? userInfo,
+      status: status ?? InitialStatus(),
+    );
+  }
+
+  @override
+  List<Object?> get props => [userInfo, status];
+}

@@ -61,7 +61,7 @@ class UserDetailsPage extends StatelessWidget {
                 title: "Edit Details",
                 buttonType: ButtonType.bordered,
                 onPressed: () {
-                  Navigator.pushNamed(context, AdminRoute.updateOperator);
+                  Navigator.pushNamed(context, AdminRoute.userUpdate);
                 }),
             const SizedBox(height: AppSize.inset),
             CustomButton(title: "Delete", onPressed: () {}),
