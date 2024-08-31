@@ -5,6 +5,7 @@ import 'package:fresh_fold_delivery/sources/resources/resources.dart';
 import 'package:fresh_fold_delivery/sources/route/route.dart';
 import 'package:fresh_fold_delivery/sources/core/app_core.dart';
 import 'package:fresh_fold_delivery/sources/presentation/widgets/widgets.dart';
+import '../../../../repository/domain/catalog/entities/catalogs.dart';
 import '../bloc/login_bloc.dart';
 
 class LoginForm extends StatefulWidget {
@@ -27,7 +28,13 @@ class _LoginBodyState extends State<LoginForm> {
         final status = state.status;
         (status is InProgress) ? LoadingView.show() : LoadingView.hide();
         if (status is Success) {
-          Navigator.of(context).pushNamed(AppRoute.home);
+          if (state.userType.id == "admin") {
+            Navigator.of(context).pushReplacementNamed(AppRoute.admin);
+          } else if (state.userType.id == "operator") {
+            Navigator.of(context).pushReplacementNamed(AppRoute.operator);
+          } else {
+            Navigator.of(context).pushReplacementNamed(AppRoute.home);
+          }
         } else if (status is SubmissionFailure) {
           ErrorResolver.resolve(context, status);
         }
@@ -57,16 +64,10 @@ class _LoginBodyState extends State<LoginForm> {
                     const SizedBox(height: AppSize.inset),
                     _PasswordInput(),
                     const SizedBox(height: AppSize.inset),
+                    _UserTypeInput(),
+                    const SizedBox(height: AppSize.inset),
                     const RememberView(),
                     const SizedBox(height: AppSize.viewSpacing * 2),
-                    CustomButton(
-                      title: "Admin login",
-                      onPressed: () {
-                        KeyboardUtil.hideKeyboard(context);
-                        Navigator.pushNamed(context, AppRoute.admin);
-                      },
-                    ),
-                    const SizedBox(height: AppSize.inset),
                     CustomButton(
                       title: LocaleKeys.login.value,
                       onPressed: () {
@@ -74,14 +75,6 @@ class _LoginBodyState extends State<LoginForm> {
                         if (formKey.currentState!.validate()) {
                           BlocProvider.of<LoginBloc>(context).add(AuthenticateUser());
                         }
-                      },
-                    ),
-                    const SizedBox(height: AppSize.inset),
-                    CustomButton(
-                      title: "Operator login",
-                      onPressed: () {
-                        KeyboardUtil.hideKeyboard(context);
-                        Navigator.pushNamed(context, AppRoute.operator);
                       },
                     ),
                     const SizedBox(height: AppSize.inset),
@@ -165,6 +158,25 @@ class _PasswordInput extends StatelessWidget {
           validator: (_) => state.passwordValidation,
           onChanged: (password) {
             context.read<LoginBloc>().add(PasswordChanged(password));
+          },
+        );
+      },
+    );
+  }
+}
+
+class _UserTypeInput extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<LoginBloc, LoginState>(
+      buildWhen: (previous, current) => previous.userType != current.userType,
+      builder: (context, state) {
+        return AppDropDown<Catalog>(
+          title: "User Type",
+          placeholder: "Select User Type",
+          validator: (_) => state.userTypeValidation,
+          onChanged: (userType) {
+            context.read<LoginBloc>().add(UserTypeSelected(userType));
           },
         );
       },

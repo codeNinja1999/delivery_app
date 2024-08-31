@@ -24,6 +24,10 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       emit(state.copyWith(isRememberMe: !state.isRememberMe));
     });
 
+    on<UserTypeSelected>((event, emit) {
+      emit(state.copyWith(userType: event.userType));
+    });
+
     on<CheckUserIfPersist>(_onCheckUser);
 
     add(CheckUserIfPersist());
@@ -56,7 +60,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
     response.fold(
       (error) => emit(state.copyWith(status: SubmissionFailure(error))),
-      (right) => emit(state.copyWith(status: Success())),
+      (userCredential) => emit(state.copyWith(status: Success())),
     );
   }
 
