@@ -50,7 +50,7 @@ class _DashboardHomeState extends State<DashboardPage> {
                       const SizedBox(width: AppSize.inset),
                       GestureDetector(
                         onTap: () => Navigator.of(context).pushNamed(UserRoute.profile),
-                        child: const CircleAvatar(child: Text("Profile")),
+                        child: const CircleAvatar(child: Text("P")),
                       ),
                     ],
                   ),

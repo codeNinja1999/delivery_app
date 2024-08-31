@@ -11,7 +11,17 @@ import '../app_core.dart';
 class ErrorResolver {
   static void resolve(BuildContext context, SubmissionFailure status) {
     if (status.error is SessionExpired || status.error is MultipleDeviceDetection) {
-      AppRouter.logoutUser(context);
+      showDialog(
+        context: context,
+        builder: (context) {
+          return CustomDialog(
+            title: "Session Expired",
+            message: "Oops! It looks like your session expired. Please log back in to continue.",
+            primaryButtonTitle: "Okay",
+            onPrimaryButtonPressed: () => AppRouter.logoutUser(context),
+          );
+        },
+      );
     } else if (status.error is Failure) {
       SnackbarUtils.showSnackbar(context,
           message: status.error.exceptionMessage, icon: Icons.error, type: SnackBarType.error);

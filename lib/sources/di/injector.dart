@@ -19,6 +19,7 @@ import '../presentation/admin/user_update/bloc/user_update_bloc.dart';
 import '../presentation/operator/pickup_order/bloc/pickup_order_bloc.dart';
 import '../presentation/user/add_user_location/bloc/add_user_location_bloc.dart';
 import '../presentation/user/bloc/user_bloc.dart';
+import '../presentation/user/change_password/bloc/change_password_bloc.dart';
 import '../presentation/user/checkout/bloc/checkout_bloc.dart';
 import '../presentation/user/dashboard/dashboard.dart';
 import '../presentation/forgot_password/forgot_password.dart';
@@ -78,12 +79,13 @@ void blocsInjection() {
   sl.registerFactory(() => UserBloc());
   sl.registerFactory(() => CheckoutBloc());
   sl.registerFactory(() => LocationBloc());
-  sl.registerFactory(() => AddUserLocationBloc());
+  sl.registerFactory(() => OrderHistoryBloc());
   sl.registerFactory(() => DateSelectionBloc());
+  sl.registerFactory(() => AddUserLocationBloc());
   sl.registerFactory(() => ServiceSelectionBloc());
   sl.registerFactory(() => ProfileBloc(userUtilitiesRepository: sl()));
   sl.registerFactory(() => NotificationListBloc(userUtilitiesRepository: sl()));
-  sl.registerFactory(() => OrderHistoryBloc());
+  sl.registerFactory(() => ChangePasswordBloc(passwordRepository: sl()));
 
   //operator
   sl.registerFactory(() => OperatorBloc());
@@ -108,6 +110,9 @@ void blocsInjection() {
 void repositoriesInjection() {
   sl.registerFactory<UserAuthenticationRepository>(
     () => UserAuthenticationRepositoryImpl(networkClient: defaultNetworkClient()),
+  );
+  sl.registerFactory<PasswordRepository>(
+    () => PasswordRepositoryImpl(networkClient: userAuthenticationNetworkClient()),
   );
   sl.registerFactory<UserRegistrationRepository>(
     () => UserRegistrationRepositoryImpl(networkClient: userAuthenticationNetworkClient()),

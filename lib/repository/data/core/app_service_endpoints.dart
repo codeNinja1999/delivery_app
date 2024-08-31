@@ -6,6 +6,7 @@ class AppServiceEndpoints {
   static const generateRegisterOtp = "auth/register";
   static const verifyRegisterOtp = "auth/verify-otp";
   static const resetPassword = "auth/reset-password";
+  static const changeUserPassword = "auth/me/change-password";
   static const register = "auth/me/complete-profile-registration";
   static const generateForgotPasswordOtp = "auth/forgot-password-otp";
   static const verifyForgotPassword = "auth/verify-forgot-password-otp";

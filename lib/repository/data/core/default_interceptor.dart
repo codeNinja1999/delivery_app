@@ -38,7 +38,14 @@ class DefaultInterceptor {
       if (apiResponse.statusCode >= 200 && apiResponse.statusCode < 300) {
         return apiResponse;
       } else if (apiResponse.statusCode == 401) {
-        throw SessionExpired("Session expired");
+        final apiResponseString = apiResponse.asString;
+        final responseJson = json.decode(apiResponseString);
+        final errorMessage = responseJson['message'];
+        if (errorMessage == "Unauthorized role.") {
+          throw Exception(errorMessage);
+        } else {
+          throw SessionExpired("Session expired");
+        }
       } else {
         final apiResponseString = apiResponse.asString;
 

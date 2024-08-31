@@ -49,44 +49,56 @@ class _ProfilePageState extends State<ProfilePage> {
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(AppSize.viewMargin),
           child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+            const SizedBox(height: AppSize.inset),
             Row(
               children: [
-                Icon(Icons.people),
-                Text(
-                  "John doe",
-                  style: theme.textTheme.titleMedium,
+                const Icon(Icons.people),
+                const SizedBox(width: AppSize.inset),
+                Expanded(
+                  child: Text(
+                    "John doe",
+                    style: theme.textTheme.titleMedium,
+                  ),
                 )
               ],
             ),
             const SizedBox(height: AppSize.inset),
             Row(
               children: [
-                Icon(Icons.email),
-                Text(
-                  "johndoe@gmail.com",
-                  style: theme.textTheme.titleMedium,
+                const Icon(Icons.email),
+                const SizedBox(width: AppSize.inset),
+                Expanded(
+                  child: Text(
+                    "johndoe@gmail.com",
+                    style: theme.textTheme.titleMedium,
+                  ),
                 )
               ],
             ),
             const SizedBox(height: AppSize.inset),
             Row(
               children: [
-                Icon(Icons.phone),
-                Text(
-                  "123-345-567",
-                  style: theme.textTheme.titleMedium,
+                const Icon(Icons.phone),
+                const SizedBox(width: AppSize.inset),
+                Expanded(
+                  child: Text(
+                    "123-345-567",
+                    style: theme.textTheme.titleMedium,
+                  ),
                 )
               ],
             ),
             const SizedBox(height: AppSize.inset),
             Row(
-              textBaseline: TextBaseline.alphabetic,
-              crossAxisAlignment: CrossAxisAlignment.baseline,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Icon(Icons.piano),
-                Text(
-                  "Phuket - Ban Tawan House: 1415 ,Dropbox: 122 Beside ABC train station",
-                  style: theme.textTheme.titleMedium,
+                const Icon(Icons.location_on),
+                const SizedBox(width: AppSize.inset),
+                Expanded(
+                  child: Text(
+                    "Phuket - Ban Tawan House: 1415 ,Dropbox: 122 Beside ABC train station",
+                    style: theme.textTheme.titleMedium,
+                  ),
                 )
               ],
             ),
@@ -139,7 +151,7 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             const SizedBox(height: AppSize.viewSpacing),
             TextButton(
-              onPressed: () {},
+              onPressed: () => Navigator.of(context).pushNamed(UserRoute.changePassword),
               child: Text(
                 "Change Password",
                 style: theme.textTheme.titleMedium?.copyWith(color: theme.colorScheme.primary),
@@ -148,7 +160,18 @@ class _ProfilePageState extends State<ProfilePage> {
             const SizedBox(height: AppSize.inset),
             TextButton(
               onPressed: () {
-                context.read<ProfileBloc>().add(LogoutUser());
+                showDialog(
+                  context: context,
+                  builder: (newContext) {
+                    return CustomDialog(
+                      title: LocaleKeys.logoutConfirmationTitle.value,
+                      message: LocaleKeys.areYouSureYouWantToLogout.value,
+                      primaryButtonTitle: LocaleKeys.yes.value,
+                      onPrimaryButtonPressed: () => context.read<ProfileBloc>().add(LogoutUser()),
+                      secondaryButtonTitle: LocaleKeys.no.value,
+                    );
+                  },
+                );
               },
               child: Text(
                 "Logout",

@@ -33,7 +33,7 @@ class _LoginBodyState extends State<LoginForm> {
           } else if (state.userType.id == "operator") {
             Navigator.of(context).pushReplacementNamed(AppRoute.operator);
           } else {
-            Navigator.of(context).pushReplacementNamed(AppRoute.home);
+            Navigator.of(context).pushReplacementNamed(AppRoute.user);
           }
         } else if (status is SubmissionFailure) {
           ErrorResolver.resolve(context, status);
@@ -174,7 +174,8 @@ class _UserTypeInput extends StatelessWidget {
         return AppDropDown<Catalog>(
           title: "User Type",
           placeholder: "Select User Type",
-          validator: (_) => state.userTypeValidation,
+          items: state.userTypeList,
+          selectedItem: state.userType,
           onChanged: (userType) {
             context.read<LoginBloc>().add(UserTypeSelected(userType));
           },

@@ -10,4 +10,5 @@ class UserRoute {
   static const pickupDate = "/pickupDate";
   static const checkout = "/checkout";
   static const orderSuccess = "/orderSuccess";
+  static const changePassword = "/changePassword";
 }

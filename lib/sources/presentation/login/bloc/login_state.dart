@@ -11,7 +11,6 @@ class LoginState extends Equatable {
   String? get usernameValidation =>
       (AppRegex.email.hasMatch(username) && username != "") ? null : LocaleKeys.emailAddressErrorMessage.value;
   String? get passwordValidation => (password != "") ? null : LocaleKeys.passwordErrorMessage.value;
-  String? get userTypeValidation => (password != "") ? null : LocaleKeys.passwordErrorMessage.value;
   LoginInfo get makeData => _makeData();
 
   LoginState({
@@ -57,7 +56,7 @@ class LoginState extends Equatable {
 
   final List<Catalog> userTypeList = const [
     Catalog(id: "admin", value: "Admin"),
-    Catalog(id: "user", value: "Admin"),
-    Catalog(id: "operator", value: "operator"),
+    Catalog(id: "user", value: "User"),
+    Catalog(id: "operator", value: "Operator"),
   ];
 }

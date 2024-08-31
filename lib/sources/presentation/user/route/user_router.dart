@@ -15,6 +15,8 @@ import 'package:fresh_fold_delivery/sources/presentation/user/service_selection/
 
 import '../add_user_location/add_user_location_page.dart';
 import '../add_user_location/bloc/add_user_location_bloc.dart';
+import '../change_password/bloc/change_password_bloc.dart';
+import '../change_password/change_password_page.dart';
 import '../edit_profile/bloc/edit_profile_bloc.dart';
 import '../edit_profile/edit_profile_page.dart';
 import '../location/bloc/location_bloc.dart';
@@ -111,6 +113,14 @@ class UserRouter {
           ),
         );
 
+      case UserRoute.changePassword:
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (_) => sl<ChangePasswordBloc>(),
+            child: const ChangePasswordPage(),
+          ),
+        );
+
       case UserRoute.orderSuccess:
         return MaterialPageRoute(
           builder: (_) => const OrderSuccessPage(),
@@ -123,6 +133,5 @@ class UserRouter {
 
   static void logoutUser(BuildContext context) {
     sl.resetLazySingleton<UserUtilitiesRepository>();
-
   }
 }
