@@ -1,10 +1,30 @@
 part of 'location_bloc.dart';
 
-sealed class LocationState extends Equatable {
-  const LocationState();
-  
-  @override
-  List<Object> get props => [];
-}
+class LocationState extends Equatable {
+  final Location? location;
+  final List<Location> locationList;
+  final FormStatus status;
 
-final class LocationInitial extends LocationState {}
+  String? get locationValidation => (location != null) ? null : LocaleKeys.locationErrorMessage.value;
+
+  LocationState({
+    this.location,
+    this.locationList = const [],
+    status,
+  }) : status = (status != null) ? status : InitialStatus();
+
+  LocationState copyWith({
+    Location? location,
+    List<Location>? locationList,
+    FormStatus? status,
+  }) {
+    return LocationState(
+      location: location ?? this.location,
+      locationList: locationList ?? this.locationList,
+      status: status ?? InitialStatus(),
+    );
+  }
+
+  @override
+  List<Object?> get props => [location, locationList, status];
+}

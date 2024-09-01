@@ -78,7 +78,7 @@ void blocsInjection() {
   //user
   sl.registerFactory(() => UserBloc());
   sl.registerFactory(() => CheckoutBloc());
-  sl.registerFactory(() => LocationBloc());
+  sl.registerFactory(() => LocationBloc(catalogRepository: sl()));
   sl.registerFactory(() => OrderHistoryBloc());
   sl.registerFactory(() => DateSelectionBloc());
   sl.registerFactory(() => AddUserLocationBloc());
@@ -127,6 +127,6 @@ void repositoriesInjection() {
     () => UserUtilitiesRepositoryImpl(networkClient: userAuthenticationNetworkClient()),
   );
   sl.registerFactory<CatalogRepository>(
-    () => CatalogRepositoryImpl(networkClient: defaultNetworkClient()),
+    () => CatalogRepositoryImpl(networkClient: userAuthenticationNetworkClient()),
   );
 }

@@ -2,8 +2,6 @@ import 'dart:convert';
 import 'package:either_dart/either.dart';
 import 'package:fresh_fold_delivery/repository/data/core/app_service_endpoints.dart';
 import 'package:fresh_fold_delivery/repository/data/user/data_store/user_credential_data.dart';
-import 'package:fresh_fold_delivery/repository/data/user_utility/mapping/notifications_data_response_mapping.dart';
-import 'package:fresh_fold_delivery/repository/data/user_utility/model/notifications/notifications_response_model.dart';
 import 'package:fresh_fold_delivery/repository/domain/user/entities/user_info/user.dart';
 import 'package:fresh_fold_delivery/repository/domain/user/entities/notification/notification_data.dart';
 import 'package:network/network.dart';
@@ -48,14 +46,8 @@ class UserUtilitiesRepositoryImpl implements UserUtilitiesRepository {
   Future<Either<Exception, List<NotificationData>>> getUserNotification() async {
     try {
       final response = await networkClient.get(AppServiceEndpoints.createLocation);
-      var responseJson = json.decode(response.asString);
-      var notificationResponse = NotificationResponseModel.fromJson(responseJson);
-      if (notificationResponse.resultList != null) {
-        final List<NotificationData> notificationList = notificationResponse.resultList!.map((e) => e.toDomain()).toList();
-        return Right(notificationList);
-      } else {
-        return Left(Exception("Data not found"));
-      }
+      var _ = json.decode(response.asString);
+      return Right([NotificationData()]);
     } on Exception catch (error) {
       return Left(error);
     }

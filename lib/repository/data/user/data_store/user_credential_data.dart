@@ -37,7 +37,7 @@ class UserCredentialDataStore {
     if (data != null) {
       final credentialJson = json.decode(data);
       final credential = UserCredentialData.fromJson(credentialJson);
-      return UserAccessCredential(
+      final userAccessCredential = UserAccessCredential(
         clientId: credential.clientId,
         userName: credential.userName,
         firstTimeLogin: credential.firstTimeLogin,
@@ -61,6 +61,7 @@ class UserCredentialDataStore {
         verifiedDate: credential.verifiedDate,
         isGuest: credential.isGuest,
       );
+      return userAccessCredential;
     } else {
       return null;
     }

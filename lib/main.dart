@@ -16,7 +16,6 @@ void main() async {
 Future<void> initializeApp() async {
   di.init();
   WidgetsFlutterBinding.ensureInitialized();
-  // await FirebaseConfiguration.configure();
   await EasyLocalization.ensureInitialized();
   final packageInfo = await PackageInfo.fromPlatform();
   AppConfig.initialize(version: packageInfo.version);

@@ -16,7 +16,15 @@ class PasswordRepositoryImpl implements PasswordRepository {
     final requestData = data.toRequestData();
     final parameter = jsonEncode(requestData.toJson());
     try {
-      final _ = await networkClient.patch(AppServiceEndpoints.changeUserPassword, body: parameter);
+      final response = await networkClient.patch(AppServiceEndpoints.changeUserPassword, body: parameter);
+      if (response is Map<String, dynamic>) {
+        // Assuming there's a Role.fromJson constructor
+
+        // Update user credentials if necessary
+        final userCredentialStorage = UserCredentialDataStore();
+        userCredentialStorage.deleteCredential();
+      }
+
       final userCredentialStorage = UserCredentialDataStore();
       userCredentialStorage.deleteCredential();
       return const Right("Success");

@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fresh_fold_delivery/sources/core/app_core.dart';
 import 'package:fresh_fold_delivery/sources/presentation/user/route/user_route.dart';
 import 'package:fresh_fold_delivery/sources/presentation/widgets/app_bar/app_bar.dart';
 import 'package:fresh_fold_delivery/sources/presentation/widgets/button/custom_button.dart';
+
+import 'bloc/location_bloc.dart';
 
 class LocationPage extends StatefulWidget {
   const LocationPage({super.key});
@@ -12,6 +15,12 @@ class LocationPage extends StatefulWidget {
 }
 
 class _LocationPageState extends State<LocationPage> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<LocationBloc>().add(FetchLocation());
+  }
+
   final a = true;
   @override
   Widget build(BuildContext context) {
@@ -42,30 +51,41 @@ class _LocationPageState extends State<LocationPage> {
                       style: theme.textTheme.bodySmall,
                     ),
                     const SizedBox(height: AppSize.inset),
-                    ListTile(
-                      tileColor: theme.colorScheme.surfaceContainer,
-                      contentPadding: const EdgeInsets.all(AppSize.inset),
-                      leading: Radio(value: a, groupValue: a, onChanged: (value) {}),
-                      title: Text(
-                        "Phuket, Ban Tawan, 1415 Unit",
-                        style: theme.textTheme.titleMedium,
-                      ),
-                      subtitle: Text(
-                        "Near ABC Bus Stand",
-                        style: theme.textTheme.titleSmall,
-                      ),
+                    BlocBuilder<LocationBloc, LocationState>(
+                      buildWhen: (previous, current) =>
+                          previous.locationList != current.locationList || previous.location != current.location,
+                      builder: (context, state) {
+                        return ListTile(
+                          tileColor: theme.colorScheme.surfaceContainer,
+                          contentPadding: const EdgeInsets.all(AppSize.inset),
+                          leading: Radio(value: a, groupValue: a, onChanged: (value) {}),
+                          title: Text(
+                            state.location?.id ?? "",
+                            style: theme.textTheme.titleMedium,
+                          ),
+                          subtitle: Text(
+                            state.location?.value ?? "",
+                            style: theme.textTheme.titleSmall,
+                          ),
+                        );
+                      },
                     ),
                     const SizedBox(height: AppSize.inset),
                     ListTile(
-                      tileColor: theme.colorScheme.surfaceContainer,
-                      contentPadding: const EdgeInsets.all(AppSize.inset),
-                      title: Text(
-                        "Add different address",
-                        style: theme.textTheme.titleMedium,
-                      ),
-                      trailing: IconButton(onPressed: () {}, icon: const Icon(Icons.add)),
-                      onTap: () => Navigator.pushNamed(context, UserRoute.addLocation),
-                    ),
+                        tileColor: theme.colorScheme.surfaceContainer,
+                        contentPadding: const EdgeInsets.all(AppSize.inset),
+                        title: Text(
+                          "Add different address",
+                          style: theme.textTheme.titleMedium,
+                        ),
+                        trailing: IconButton(onPressed: () {}, icon: const Icon(Icons.add)),
+                        onTap: () async {
+                          final result = await Navigator.pushNamed(context, UserRoute.addLocation);
+
+                          if (result == true) {
+                            context.read<LocationBloc>().add(FetchLocation());
+                          }
+                        }),
                   ],
                 ),
               ),

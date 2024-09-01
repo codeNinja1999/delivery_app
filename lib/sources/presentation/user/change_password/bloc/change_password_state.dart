@@ -8,7 +8,7 @@ class ChangePasswordState extends Equatable {
 
   String? get oldPasswordValidation => (oldPassword != "") ? null : LocaleKeys.emptyErrorMessage.value;
   String? get changePasswordValidation =>
-      (changePassword != "" && changePassword.length > 8 && AppRegex.password.hasMatch(changePassword))
+      (changePassword != "" && changePassword.length >= 8 && AppRegex.password.hasMatch(changePassword))
           ? null
           : LocaleKeys.newPasswordErrorMessage.value;
   String? get confirmPasswordValidation =>

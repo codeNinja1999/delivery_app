@@ -18,9 +18,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: MyAppBar(
-        title: LocaleKeys.changePassword.value,
-        backButtonAction: () => Navigator.of(context, rootNavigator: true).pop(),
-      ),
+        title: LocaleKeys.changePassword.value      ),
       body: const ChangePasswordForm(),
     );
   }
