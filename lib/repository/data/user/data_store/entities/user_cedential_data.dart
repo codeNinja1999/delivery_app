@@ -1,7 +1,5 @@
 import 'package:fresh_fold_delivery/repository/domain/user/entities/authentication/user_access_credential.dart';
 
-import '../../../common/model/role.dart';
-
 class UserCredentialData {
   final String? clientId;
   final bool? firstTimeLogin;
@@ -19,7 +17,6 @@ class UserCredentialData {
   final String? lastName;
   final String? userName;
   final String? email;
-  final List<Role>? roles;
   final String? phoneCode;
   final String? phoneNumber;
   final bool? otpVerified;
@@ -43,7 +40,6 @@ class UserCredentialData {
     this.lastName,
     this.userName,
     this.email,
-    this.roles,
     this.phoneCode,
     this.phoneNumber,
     this.otpVerified,
@@ -65,7 +61,6 @@ class UserCredentialData {
         issued = data.issued,
         userId = data.userId,
         email = data.email,
-        roles = data.roles,
         firstName = data.firstName,
         middleName = data.middleName,
         lastName = data.lastName,
@@ -92,7 +87,6 @@ class UserCredentialData {
       lastName: json['lastName'],
       userName: json['userName'],
       email: json['email'],
-      roles: json['roles']?.map((roleJson) => Role.fromJson(roleJson)).toList(),
       phoneCode: json['phoneCode'],
       phoneNumber: json['phoneNumber'],
       otpVerified: json['otpVerified'],
@@ -120,7 +114,6 @@ class UserCredentialData {
       'lastName': lastName,
       'userName': userName,
       'email': email,
-      'roles': roles?.map((role) => role.toJson()).toList(),
       'phoneCode': phoneCode,
       'phoneNumber': phoneNumber,
       'otpVerified': otpVerified,
@@ -129,7 +122,4 @@ class UserCredentialData {
       'isGuest': isGuest,
     };
   }
-
-
 }
-

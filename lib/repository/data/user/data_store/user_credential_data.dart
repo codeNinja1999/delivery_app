@@ -52,7 +52,6 @@ class UserCredentialDataStore {
         firstName: credential.firstName,
         middleName: credential.middleName,
         lastName: credential.lastName,
-        roles: credential.roles,
         email: credential.email,
         phoneCode: credential.phoneCode,
         phoneNumber: credential.phoneNumber,

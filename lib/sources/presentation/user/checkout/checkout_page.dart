@@ -88,7 +88,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                             ),
                           ),
                           const SizedBox(height: AppSize.inset),
-                          Row(
+                          const Row(
                             children: [
                               Expanded(child: Text("Service Type : ")),
                               Expanded(
@@ -100,7 +100,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                             ],
                           ),
                           const SizedBox(height: AppSize.cornerRadiusMedium),
-                          Row(
+                          const Row(
                             children: [
                               Expanded(child: Text("Laundry Details : ")),
                               Expanded(
@@ -111,7 +111,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                             ],
                           ),
                           const SizedBox(height: AppSize.cornerRadiusMedium),
-                          Row(
+                          const Row(
                             children: [
                               Expanded(child: Text("Total : ")),
                               Expanded(
@@ -125,7 +125,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                       ),
                     ),
                     const SizedBox(height: AppSize.inset),
-                    CustomTextField(
+                    const CustomTextField(
                       prefixIcon: Icon(Icons.label),
                       placeholder: "Add Instructions",
                     ),
@@ -187,8 +187,8 @@ class _CheckoutPageState extends State<CheckoutPage> {
                                     color: theme.colorScheme.primary,
                                   ),
                                 ),
-                                SizedBox(height: AppSize.inset),
-                                Row(
+                                const SizedBox(height: AppSize.inset),
+                                const Row(
                                   children: [
                                     Expanded(child: Text("Bank Name : ")),
                                     Expanded(
@@ -198,8 +198,8 @@ class _CheckoutPageState extends State<CheckoutPage> {
                                     )),
                                   ],
                                 ),
-                                SizedBox(height: AppSize.cornerRadiusMedium),
-                                Row(
+                                const SizedBox(height: AppSize.cornerRadiusMedium),
+                                const Row(
                                   children: [
                                     Expanded(child: Text("Account number : ")),
                                     Expanded(
@@ -209,8 +209,8 @@ class _CheckoutPageState extends State<CheckoutPage> {
                                     )),
                                   ],
                                 ),
-                                SizedBox(height: AppSize.cornerRadiusMedium),
-                                Row(
+                                const SizedBox(height: AppSize.cornerRadiusMedium),
+                                const Row(
                                   children: [
                                     Expanded(child: Text("Deposit Amount : ")),
                                     Expanded(
@@ -239,6 +239,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
             CustomButton(
                 title: "Save and Continue",
                 onPressed: () {
+                  
                   Navigator.pushNamed(context, UserRoute.orderSuccess);
                 }),
           ],

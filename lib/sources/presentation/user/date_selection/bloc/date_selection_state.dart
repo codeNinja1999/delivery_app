@@ -1,16 +1,20 @@
 part of 'date_selection_bloc.dart';
 
 class DateSelectionState extends Equatable {
-  final String pickupDate;
+  final DateTime? pickupDate;
+  final String pickupDateView;
 
-  String? get dateValidation => pickupDate.isValidText ? null : "Please select date for pickup";
+  String? get dateValidation => pickupDateView.isValidText ? null : "Please select date for pickup";
 
-  const DateSelectionState({this.pickupDate = ""});
+  const DateSelectionState({this.pickupDateView = "", this.pickupDate});
 
-  DateSelectionState copyWith({String? pickupDate}) {
-    return DateSelectionState(pickupDate: pickupDate ?? this.pickupDate);
+  DateSelectionState copyWith({String? pickupDateView, DateTime? pickupDate}) {
+    return DateSelectionState(
+      pickupDate: pickupDate ?? this.pickupDate,
+      pickupDateView: pickupDateView ?? this.pickupDateView,
+    );
   }
 
   @override
-  List<Object> get props => [pickupDate];
+  List<Object?> get props => [pickupDate, pickupDateView];
 }

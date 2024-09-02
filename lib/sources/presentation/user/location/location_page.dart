@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fresh_fold_delivery/sources/core/app_core.dart';
+import 'package:fresh_fold_delivery/sources/presentation/user/bloc/user_bloc.dart';
 import 'package:fresh_fold_delivery/sources/presentation/user/route/user_route.dart';
 import 'package:fresh_fold_delivery/sources/presentation/widgets/app_bar/app_bar.dart';
 import 'package:fresh_fold_delivery/sources/presentation/widgets/button/custom_button.dart';
@@ -90,11 +91,17 @@ class _LocationPageState extends State<LocationPage> {
                 ),
               ),
             ),
-            CustomButton(
-                title: "Save and Continue",
-                onPressed: () {
-                  Navigator.pushNamed(context, UserRoute.serviceSelection);
-                }),
+            BlocBuilder<LocationBloc, LocationState>(
+              buildWhen: (previous, current) => previous.location!= current.location,
+              builder: (context, state) {
+                return CustomButton(
+                    title: "Save and Continue",
+                    onPressed: () {
+                      context.read<UserBloc>().add(SaveLocation(state.location));
+                      Navigator.pushNamed(context, UserRoute.serviceSelection);
+                    });
+              },
+            ),
           ],
         ),
       ),

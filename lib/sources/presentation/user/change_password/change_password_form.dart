@@ -6,7 +6,6 @@ import 'package:fresh_fold_delivery/sources/route/route.dart';
 
 import 'bloc/change_password_bloc.dart';
 
-
 class ChangePasswordForm extends StatefulWidget {
   const ChangePasswordForm({super.key});
 
@@ -25,7 +24,17 @@ class _ChangePasswordFormState extends State<ChangePasswordForm> {
         final status = state.status;
         (state.status is InProgress) ? LoadingView.show() : LoadingView.hide();
         if (status is Success) {
-          AppRouter.logoutUser(context);
+          showDialog(
+            context: context,
+            builder: (context) {
+              return CustomDialog(
+                title: "Password Changed",
+                message: "Your password was successfully updated. Please log back in to continue.",
+                primaryButtonTitle: "Okay",
+                onPrimaryButtonPressed: () => AppRouter.logoutUser(context),
+              );
+            },
+          );
         } else if (status is SubmissionFailure) {
           ErrorResolver.resolve(context, status);
         }

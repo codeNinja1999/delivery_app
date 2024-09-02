@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fresh_fold_delivery/sources/core/app_core.dart';
 import 'package:fresh_fold_delivery/sources/presentation/user/route/user_route.dart';
+import 'package:fresh_fold_delivery/sources/presentation/user/service_selection/bloc/service_selection_bloc.dart';
 import 'package:fresh_fold_delivery/sources/presentation/widgets/app_bar/app_bar.dart';
 import 'package:fresh_fold_delivery/sources/presentation/widgets/button/custom_button.dart';
 import 'package:fresh_fold_delivery/sources/presentation/widgets/textfield/app_textfield.dart';
+
+import '../bloc/user_bloc.dart';
 
 class ServiceSelectionPage extends StatefulWidget {
   const ServiceSelectionPage({super.key});
@@ -49,24 +53,30 @@ class _ServiceSelectionPageState extends State<ServiceSelectionPage> {
                       style: theme.textTheme.bodySmall,
                     ),
                     const SizedBox(height: AppSize.inset),
-                    ListView.separated(
-                      itemCount: services.length,
-                      separatorBuilder: (context, index) {
-                        return const SizedBox(height: AppSize.inset);
-                      },
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemBuilder: (context, index) {
-                        final service = services[index];
-                        return ListTile(
-                          tileColor: theme.colorScheme.surfaceContainer,
-                          // contentPadding: const EdgeInsets.all(AppSize.inset),
-                          title: Text(
-                            service.title,
-                            style: theme.textTheme.titleMedium,
-                          ),
-                          trailing: Text(service.amount),
-                          onTap: () {},
+                    BlocBuilder<ServiceSelectionBloc, ServiceSelectionState>(
+                      buildWhen: (previous, current) =>
+                          previous.serviceTypeList != current.serviceTypeList || previous.serviceType != current.serviceType,
+                      builder: (context, state) {
+                        return ListView.separated(
+                          shrinkWrap: true,
+                          itemCount: services.length,
+                          physics: const NeverScrollableScrollPhysics(),
+                          separatorBuilder: (context, index) {
+                            return const SizedBox(height: AppSize.inset);
+                          },
+                          itemBuilder: (context, index) {
+                            final service = services[index];
+                            return ListTile(
+                              tileColor: theme.colorScheme.surfaceContainer,
+                              // contentPadding: const EdgeInsets.all(AppSize.inset),
+                              title: Text(
+                                service.title,
+                                style: theme.textTheme.titleMedium,
+                              ),
+                              trailing: Text(service.amount),
+                              onTap: () {},
+                            );
+                          },
                         );
                       },
                     ),
@@ -85,75 +95,110 @@ class _ServiceSelectionPageState extends State<ServiceSelectionPage> {
                 ),
               ),
             ),
-            CustomButton(
-                title: "Continue",
-                onPressed: () {
-                  showProtectionModel();
-                }),
+            BlocBuilder<ServiceSelectionBloc, ServiceSelectionState>(
+              buildWhen: (previous, current) =>
+                  previous.serviceType != current.serviceType || previous.totalWeight != current.totalWeight,
+              builder: (context, state) {
+                return CustomButton(
+                    title: "Continue",
+                    onPressed: () {
+                      context.read<UserBloc>().add(SaveServiceType(state.serviceType, state.totalWeight));
+                      showProtectionModel(context);
+                    });
+              },
+            ),
           ],
         ),
       ),
     );
   }
 
-  showProtectionModel() {
+  showProtectionModel(BuildContext context) {
     return showModalBottomSheet(
       context: context,
       builder: (newContext) {
         final theme = Theme.of(context);
-        return SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: AppSize.viewMargin, vertical: AppSize.viewSpacing),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Text(
-                "Protecting our Operators",
-                style: theme.textTheme.titleLarge?.copyWith(
-                  fontSize: 18,
-                  color: theme.colorScheme.primary,
+        return BlocProvider.value(
+          value: context.read<ServiceSelectionBloc>(),
+          child: BlocBuilder<ServiceSelectionBloc, ServiceSelectionState>(
+            buildWhen: (previous, current) =>
+                previous.noBiohazard != current.noBiohazard ||
+                previous.noBlood != current.noBlood ||
+                previous.noPetHair != current.noPetHair,
+            builder: (context, state) {
+              return SingleChildScrollView(
+                padding: const EdgeInsets.symmetric(horizontal: AppSize.viewMargin, vertical: AppSize.viewSpacing),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Text(
+                      "Protecting our Operators",
+                      style: theme.textTheme.titleLarge?.copyWith(
+                        fontSize: 18,
+                        color: theme.colorScheme.primary,
+                      ),
+                    ),
+                    const SizedBox(height: AppSize.inset),
+                    Text(
+                      "our Operators, please confirm that your laundry:",
+                      style: theme.textTheme.bodyMedium,
+                    ),
+                    const SizedBox(height: AppSize.inset),
+                    ListTile(
+                      leading: Checkbox(
+                          value: state.noBiohazard,
+                          onChanged: (value) {
+                            context.read<ServiceSelectionBloc>().add(IsContainBioHazard());
+                          }),
+                      title: Text(
+                        "is safe and does not include any biohazard materials",
+                        style: theme.textTheme.bodyMedium,
+                      ),
+                    ),
+                    const SizedBox(height: AppSize.inset),
+                    ListTile(
+                      leading: Checkbox(
+                          value: state.noBlood,
+                          onChanged: (value) {
+                            context.read<ServiceSelectionBloc>().add(IsContainBlood());
+                          }),
+                      title: Text(
+                        "is sanitary and does not contain any feces, vomit, blood",
+                        style: theme.textTheme.bodyMedium,
+                      ),
+                    ),
+                    const SizedBox(height: AppSize.inset),
+                    ListTile(
+                      leading: Checkbox(
+                          value: state.noPetHair,
+                          onChanged: (value) {
+                            context.read<ServiceSelectionBloc>().add(IsContainPetHair());
+                          }),
+                      title: Text(
+                        "does not contain excessive pet hair",
+                        style: theme.textTheme.bodyMedium,
+                      ),
+                    ),
+                    const SizedBox(height: AppSize.inset),
+                    Text(
+                      "Violators will incur various penalties and even decline in the next order.",
+                      style: theme.textTheme.bodyMedium,
+                    ),
+                    const SizedBox(height: AppSize.viewSpacing),
+                    CustomButton(
+                        title: "Accept and Continue",
+                        onPressed: () {
+                          context.read<UserBloc>().add(SaveHygieneParameter(
+                                noBiohazard: state.noBiohazard,
+                                noBlood: state.noBlood,
+                                noPetHair: state.noPetHair,
+                              ));
+                          Navigator.pushNamed(context, UserRoute.pickupDate);
+                        }),
+                  ],
                 ),
-              ),
-              const SizedBox(height: AppSize.inset),
-              Text(
-                "our Operators, please confirm that your laundry:",
-                style: theme.textTheme.bodyMedium,
-              ),
-              const SizedBox(height: AppSize.inset),
-              ListTile(
-                leading: Checkbox(value: true, onChanged: (value) {}),
-                title: Text(
-                  "is safe and does not include any biohazard materials",
-                  style: theme.textTheme.bodyMedium,
-                ),
-              ),
-              const SizedBox(height: AppSize.inset),
-              ListTile(
-                leading: Checkbox(value: true, onChanged: (value) {}),
-                title: Text(
-                  "is sanitary and does not contain any feces, vomit, blood",
-                  style: theme.textTheme.bodyMedium,
-                ),
-              ),
-              const SizedBox(height: AppSize.inset),
-              ListTile(
-                leading: Checkbox(value: true, onChanged: (value) {}),
-                title: Text(
-                  "does not contain excessive pet hair",
-                  style: theme.textTheme.bodyMedium,
-                ),
-              ),
-              const SizedBox(height: AppSize.inset),
-              Text(
-                "Violators will incur various penalties and even decline in the next order.",
-                style: theme.textTheme.bodyMedium,
-              ),
-              const SizedBox(height: AppSize.viewSpacing),
-              CustomButton(
-                  title: "Accept and Continue",
-                  onPressed: () {
-                    Navigator.pushNamed(context, UserRoute.pickupDate);
-                  }),
-            ],
+              );
+            },
           ),
         );
       },

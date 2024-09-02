@@ -8,29 +8,16 @@ import '../model/catalog_request_model.dart';
 import '../model/catalog_response_model.dart';
 
 class CatalogRepositoryImpl implements CatalogRepository {
-  CatalogRepositoryImpl({this.networkClient, this.userNetworkClient});
+  CatalogRepositoryImpl({required this.networkClient, required this.userNetworkClient});
 
-  NetworkClient? networkClient;
-  NetworkClient? userNetworkClient;
-
-  // @override
-  // Future<Either<Exception, List<DepositType>>> fetchDepositType(CatalogFilter filter) async {
-  //   final requestData = filter.toRequestData(catalogType: CatalogType.receiverType.value);
-
-  //   final response = await fetchCatalog(requestData);
-
-  //   return response.fold((error) {
-  //     return Left(error);
-  //   }, (catalogueResponse) {
-  //     return Right(catalogueResponse.catalogueList?.map((item) => item.toDepositType()).toList() ?? []);
-  //   });
-  // }
+  NetworkClient networkClient;
+  NetworkClient userNetworkClient;
 
   @override
   Future<Either<Exception, List<Location>>> fetchLocation() async {
     try {
-      final response = await userNetworkClient?.get(AppServiceEndpoints.fetchLocation);
-      final responseJson = json.decode(response?.asString ?? "");
+      final response = await userNetworkClient.get(AppServiceEndpoints.fetchLocation);
+      final responseJson = json.decode(response.asString);
       final catalogueResponse = CatalogResponseModel.fromJson(responseJson);
 
       return Right(catalogueResponse.catalogueList?.map((item) => item.toLocation()).toList() ?? []);
@@ -45,8 +32,8 @@ class CatalogRepositoryImpl implements CatalogRepository {
     final requestQuery = requestData.toJson();
 
     try {
-      final response = await userNetworkClient?.post(AppServiceEndpoints.createLocation, queryParameters: requestQuery);
-      final responseJson = json.decode(response?.asString ?? "");
+      final response = await userNetworkClient.post(AppServiceEndpoints.createLocation, queryParameters: requestQuery);
+      final responseJson = json.decode(response.asString );
       final _ = CatalogResponseModel.fromJson(responseJson);
 
       return const Right("Success");
@@ -58,8 +45,8 @@ class CatalogRepositoryImpl implements CatalogRepository {
   @override
   Future<Either<Exception, String>> deleteLocation(String locationId) async {
     try {
-      final response = await userNetworkClient?.get(AppServiceEndpoints.deleteLocation + locationId);
-      final responseJson = json.decode(response?.asString ?? "");
+      final response = await userNetworkClient.get(AppServiceEndpoints.deleteLocation + locationId);
+      final responseJson = json.decode(response.asString );
       final _ = CatalogResponseModel.fromJson(responseJson);
 
       return const Right("Success");
@@ -74,8 +61,8 @@ class CatalogRepositoryImpl implements CatalogRepository {
     final requestQuery = requestData.toJson();
     try {
       final response =
-          await userNetworkClient?.patch(AppServiceEndpoints.updateLocation + filter.id.toString(), body: requestQuery);
-      final responseJson = json.decode(response?.asString ?? "");
+          await userNetworkClient.patch(AppServiceEndpoints.updateLocation + filter.id.toString(), body: requestQuery);
+      final responseJson = json.decode(response.asString );
       final _ = CatalogResponseModel.fromJson(responseJson);
 
       return const Right("Success");
@@ -90,8 +77,8 @@ class CatalogRepositoryImpl implements CatalogRepository {
     final requestQuery = requestData.toJson();
 
     try {
-      final response = await userNetworkClient?.post(AppServiceEndpoints.fetchLocation, queryParameters: requestQuery);
-      final responseJson = json.decode(response?.asString ?? "");
+      final response = await userNetworkClient.post(AppServiceEndpoints.fetchLocation, queryParameters: requestQuery);
+      final responseJson = json.decode(response.asString );
       final _ = CatalogResponseModel.fromJson(responseJson);
 
       return const Right("Success");
@@ -103,8 +90,8 @@ class CatalogRepositoryImpl implements CatalogRepository {
   @override
   Future<Either<Exception, List<ServiceType>>> fetchServiceType() async {
     try {
-      final response = await userNetworkClient?.get(AppServiceEndpoints.fetchServiceType);
-      final responseJson = json.decode(response?.asString ?? "");
+      final response = await userNetworkClient.get(AppServiceEndpoints.fetchServiceType);
+      final responseJson = json.decode(response.asString );
       final catalogueResponse = CatalogResponseModel.fromJson(responseJson);
 
       return Right(catalogueResponse.catalogueList?.map((item) => item.toServiceType()).toList() ?? []);
@@ -116,8 +103,8 @@ class CatalogRepositoryImpl implements CatalogRepository {
   @override
   Future<Either<Exception, String>> deleteServiceType(String serviceId) async {
     try {
-      final response = await userNetworkClient?.get(AppServiceEndpoints.deleteService + serviceId);
-      final responseJson = json.decode(response?.asString ?? "");
+      final response = await userNetworkClient.get(AppServiceEndpoints.deleteService + serviceId);
+      final responseJson = json.decode(response.asString );
       final _ = CatalogResponseModel.fromJson(responseJson);
 
       return const Right("Success");
@@ -132,8 +119,8 @@ class CatalogRepositoryImpl implements CatalogRepository {
     final requestQuery = requestData.toJson();
     try {
       final response =
-          await userNetworkClient?.patch(AppServiceEndpoints.updateService + filter.id.toString(), body: requestQuery);
-      final responseJson = json.decode(response?.asString ?? "");
+          await userNetworkClient.patch(AppServiceEndpoints.updateService + filter.id.toString(), body: requestQuery);
+      final responseJson = json.decode(response.asString );
       final _ = CatalogResponseModel.fromJson(responseJson);
 
       return const Right("Success");
@@ -147,11 +134,10 @@ class CatalogRepositoryImpl implements CatalogRepository {
 
     final endPoint = userNetworkClient;
 
-    final newClient = networkClient ?? userNetworkClient;
 
     try {
-      final response = await newClient?.get(endPoint, queryParameters: requestQuery);
-      final responseJson = json.decode(response?.asString ?? "");
+      final response = await userNetworkClient.get(endPoint, queryParameters: requestQuery);
+      final responseJson = json.decode(response.asString );
       final catalogueResponse = CatalogResponseModel.fromJson(responseJson);
 
       return Right(catalogueResponse);

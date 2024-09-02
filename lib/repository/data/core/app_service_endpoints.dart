@@ -15,6 +15,7 @@ class AppServiceEndpoints {
   static const verifyPendingOrder = "admin/dashboard/pending-confirmations/:id/verify";
   static const getAllPendingOrder = "admin/dashboard/pending-confirmations";
   static const fetchLocation = "admin/dashboard/locations";
+  static const userLocation = "me/dashboard/locations";
   static const createOperator = "admin/operator";
   static const createLocation = "admin/location/create";
   static const updateLocation = "admin/location/";

@@ -2,7 +2,7 @@ import 'dart:typed_data';
 
 import '../catalog/entities/catalogs.dart';
 
-class LaundryInfo {
+class PickupOrder {
   final Catalog? serviceType;
   final Catalog? paymentType;
   final String? review;
@@ -14,7 +14,7 @@ class LaundryInfo {
   final String? pickupAddress;
   final String? totalAmount;
 
-  LaundryInfo({
+  PickupOrder({
     this.serviceType,
     this.totalWeight,
     this.totalAmount,

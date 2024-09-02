@@ -71,7 +71,7 @@ void blocsInjection() {
   sl.registerFactory(
     () => DashboardBloc(
       userUtilitiesRepository: sl(),
-      catalogRepository: CatalogRepositoryImpl(userNetworkClient: userAuthenticationNetworkClient()),
+      catalogRepository: sl(),
     ),
   );
 
@@ -82,7 +82,7 @@ void blocsInjection() {
   sl.registerFactory(() => OrderHistoryBloc());
   sl.registerFactory(() => DateSelectionBloc());
   sl.registerFactory(() => AddUserLocationBloc());
-  sl.registerFactory(() => ServiceSelectionBloc());
+  sl.registerFactory(() => ServiceSelectionBloc(catalogRepository: sl()));
   sl.registerFactory(() => ProfileBloc(userUtilitiesRepository: sl()));
   sl.registerFactory(() => NotificationListBloc(userUtilitiesRepository: sl()));
   sl.registerFactory(() => ChangePasswordBloc(passwordRepository: sl()));
@@ -127,6 +127,9 @@ void repositoriesInjection() {
     () => UserUtilitiesRepositoryImpl(networkClient: userAuthenticationNetworkClient()),
   );
   sl.registerFactory<CatalogRepository>(
-    () => CatalogRepositoryImpl(networkClient: userAuthenticationNetworkClient()),
+    () => CatalogRepositoryImpl(
+      networkClient: defaultNetworkClient(),
+      userNetworkClient: userAuthenticationNetworkClient(),
+    ),
   );
 }

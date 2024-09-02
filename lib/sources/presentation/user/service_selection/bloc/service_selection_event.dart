@@ -1,8 +1,21 @@
 part of 'service_selection_bloc.dart';
 
-sealed class ServiceSelectionEvent extends Equatable {
-  const ServiceSelectionEvent();
+abstract class ServiceSelectionEvent {}
 
-  @override
-  List<Object> get props => [];
+class FetchServiceType extends ServiceSelectionEvent {}
+
+class ServiceTypeSelected extends ServiceSelectionEvent {
+  final ServiceType serviceType;
+  ServiceTypeSelected(this.serviceType);
 }
+
+class TotalWeightChanged extends ServiceSelectionEvent {
+  final String totalWeight;
+  TotalWeightChanged(this.totalWeight);
+}
+
+class IsContainBlood extends ServiceSelectionEvent {}
+
+class IsContainPetHair extends ServiceSelectionEvent {}
+
+class IsContainBioHazard extends ServiceSelectionEvent {}
