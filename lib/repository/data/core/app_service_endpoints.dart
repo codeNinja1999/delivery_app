@@ -11,11 +11,12 @@ class AppServiceEndpoints {
   static const generateForgotPasswordOtp = "auth/forgot-password-otp";
   static const verifyForgotPassword = "auth/verify-forgot-password-otp";
 
+  static const location = "locations";
+
   static const userUpdate = "admin/user";
   static const verifyPendingOrder = "admin/dashboard/pending-confirmations/:id/verify";
   static const getAllPendingOrder = "admin/dashboard/pending-confirmations";
   static const fetchLocation = "admin/dashboard/locations";
-  static const userLocation = "me/dashboard/locations";
   static const createOperator = "admin/operator";
   static const createLocation = "admin/location/create";
   static const updateLocation = "admin/location/";
@@ -29,7 +30,7 @@ class AppServiceEndpoints {
   static const getAnalyticsData = "admin/dashboard/analytics";
 
   static const updateUserProfile = "user/me/update-profile";
-  static const createTransaction = "user/order/create";
+  static const createPickupRequest = "user/order/create";
   static const getTransaction = "user/order/all";
   static const getOneTransaction = "user/order/:id";
 

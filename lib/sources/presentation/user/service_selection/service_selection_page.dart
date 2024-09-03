@@ -68,7 +68,6 @@ class _ServiceSelectionPageState extends State<ServiceSelectionPage> {
                             final service = services[index];
                             return ListTile(
                               tileColor: theme.colorScheme.surfaceContainer,
-                              // contentPadding: const EdgeInsets.all(AppSize.inset),
                               title: Text(
                                 service.title,
                                 style: theme.textTheme.titleMedium,
@@ -188,11 +187,7 @@ class _ServiceSelectionPageState extends State<ServiceSelectionPage> {
                     CustomButton(
                         title: "Accept and Continue",
                         onPressed: () {
-                          context.read<UserBloc>().add(SaveHygieneParameter(
-                                noBiohazard: state.noBiohazard,
-                                noBlood: state.noBlood,
-                                noPetHair: state.noPetHair,
-                              ));
+                          context.read<UserBloc>().add(SaveHygieneParameter(state.makeData));
                           Navigator.pushNamed(context, UserRoute.pickupDate);
                         }),
                   ],

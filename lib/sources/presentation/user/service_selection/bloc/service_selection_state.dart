@@ -9,6 +9,7 @@ class ServiceSelectionState extends Equatable {
   final bool noBiohazard;
   final FormStatus status;
 
+  HygieneInfo get makeData => _makeData();
   String? get serviceTypeValidation => (serviceType != null) ? null : "Please select service type";
   String? get locationValidation => (totalWeight != "") ? null : "Please enter weight";
 
@@ -40,6 +41,10 @@ class ServiceSelectionState extends Equatable {
       noBiohazard: noBiohazard ?? this.noBiohazard,
       status: status ?? InitialStatus(),
     );
+  }
+
+  _makeData() {
+    return HygieneInfo(containBiohazard: noBiohazard, containBlood: noBlood, containPetHair: noPetHair);
   }
 
   @override

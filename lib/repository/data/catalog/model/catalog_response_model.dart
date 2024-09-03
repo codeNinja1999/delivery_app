@@ -1,52 +1,50 @@
 class CatalogResponseModel {
+  List<Datum>? data;
+
   CatalogResponseModel({
-    this.catalogueList,
+    this.data,
   });
 
-  final List<CatalogueList>? catalogueList;
-
-  factory CatalogResponseModel.fromJson(Map<String, dynamic> json) =>
-      CatalogResponseModel(
-        catalogueList: List<CatalogueList>.from(
-            json["catalogue_list"].map((x) => CatalogueList.fromJson(x))),
+  factory CatalogResponseModel.fromJson(Map<String, dynamic> json) => CatalogResponseModel(
+        data: json["data"] == null ? [] : List<Datum>.from(json["data"]!.map((x) => Datum.fromJson(x))),
       );
 }
 
-class CatalogueList {
-  CatalogueList({
-    this.data,
-    this.value,
-    this.additionalData,
-    this.accountNo,
-    this.accountType,
-    this.additionalValue,
-    this.language,
-    this.additionalValue2,
-    this.additionalValue3,
-    this.additionalValue4,
+class Datum {
+  int? id;
+  String? country;
+  String? city;
+  String? neighborhood;
+  String? postalCode;
+  String? name;
+  int? price;
+  DateTime? createdAt;
+  DateTime? updatedAt;
+  DateTime? deletedAt;
+
+  Datum({
+    this.id,
+    this.country,
+    this.city,
+    this.neighborhood,
+    this.postalCode,
+    this.name,
+    this.price,
+    this.createdAt,
+    this.updatedAt,
+    this.deletedAt,
   });
 
-  final String? data;
-  final String? value;
-  final String? additionalData;
-  final String? accountNo;
-  final String? accountType;
-  final String? additionalValue;
-  final String? language;
-  final String? additionalValue2;
-  final String? additionalValue3;
-  final String? additionalValue4;
-
-  factory CatalogueList.fromJson(Map<String, dynamic> json) => CatalogueList(
-        data: json["data"],
-        value: json["value"],
-        additionalData: json["additional_data"],
-        accountNo: json["account_no"],
-        accountType: json["account_type"],
-        additionalValue: json["additional_value"],
-        language: json["language"],
-        additionalValue2: json["additional_value2"],
-        additionalValue3: json["additional_value3"],
-        additionalValue4: json["additional_value4"],
+  factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+        id: json["id"],
+        country: json["country"],
+        city: json["city"],
+        neighborhood: json["neighbourhood"],
+        postalCode: json["postal_code"],
+        name: json["name"],
+        price: json["price"],
+        createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
+        updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
+        deletedAt: json["deleted_at"] == null ? null : DateTime.parse(json["deleted_at"]),
       );
 }

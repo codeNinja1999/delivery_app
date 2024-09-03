@@ -1,13 +1,17 @@
 import 'dart:convert';
 import 'package:either_dart/either.dart';
 import 'package:fresh_fold_delivery/repository/data/core/app_service_endpoints.dart';
+import 'package:fresh_fold_delivery/repository/data/core/core.dart';
 import 'package:fresh_fold_delivery/repository/data/user/data_store/user_credential_data.dart';
+import 'package:fresh_fold_delivery/repository/data/user_utility/mapping/create_laundry_request.dart';
 import 'package:fresh_fold_delivery/repository/domain/user/entities/user_info/user.dart';
 import 'package:fresh_fold_delivery/repository/domain/user/entities/notification/notification_data.dart';
 import 'package:network/network.dart';
 import 'package:fresh_fold_delivery/repository/domain/user/repository/user_utility_repository.dart';
 import 'package:rxdart/subjects.dart';
 import 'dart:async';
+
+import '../../../domain/pickup_order/pickup_order.dart';
 
 class UserUtilitiesRepositoryImpl implements UserUtilitiesRepository {
   UserUtilitiesRepositoryImpl({required this.networkClient});
@@ -48,6 +52,19 @@ class UserUtilitiesRepositoryImpl implements UserUtilitiesRepository {
       final response = await networkClient.get(AppServiceEndpoints.createLocation);
       var _ = json.decode(response.asString);
       return Right([NotificationData()]);
+    } on Exception catch (error) {
+      return Left(error);
+    }
+  }
+  @override
+  Future<Either<Exception, String>> createOrder(PickupOrder data) async {
+
+     final requestData = data.toCreateOrderRequest();
+    final postBody = requestData.toJson().toMultipartFile();
+    try {
+      final response = await networkClient.post(AppServiceEndpoints.createPickupRequest, body: postBody);
+      var _ = json.decode(response.asString);
+      return const Right("Success");
     } on Exception catch (error) {
       return Left(error);
     }

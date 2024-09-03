@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fresh_fold_delivery/repository/domain/catalog/catalog.dart';
+import 'package:fresh_fold_delivery/repository/domain/hygiene_info/hygiene_info.dart';
 import 'package:fresh_fold_delivery/sources/core/app_core.dart';
 
 part 'service_selection_event.dart';

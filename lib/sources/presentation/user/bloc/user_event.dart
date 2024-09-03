@@ -19,8 +19,6 @@ class SavePickupDate extends UserEvent {
 }
 
 class SaveHygieneParameter extends UserEvent {
-  final bool? noBlood;
-  final bool? noPetHair;
-  final bool? noBiohazard;
-  SaveHygieneParameter({this.noBlood, this.noPetHair, this.noBiohazard});
+  final HygieneInfo hygieneInfo;
+  SaveHygieneParameter(this.hygieneInfo);
 }

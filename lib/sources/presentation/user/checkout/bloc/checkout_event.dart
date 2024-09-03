@@ -1,8 +1,8 @@
 part of 'checkout_bloc.dart';
 
-sealed class CheckoutEvent extends Equatable {
-  const CheckoutEvent();
+abstract class CheckoutEvent {}
 
-  @override
-  List<Object> get props => [];
+class CreateOrder extends CheckoutEvent {
+  final PickupOrder pickupOrder;
+  CreateOrder(this.pickupOrder);
 }

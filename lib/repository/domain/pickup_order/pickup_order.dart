@@ -1,6 +1,8 @@
+import 'dart:io';
 import 'dart:typed_data';
 
-import '../catalog/entities/catalogs.dart';
+import 'package:fresh_fold_delivery/repository/domain/domain.dart';
+import '../hygiene_info/hygiene_info.dart';
 
 class PickupOrder {
   final Catalog? serviceType;
@@ -9,10 +11,14 @@ class PickupOrder {
   final Uint8List? receipt;
   final String? totalWeight;
   final String? actualWeight;
-  final String? pickupDate;
+  final DateTime? pickupDate;
   final String? deliveryDate;
   final String? pickupAddress;
   final String? totalAmount;
+  final HygieneInfo? hygieneInfo;
+  final String? additionalInformation;
+  final UserContactInfo? userContactInfo;
+  final File? receiptImage;
 
   PickupOrder({
     this.serviceType,
@@ -25,5 +31,9 @@ class PickupOrder {
     this.paymentType,
     this.review,
     this.receipt,
+    this.hygieneInfo,
+    this.additionalInformation,
+    this.userContactInfo,
+    this.receiptImage,
   });
 }

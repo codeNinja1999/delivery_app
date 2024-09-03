@@ -5,19 +5,17 @@ class UserState extends Equatable {
   final ServiceType? service;
   final DateTime? pickupDate;
   final String? totalWeight;
-  final bool noPetHair;
-  final bool noBlood;
-  final bool noBiohazard;
+  final HygieneInfo? hygieneInfo;
   final User? user;
+
+  PickupOrder makeData(String? additionalInformation) => _makeData(additionalInformation);
 
   const UserState({
     this.location,
     this.service,
     this.pickupDate,
     this.totalWeight,
-    this.noBiohazard = true,
-    this.noBlood = true,
-    this.noPetHair = true,
+    this.hygieneInfo,
     this.user,
   });
 
@@ -26,9 +24,7 @@ class UserState extends Equatable {
     ServiceType? service,
     DateTime? pickupDate,
     String? totalWeight,
-    bool? noPetHair,
-    bool? noBlood,
-    bool? noBiohazard,
+    HygieneInfo? hygieneInfo,
     User? user,
   }) {
     return UserState(
@@ -36,15 +32,20 @@ class UserState extends Equatable {
       service: service ?? this.service,
       pickupDate: pickupDate ?? this.pickupDate,
       totalWeight: totalWeight ?? this.totalWeight,
-      noPetHair: noPetHair ?? this.noPetHair,
-      noBlood: noBlood ?? this.noBlood,
-      noBiohazard: noBiohazard ?? this.noBiohazard,
+      hygieneInfo: hygieneInfo ?? this.hygieneInfo,
       user: user ?? this.user,
     );
   }
 
-
-  
+  _makeData(String? additionalInformation) {
+    return PickupOrder(
+      serviceType: service,
+      pickupDate: pickupDate,
+      actualWeight: totalWeight,
+      userContactInfo: user?.contactInfo,
+      additionalInformation: additionalInformation,
+    );
+  }
 
   @override
   List<Object?> get props => [
@@ -52,8 +53,7 @@ class UserState extends Equatable {
         service,
         totalWeight,
         pickupDate,
-        noBiohazard,
-        noBlood,
-        noPetHair,
+        hygieneInfo,
+        user,
       ];
 }

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fresh_fold_delivery/repository/domain/catalog/entities/catalogs.dart';
 import 'package:fresh_fold_delivery/sources/core/app_core.dart';
 import 'package:fresh_fold_delivery/sources/presentation/user/bloc/user_bloc.dart';
 import 'package:fresh_fold_delivery/sources/presentation/user/route/user_route.dart';
 import 'package:fresh_fold_delivery/sources/presentation/widgets/app_bar/app_bar.dart';
 import 'package:fresh_fold_delivery/sources/presentation/widgets/button/custom_button.dart';
+import 'package:fresh_fold_delivery/sources/presentation/widgets/widgets.dart';
 
 import 'bloc/location_bloc.dart';
 
@@ -56,19 +58,26 @@ class _LocationPageState extends State<LocationPage> {
                       buildWhen: (previous, current) =>
                           previous.locationList != current.locationList || previous.location != current.location,
                       builder: (context, state) {
-                        return ListTile(
-                          tileColor: theme.colorScheme.surfaceContainer,
-                          contentPadding: const EdgeInsets.all(AppSize.inset),
-                          leading: Radio(value: a, groupValue: a, onChanged: (value) {}),
-                          title: Text(
-                            state.location?.id ?? "",
-                            style: theme.textTheme.titleMedium,
-                          ),
-                          subtitle: Text(
-                            state.location?.value ?? "",
-                            style: theme.textTheme.titleSmall,
-                          ),
-                        );
+                        return ListView.separated(
+                            shrinkWrap: true,
+                            itemCount: state.locationList.length,
+                            separatorBuilder: (context, index) => const SizedBox(height: AppSize.inset),
+                            itemBuilder: (context, index) {
+                              final location = state.locationList[index];
+                              return ListTile(
+                                tileColor: theme.colorScheme.surfaceContainer,
+                                contentPadding: const EdgeInsets.all(AppSize.inset),
+                                leading: Radio(value: state.location, groupValue: a, onChanged: (value) {}),
+                                title: Text(
+                                  "${location.city ?? ""}, ${location.neighborhood ?? ""}",
+                                  style: theme.textTheme.titleMedium,
+                                ),
+                                subtitle: Text(
+                                  location.value,
+                                  style: theme.textTheme.titleSmall,
+                                ),
+                              );
+                            });
                       },
                     ),
                     const SizedBox(height: AppSize.inset),
@@ -92,7 +101,7 @@ class _LocationPageState extends State<LocationPage> {
               ),
             ),
             BlocBuilder<LocationBloc, LocationState>(
-              buildWhen: (previous, current) => previous.location!= current.location,
+              buildWhen: (previous, current) => previous.location != current.location,
               builder: (context, state) {
                 return CustomButton(
                     title: "Save and Continue",
