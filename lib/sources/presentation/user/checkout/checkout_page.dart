@@ -1,3 +1,4 @@
+import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -248,6 +249,32 @@ class _CheckoutPageState extends State<CheckoutPage> {
                         ),
                       ),
                       const SizedBox(height: AppSize.inset),
+                      BlocBuilder<CheckoutBloc, CheckoutState>(
+                        buildWhen: (previous, current) => previous.receiptImage != current.receiptImage,
+                        builder: (context, state) {
+                          final estimatedWidth = MediaQuery.of(context).size.height / 4;
+                          return GestureDetector(
+                            onTap: () => context.read<CheckoutBloc>().add(GetLocalImage(ScanBy.camera)),
+                            child: SizedBox(
+                              height: estimatedWidth,
+                              child: DottedBorder(
+                                borderType: BorderType.RRect,
+                                radius: const Radius.circular(AppSize.inset),
+                                padding: const EdgeInsets.all(AppSize.cornerRadiusMedium),
+                                child: (state.receiptImage != null)
+                                    ? Image.file(
+                                        state.receiptImage!,
+                                        height: estimatedWidth,
+                                        filterQuality: FilterQuality.medium,
+                                        fit: BoxFit.cover,
+                                      )
+                                    : const Center(child: Icon(Icons.camera)),
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                      const SizedBox(height: AppSize.viewSpacing),
                     ],
                   ),
                 ),
@@ -258,7 +285,9 @@ class _CheckoutPageState extends State<CheckoutPage> {
                       title: "Save and Continue",
                       onPressed: () {
                         final mainState = context.read<UserBloc>().state;
-                        context.read<CheckoutBloc>().add(CreateOrder(mainState.makeData(state.additionalInformation)));
+                        context
+                            .read<CheckoutBloc>()
+                            .add(CreateOrder(mainState.makeData(state.additionalInformation, state.receiptImage)));
                       });
                 },
               ),

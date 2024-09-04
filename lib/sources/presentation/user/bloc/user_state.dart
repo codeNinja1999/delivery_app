@@ -6,9 +6,10 @@ class UserState extends Equatable {
   final DateTime? pickupDate;
   final String? totalWeight;
   final HygieneInfo? hygieneInfo;
+  final File? receiptImage;
   final User? user;
 
-  PickupOrder makeData(String? additionalInformation) => _makeData(additionalInformation);
+  PickupOrder makeData(String? additionalInformation, File? receiptImage) => _makeData(additionalInformation, receiptImage);
 
   const UserState({
     this.location,
@@ -16,6 +17,7 @@ class UserState extends Equatable {
     this.pickupDate,
     this.totalWeight,
     this.hygieneInfo,
+    this.receiptImage,
     this.user,
   });
 
@@ -25,6 +27,7 @@ class UserState extends Equatable {
     DateTime? pickupDate,
     String? totalWeight,
     HygieneInfo? hygieneInfo,
+    File? receiptImage,
     User? user,
   }) {
     return UserState(
@@ -33,17 +36,19 @@ class UserState extends Equatable {
       pickupDate: pickupDate ?? this.pickupDate,
       totalWeight: totalWeight ?? this.totalWeight,
       hygieneInfo: hygieneInfo ?? this.hygieneInfo,
+      receiptImage: receiptImage ?? this.receiptImage,
       user: user ?? this.user,
     );
   }
 
-  _makeData(String? additionalInformation) {
+  _makeData(String? additionalInformation, File? receiptImage ) {
     return PickupOrder(
       serviceType: service,
       pickupDate: pickupDate,
       actualWeight: totalWeight,
       userContactInfo: user?.contactInfo,
       additionalInformation: additionalInformation,
+      receiptImage: receiptImage,
     );
   }
 
@@ -54,6 +59,7 @@ class UserState extends Equatable {
         totalWeight,
         pickupDate,
         hygieneInfo,
+        receiptImage,
         user,
       ];
 }

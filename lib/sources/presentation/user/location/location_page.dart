@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fresh_fold_delivery/repository/domain/catalog/entities/catalogs.dart';
 import 'package:fresh_fold_delivery/sources/core/app_core.dart';
 import 'package:fresh_fold_delivery/sources/presentation/user/bloc/user_bloc.dart';
 import 'package:fresh_fold_delivery/sources/presentation/user/route/user_route.dart';
-import 'package:fresh_fold_delivery/sources/presentation/widgets/app_bar/app_bar.dart';
-import 'package:fresh_fold_delivery/sources/presentation/widgets/button/custom_button.dart';
 import 'package:fresh_fold_delivery/sources/presentation/widgets/widgets.dart';
 
 import 'bloc/location_bloc.dart';
@@ -56,7 +53,8 @@ class _LocationPageState extends State<LocationPage> {
                     const SizedBox(height: AppSize.inset),
                     BlocBuilder<LocationBloc, LocationState>(
                       buildWhen: (previous, current) =>
-                          previous.locationList != current.locationList || previous.location != current.location,
+                          previous.locationList != current.locationList ||
+                          previous.selectedLocation != current.selectedLocation,
                       builder: (context, state) {
                         return ListView.separated(
                             shrinkWrap: true,
@@ -67,7 +65,9 @@ class _LocationPageState extends State<LocationPage> {
                               return ListTile(
                                 tileColor: theme.colorScheme.surfaceContainer,
                                 contentPadding: const EdgeInsets.all(AppSize.inset),
-                                leading: Radio(value: state.location, groupValue: a, onChanged: (value) {}),
+                                leading: Radio(value: state.selectedLocation, groupValue: a, onChanged: (value) {
+                                  context.read<LocationBloc>().add(LocationSelection(location));
+                                }),
                                 title: Text(
                                   "${location.city ?? ""}, ${location.neighborhood ?? ""}",
                                   style: theme.textTheme.titleMedium,
@@ -101,12 +101,12 @@ class _LocationPageState extends State<LocationPage> {
               ),
             ),
             BlocBuilder<LocationBloc, LocationState>(
-              buildWhen: (previous, current) => previous.location != current.location,
+              buildWhen: (previous, current) => previous.selectedLocation != current.selectedLocation,
               builder: (context, state) {
                 return CustomButton(
                     title: "Save and Continue",
                     onPressed: () {
-                      context.read<UserBloc>().add(SaveLocation(state.location));
+                      context.read<UserBloc>().add(SaveLocation(state.selectedLocation));
                       Navigator.pushNamed(context, UserRoute.serviceSelection);
                     });
               },

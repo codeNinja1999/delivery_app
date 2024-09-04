@@ -8,8 +8,8 @@ class SaveLocation extends UserEvent {
 }
 
 class SaveServiceType extends UserEvent {
-  final ServiceType? serviceType;
   final String totalWeight;
+  final ServiceType? serviceType;
   SaveServiceType(this.serviceType, this.totalWeight);
 }
 

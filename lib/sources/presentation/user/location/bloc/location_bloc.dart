@@ -11,6 +11,9 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
 
   LocationBloc({required this.catalogRepository}) : super(LocationState()) {
     on<FetchLocation>(_onFetchLocation);
+    on<LocationSelection>((event, emit) {
+      emit(state.copyWith(selectedLocation: event.selectedLocation));
+    });
   }
 
   Future<void> _onFetchLocation(
