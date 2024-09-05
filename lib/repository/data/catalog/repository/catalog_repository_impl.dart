@@ -96,13 +96,13 @@ class CatalogRepositoryImpl implements CatalogRepository {
   @override
   Future<Either<Exception, List<ServiceType>>> fetchServiceType() async {
     try {
-      final response = await userNetworkClient.get(AppServiceEndpoints.fetchServiceType);
+      final response = await userNetworkClient.get(AppServiceEndpoints.service);
       final responseJson = json.decode(response.asString);
-      final serviceType = responseJson
+      final serviceType = (responseJson as List<dynamic>)
           .map((item) => ServiceType(
                 id: item['id'].toString(),
                 value: item['name'] ?? "",
-                price: item['price'].toString(),
+                price: item['price'],
               ))
           .toList();
       return Right(serviceType);

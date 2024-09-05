@@ -17,10 +17,17 @@ class UserCredentialDataStore {
     final credentialDataJson = jsonEncode(credentialData.toJson()).toString();
 
     await storage.write(
-        key: StoreConstants.userCredential,
-        value: credentialDataJson,
-        iOptions: _getIOSOptions(),
-        aOptions: _getAndroidOptions());
+      key: StoreConstants.userCredential,
+      value: credentialDataJson,
+      iOptions: _getIOSOptions(),
+      aOptions: _getAndroidOptions(),
+    );
+    await storage.write(
+      key: StoreConstants.username,
+      value: credential.email,
+      iOptions: _getIOSOptions(),
+      aOptions: _getAndroidOptions(),
+    );
   }
 
   Future<UserAccessCredential?> getCredential() async {

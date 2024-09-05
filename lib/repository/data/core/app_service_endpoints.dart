@@ -12,6 +12,7 @@ class AppServiceEndpoints {
   static const verifyForgotPassword = "auth/verify-forgot-password-otp";
 
   static const location = "locations";
+  static const service = "laundry/services";
 
   static const userUpdate = "admin/user";
   static const verifyPendingOrder = "admin/dashboard/pending-confirmations/:id/verify";

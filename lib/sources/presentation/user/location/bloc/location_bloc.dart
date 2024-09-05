@@ -20,6 +20,7 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
     FetchLocation event,
     Emitter<LocationState> emit,
   ) async {
+    emit(state.copyWith(status: InProgress()));
     final response = await catalogRepository.fetchLocation();
     emit(response.fold(
       (error) => state.copyWith(status: SubmissionFailure(error)),

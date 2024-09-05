@@ -1,21 +1,23 @@
 part of 'service_selection_bloc.dart';
 
 class ServiceSelectionState extends Equatable {
-  final ServiceType? serviceType;
-  final List<ServiceType>? serviceTypeList;
+  final ServiceType? selectedServiceType;
+  final List<ServiceType> serviceTypeList;
   final String totalWeight;
+  final int totalAmount;
   final bool noPetHair;
   final bool noBlood;
   final bool noBiohazard;
   final FormStatus status;
 
   HygieneInfo get makeData => _makeData();
-  String? get serviceTypeValidation => (serviceType != null) ? null : "Please select service type";
+  String? get serviceTypeValidation => (selectedServiceType != null) ? null : "Please select service type";
   String? get locationValidation => (totalWeight != "") ? null : "Please enter weight";
 
   ServiceSelectionState({
-    this.serviceType,
+    this.selectedServiceType,
     this.totalWeight = "",
+    this.totalAmount =0,
     this.serviceTypeList = const [],
     this.noPetHair = false,
     this.noBlood = false,
@@ -24,18 +26,20 @@ class ServiceSelectionState extends Equatable {
   }) : status = (status != null) ? status : InitialStatus();
 
   ServiceSelectionState copyWith({
-    ServiceType? serviceType,
+    ServiceType? selectedServiceType,
     List<ServiceType>? serviceTypeList,
     String? totalWeight,
+    int? totalAmount,
     bool? noPetHair,
     bool? noBlood,
     bool? noBiohazard,
     FormStatus? status,
   }) {
     return ServiceSelectionState(
-      serviceType: serviceType ?? this.serviceType,
+      selectedServiceType: selectedServiceType ?? this.selectedServiceType,
       serviceTypeList: serviceTypeList ?? this.serviceTypeList,
       totalWeight: totalWeight ?? this.totalWeight,
+      totalAmount: totalAmount ?? this.totalAmount,
       noPetHair: noPetHair ?? this.noPetHair,
       noBlood: noBlood ?? this.noBlood,
       noBiohazard: noBiohazard ?? this.noBiohazard,
@@ -49,9 +53,10 @@ class ServiceSelectionState extends Equatable {
 
   @override
   List<Object?> get props => [
-        serviceType,
+        selectedServiceType,
         serviceTypeList,
         totalWeight,
+        totalAmount,
         noPetHair,
         noBlood,
         noBiohazard,

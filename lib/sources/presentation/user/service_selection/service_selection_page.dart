@@ -6,6 +6,7 @@ import 'package:fresh_fold_delivery/sources/presentation/user/service_selection/
 import 'package:fresh_fold_delivery/sources/presentation/widgets/app_bar/app_bar.dart';
 import 'package:fresh_fold_delivery/sources/presentation/widgets/button/custom_button.dart';
 import 'package:fresh_fold_delivery/sources/presentation/widgets/textfield/app_textfield.dart';
+import 'package:fresh_fold_delivery/sources/presentation/widgets/widgets.dart';
 
 import '../bloc/user_bloc.dart';
 
@@ -17,13 +18,20 @@ class ServiceSelectionPage extends StatefulWidget {
 }
 
 class _ServiceSelectionPageState extends State<ServiceSelectionPage> {
-  final List<Service> services = [
-    Service("Regular Wash", "\$100"),
-    Service("Regular Wash and Ironing", "\$200"),
-    Service("Wash and Press", "\$200"),
-    Service("Dry Cleaning", "\$150"),
-    Service("Ironing Only", "\$50"),
-  ];
+  // final List<Service> services = [
+  //   Service("Regular Wash", "\$100"),
+  //   Service("Regular Wash and Ironing", "\$200"),
+  //   Service("Wash and Press", "\$200"),
+  //   Service("Dry Cleaning", "\$150"),
+  //   Service("Ironing Only", "\$50"),
+  // ];
+
+  @override
+  void initState() {
+    super.initState();
+    context.read<ServiceSelectionBloc>().add(FetchServiceType());
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -33,80 +41,125 @@ class _ServiceSelectionPageState extends State<ServiceSelectionPage> {
       appBar: const MyAppBar(
         title: "Service Location",
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(AppSize.viewMargin),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Expanded(
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Text(
-                      "Choose your Service",
-                      style: theme.textTheme.titleLarge,
-                    ),
-                    const SizedBox(height: AppSize.cornerRadiusMedium),
-                    Text(
-                      "Select  how you wish to do your laundry",
-                      style: theme.textTheme.bodySmall,
-                    ),
-                    const SizedBox(height: AppSize.inset),
-                    BlocBuilder<ServiceSelectionBloc, ServiceSelectionState>(
-                      buildWhen: (previous, current) =>
-                          previous.serviceTypeList != current.serviceTypeList || previous.serviceType != current.serviceType,
-                      builder: (context, state) {
-                        return ListView.separated(
-                          shrinkWrap: true,
-                          itemCount: services.length,
-                          physics: const NeverScrollableScrollPhysics(),
-                          separatorBuilder: (context, index) {
-                            return const SizedBox(height: AppSize.inset);
-                          },
-                          itemBuilder: (context, index) {
-                            final service = services[index];
-                            return ListTile(
-                              tileColor: theme.colorScheme.surfaceContainer,
-                              title: Text(
-                                service.title,
-                                style: theme.textTheme.titleMedium,
-                              ),
-                              trailing: Text(service.amount),
-                              onTap: () {},
-                            );
-                          },
-                        );
-                      },
-                    ),
-                    const SizedBox(height: AppSize.viewSpacing),
-                    Text(
-                      "Laundry Details",
-                      style: theme.textTheme.titleLarge?.copyWith(color: theme.colorScheme.primary),
-                    ),
-                    const SizedBox(height: AppSize.inset),
-                    AppTextfield(
-                      title: "Enter total weight",
-                      placeHolder: "Example: 12kg",
-                    ),
-                    const SizedBox(height: AppSize.inset),
-                  ],
+      body: BlocListener<ServiceSelectionBloc, ServiceSelectionState>(
+        listenWhen: (previous, current) => previous.status != current.status,
+        listener: (context, state) {
+          final status = state.status;
+          (status is InProgress) ? LoadingView.show() : LoadingView.hide();
+          if (status is SubmissionFailure) {
+            ErrorResolver.resolve(context, status);
+          }
+        },
+        child: Padding(
+          padding: const EdgeInsets.all(AppSize.viewMargin),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Text(
+                        "Choose your Service",
+                        style: theme.textTheme.titleLarge,
+                      ),
+                      const SizedBox(height: AppSize.cornerRadiusMedium),
+                      Text(
+                        "Select  how you wish to do your laundry",
+                        style: theme.textTheme.bodySmall,
+                      ),
+                      const SizedBox(height: AppSize.inset),
+                      BlocBuilder<ServiceSelectionBloc, ServiceSelectionState>(
+                        buildWhen: (previous, current) =>
+                            previous.serviceTypeList != current.serviceTypeList ||
+                            previous.selectedServiceType != current.selectedServiceType,
+                        builder: (context, state) {
+                          return ListView.separated(
+                            shrinkWrap: true,
+                            itemCount: state.serviceTypeList.length,
+                            physics: const NeverScrollableScrollPhysics(),
+                            separatorBuilder: (context, index) {
+                              return const SizedBox(height: AppSize.inset);
+                            },
+                            itemBuilder: (context, index) {
+                              final service = state.serviceTypeList[index];
+                              return ListTile(
+                                minLeadingWidth: AppSize.inset,
+                                tileColor: theme.colorScheme.surfaceContainer,
+                                leading: Radio(
+                                    value: service.id,
+                                    groupValue: state.selectedServiceType?.id,
+                                    onChanged: (value) {
+                                      null;
+                                    }),
+                                title: Text(
+                                  service.value,
+                                  style: theme.textTheme.titleMedium,
+                                ),
+                                trailing: Text("\$${service.price ?? ""}"),
+                                onTap: () {
+                                  context.read<ServiceSelectionBloc>().add(ServiceTypeSelected(service));
+                                },
+                              );
+                            },
+                          );
+                        },
+                      ),
+                      const SizedBox(height: AppSize.viewSpacing),
+                      Text(
+                        "Laundry Details",
+                        style: theme.textTheme.titleLarge?.copyWith(color: theme.colorScheme.primary),
+                      ),
+                      const SizedBox(height: AppSize.inset),
+                      AppTextfield(
+                        title: "Enter total weight",
+                        placeHolder: "Example: 12kg",
+                        textInputType: TextInputType.number,
+                        inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                        onChanged: (weight) {
+                          context.read<ServiceSelectionBloc>().add(TotalWeightChanged(weight));
+                        },
+                      ),
+                      const SizedBox(height: AppSize.inset),
+                      BlocBuilder<ServiceSelectionBloc, ServiceSelectionState>(
+                        buildWhen: (previous, current) =>
+                            previous.selectedServiceType != current.selectedServiceType &&
+                                previous.totalWeight != current.totalWeight ||
+                            previous.totalAmount != current.totalAmount,
+                        builder: (context, state) {
+                          return Row(
+                            children: [
+                              Expanded(
+                                  child: Text(
+                                "Total Amount to pay:",
+                                style: theme.textTheme.titleMedium?.copyWith(color: theme.colorScheme.primary),
+                              )),
+                              Expanded(child: Text(textAlign: TextAlign.right, "\$${state.totalAmount.toString()}"))
+                            ],
+                          );
+                        },
+                      ),
+                      const SizedBox(height: AppSize.inset),
+                    ],
+                  ),
                 ),
               ),
-            ),
-            BlocBuilder<ServiceSelectionBloc, ServiceSelectionState>(
-              buildWhen: (previous, current) =>
-                  previous.serviceType != current.serviceType || previous.totalWeight != current.totalWeight,
-              builder: (context, state) {
-                return CustomButton(
-                    title: "Continue",
-                    onPressed: () {
-                      context.read<UserBloc>().add(SaveServiceType(state.serviceType, state.totalWeight));
-                      showProtectionModel(context);
-                    });
-              },
-            ),
-          ],
+              BlocBuilder<ServiceSelectionBloc, ServiceSelectionState>(
+                buildWhen: (previous, current) =>
+                    previous.selectedServiceType != current.selectedServiceType ||
+                    previous.totalWeight != current.totalWeight,
+                builder: (context, state) {
+                  return CustomButton(
+                      title: "Continue",
+                      onPressed: () {
+                        context.read<UserBloc>().add(SaveServiceType(state.selectedServiceType, state.totalWeight));
+                        showProtectionModel(context);
+                      });
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -31,86 +31,103 @@ class _LocationPageState extends State<LocationPage> {
       appBar: const MyAppBar(
         title: "Location Selection",
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(AppSize.viewMargin),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Expanded(
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Text(
-                      "Choose your Location",
-                      style: theme.textTheme.titleLarge,
-                    ),
-                    const SizedBox(height: AppSize.cornerRadiusMedium),
-                    Text(
-                      "Where do you like your laundry picked up?",
-                      style: theme.textTheme.bodySmall,
-                    ),
-                    const SizedBox(height: AppSize.inset),
-                    BlocBuilder<LocationBloc, LocationState>(
-                      buildWhen: (previous, current) =>
-                          previous.locationList != current.locationList ||
-                          previous.selectedLocation != current.selectedLocation,
-                      builder: (context, state) {
-                        return ListView.separated(
-                            shrinkWrap: true,
-                            itemCount: state.locationList.length,
-                            separatorBuilder: (context, index) => const SizedBox(height: AppSize.inset),
-                            itemBuilder: (context, index) {
-                              final location = state.locationList[index];
-                              return ListTile(
-                                tileColor: theme.colorScheme.surfaceContainer,
-                                contentPadding: const EdgeInsets.all(AppSize.inset),
-                                leading: Radio(value: state.selectedLocation, groupValue: state.locationList, onChanged: (value) {
-                                  context.read<LocationBloc>().add(LocationSelection(location));
-                                }),
-                                title: Text(
-                                  "${location.city ?? ""}, ${location.neighborhood ?? ""}",
-                                  style: theme.textTheme.titleMedium,
-                                ),
-                                subtitle: Text(
-                                  location.value,
-                                  style: theme.textTheme.titleSmall,
-                                ),
-                              );
-                            });
-                      },
-                    ),
-                    const SizedBox(height: AppSize.inset),
-                    ListTile(
-                        tileColor: theme.colorScheme.surfaceContainer,
-                        contentPadding: const EdgeInsets.all(AppSize.inset),
-                        title: Text(
-                          "Add different address",
-                          style: theme.textTheme.titleMedium,
-                        ),
-                        trailing: IconButton(onPressed: () {}, icon: const Icon(Icons.add)),
-                        onTap: () async {
-                          final result = await Navigator.pushNamed(context, UserRoute.addLocation);
-                          if (result == true) {
-                            context.read<LocationBloc>().add(FetchLocation());
-                          }
-                        }),
-                  ],
+      body: BlocListener<LocationBloc, LocationState>(
+        listenWhen: (previous, current) => previous.status != current.status,
+        listener: (context, state) {
+          final status = state.status;
+          (status is InProgress) ? LoadingView.show() : LoadingView.hide();
+          if (status is SubmissionFailure) {
+            ErrorResolver.resolve(context, status);
+          }
+        },
+        child: Padding(
+          padding: const EdgeInsets.all(AppSize.viewMargin),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Text(
+                        "Choose your Location",
+                        style: theme.textTheme.titleLarge,
+                      ),
+                      const SizedBox(height: AppSize.cornerRadiusMedium),
+                      Text(
+                        "Where do you like your laundry picked up?",
+                        style: theme.textTheme.bodySmall,
+                      ),
+                      const SizedBox(height: AppSize.inset),
+                      BlocBuilder<LocationBloc, LocationState>(
+                        buildWhen: (previous, current) =>
+                            previous.locationList != current.locationList ||
+                            previous.selectedLocation != current.selectedLocation,
+                        builder: (context, state) {
+                          return ListView.separated(
+                              shrinkWrap: true,
+                              itemCount: state.locationList.length,
+                              separatorBuilder: (context, index) => const SizedBox(height: AppSize.inset),
+                              itemBuilder: (context, index) {
+                                final location = state.locationList[index];
+                                return ListTile(
+                                    dense: true,
+                                    minLeadingWidth: AppSize.cornerRadiusSmall,
+                                    tileColor: theme.colorScheme.surfaceContainer,
+                                    contentPadding: const EdgeInsets.all(AppSize.inset),
+                                    leading: Radio(
+                                        value: location.id,
+                                        groupValue: state.selectedLocation?.id,
+                                        onChanged: (value) {
+                                          null;
+                                        }),
+                                    title: Text(
+                                      "${location.city ?? ""}, ${location.neighborhood ?? ""}",
+                                      style: theme.textTheme.titleMedium,
+                                    ),
+                                    subtitle: Text(
+                                      location.value,
+                                      style: theme.textTheme.titleSmall,
+                                    ),
+                                    onTap: () {
+                                      context.read<LocationBloc>().add(LocationSelection(location));
+                                    });
+                              });
+                        },
+                      ),
+                      const SizedBox(height: AppSize.inset),
+                      ListTile(
+                          tileColor: theme.colorScheme.surfaceContainer,
+                          contentPadding: const EdgeInsets.all(AppSize.inset),
+                          title: Text(
+                            "Add different address",
+                            style: theme.textTheme.titleMedium,
+                          ),
+                          trailing: IconButton(onPressed: () {}, icon: const Icon(Icons.add)),
+                          onTap: () async {
+                            final result = await Navigator.pushNamed(context, UserRoute.addLocation);
+                            if (result == true) {
+                              context.read<LocationBloc>().add(FetchLocation());
+                            }
+                          }),
+                    ],
+                  ),
                 ),
               ),
-            ),
-            BlocBuilder<LocationBloc, LocationState>(
-              buildWhen: (previous, current) => previous.selectedLocation != current.selectedLocation,
-              builder: (context, state) {
-                return CustomButton(
-                    title: "Save and Continue",
-                    onPressed: () {
-                      context.read<UserBloc>().add(SaveLocation(state.selectedLocation));
-                      Navigator.pushNamed(context, UserRoute.serviceSelection);
-                    });
-              },
-            ),
-          ],
+              BlocBuilder<LocationBloc, LocationState>(
+                buildWhen: (previous, current) => previous.selectedLocation != current.selectedLocation,
+                builder: (context, state) {
+                  return CustomButton(
+                      title: "Save and Continue",
+                      onPressed: () {
+                        context.read<UserBloc>().add(SaveLocation(state.selectedLocation));
+                        Navigator.pushNamed(context, UserRoute.serviceSelection);
+                      });
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );

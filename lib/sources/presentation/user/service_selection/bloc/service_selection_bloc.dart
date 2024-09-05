@@ -13,9 +13,23 @@ class ServiceSelectionBloc extends Bloc<ServiceSelectionEvent, ServiceSelectionS
   ServiceSelectionBloc({required this.catalogRepository}) : super(ServiceSelectionState()) {
     on<FetchServiceType>(_onFetchServiceType);
     on<ServiceTypeSelected>((event, emit) {
-      emit(state.copyWith(serviceType: event.serviceType));
+      if (state.totalWeight != "") {
+        var updatedAmount = state.totalAmount;
+        var servicePrice = event.serviceType.price ?? 0;
+        var inputWeight = int.parse(state.totalWeight);
+        updatedAmount = servicePrice + inputWeight;
+        emit(state.copyWith(selectedServiceType: event.serviceType, totalAmount: updatedAmount));
+      }
+      emit(state.copyWith(selectedServiceType: event.serviceType));
     });
     on<TotalWeightChanged>((event, emit) {
+      if (state.selectedServiceType != null) {
+        var updatedAmount = state.totalAmount;
+        var servicePrice = state.selectedServiceType?.price ?? 0;
+        var inputWeight = int.parse(event.totalWeight);
+        updatedAmount = servicePrice + inputWeight;
+        emit(state.copyWith(totalWeight: event.totalWeight, totalAmount: updatedAmount));
+      }
       emit(state.copyWith(totalWeight: event.totalWeight));
     });
     on<IsContainBioHazard>((event, emit) {
@@ -32,6 +46,7 @@ class ServiceSelectionBloc extends Bloc<ServiceSelectionEvent, ServiceSelectionS
     FetchServiceType event,
     Emitter<ServiceSelectionState> emit,
   ) async {
+    emit(state.copyWith(status: InProgress()));
     final response = await catalogRepository.fetchServiceType();
     emit(response.fold(
       (error) => state.copyWith(status: SubmissionFailure(error)),

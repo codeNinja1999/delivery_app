@@ -18,7 +18,7 @@ class DepositType extends Catalog {
 }
 
 class ServiceType extends Catalog {
-  final String? price;
+  final int? price;
   const ServiceType({required super.id, required super.value, this.price});
 }
 
