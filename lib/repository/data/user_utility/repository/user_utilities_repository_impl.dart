@@ -56,10 +56,10 @@ class UserUtilitiesRepositoryImpl implements UserUtilitiesRepository {
       return Left(error);
     }
   }
+
   @override
   Future<Either<Exception, String>> createOrder(PickupOrder data) async {
-
-     final requestData = data.toCreateOrderRequest();
+    final requestData = data.toCreateOrderRequest();
     final postBody = requestData.toJson().toMultipartFile();
     try {
       final response = await networkClient.post(AppServiceEndpoints.createPickupRequest, body: postBody);

@@ -65,7 +65,7 @@ class _LocationPageState extends State<LocationPage> {
                               return ListTile(
                                 tileColor: theme.colorScheme.surfaceContainer,
                                 contentPadding: const EdgeInsets.all(AppSize.inset),
-                                leading: Radio(value: state.selectedLocation, groupValue: a, onChanged: (value) {
+                                leading: Radio(value: state.selectedLocation, groupValue: state.locationList, onChanged: (value) {
                                   context.read<LocationBloc>().add(LocationSelection(location));
                                 }),
                                 title: Text(
@@ -91,7 +91,6 @@ class _LocationPageState extends State<LocationPage> {
                         trailing: IconButton(onPressed: () {}, icon: const Icon(Icons.add)),
                         onTap: () async {
                           final result = await Navigator.pushNamed(context, UserRoute.addLocation);
-
                           if (result == true) {
                             context.read<LocationBloc>().add(FetchLocation());
                           }

@@ -24,4 +24,19 @@ class MultiPartFile extends MultipartFile {
   Future<MultiPartFile> clone() async {
     return MultiPartFile.fromPath(field, filePath);
   }
+
+  static Future<MultiPartFile> fromBytes(
+    String field,
+    List<int> bytes, {
+    String? filename,
+    MediaType? contentType,
+  }) async {
+    var stream = ByteStream.fromBytes(bytes);
+    final length = bytes.length;
+
+    // Infer filename if not provided
+    filename ??= 'file.${contentType?.subtype ?? 'bin'}';
+
+    return MultiPartFile("", field, stream, bytes.length, filename: 'selfie.jpg');
+  }
 }
