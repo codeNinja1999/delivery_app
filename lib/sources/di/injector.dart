@@ -11,6 +11,7 @@ import 'package:get_it/get_it.dart';
 import '../core/app_core.dart';
 import '../presentation/admin/add_location/bloc/add_location_bloc.dart';
 import '../presentation/admin/add_service_price/bloc/add_service_price_bloc.dart';
+import '../presentation/admin/admin_profile/bloc/profile_bloc.dart';
 import '../presentation/admin/operator_details/bloc/operator_details_bloc.dart';
 import '../presentation/admin/update_operator/bloc/update_operator_bloc.dart';
 import '../presentation/admin/user_details/bloc/user_details_bloc.dart';
@@ -104,6 +105,7 @@ void blocsInjection() {
   sl.registerFactory(() => UserListBloc());
   sl.registerFactory(() => UserDetailsBloc());
   sl.registerFactory(() => UserUpdateBloc());
+  sl.registerFactory(() => AdminProfileBloc(userUtilitiesRepository: sl()));
 }
 
 ///repositories injection

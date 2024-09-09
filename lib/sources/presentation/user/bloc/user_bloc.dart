@@ -16,7 +16,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       emit(state.copyWith(location: event.location));
     });
     on<SaveServiceType>((event, emit) {
-      emit(state.copyWith(service: event.serviceType, totalWeight: event.totalWeight));
+      emit(state.copyWith(service: event.serviceType, totalWeight: event.totalWeight, totalAmount: event.totalAmount));
     });
     on<SavePickupDate>((event, emit) {
       emit(state.copyWith(pickupDate: event.pickupDate));

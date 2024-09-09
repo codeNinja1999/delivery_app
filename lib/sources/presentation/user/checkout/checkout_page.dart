@@ -1,6 +1,6 @@
-import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:dotted_border/dotted_border.dart';
 
 import 'package:fresh_fold_delivery/sources/core/app_core.dart';
 import 'package:fresh_fold_delivery/sources/presentation/user/checkout/bloc/checkout_bloc.dart';
@@ -17,7 +17,6 @@ class CheckoutPage extends StatefulWidget {
 }
 
 class _CheckoutPageState extends State<CheckoutPage> {
-  final a = true;
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -58,88 +57,96 @@ class _CheckoutPageState extends State<CheckoutPage> {
                         style: theme.textTheme.bodySmall,
                       ),
                       const SizedBox(height: AppSize.inset),
-                      GestureDetector(
-                        onTap: () => Navigator.pushNamed(context, UserRoute.addLocation),
-                        child: Container(
-                          padding: const EdgeInsets.all(AppSize.inset),
-                          decoration: BoxDecoration(
-                            color: theme.colorScheme.surfaceContainer,
-                            borderRadius: BorderRadius.circular(AppSize.cornerRadiusMedium),
-                          ),
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                                  children: [
-                                    Text(
-                                      "Phuket, Ban Tawan, 1415 Unit",
-                                      style: theme.textTheme.titleMedium,
+                      BlocBuilder<UserBloc, UserState>(
+                        builder: (context, state) {
+                          return GestureDetector(
+                            onTap: () => Navigator.pushNamed(context, UserRoute.addLocation),
+                            child: Container(
+                              padding: const EdgeInsets.all(AppSize.inset),
+                              decoration: BoxDecoration(
+                                color: theme.colorScheme.surfaceContainer,
+                                borderRadius: BorderRadius.circular(AppSize.cornerRadiusMedium),
+                              ),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                                      children: [
+                                        Text(
+                                          "${state.location?.value ?? ""}, ${state.location?.postalCode ?? ""}",
+                                          style: theme.textTheme.titleMedium,
+                                        ),
+                                        Text(
+                                          state.location?.neighborhood ?? "",
+                                          style: theme.textTheme.titleSmall,
+                                        ),
+                                      ],
                                     ),
-                                    Text(
-                                      "Near ABC Bus Stand",
-                                      style: theme.textTheme.titleSmall,
+                                  ),
+                                  Icon(Icons.edit, color: theme.colorScheme.primary),
+                                ],
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                      const SizedBox(height: AppSize.inset),
+                      BlocBuilder<UserBloc, UserState>(
+                        builder: (context, state) {
+                          return Container(
+                            padding: const EdgeInsets.all(AppSize.viewMargin),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(AppSize.cornerRadiusMedium),
+                              color: Theme.of(context).colorScheme.surfaceContainer,
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: [
+                                Text(
+                                  "Order Summary",
+                                  style: theme.textTheme.titleMedium?.copyWith(
+                                    color: theme.colorScheme.primary,
+                                  ),
+                                ),
+                                const SizedBox(height: AppSize.inset),
+                                Row(
+                                  children: [
+                                    const Expanded(child: Text("Service Type : ")),
+                                    Expanded(
+                                      child: Text(
+                                        state.service?.value ?? "",
+                                        textAlign: TextAlign.end,
+                                      ),
                                     ),
                                   ],
                                 ),
-                              ),
-                              Icon(Icons.edit, color: theme.colorScheme.primary),
-                            ],
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: AppSize.inset),
-                      Container(
-                        padding: const EdgeInsets.all(AppSize.viewMargin),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(AppSize.cornerRadiusMedium),
-                          color: Theme.of(context).colorScheme.surfaceContainer,
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            Text(
-                              "Order Summary",
-                              style: theme.textTheme.titleMedium?.copyWith(
-                                color: theme.colorScheme.primary,
-                              ),
-                            ),
-                            const SizedBox(height: AppSize.inset),
-                            const Row(
-                              children: [
-                                Expanded(child: Text("Service Type : ")),
-                                Expanded(
-                                  child: Text(
-                                    "Regular Wash",
-                                    textAlign: TextAlign.end,
-                                  ),
+                                const SizedBox(height: AppSize.cornerRadiusMedium),
+                                Row(
+                                  children: [
+                                    const Expanded(child: Text("Laundry Details : ")),
+                                    Expanded(
+                                        child: Text(
+                                      "${state.totalWeight ?? 0}kg",
+                                      textAlign: TextAlign.end,
+                                    )),
+                                  ],
                                 ),
+                                const SizedBox(height: AppSize.cornerRadiusMedium),
+                                Row(
+                                  children: [
+                                    const Expanded(child: Text("Total : ")),
+                                    Expanded(
+                                        child: Text(
+                                      "\$${state.totalAmount ?? 0}",
+                                      textAlign: TextAlign.end,
+                                    )),
+                                  ],
+                                )
                               ],
                             ),
-                            const SizedBox(height: AppSize.cornerRadiusMedium),
-                            const Row(
-                              children: [
-                                Expanded(child: Text("Laundry Details : ")),
-                                Expanded(
-                                    child: Text(
-                                  "12kg",
-                                  textAlign: TextAlign.end,
-                                )),
-                              ],
-                            ),
-                            const SizedBox(height: AppSize.cornerRadiusMedium),
-                            const Row(
-                              children: [
-                                Expanded(child: Text("Total : ")),
-                                Expanded(
-                                    child: Text(
-                                  "\$1300",
-                                  textAlign: TextAlign.end,
-                                )),
-                              ],
-                            )
-                          ],
-                        ),
+                          );
+                        },
                       ),
                       const SizedBox(height: AppSize.inset),
                       const CustomTextField(
@@ -227,15 +234,19 @@ class _CheckoutPageState extends State<CheckoutPage> {
                                     ],
                                   ),
                                   const SizedBox(height: AppSize.cornerRadiusMedium),
-                                  const Row(
-                                    children: [
-                                      Expanded(child: Text("Deposit Amount : ")),
-                                      Expanded(
-                                          child: Text(
-                                        "\$1300",
-                                        textAlign: TextAlign.end,
-                                      )),
-                                    ],
+                                  BlocBuilder<UserBloc, UserState>(
+                                    builder: (context, state) {
+                                      return  Row(
+                                        children: [
+                                         const  Expanded(child: Text("Deposit Amount : ")),
+                                          Expanded(
+                                              child: Text(
+                                            "\$${state.totalAmount ?? "0"}",
+                                            textAlign: TextAlign.end,
+                                          )),
+                                        ],
+                                      );
+                                    },
                                   ),
                                   const SizedBox(height: AppSize.inset),
                                   Text(
@@ -282,7 +293,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
               BlocBuilder<CheckoutBloc, CheckoutState>(
                 builder: (context, state) {
                   return CustomButton(
-                      title: "Save and Continue",
+                      title: "Continue",
                       onPressed: () {
                         final mainState = context.read<UserBloc>().state;
                         context

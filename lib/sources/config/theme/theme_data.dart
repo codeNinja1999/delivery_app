@@ -189,9 +189,9 @@ final ThemeData darkTheme = ThemeData.dark(useMaterial3: true).copyWith(
       backgroundColor: WidgetStateProperty.resolveWith<Color?>(
         (Set<WidgetState> states) {
           if (states.contains(WidgetState.disabled)) {
-            return AppColors.primary.withOpacity(0.38);
+            return Colors.transparent;
           }
-          return AppColors.primary;
+          return Colors.transparent;
         },
       ),
       foregroundColor: WidgetStateProperty.resolveWith<Color?>(

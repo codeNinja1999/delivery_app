@@ -9,4 +9,5 @@ class AdminRoute {
   static const userList = "/user_list";
   static const userUpdate = "/user_update";
   static const userDetails = "/user_details";
+  static const profile = "/profile";
 }

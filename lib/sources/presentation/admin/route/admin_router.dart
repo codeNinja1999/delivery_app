@@ -13,6 +13,8 @@ import '../add_service_price/add_service_price_page.dart';
 import '../add_service_price/bloc/add_service_price_bloc.dart';
 import '../admin_dashboard/bloc/admin_dashboard_bloc.dart';
 import '../admin_dashboard/view/admin_dashboard_page.dart';
+import '../admin_profile/admin_profile_page.dart';
+import '../admin_profile/bloc/profile_bloc.dart';
 import '../operator_details/bloc/operator_details_bloc.dart';
 import '../operator_list/bloc/operator_list_bloc.dart';
 import '../operator_list/operator_list_page.dart';
@@ -82,6 +84,14 @@ class AdminRouter {
           builder: (_) => BlocProvider(
             create: (_) => sl<UserListBloc>(),
             child: const UserListPage(),
+          ),
+        );
+
+        case AdminRoute.profile:
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (_) => sl<AdminProfileBloc>(),
+            child: const AdminProfilePage(),
           ),
         );
 

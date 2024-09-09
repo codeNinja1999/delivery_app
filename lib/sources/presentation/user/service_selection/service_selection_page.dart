@@ -3,9 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fresh_fold_delivery/sources/core/app_core.dart';
 import 'package:fresh_fold_delivery/sources/presentation/user/route/user_route.dart';
 import 'package:fresh_fold_delivery/sources/presentation/user/service_selection/bloc/service_selection_bloc.dart';
-import 'package:fresh_fold_delivery/sources/presentation/widgets/app_bar/app_bar.dart';
-import 'package:fresh_fold_delivery/sources/presentation/widgets/button/custom_button.dart';
-import 'package:fresh_fold_delivery/sources/presentation/widgets/textfield/app_textfield.dart';
 import 'package:fresh_fold_delivery/sources/presentation/widgets/widgets.dart';
 
 import '../bloc/user_bloc.dart';
@@ -18,14 +15,6 @@ class ServiceSelectionPage extends StatefulWidget {
 }
 
 class _ServiceSelectionPageState extends State<ServiceSelectionPage> {
-  // final List<Service> services = [
-  //   Service("Regular Wash", "\$100"),
-  //   Service("Regular Wash and Ironing", "\$200"),
-  //   Service("Wash and Press", "\$200"),
-  //   Service("Dry Cleaning", "\$150"),
-  //   Service("Ironing Only", "\$50"),
-  // ];
-
   @override
   void initState() {
     super.initState();
@@ -153,7 +142,8 @@ class _ServiceSelectionPageState extends State<ServiceSelectionPage> {
                   return CustomButton(
                       title: "Continue",
                       onPressed: () {
-                        context.read<UserBloc>().add(SaveServiceType(state.selectedServiceType, state.totalWeight));
+                        context.read<UserBloc>().add(
+                            SaveServiceType(state.selectedServiceType, state.totalWeight, state.totalAmount.toString()));
                         showProtectionModel(context);
                       });
                 },

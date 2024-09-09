@@ -9,8 +9,9 @@ class SaveLocation extends UserEvent {
 
 class SaveServiceType extends UserEvent {
   final String totalWeight;
+  final String totalAmount;
   final ServiceType? serviceType;
-  SaveServiceType(this.serviceType, this.totalWeight);
+  SaveServiceType(this.serviceType, this.totalWeight, this.totalAmount);
 }
 
 class SavePickupDate extends UserEvent {

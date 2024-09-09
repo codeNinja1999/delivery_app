@@ -5,6 +5,7 @@ class UserState extends Equatable {
   final ServiceType? service;
   final DateTime? pickupDate;
   final String? totalWeight;
+  final String? totalAmount;
   final HygieneInfo? hygieneInfo;
   final File? receiptImage;
   final User? user;
@@ -17,6 +18,7 @@ class UserState extends Equatable {
     this.pickupDate,
     this.totalWeight,
     this.hygieneInfo,
+    this.totalAmount,
     this.receiptImage,
     this.user,
   });
@@ -26,6 +28,7 @@ class UserState extends Equatable {
     ServiceType? service,
     DateTime? pickupDate,
     String? totalWeight,
+    String? totalAmount,
     HygieneInfo? hygieneInfo,
     File? receiptImage,
     User? user,
@@ -35,6 +38,7 @@ class UserState extends Equatable {
       service: service ?? this.service,
       pickupDate: pickupDate ?? this.pickupDate,
       totalWeight: totalWeight ?? this.totalWeight,
+      totalAmount: totalAmount ?? this.totalAmount,
       hygieneInfo: hygieneInfo ?? this.hygieneInfo,
       receiptImage: receiptImage ?? this.receiptImage,
       user: user ?? this.user,
@@ -46,6 +50,7 @@ class UserState extends Equatable {
       serviceType: service,
       pickupDate: pickupDate,
       actualWeight: totalWeight,
+      totalAmount: totalAmount,
       userContactInfo: user?.contactInfo,
       additionalInformation: additionalInformation,
       receiptImage: receiptImage,
@@ -57,7 +62,7 @@ class UserState extends Equatable {
         location,
         service,
         totalWeight,
-        pickupDate,
+        pickupDate,totalAmount,
         hygieneInfo,
         receiptImage,
         user,
