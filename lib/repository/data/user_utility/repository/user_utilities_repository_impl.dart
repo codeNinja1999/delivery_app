@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'package:either_dart/either.dart';
-import 'package:fresh_fold_delivery/repository/data/core/app_service_endpoints.dart';
 import 'package:fresh_fold_delivery/repository/data/core/core.dart';
 import 'package:fresh_fold_delivery/repository/data/user/data_store/user_credential_data.dart';
 import 'package:fresh_fold_delivery/repository/data/user_utility/mapping/create_laundry_request.dart';
+import 'package:fresh_fold_delivery/repository/data/user_utility/mapping/update_user_profile_request_mapping.dart';
 import 'package:fresh_fold_delivery/repository/domain/user/entities/user_info/user.dart';
 import 'package:fresh_fold_delivery/repository/domain/user/entities/notification/notification_data.dart';
 import 'package:network/network.dart';
@@ -28,8 +28,8 @@ class UserUtilitiesRepositoryImpl implements UserUtilitiesRepository {
   // @override
   // Future<String> getUserInfo() async {
   //   try {
-  //     final reponse = await networkClient.get(AppServiceEndpoints.getUserInfo);
-  //     final responseJson = json.decode(reponse.asString);
+  //     final response = await networkClient.get(AppServiceEndpoints.getUserInfo);
+  //     final responseJson = json.decode(response.asString);
   //     final getuserinfoResponse = GetuserinfoResponseModel.fromJson(responseJson);
   //     if (getuserinfoResponse.memberInfo != null) {
   //       _userInfoStreamController.add(getuserinfoResponse.memberInfo?.toDomain());
@@ -70,24 +70,18 @@ class UserUtilitiesRepositoryImpl implements UserUtilitiesRepository {
     }
   }
 
-  // @override
-  // Future<Either<Exception, DetailedUser>> updateUserInfo(UserUpdateInfo data) async {
-  //   final requestData = data.toRequestData();
-  //   final postBody = requestData.toJson();
+  @override
+  Future<Either<Exception, String>> updateUserProfile(User data) async {
+    final requestData = data.toUpdateUserProfile();
+    final postBody = jsonEncode(requestData.toJson());
 
-  //   try {
-  //     final reponse = await networkClient.post(AppServiceEndpoints.updateMember, body: postBody);
-  //     var responseJson = json.decode(reponse.asString);
-  //     var userupdateResponse = UserupdateinfoResponseModel.fromJson(responseJson);
-  //     if (userupdateResponse.memberInfo != null) {
-  //       return Right(userupdateResponse.memberInfo!.toDomain());
-  //     } else {
-  //       return Left(Exception("Data not found"));
-  //     }
-  //   } on Exception catch (error) {
-  //     return Left(error);
-  //   }
-  // }
+    try {
+      final _ = await networkClient.post(AppServiceEndpoints.updateUserProfile, body: postBody);
+      return const Right("Success");
+    } on Exception catch (error) {
+      return Left(error);
+    }
+  }
 
   @override
   Future<Either<Exception, String>> logoutUser() async {

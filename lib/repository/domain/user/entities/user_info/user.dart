@@ -4,10 +4,12 @@ import 'package:fresh_fold_delivery/repository/domain/user/entities/user_info/us
 class User {
   UserPersonalInfo? personalInfo;
   UserContactInfo? contactInfo;
+  String? additionalInformation;
 
   User({
     this.personalInfo,
     this.contactInfo,
+    this.additionalInformation,
   });
 }
 
@@ -15,10 +17,12 @@ class DetailedUser {
   final String? id;
   final UserPersonalInfo? personalInfo;
   final UserContactInfo? contactInfo;
+  final String? additionalInformation;
 
   DetailedUser({
     this.id,
     this.personalInfo,
     this.contactInfo,
+    this.additionalInformation,
   });
 }

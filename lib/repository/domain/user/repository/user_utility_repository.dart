@@ -9,6 +9,7 @@ abstract class UserUtilitiesRepository {
   // Future<String> getUserInfo();
   Stream<DetailedUser?> userInfo();
   Future<Either<Exception, String>> logoutUser();
+  Future<Either<Exception, String>> updateUserProfile(User userInfo);
   Future<Either<Exception, String>> createOrder(PickupOrder pickupOrder);
   Future<Either<Exception, List<NotificationData>>> getUserNotification();
   // Future<Either<Exception, DetailedUser>> updateUserInfo(UserUpdateInfo data);

@@ -20,6 +20,8 @@ abstract class  LocaleKeys {
   static const signUp = 'signUp';
   static const bankAccount = 'bankAccount';
   static const accountTitle = 'accountTitle';
+  static const userNameErrorMessage = 'userNameErrorMessage';
+  static const houseNumberErrorMessage = 'houseNumberErrorMessage';
   static const addWorkAddress = 'addWorkAddress';
   static const nationalityDescription = 'nationalityDescription';
   static const additionalDetails = 'additionalDetails';
@@ -59,6 +61,7 @@ abstract class  LocaleKeys {
   static const cashPayment = 'cashPayment';
   static const addNew = 'addNew';
   static const select = 'select';
+  static const locationErrorMessage = 'locationErrorMessage';
   static const applicationCompleted = 'applicationCompleted';
   static const helpSupport = 'helpSupport';
   static const emailTitle = 'emailTitle';
@@ -89,7 +92,6 @@ abstract class  LocaleKeys {
   static const location = 'location';
   static const bankDetails = 'bankDetails';
   static const notRegister = 'notRegister';
-  static const locationErrorMessage = 'locationErrorMessage';
   static const createAnAccount = 'createAnAccount';
   static const createAccount = 'createAccount';
   static const pleaseSpecifyValidRelation = 'pleaseSpecifyValidRelation';

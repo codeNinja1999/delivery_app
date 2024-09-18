@@ -1,5 +1,5 @@
 class UserContactInfo {
-  final String id;
+  final String? id;
   final String? locationId;
   final String? latitude;
   final String? longitude;
@@ -15,7 +15,7 @@ class UserContactInfo {
   final String? mobileNumber;
 
   UserContactInfo({
-    required this.id,
+    this.id,
     this.locationId,
     this.latitude,
     this.longitude,
