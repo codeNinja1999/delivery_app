@@ -20,49 +20,49 @@ class _EditProfilePageState extends State<EditProfilePage> {
     return Scaffold(
       backgroundColor: theme.colorScheme.surface,
       appBar: const MyAppBar(title: "Edit Profile"),
-      body: BlocListener<EditProfileBloc, EditProfileState>(
-        listenWhen: (previous, current) => previous.status != current.status,
-        listener: (context, state) {
-          final status = state.status;
-          (status is InProgress) ? LoadingView.show() : LoadingView.hide();
-          if (status is SubmissionFailure) {
-            ErrorResolver.resolve(context, status);
-          }
-        },
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(AppSize.viewMargin),
-          child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-            Text(
-              "About you".toUpperCase(),
-              style: theme.textTheme.titleLarge,
-            ),
-            const SizedBox(height: AppSize.inset),
-            const FirstNameInput(),
-            const SizedBox(height: AppSize.inset),
-            const MiddleNameInput(),
-            const SizedBox(height: AppSize.inset),
-            const LastNameInput(),
-            const SizedBox(height: AppSize.viewSpacing),
-            Text(
-              "User Name",
-              style: theme.textTheme.titleLarge,
-            ),
-            const SizedBox(height: AppSize.inset),
-            const UserNameInput(),
-            const SizedBox(height: AppSize.inset),
-            const PhoneNumberInput(),
-            const SizedBox(height: AppSize.inset),
-            const HouseNumberInput(),
-            const SizedBox(height: AppSize.inset),
-            const AdditionalInformationInput(),
-            const SizedBox(height: AppSize.viewSpacing),
-            CustomButton(
-                title: "Update",
-                onPressed: () {
-                  Navigator.of(context).pop();
-                }),
-          ]),
-        ),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(AppSize.viewMargin),
+        child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+          Text(
+            "About you".toUpperCase(),
+            style: theme.textTheme.titleLarge,
+          ),
+          const SizedBox(height: AppSize.inset),
+          AppTextfield(
+            title: "Full Name",
+          ),
+          const SizedBox(height: AppSize.inset),
+          AppTextfield(
+            title: "Email Address Name",
+          ),
+          const SizedBox(height: AppSize.inset),
+          AppTextfield(
+            title: "Phone Number",
+          ),
+          const SizedBox(height: AppSize.viewSpacing),
+          Text(
+            "Address".toUpperCase(),
+            style: theme.textTheme.titleLarge,
+          ),
+          const SizedBox(height: AppSize.inset),
+          AppTextfield(
+            title: "Address",
+          ),
+          const SizedBox(height: AppSize.inset),
+          AppTextfield(
+            title: "House Number",
+          ),
+          const SizedBox(height: AppSize.inset),
+          AppTextfield(
+            title: "Dropbox Number",
+          ),
+          const SizedBox(height: AppSize.viewSpacing),
+          CustomButton(
+              title: "Update",
+              onPressed: () {
+                Navigator.of(context).pop();
+              }),
+        ]),
       ),
     );
   }
