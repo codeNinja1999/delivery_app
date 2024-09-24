@@ -18,6 +18,8 @@
     "signUp": "Sign up",
     "bankAccount": "Bank Account",
     "accountTitle": "Account",
+    "userNameErrorMessage": "Please enter username",
+    "houseNumberErrorMessage": "Please enter house number",
     "addWorkAddress": "Add work address",
     "nationalityDescription": "Please verify account with your information for access to full services of LightRemit application",
     "additionalDetails": "Additional Details",

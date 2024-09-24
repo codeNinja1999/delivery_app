@@ -33,7 +33,7 @@ class DashboardView extends StatelessWidget {
         }
       },
       child: RefreshIndicator(
-        onRefresh: () async {},
+        onRefresh: () async => context.read<DashboardBloc>().add(GetDashboardData()),
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(AppSize.viewMargin),
           child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [

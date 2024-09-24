@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fresh_fold_delivery/sources/core/app_core.dart';
+import 'package:fresh_fold_delivery/sources/presentation/user/dashboard/dashboard.dart';
 
-import 'package:fresh_fold_delivery/sources/presentation/user/dashboard/widgets/widgets.dart';
 import 'package:fresh_fold_delivery/sources/presentation/widgets/widgets.dart';
 import '../../route/user_route.dart';
-import 'dashboard_view.dart';
 
 class DashboardPage extends StatefulWidget {
   const DashboardPage({super.key});
@@ -17,9 +17,9 @@ class _DashboardHomeState extends State<DashboardPage> {
   @override
   void initState() {
     super.initState();
-    // final bloc = context.read<DashboardBloc>();
-    // bloc.add(GetDashboardData());
-    // bloc.add(UserInfoSubscriptionRequested());
+    final bloc = context.read<DashboardBloc>();
+    bloc.add(GetDashboardData());
+    bloc.add(UserInfoSubscriptionRequested());
     // bloc.add(TransactionListSubscriptionRequested());
   }
 

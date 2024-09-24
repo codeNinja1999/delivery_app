@@ -2,7 +2,7 @@ import 'package:fresh_fold_delivery/repository/domain/operator/entities/operator
 
 import '../../model/update_operator_request_model.dart';
 
-extension UpdateOperatorRequestMapping on OperatorInfo {
+extension UpdateOperatorRequestMapping on Operator {
   UpdateOperatorRequestModel toUpdateOperator() {
     return UpdateOperatorRequestModel(
       fullName: fullName,

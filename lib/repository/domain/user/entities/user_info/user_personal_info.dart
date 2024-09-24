@@ -3,6 +3,7 @@ class UserPersonalInfo {
   final String? middleName;
   final String? lastName;
   final String? fullName;
+  final String? userName;
   final String? email;
   final String? phoneCode;
   final String? phoneNumber;
@@ -12,6 +13,7 @@ class UserPersonalInfo {
     this.firstName,
     this.middleName,
     this.lastName,
+    this.userName,
     this.email,
     this.phoneCode,
     this.phoneNumber,

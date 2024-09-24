@@ -14,7 +14,7 @@ class OperatorRepositoryImpl implements OperatorRepository {
   NetworkClient networkClient;
 
   @override
-  Future<Either<Exception, String>> addOperator(OperatorInfo operatorInfo) async {
+  Future<Either<Exception, String>> addOperator(Operator operatorInfo) async {
     final requestData = operatorInfo.toCreateOperator();
     final postBody = jsonEncode(requestData.toJson());
 
@@ -29,7 +29,7 @@ class OperatorRepositoryImpl implements OperatorRepository {
   }
 
   @override
-  Future<Either<Exception, String>> updateOperator(OperatorInfo operatorInfo) async {
+  Future<Either<Exception, String>> updateOperator(Operator operatorInfo) async {
     final requestData = operatorInfo.toUpdateOperator();
     final postBody = jsonEncode(requestData.toJson());
 

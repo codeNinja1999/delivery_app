@@ -69,10 +69,9 @@ class UserAuthenticationInterceptor {
           throw Exception("Something went wrong. Contact customer support.");
         } else {
           // Proceed with processing the response
-            final responseJson = json.decode(apiResponseString);
-            final errorMessage = responseJson['message'];
-            throw Exception(errorMessage);
-
+          final responseJson = json.decode(apiResponseString);
+          final errorMessage = responseJson['message'];
+          throw Exception(errorMessage);
         }
       }
     });

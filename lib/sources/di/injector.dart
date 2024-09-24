@@ -96,7 +96,7 @@ void blocsInjection() {
 
   //admin
   sl.registerFactory(() => AdminBloc());
-  sl.registerFactory(() => AdminDashboardBloc());
+  sl.registerFactory(() => AdminDashboardBloc(userUtilitiesRepository: sl(), catalogRepository: sl()));
   sl.registerFactory(() => AddLocationBloc());
   sl.registerFactory(() => AddServicePriceBloc());
   sl.registerFactory(() => OperatorListBloc());

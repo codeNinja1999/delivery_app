@@ -1,8 +1,8 @@
 part of 'admin_dashboard_bloc.dart';
 
-sealed class AdminDashboardEvent extends Equatable {
-  const AdminDashboardEvent();
-
-  @override
-  List<Object> get props => [];
+abstract class AdminDashboardEvent {
 }
+
+class GetDashboardData extends AdminDashboardEvent {}
+
+class UserInfoSubscriptionRequested extends AdminDashboardEvent {}

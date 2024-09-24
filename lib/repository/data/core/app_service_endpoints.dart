@@ -10,6 +10,7 @@ class AppServiceEndpoints {
   static const register = "auth/me/complete-profile-registration";
   static const generateForgotPasswordOtp = "auth/forgot-password-otp";
   static const verifyForgotPassword = "auth/verify-forgot-password-otp";
+  static const getDetail  = "auth/me";
 
   static const location = "locations";
   static const service = "laundry/services";
