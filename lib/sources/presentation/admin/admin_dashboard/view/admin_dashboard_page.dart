@@ -26,14 +26,14 @@ class _DashboardHomeState extends State<AdminDashboardPage> {
           allowBack: false,
           actions: [
             Padding(
-              padding: EdgeInsets.only(right: AppSize.viewMargin),
+              padding: const EdgeInsets.only(right: AppSize.viewMargin),
               child: Row(
                 children: [
-                  NotificationBadge(),
-                  SizedBox(width: AppSize.inset),
+                  const NotificationBadge(),
+                  const SizedBox(width: AppSize.inset),
                   GestureDetector(
                     onTap: () => Navigator.of(context).pushNamed(AdminRoute.profile),
-                    child: CircleAvatar(
+                    child: const CircleAvatar(
                       child: Text("FD"),
                     ),
                   ),

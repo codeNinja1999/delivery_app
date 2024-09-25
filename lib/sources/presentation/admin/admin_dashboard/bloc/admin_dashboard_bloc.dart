@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fresh_fold_delivery/sources/core/app_core.dart';
 
 import '../../../../../repository/domain/catalog/repository/catalog_repository.dart';
+import '../../../../../repository/domain/operator/entities/operator_entities.dart';
 import '../../../../../repository/domain/user/entities/user_info/user.dart';
 import '../../../../../repository/domain/user/repository/user_utility_repository.dart';
 
@@ -42,12 +43,27 @@ class AdminDashboardBloc extends Bloc<AdminDashboardEvent, AdminDashboardState> 
     await userUtilitiesRepository.getUserInfo();
     return true;
   }
+
   Future<bool> _onUserList(GetDashboardData event, Emitter<AdminDashboardState> emit) async {
-    await userUtilitiesRepository.getUserInfo();
-    return true;
+    final response = await userUtilitiesRepository.getUserList();
+
+    return response.fold((error) {
+      emit(state.copyWith(status: SubmissionFailure(error)));
+      return false;
+    }, (userList) {
+      emit(state.copyWith(userList: userList));
+      return true;
+    });
   }
+
   Future<bool> _onOperatorList(GetDashboardData event, Emitter<AdminDashboardState> emit) async {
-    await userUtilitiesRepository.getUserInfo();
-    return true;
+    final response = await userUtilitiesRepository.getOperatorList();
+    return response.fold((error) {
+      emit(state.copyWith(status: SubmissionFailure(error)));
+      return false;
+    }, (operatorList) {
+      emit(state.copyWith(operatorList: operatorList));
+      return true;
+    });
   }
 }
