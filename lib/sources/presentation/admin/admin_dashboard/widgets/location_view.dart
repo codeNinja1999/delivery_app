@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:fresh_fold_delivery/sources/core/app_core.dart';
+import 'package:fresh_fold_delivery/sources/presentation/admin/admin_dashboard/admin_dashboard.dart';
 import 'package:fresh_fold_delivery/sources/presentation/widgets/widgets.dart';
 import 'package:fresh_fold_delivery/sources/resources/app_colors.dart';
 
@@ -12,72 +14,138 @@ class LocationView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return Expanded(
-      child: Container(
-        padding: const EdgeInsets.all(AppSize.inset),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(AppSize.cornerRadiusMedium),
-          color: theme.colorScheme.surfaceContainer,
-        ),
-        child: Expanded(
-          child: SingleChildScrollView(
-            child: Column(
+    return Container(
+      padding: const EdgeInsets.all(AppSize.inset),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(AppSize.cornerRadiusMedium),
+        color: theme.colorScheme.surfaceContainer,
+      ),
+      child: BlocBuilder<AdminDashboardBloc, AdminDashboardState>(
+        builder: (context, state) {
+          if (state.locationList == []) {
+            return const SizedBox.expand(
+              child: Center(child: Text("No Location")),
+            );
+          } else {
+            return Column(
               children: [
-                Table(
-                  border: const TableBorder(),
-                  defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+                Row(
                   children: [
-                    TableRow(children: [
-                      Text(
+                    Expanded(
+                      flex: 1,
+                      child: Text(
                         "State",
                         style: theme.textTheme.titleMedium,
                       ),
-                      Text(
+                    ),
+                    Expanded(
+                      flex: 2,
+                      child: Text(
                         "Neighborhood",
                         style: theme.textTheme.titleMedium,
                       ),
-                      Text(
-                        "Actions",
-                        style: theme.textTheme.titleMedium,
-                      )
-                    ]),
-                    makeRow(
-                      theme,
-                      "Phuket",
-                      "Talat yei",
-                      () {},
-                      () {},
                     ),
-                    makeRow(
-                      theme,
-                      "Phrae",
-                      "Amphoe Mueang",
-                      () {},
-                      () {},
-                    ),
-                    makeRow(
-                      theme,
-                      "Maha Sarakham",
-                      "Kantharawichai ",
-                      () {},
-                      () {},
-                    ),
-                    makeRow(
-                      theme,
-                      "Kamphaeng Phet",
-                      "Mueang Loei",
-                      () {},
-                      () {},
-                    ),
-                    makeRow(
-                      theme,
-                      "Kanchanaburi",
-                      "Tha Li",
-                      () {},
-                      () {},
-                    ),
+                    Text(
+                      "Actions",
+                      style: theme.textTheme.titleMedium,
+                    )
                   ],
                 ),
+                ListView.separated(
+                  itemCount: state.locationList?.length ?? 0,
+                  separatorBuilder: (context, index) => const SizedBox(height: AppSize.inset),
+                  itemBuilder: (context, index) {
+                    final location = state.locationList?[index];
+                    return Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            location?.city ?? "",
+                            style: theme.textTheme.titleMedium,
+                          ),
+                        ),
+                        Expanded(
+                          child: Text(
+                            location?.neighborhood ?? "",
+                            style: theme.textTheme.titleMedium,
+                          ),
+                        ),
+                        Expanded(
+                          child: Row(
+                            children: [
+                              IconButton(
+                                onPressed: () {},
+                                icon: const Icon(
+                                  Icons.edit,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              IconButton(
+                                onPressed: () {},
+                                icon: Icon(Icons.delete),
+                              )
+                            ],
+                          ),
+                        )
+                      ],
+                    );
+                  },
+                ),
+                // Table(
+                //   border: const TableBorder(),
+                //   defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+                //   children: [
+                //     TableRow(children: [
+                //       Text(
+                //         "State",
+                //         style: theme.textTheme.titleMedium,
+                //       ),
+                //       Text(
+                //         "Neighborhood",
+                //         style: theme.textTheme.titleMedium,
+                //       ),
+                //       Text(
+                //         "Actions",
+                //         style: theme.textTheme.titleMedium,
+                //       )
+                //     ]),
+                //     makeRow(
+                //       theme,
+                //       state.locationList?.first.city ?? "",
+                //       state.locationList?.first.neighborhood ?? "",
+                //       () {},
+                //       () {},
+                //     ),
+                //     makeRow(
+                //       theme,
+                //       "Phrae",
+                //       "Amphoe Mueang",
+                //       () {},
+                //       () {},
+                //     ),
+                //     makeRow(
+                //       theme,
+                //       "Maha Sarakham",
+                //       "Kantharawichai ",
+                //       () {},
+                //       () {},
+                //     ),
+                //     makeRow(
+                //       theme,
+                //       "Kamphaeng Phet",
+                //       "Mueang Loei",
+                //       () {},
+                //       () {},
+                //     ),
+                //     makeRow(
+                //       theme,
+                //       "Kanchanaburi",
+                //       "Tha Li",
+                //       () {},
+                //       () {},
+                //     ),
+                //   ],
+                // ),
                 const SizedBox(height: AppSize.inset),
                 CustomButton(
                   backgroundColor: AppColors.primary,
@@ -87,9 +155,9 @@ class LocationView extends StatelessWidget {
                   },
                 ),
               ],
-            ),
-          ),
-        ),
+            );
+          }
+        },
       ),
     );
   }

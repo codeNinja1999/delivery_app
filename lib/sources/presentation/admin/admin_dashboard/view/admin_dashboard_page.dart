@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fresh_fold_delivery/sources/core/app_core.dart';
+import 'package:fresh_fold_delivery/sources/presentation/admin/admin_dashboard/bloc/admin_dashboard_bloc.dart';
 import 'package:fresh_fold_delivery/sources/presentation/admin/route/admin_route.dart';
 
 import 'package:fresh_fold_delivery/sources/presentation/widgets/widgets.dart';
@@ -15,6 +17,12 @@ class AdminDashboardPage extends StatefulWidget {
 }
 
 class _DashboardHomeState extends State<AdminDashboardPage> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<AdminDashboardBloc>().add(GetDashboardData());
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);

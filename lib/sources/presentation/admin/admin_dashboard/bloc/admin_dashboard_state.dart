@@ -3,9 +3,12 @@ part of 'admin_dashboard_bloc.dart';
 class AdminDashboardState extends Equatable {
   final bool isPickupOrder;
   final DetailedUser? userInfo;
-  final List<DetailedUser?>? userList;
-  final List<DetailedOperator?>? operatorList;
+  final List<DetailedUser>? userList;
+  final List<DetailedOperator>? operatorList;
   final DetailedOperator? operatorInfo;
+  final List<Location>? locationList;
+  final List<ServiceType>? serviceTypeList;
+
   final FormStatus status;
   AdminDashboardState({
     this.isPickupOrder = false,
@@ -13,23 +16,29 @@ class AdminDashboardState extends Equatable {
     this.userList,
     this.operatorList,
     this.operatorInfo,
+    this.locationList,
+    this.serviceTypeList,
     status,
   }) : status = (status != null) ? status : InitialStatus();
 
   AdminDashboardState copyWith({
     bool? isPickupOrder,
     DetailedUser? userInfo,
-    List<DetailedUser?>? userList,
-    List<DetailedOperator?>? operatorList,
+    List<DetailedUser>? userList,
+    List<DetailedOperator>? operatorList,
     DetailedOperator? operatorInfo,
+    List<Location>? locationList,
+    List<ServiceType>? serviceTypeList,
     FormStatus? status,
   }) {
     return AdminDashboardState(
-      isPickupOrder: isPickupOrder ?? this.isPickupOrder,
       userInfo: userInfo ?? this.userInfo,
       userList: userList ?? this.userList,
       operatorList: operatorList ?? this.operatorList,
       operatorInfo: operatorInfo ?? this.operatorInfo,
+      locationList: locationList ?? this.locationList,
+      isPickupOrder: isPickupOrder ?? this.isPickupOrder,
+      serviceTypeList: serviceTypeList ?? this.serviceTypeList,
       status: status ?? this.status,
     );
   }
@@ -41,6 +50,8 @@ class AdminDashboardState extends Equatable {
         userList,
         operatorList,
         operatorInfo,
+        locationList,
+        serviceTypeList,
         status,
       ];
 }

@@ -1,3 +1,5 @@
+import 'package:fresh_fold_delivery/repository/data/operator/repository/operator_repository_impl.dart';
+import 'package:fresh_fold_delivery/repository/domain/operator/repository/operator_repository.dart';
 import 'package:fresh_fold_delivery/repository/repository.dart';
 import 'package:fresh_fold_delivery/sources/presentation/admin/admin_dashboard/admin_dashboard.dart';
 import 'package:fresh_fold_delivery/sources/presentation/admin/bloc/admin_bloc.dart';
@@ -96,7 +98,13 @@ void blocsInjection() {
 
   //admin
   sl.registerFactory(() => AdminBloc());
-  sl.registerFactory(() => AdminDashboardBloc(userUtilitiesRepository: sl(), catalogRepository: sl()));
+  sl.registerFactory(
+    () => AdminDashboardBloc(
+      userUtilitiesRepository: sl(),
+      operatorRepository: sl(),
+      catalogRepository: sl(),
+    ),
+  );
   sl.registerFactory(() => AddLocationBloc());
   sl.registerFactory(() => AddServicePriceBloc());
   sl.registerFactory(() => OperatorListBloc());
@@ -127,6 +135,9 @@ void repositoriesInjection() {
   );
   sl.registerLazySingleton<UserUtilitiesRepository>(
     () => UserUtilitiesRepositoryImpl(networkClient: userAuthenticationNetworkClient()),
+  );
+  sl.registerLazySingleton<OperatorRepository>(
+    () => OperatorRepositoryImpl(networkClient: userAuthenticationNetworkClient()),
   );
   sl.registerFactory<CatalogRepository>(
     () => CatalogRepositoryImpl(

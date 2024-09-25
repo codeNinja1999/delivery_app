@@ -1,5 +1,5 @@
 class AdminRoute {
-  static const adminDashboard = "/admin-dashboard";
+  static const adminDashboard = "admin-dashboard";
   static const addServicePrice = "/add_service_price";
   static const addLocation = "/add_location";
   static const addService = "/add_service";

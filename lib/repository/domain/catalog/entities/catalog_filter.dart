@@ -1,5 +1,7 @@
 class CatalogFilter {
   final String? id;
+  final String? page;
+  final String? pageSize;
   final String? price;
   final String? serviceName;
   final String? country;
@@ -10,6 +12,8 @@ class CatalogFilter {
 
   CatalogFilter({
     this.id,
+    this.page,
+    this.pageSize,
     this.price,
     this.serviceName,
     this.city,

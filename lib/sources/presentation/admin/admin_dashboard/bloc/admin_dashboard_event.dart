@@ -1,7 +1,6 @@
 part of 'admin_dashboard_bloc.dart';
 
-abstract class AdminDashboardEvent {
-}
+abstract class AdminDashboardEvent {}
 
 class GetDashboardData extends AdminDashboardEvent {}
 

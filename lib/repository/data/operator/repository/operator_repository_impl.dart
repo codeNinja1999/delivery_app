@@ -1,12 +1,13 @@
 import 'dart:convert';
 
 import 'package:fresh_fold_delivery/repository/data/core/core.dart';
-import './mapping/update_operator_request_mapping.dart';
-import './mapping/create_operator_request_mapping.dart';
 import 'package:fresh_fold_delivery/repository/repository.dart';
 
+import './mapping/update_operator_request_mapping.dart';
+import './mapping/create_operator_request_mapping.dart';
 import '../../../domain/operator/entities/operator_entities.dart';
 import '../../../domain/operator/repository/operator_repository.dart';
+import 'mapping/operator_list_mapping.dart';
 
 class OperatorRepositoryImpl implements OperatorRepository {
   OperatorRepositoryImpl({required this.networkClient});
@@ -23,6 +24,23 @@ class OperatorRepositoryImpl implements OperatorRepository {
       // final responseData = UserRegistrationResponseModel.fromJson(response.asMap ?? {});
 
       return const Right("Success");
+    } on Exception catch (error) {
+      return Left(error);
+    }
+  }
+
+  @override
+  Future<Either<Exception, List<DetailedOperator>>> getOperatorList(PaginationFilter filter) async {
+    final query = {
+      "page": filter.page,
+      "pageSize": filter.pageSize,
+    };
+
+    try {
+      final response = await networkClient.get(AppServiceEndpoints.getAllOperator, queryParameters: query);
+      final List<dynamic> responseJson = json.decode(response.asString);
+      final operatorList = responseJson.map((operator) => OperatorListMapper.fromJsonList(operator)).toList();
+      return Right(operatorList);
     } on Exception catch (error) {
       return Left(error);
     }

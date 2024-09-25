@@ -12,7 +12,7 @@ import 'package:fresh_fold_delivery/repository/domain/user/repository/user_utili
 import 'package:network/network.dart';
 import 'package:rxdart/subjects.dart';
 
-import '../../../domain/operator/entities/operator_entities.dart';
+import '../../../domain/common/model/pagination_filter.dart';
 import '../../../domain/pickup_order/pickup_order.dart';
 import '../model/get_userinfo/get_userinfo_reponse_model.dart';
 import '../mapping/user_list_mapping.dart';
@@ -105,24 +105,17 @@ class UserUtilitiesRepositoryImpl implements UserUtilitiesRepository {
   }
 
   @override
-  Future<Either<Exception, List<DetailedUser>>> getUserList() async {
+  Future<Either<Exception, List<DetailedUser>>> getUserList(PaginationFilter filter) async {
+    final query = {
+      "page": filter.page,
+      "pageSize": filter.pageSize,
+    };
+
     try {
-      final response = await networkClient.get(AppServiceEndpoints.getAllUser);
+      final response = await networkClient.get(AppServiceEndpoints.getAllUser, queryParameters: query);
       final List<dynamic> responseJson = json.decode(response.asString);
       final userList = responseJson.map((user) => UserMapper.fromJson(user)).toList();
       return Right(userList);
-    } on Exception catch (error) {
-      return Left(error);
-    }
-  }
-
-  @override
-  Future<Either<Exception, List<DetailedOperator>>> getOperatorList() async {
-    try {
-      final response = await networkClient.post(AppServiceEndpoints.getAllOperator);
-      final List<dynamic> responseJson = json.decode(response.asString);
-      final operatorList = responseJson.map((user) => UserMapper.fromJsonList(user)).toList();
-      return Right(operatorList);
     } on Exception catch (error) {
       return Left(error);
     }
