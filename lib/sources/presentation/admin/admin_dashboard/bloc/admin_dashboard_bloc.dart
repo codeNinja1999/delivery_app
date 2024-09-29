@@ -1,25 +1,20 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fresh_fold_delivery/sources/core/app_core.dart';
 
-import '../../../../../repository/domain/catalog/entities/catalogs.dart';
-import '../../../../../repository/domain/catalog/repository/catalog_repository.dart';
-import '../../../../../repository/domain/common/model/pagination_filter.dart';
-import '../../../../../repository/domain/operator/entities/operator_entities.dart';
-import '../../../../../repository/domain/operator/repository/operator_repository.dart';
-import '../../../../../repository/domain/user/entities/user_info/user.dart';
-import '../../../../../repository/domain/user/repository/user_utility_repository.dart';
+import 'package:fresh_fold_delivery/sources/core/app_core.dart';
+import 'package:fresh_fold_delivery/repository/domain/domain.dart';
+
+import '../../../../../repository/domain/user/entities/analytic_data_info.dart';
+import '../../../../../repository/domain/user/entities/operator/operator_entities.dart';
 
 part 'admin_dashboard_event.dart';
 part 'admin_dashboard_state.dart';
 
 class AdminDashboardBloc extends Bloc<AdminDashboardEvent, AdminDashboardState> {
   final UserUtilitiesRepository userUtilitiesRepository;
-  final OperatorRepository operatorRepository;
   final CatalogRepository catalogRepository;
   AdminDashboardBloc({
     required this.userUtilitiesRepository,
-    required this.operatorRepository,
     required this.catalogRepository,
   }) : super(AdminDashboardState()) {
     on<GetDashboardData>(
@@ -30,6 +25,7 @@ class AdminDashboardBloc extends Bloc<AdminDashboardEvent, AdminDashboardState> 
           _onUserList(event, emit),
           _onOperatorList(event, emit),
           _onGetLocation(event, emit),
+          _onGetSales(event, emit),
           _onGetServices(event, emit),
         ]);
         if (result.every((e) => e == true)) {
@@ -77,7 +73,7 @@ class AdminDashboardBloc extends Bloc<AdminDashboardEvent, AdminDashboardState> 
   }
 
   Future<bool> _onOperatorList(GetDashboardData event, Emitter<AdminDashboardState> emit) async {
-    final response = await operatorRepository.getOperatorList(PaginationFilter(
+    final response = await userUtilitiesRepository.getOperatorList(PaginationFilter(
       page: 1,
       pageSize: 3,
     ));
@@ -108,6 +104,17 @@ class AdminDashboardBloc extends Bloc<AdminDashboardEvent, AdminDashboardState> 
       return false;
     }, (serviceTypeList) {
       emit(state.copyWith(serviceTypeList: serviceTypeList));
+      return true;
+    });
+  }
+
+  Future<bool> _onGetSales(GetDashboardData event, Emitter<AdminDashboardState> emit) async {
+    final response = await userUtilitiesRepository.fetchAnalyticData(DateFilter(from: 1, to: 10));
+    return response.fold((error) {
+      emit(state.copyWith(status: SubmissionFailure(error)));
+      return false;
+    }, (analyticData) {
+      emit(state.copyWith(analyticsInfo: analyticData));
       return true;
     });
   }

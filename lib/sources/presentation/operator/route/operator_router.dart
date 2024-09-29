@@ -9,6 +9,8 @@ import '../operator_dashboard/bloc/operator_dash_board_bloc.dart';
 import '../operator_dashboard/view/operator_dashboard_page.dart';
 import '../operator_history/bloc/operator_history_bloc.dart';
 import '../operator_history/view/operator_history_page.dart';
+import '../operator_profile/bloc/operator_profile_bloc.dart';
+import '../operator_profile/operator_profile_page.dart';
 import '../pickup_order/bloc/pickup_order_bloc.dart';
 import 'operator_route.dart';
 
@@ -22,6 +24,14 @@ class OperatorRouter {
           builder: (_) => BlocProvider(
             create: (_) => sl<OperatorDashBoardBloc>(),
             child: const OperatorDashboardPage(),
+          ),
+        );
+
+      case OperatorRoute.operatorProfile:
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (_) => sl<OperatorProfileBloc>(),
+            child: const OperatorProfilePage(),
           ),
         );
 

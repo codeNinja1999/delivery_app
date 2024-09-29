@@ -36,6 +36,10 @@ class _LocationPageState extends State<LocationPage> {
         listener: (context, state) {
           final status = state.status;
           (status is InProgress) ? LoadingView.show() : LoadingView.hide();
+          if (status is Success) {
+            context.read<UserBloc>().add(SaveLocation(state.selectedLocation));
+            Navigator.pushNamed(context, UserRoute.serviceSelection);
+          }
           if (status is SubmissionFailure) {
             ErrorResolver.resolve(context, status);
           }
@@ -115,15 +119,10 @@ class _LocationPageState extends State<LocationPage> {
                   ),
                 ),
               ),
-              BlocBuilder<LocationBloc, LocationState>(
-                buildWhen: (previous, current) => previous.selectedLocation != current.selectedLocation,
-                builder: (context, state) {
-                  return CustomButton(
-                      title: "Save and Continue",
-                      onPressed: () {
-                        context.read<UserBloc>().add(SaveLocation(state.selectedLocation));
-                        Navigator.pushNamed(context, UserRoute.serviceSelection);
-                      });
+              CustomButton(
+                title: "Save and Continue",
+                onPressed: () {
+                  context.read<LocationBloc>().add(ValidateLocation());
                 },
               ),
             ],

@@ -24,43 +24,51 @@ class _DateSelectionPageState extends State<DateSelectionPage> {
       appBar: const MyAppBar(
         title: "Pickup Time",
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(AppSize.viewMargin),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Expanded(
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Text(
-                      "Choose your date and time",
-                      style: theme.textTheme.titleLarge,
-                    ),
-                    const SizedBox(height: AppSize.cornerRadiusMedium),
-                    Text(
-                      "Select  the date and the time for laundry pickup",
-                      style: theme.textTheme.bodySmall,
-                    ),
-                    const SizedBox(height: AppSize.viewSpacing),
-                    _DateSelectionInput(),
-                  ],
+      body: BlocListener<DateSelectionBloc, DateSelectionState>(
+        listenWhen: (previous, current) => previous.status != current.status,
+        listener: (context, state) {
+          final status = state.status;
+          (status is InProgress) ? LoadingView.show() : LoadingView.hide();
+          if (status is Success) {
+            context.read<UserBloc>().add(SavePickupDate(state.pickupDate));
+            Navigator.pushNamed(context, UserRoute.checkout);
+          }
+          if (status is SubmissionFailure) {
+            ErrorResolver.resolve(context, status);
+          }
+        },
+        child: Padding(
+          padding: const EdgeInsets.all(AppSize.viewMargin),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Text(
+                        "Choose your date and time",
+                        style: theme.textTheme.titleLarge,
+                      ),
+                      const SizedBox(height: AppSize.cornerRadiusMedium),
+                      Text(
+                        "Select  the date and the time for laundry pickup",
+                        style: theme.textTheme.bodySmall,
+                      ),
+                      const SizedBox(height: AppSize.viewSpacing),
+                      _DateSelectionInput(),
+                    ],
+                  ),
                 ),
               ),
-            ),
-            BlocBuilder<DateSelectionBloc, DateSelectionState>(
-              buildWhen: (previous, current) => previous.pickupDate != current.pickupDate,
-              builder: (context, state) {
-                return CustomButton(
-                    title: "Save and Continue",
-                    onPressed: () {
-                      context.read<UserBloc>().add(SavePickupDate(state.pickupDate));
-                      Navigator.pushNamed(context, UserRoute.checkout);
-                    });
-              },
-            ),
-          ],
+              CustomButton(
+                  title: "Save and Continue",
+                  onPressed: () {
+                    context.read<DateSelectionBloc>().add(ValidateDate());
+                  }),
+            ],
+          ),
         ),
       ),
     );

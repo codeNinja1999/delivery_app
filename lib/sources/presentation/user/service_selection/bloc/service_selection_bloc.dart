@@ -41,7 +41,20 @@ class ServiceSelectionBloc extends Bloc<ServiceSelectionEvent, ServiceSelectionS
     on<IsContainPetHair>((event, emit) {
       emit(state.copyWith(noPetHair: !state.noPetHair));
     });
+    on<ValidateService>(_onValidateService);
   }
+
+  _onValidateService(
+    ValidateService event,
+    Emitter<ServiceSelectionState> emit,
+  ) {
+    if (state.selectedServiceType != null && state.totalWeight != "") {
+      emit(state.copyWith(status: Success()));
+    } else {
+      emit(state.copyWith(status: SubmissionFailure(Exception("Service or weight is not selected"))));
+    }
+  }
+
   Future<void> _onFetchServiceType(
     FetchServiceType event,
     Emitter<ServiceSelectionState> emit,

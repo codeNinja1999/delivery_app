@@ -21,7 +21,7 @@ class _AdminPageState extends State<AdminPage> {
       data: darkTheme,
       child: NavigatorPopHandler(
         onPop: () {
-          _navigatorKey.currentState!.pop();
+          _navigatorKey.currentState!.maybePop();
         },
         child: Navigator(
           key: _navigatorKey,

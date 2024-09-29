@@ -58,6 +58,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                       ),
                       const SizedBox(height: AppSize.inset),
                       BlocBuilder<UserBloc, UserState>(
+                        buildWhen: (previous, current) => previous.location != current.location,
                         builder: (context, state) {
                           return GestureDetector(
                             onTap: () => Navigator.pushNamed(context, UserRoute.addLocation),
@@ -74,7 +75,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                                       crossAxisAlignment: CrossAxisAlignment.stretch,
                                       children: [
                                         Text(
-                                          "${state.location?.value ?? ""}, ${state.location?.postalCode ?? ""}",
+                                          "${state.location?.city ?? ""} ${state.location?.postalCode ?? ""}",
                                           style: theme.textTheme.titleMedium,
                                         ),
                                         Text(
@@ -154,133 +155,148 @@ class _CheckoutPageState extends State<CheckoutPage> {
                         placeholder: "Add Instructions",
                       ),
                       const SizedBox(height: AppSize.inset),
-                      Container(
-                        padding: const EdgeInsets.all(AppSize.viewMargin),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(AppSize.cornerRadiusMedium),
-                          color: Theme.of(context).colorScheme.surfaceContainer,
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            Text(
-                              "Payment",
-                              style: theme.textTheme.titleMedium?.copyWith(
-                                color: theme.colorScheme.primary,
-                              ),
-                            ),
-                            ListTile(
-                              title: Text(
-                                "Credit Card",
-                                style: theme.textTheme.bodyMedium,
-                              ),
-                              leading: Icon(Icons.credit_card, color: theme.colorScheme.primary),
-                              contentPadding: EdgeInsets.zero,
-                              trailing: Radio(value: true, groupValue: true, onChanged: (value) {}),
-                            ),
-                            ListTile(
-                              title: Text(
-                                "FPX",
-                                style: theme.textTheme.bodyMedium,
-                              ),
-                              leading: Icon(Icons.wallet, color: theme.colorScheme.primary),
-                              contentPadding: EdgeInsets.zero,
-                              trailing: Radio(value: false, groupValue: true, onChanged: (value) {}),
-                            ),
-                            ListTile(
-                              title: Text(
-                                "Manual Payment Slip",
-                                style: theme.textTheme.bodyMedium,
-                              ),
-                              leading: Icon(Icons.wallet, color: theme.colorScheme.primary),
-                              contentPadding: EdgeInsets.zero,
-                              trailing: Radio(value: false, groupValue: true, onChanged: (value) {}),
-                            ),
-                            Container(
-                              padding: const EdgeInsets.all(AppSize.inset),
-                              decoration: BoxDecoration(
-                                border: Border.all(color: Colors.red),
-                                borderRadius: BorderRadius.circular(AppSize.cornerRadiusMedium),
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.stretch,
-                                children: [
-                                  Text(
-                                    "For Manual Payment Slip Option",
-                                    style: theme.textTheme.labelLarge?.copyWith(
-                                      color: theme.colorScheme.primary,
-                                    ),
-                                  ),
-                                  const SizedBox(height: AppSize.inset),
-                                  const Row(
-                                    children: [
-                                      Expanded(child: Text("Bank Name : ")),
-                                      Expanded(
-                                          child: Text(
-                                        "ABC Bank",
-                                        textAlign: TextAlign.end,
-                                      )),
-                                    ],
-                                  ),
-                                  const SizedBox(height: AppSize.cornerRadiusMedium),
-                                  const Row(
-                                    children: [
-                                      Expanded(child: Text("Account number : ")),
-                                      Expanded(
-                                          child: Text(
-                                        "1232343543",
-                                        textAlign: TextAlign.end,
-                                      )),
-                                    ],
-                                  ),
-                                  const SizedBox(height: AppSize.cornerRadiusMedium),
-                                  BlocBuilder<UserBloc, UserState>(
-                                    builder: (context, state) {
-                                      return  Row(
-                                        children: [
-                                         const  Expanded(child: Text("Deposit Amount : ")),
-                                          Expanded(
-                                              child: Text(
-                                            "\$${state.totalAmount ?? "0"}",
-                                            textAlign: TextAlign.end,
-                                          )),
-                                        ],
-                                      );
-                                    },
-                                  ),
-                                  const SizedBox(height: AppSize.inset),
-                                  Text(
-                                    "Note: Deposit the amount to the above bank detail and submit the receipt image to complete the order process",
-                                    style: theme.textTheme.bodyMedium?.copyWith(color: theme.colorScheme.error),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(height: AppSize.inset),
                       BlocBuilder<CheckoutBloc, CheckoutState>(
-                        buildWhen: (previous, current) => previous.receiptImage != current.receiptImage,
+                        buildWhen: (previous, current) => previous.selectedPaymentType != current.selectedPaymentType,
                         builder: (context, state) {
-                          final estimatedWidth = MediaQuery.of(context).size.height / 4;
-                          return GestureDetector(
-                            onTap: () => context.read<CheckoutBloc>().add(GetLocalImage(ScanBy.camera)),
-                            child: SizedBox(
-                              height: estimatedWidth,
-                              child: DottedBorder(
-                                borderType: BorderType.RRect,
-                                radius: const Radius.circular(AppSize.inset),
-                                padding: const EdgeInsets.all(AppSize.cornerRadiusMedium),
-                                child: (state.receiptImage != null)
-                                    ? Image.file(
-                                        state.receiptImage!,
-                                        height: estimatedWidth,
-                                        filterQuality: FilterQuality.medium,
-                                        fit: BoxFit.cover,
+                          return Container(
+                            padding: const EdgeInsets.all(AppSize.viewMargin),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(AppSize.cornerRadiusMedium),
+                              color: Theme.of(context).colorScheme.surfaceContainer,
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: [
+                                Text(
+                                  "Payment",
+                                  style: theme.textTheme.titleMedium?.copyWith(
+                                    color: theme.colorScheme.primary,
+                                  ),
+                                ),
+                                ListView.builder(
+                                    shrinkWrap: true,
+                                    physics: const NeverScrollableScrollPhysics(),
+                                    itemCount: state.paymentList.length,
+                                    itemBuilder: (context, index) {
+                                      final paymentType = state.paymentList[index];
+                                      final title = state.paymentList[index].value;
+                                      final icon = state.paymentList[index].icon;
+                                      return ListTile(
+                                        title: Text(
+                                          title,
+                                          style: theme.textTheme.bodyMedium,
+                                        ),
+                                        leading: Icon(icon, color: theme.colorScheme.primary),
+                                        contentPadding: EdgeInsets.zero,
+                                        trailing: Radio(
+                                            value: paymentType.id,
+                                            groupValue: state.selectedPaymentType?.id,
+                                            onChanged: (value) {
+                                              null;
+                                            }),
+                                        onTap: () => context.read<CheckoutBloc>().add(
+                                              PaymentTypeSelected(paymentType),
+                                            ),
+                                      );
+                                    }),
+                                (state.selectedPaymentType?.id == "3")
+                                    ? Container(
+                                        padding: const EdgeInsets.all(AppSize.inset),
+                                        decoration: BoxDecoration(
+                                          border: Border.all(color: Colors.red),
+                                          borderRadius: BorderRadius.circular(AppSize.cornerRadiusMedium),
+                                        ),
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                                          children: [
+                                            Text(
+                                              "For Manual Payment Slip Option",
+                                              style: theme.textTheme.labelLarge?.copyWith(
+                                                color: theme.colorScheme.primary,
+                                              ),
+                                            ),
+                                            const SizedBox(height: AppSize.inset),
+                                            const Row(
+                                              children: [
+                                                Expanded(child: Text("Bank Name : ")),
+                                                Expanded(
+                                                    child: Text(
+                                                  "ABC Bank",
+                                                  textAlign: TextAlign.end,
+                                                )),
+                                              ],
+                                            ),
+                                            const SizedBox(height: AppSize.cornerRadiusMedium),
+                                            const Row(
+                                              children: [
+                                                Expanded(child: Text("Account number : ")),
+                                                Expanded(
+                                                    child: Text(
+                                                  "1232343543",
+                                                  textAlign: TextAlign.end,
+                                                )),
+                                              ],
+                                            ),
+                                            const SizedBox(height: AppSize.cornerRadiusMedium),
+                                            BlocBuilder<UserBloc, UserState>(
+                                              builder: (context, state) {
+                                                return Row(
+                                                  children: [
+                                                    const Expanded(child: Text("Deposit Amount : ")),
+                                                    Expanded(
+                                                        child: Text(
+                                                      "\$${state.totalAmount ?? "0"}",
+                                                      textAlign: TextAlign.end,
+                                                    )),
+                                                  ],
+                                                );
+                                              },
+                                            ),
+                                            const SizedBox(height: AppSize.inset),
+                                            Text(
+                                              "Note: Deposit the amount to the above bank detail and submit the receipt image to complete the order process",
+                                              style: theme.textTheme.bodyMedium?.copyWith(color: theme.colorScheme.error),
+                                            ),
+                                            const SizedBox(height: AppSize.inset),
+                                            BlocBuilder<CheckoutBloc, CheckoutState>(
+                                              buildWhen: (previous, current) =>
+                                                  previous.receiptImage != current.receiptImage,
+                                              builder: (context, state) {
+                                                final estimatedWidth = MediaQuery.of(context).size.height / 4;
+                                                return GestureDetector(
+                                                  onTap: () => showOptionsDialog(context, onCompletion: (scanBy) {
+                                                    context.read<CheckoutBloc>().add(GetLocalImage(scanBy));
+                                                  }),
+                                                  child: DottedBorder(
+                                                    strokeWidth: 1,
+                                                    dashPattern: const [3, 3],
+                                                    borderType: BorderType.RRect,
+                                                    radius: const Radius.circular(AppSize.inset),
+                                                    padding: const EdgeInsets.all(AppSize.cornerRadiusSmall),
+                                                    child: (state.receiptImage != null)
+                                                        ? ClipRRect(
+                                                            borderRadius: BorderRadius.circular(AppSize.inset),
+                                                            child: Image.file(
+                                                              state.receiptImage!,
+                                                              // height: estimatedWidth,
+                                                              width: MediaQuery.of(context).size.width,
+                                                              filterQuality: FilterQuality.medium,
+                                                              fit: BoxFit.contain,
+                                                            ),
+                                                          )
+                                                        : Container(
+                                                            height: estimatedWidth,
+                                                            alignment: Alignment.center,
+                                                            child: const Icon(Icons.camera)),
+                                                  ),
+                                                );
+                                              },
+                                            ),
+                                          ],
+                                        ),
                                       )
-                                    : const Center(child: Icon(Icons.camera)),
-                              ),
+                                    : Container(),
+                              ],
                             ),
                           );
                         },

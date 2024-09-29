@@ -1,4 +1,4 @@
-import '../../../../domain/operator/entities/operator_entities.dart';
+import '../../../domain/user/entities/operator/operator_entities.dart';
 
 class OperatorListMapper {
   static DetailedOperator fromJsonList(Map<String, dynamic> json) {

@@ -35,6 +35,16 @@ class _ServiceSelectionPageState extends State<ServiceSelectionPage> {
         listener: (context, state) {
           final status = state.status;
           (status is InProgress) ? LoadingView.show() : LoadingView.hide();
+          if (status is Success) {
+            context.read<UserBloc>().add(
+                  SaveServiceType(
+                    state.selectedServiceType,
+                    state.totalWeight,
+                    state.totalAmount.toString(),
+                  ),
+                );
+            showProtectionModel(context);
+          }
           if (status is SubmissionFailure) {
             ErrorResolver.resolve(context, status);
           }
@@ -134,18 +144,10 @@ class _ServiceSelectionPageState extends State<ServiceSelectionPage> {
                   ),
                 ),
               ),
-              BlocBuilder<ServiceSelectionBloc, ServiceSelectionState>(
-                buildWhen: (previous, current) =>
-                    previous.selectedServiceType != current.selectedServiceType ||
-                    previous.totalWeight != current.totalWeight,
-                builder: (context, state) {
-                  return CustomButton(
-                      title: "Continue",
-                      onPressed: () {
-                        context.read<UserBloc>().add(
-                            SaveServiceType(state.selectedServiceType, state.totalWeight, state.totalAmount.toString()));
-                        showProtectionModel(context);
-                      });
+              CustomButton(
+                title: "Continue",
+                onPressed: () {
+                  context.read<ServiceSelectionBloc>().add(ValidateService());
                 },
               ),
             ],

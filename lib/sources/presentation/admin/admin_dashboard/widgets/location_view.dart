@@ -21,6 +21,7 @@ class LocationView extends StatelessWidget {
         color: theme.colorScheme.surfaceContainer,
       ),
       child: BlocBuilder<AdminDashboardBloc, AdminDashboardState>(
+        buildWhen: (previous, current) => previous.locationList != current.locationList,
         builder: (context, state) {
           if (state.locationList == []) {
             return const SizedBox.expand(
@@ -28,6 +29,7 @@ class LocationView extends StatelessWidget {
             );
           } else {
             return Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Row(
                   children: [
@@ -52,6 +54,8 @@ class LocationView extends StatelessWidget {
                   ],
                 ),
                 ListView.separated(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
                   itemCount: state.locationList?.length ?? 0,
                   separatorBuilder: (context, index) => const SizedBox(height: AppSize.inset),
                   itemBuilder: (context, index) {

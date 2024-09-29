@@ -13,9 +13,7 @@ class CatalogRepositoryImpl implements CatalogRepository {
   NetworkClient userNetworkClient;
 
   @override
-  Future<Either<Exception, List<Location>>> fetchLocation(
-
-  ) async {
+  Future<Either<Exception, List<Location>>> fetchLocation() async {
     try {
       final response = await userNetworkClient.get(AppServiceEndpoints.location);
       final responseJson = json.decode(response.asString);

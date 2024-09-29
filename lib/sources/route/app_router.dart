@@ -33,7 +33,7 @@ class AppRouter {
       case AppRoute.user:
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
-            create: (context) => sl<UserBloc>(),
+            create: (_) => sl<UserBloc>(),
             child: const UserPage(),
           ),
         );
@@ -41,14 +41,14 @@ class AppRouter {
       case AppRoute.operator:
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
-            create: (context) => sl<OperatorBloc>(),
+            create: (_) => sl<OperatorBloc>(),
             child: const OperatorPage(),
           ),
         );
       case AppRoute.admin:
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
-            create: (context) => sl<AdminBloc>(),
+            create: (_) => sl<AdminBloc>(),
             child: const AdminPage(),
           ),
         );

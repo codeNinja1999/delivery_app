@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fresh_fold_delivery/sources/core/app_core.dart';
-import 'package:fresh_fold_delivery/sources/presentation/admin/admin_dashboard/bloc/admin_dashboard_bloc.dart';
-import 'package:fresh_fold_delivery/sources/presentation/admin/route/admin_route.dart';
 
-import 'package:fresh_fold_delivery/sources/presentation/widgets/widgets.dart';
-import 'package:fresh_fold_delivery/sources/resources/resources.dart';
-
+import '../../../../resources/resources.dart';
+import '../../../widgets/app_bar/app_bar.dart';
+import '../../route/admin_route.dart';
+import '../bloc/admin_dashboard_bloc.dart';
 import 'admin_dashboard_view.dart';
 
 class AdminDashboardPage extends StatefulWidget {

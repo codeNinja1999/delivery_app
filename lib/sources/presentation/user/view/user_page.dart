@@ -18,7 +18,7 @@ class _UserPageState extends State<UserPage> {
   Widget build(BuildContext context) {
     return NavigatorPopHandler(
       onPop: () {
-        _navigatorKey.currentState!.pop();
+        _navigatorKey.currentState!.maybePop();
       },
       child: Navigator(
         key: _navigatorKey,

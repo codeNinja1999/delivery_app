@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:fresh_fold_delivery/sources/core/app_core.dart';
-import 'package:fresh_fold_delivery/sources/presentation/widgets/widgets.dart';
-import 'package:fresh_fold_delivery/sources/resources/app_colors.dart';
+
+import '../../../../resources/resources.dart';
+import '../../../widgets/widgets.dart';
 import '../bloc/admin_dashboard_bloc.dart';
 import '../widgets/home_view.dart';
 import '../widgets/location_view.dart';
@@ -119,7 +120,7 @@ class _AdminDashboardViewState extends State<AdminDashboardView> {
                             ),
                             Expanded(
                               child: Text(
-                                "6",
+                                state.analyticsInfo?.totalActiveRequests ?? "",
                                 style: theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w700),
                               ),
                             )
@@ -136,7 +137,7 @@ class _AdminDashboardViewState extends State<AdminDashboardView> {
                             ),
                             Expanded(
                               child: Text(
-                                state.userList?.length.toString() ?? "0",
+                                state.analyticsInfo?.totalUser ?? "",
                                 style: theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w700),
                               ),
                             )
@@ -153,7 +154,7 @@ class _AdminDashboardViewState extends State<AdminDashboardView> {
                             ),
                             Expanded(
                               child: Text(
-                                state.operatorList?.length.toString() ?? "0",
+                                state.analyticsInfo?.totalOperator ?? "",
                                 style: theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w700),
                               ),
                             )
@@ -170,7 +171,7 @@ class _AdminDashboardViewState extends State<AdminDashboardView> {
                             ),
                             Expanded(
                               child: Text(
-                                "\$8,000",
+                                "\$${state.analyticsInfo?.totalActiveRequests ?? ""}",
                                 style: theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w700),
                               ),
                             )
@@ -209,7 +210,6 @@ class _AdminDashboardViewState extends State<AdminDashboardView> {
                 ),
               ),
               const SizedBox(height: AppSize.inset),
-
               if (selectedIndex == 0) ...[
                 const HomeView(),
               ],
@@ -222,12 +222,12 @@ class _AdminDashboardViewState extends State<AdminDashboardView> {
               if (selectedIndex == 3) ...[
                 const LocationView(),
               ],
-              // if (selectedIndex == 4) ...[
-              //   const SalesView(),
-              // ],
-              // if (selectedIndex == 5) ...[
-              //   const PriceView(),
-              // ]
+              if (selectedIndex == 4) ...[
+                const SalesView(),
+              ],
+              if (selectedIndex == 5) ...[
+                const PriceView(),
+              ]
             ]),
           );
         }),

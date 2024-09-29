@@ -7,6 +7,7 @@ class AdminDashboardState extends Equatable {
   final List<DetailedOperator>? operatorList;
   final DetailedOperator? operatorInfo;
   final List<Location>? locationList;
+  final AnalyticDataInfo? analyticsInfo;
   final List<ServiceType>? serviceTypeList;
 
   final FormStatus status;
@@ -17,6 +18,7 @@ class AdminDashboardState extends Equatable {
     this.operatorList,
     this.operatorInfo,
     this.locationList,
+    this.analyticsInfo,
     this.serviceTypeList,
     status,
   }) : status = (status != null) ? status : InitialStatus();
@@ -28,6 +30,7 @@ class AdminDashboardState extends Equatable {
     List<DetailedOperator>? operatorList,
     DetailedOperator? operatorInfo,
     List<Location>? locationList,
+    AnalyticDataInfo? analyticsInfo,
     List<ServiceType>? serviceTypeList,
     FormStatus? status,
   }) {
@@ -37,6 +40,7 @@ class AdminDashboardState extends Equatable {
       operatorList: operatorList ?? this.operatorList,
       operatorInfo: operatorInfo ?? this.operatorInfo,
       locationList: locationList ?? this.locationList,
+      analyticsInfo: analyticsInfo ?? this.analyticsInfo,
       isPickupOrder: isPickupOrder ?? this.isPickupOrder,
       serviceTypeList: serviceTypeList ?? this.serviceTypeList,
       status: status ?? this.status,
@@ -51,6 +55,7 @@ class AdminDashboardState extends Equatable {
         operatorList,
         operatorInfo,
         locationList,
+        analyticsInfo,
         serviceTypeList,
         status,
       ];

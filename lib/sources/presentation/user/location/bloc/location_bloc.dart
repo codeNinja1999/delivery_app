@@ -14,6 +14,18 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
     on<LocationSelection>((event, emit) {
       emit(state.copyWith(selectedLocation: event.selectedLocation));
     });
+    on<ValidateLocation>(_onValidateLocation);
+  }
+
+  _onValidateLocation(
+    ValidateLocation event,
+    Emitter<LocationState> emit,
+  ) {
+    if (state.selectedLocation != null) {
+      emit(state.copyWith(status: Success()));
+    } else {
+      emit(state.copyWith(status: SubmissionFailure(Exception("Location is not selected"))));
+    }
   }
 
   Future<void> _onFetchLocation(

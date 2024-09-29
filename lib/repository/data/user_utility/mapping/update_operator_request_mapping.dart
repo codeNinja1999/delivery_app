@@ -1,6 +1,5 @@
-import 'package:fresh_fold_delivery/repository/domain/operator/entities/operator_entities.dart';
-
-import '../../model/update_operator_request_model.dart';
+import '../../../domain/user/entities/operator/operator_entities.dart';
+import '../model/operator/update_operator_request_model.dart';
 
 extension UpdateOperatorRequestMapping on Operator {
   UpdateOperatorRequestModel toUpdateOperator() {

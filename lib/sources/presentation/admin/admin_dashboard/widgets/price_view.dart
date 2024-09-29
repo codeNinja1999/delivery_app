@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:fresh_fold_delivery/sources/core/app_core.dart';
 import 'package:fresh_fold_delivery/sources/presentation/admin/route/admin_route.dart';
 import 'package:fresh_fold_delivery/sources/presentation/widgets/widgets.dart';
 import 'package:fresh_fold_delivery/sources/resources/app_colors.dart';
+
+import '../bloc/admin_dashboard_bloc.dart';
 
 class PriceView extends StatelessWidget {
   const PriceView({super.key});
@@ -11,64 +14,86 @@ class PriceView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return Expanded(
-      child: Container(
-        padding: const EdgeInsets.all(AppSize.inset),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(AppSize.cornerRadiusMedium),
-          color: theme.colorScheme.surfaceContainer,
-        ),
-        child: Expanded(
-          child: SingleChildScrollView(
-            child: Column(
+    return Container(
+      padding: const EdgeInsets.all(AppSize.inset),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(AppSize.cornerRadiusMedium),
+        color: theme.colorScheme.surfaceContainer,
+      ),
+      child: BlocBuilder<AdminDashboardBloc, AdminDashboardState>(
+        buildWhen: (previous, current) => previous.serviceTypeList != current.serviceTypeList,
+        builder: (context, state) {
+          if (state.locationList == []) {
+            return const SizedBox.expand(
+              child: Center(child: Text("No Service")),
+            );
+          } else {
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Table(
-                  border: const TableBorder(),
-                  defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+                Row(
                   children: [
-                    TableRow(children: [
-                      Text(
+                    Expanded(
+                      flex: 1,
+                      child: Text(
                         "Service Type",
                         style: theme.textTheme.titleMedium,
                       ),
-                      Text(
+                    ),
+                    Expanded(
+                      flex: 2,
+                      child: Text(
                         "Price",
                         style: theme.textTheme.titleMedium,
                       ),
-                      Text(
-                        "Actions",
-                        style: theme.textTheme.titleMedium,
-                      )
-                    ]),
-                    makeRow(
-                      theme,
-                      "Regular wash",
-                      "\$100/kg",
-                      () {},
-                      () {},
                     ),
-                    makeRow(
-                      theme,
-                      "Dry Cleaning",
-                      "\$200/kg",
-                      () {},
-                      () {},
-                    ),
-                    makeRow(
-                      theme,
-                      "Ironing Only",
-                      "\$50/kg",
-                      () {},
-                      () {},
-                    ),
-                    makeRow(
-                      theme,
-                      "Service 4",
-                      "\$150/kg",
-                      () {},
-                      () {},
-                    ),
+                    Text(
+                      "Actions",
+                      style: theme.textTheme.titleMedium,
+                    )
                   ],
+                ),
+                ListView.separated(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: state.serviceTypeList?.length ?? 0,
+                  separatorBuilder: (context, index) => const SizedBox(height: AppSize.inset),
+                  itemBuilder: (context, index) {
+                    final service = state.serviceTypeList?[index];
+                    return Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            service?.id ?? "",
+                            style: theme.textTheme.titleMedium,
+                          ),
+                        ),
+                        Expanded(
+                          child: Text(
+                            "${service?.price}",
+                            style: theme.textTheme.titleMedium,
+                          ),
+                        ),
+                        Expanded(
+                          child: Row(
+                            children: [
+                              IconButton(
+                                onPressed: () {},
+                                icon: const Icon(
+                                  Icons.edit,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              IconButton(
+                                onPressed: () {},
+                                icon: Icon(Icons.delete),
+                              )
+                            ],
+                          ),
+                        )
+                      ],
+                    );
+                  },
                 ),
                 const SizedBox(height: AppSize.inset),
                 CustomButton(
@@ -79,9 +104,9 @@ class PriceView extends StatelessWidget {
                   },
                 ),
               ],
-            ),
-          ),
-        ),
+            );
+          }
+        },
       ),
     );
   }

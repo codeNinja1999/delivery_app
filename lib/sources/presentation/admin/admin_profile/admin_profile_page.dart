@@ -16,6 +16,13 @@ class AdminProfilePage extends StatefulWidget {
 
 class _AdminProfilePageState extends State<AdminProfilePage> {
   @override
+  void initState() {
+    super.initState();
+    context.read<AdminProfileBloc>().add(GetAdminInfo());
+    context.read<AdminProfileBloc>().add(AdminInfoSubscriptionRequested());
+  }
+
+  @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Scaffold(
@@ -34,58 +41,62 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
             ErrorResolver.resolve(context, status);
           }
         },
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(AppSize.viewMargin),
-          child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-            const SizedBox(height: AppSize.inset),
-            Row(
-              children: [
-                const Icon(Icons.people),
-                const SizedBox(width: AppSize.inset),
-                Expanded(
-                  child: Text(
-                    "John doe",
-                    style: theme.textTheme.titleMedium,
-                  ),
-                )
-              ],
-            ),
-            const SizedBox(height: AppSize.inset),
-            Row(
-              children: [
-                const Icon(Icons.email),
-                const SizedBox(width: AppSize.inset),
-                Expanded(
-                  child: Text(
-                    "johndoe@gmail.com",
-                    style: theme.textTheme.titleMedium,
-                  ),
-                )
-              ],
-            ),
-            const SizedBox(height: AppSize.spacedViewSpacing),
-            TextButton(
-              onPressed: () {
-                showDialog(
-                  context: context,
-                  builder: (newContext) {
-                    return CustomDialog(
-                      title: LocaleKeys.logoutConfirmationTitle.value,
-                      message: LocaleKeys.areYouSureYouWantToLogout.value,
-                      primaryButtonTitle: LocaleKeys.yes.value,
-
-                      onPrimaryButtonPressed: () => context.read<AdminProfileBloc>().add(LogoutUser()),
-                      secondaryButtonTitle: LocaleKeys.no.value,
+        child: BlocBuilder<AdminProfileBloc, AdminProfileState>(
+          buildWhen: (previous, current) => previous.adminInfo != current.adminInfo,
+          builder: (context, state) {
+            return SingleChildScrollView(
+              padding: const EdgeInsets.all(AppSize.viewMargin),
+              child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+                const SizedBox(height: AppSize.inset),
+                Row(
+                  children: [
+                    const Icon(Icons.people),
+                    const SizedBox(width: AppSize.inset),
+                    Expanded(
+                      child: Text(
+                        state.adminInfo?.personalInfo?.userName ?? "",
+                        style: theme.textTheme.titleMedium,
+                      ),
+                    )
+                  ],
+                ),
+                const SizedBox(height: AppSize.inset),
+                Row(
+                  children: [
+                    const Icon(Icons.email),
+                    const SizedBox(width: AppSize.inset),
+                    Expanded(
+                      child: Text(
+                        state.adminInfo?.personalInfo?.email ?? "",
+                        style: theme.textTheme.titleMedium,
+                      ),
+                    )
+                  ],
+                ),
+                const SizedBox(height: AppSize.spacedViewSpacing),
+                TextButton(
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (newContext) {
+                        return CustomDialog(
+                          title: LocaleKeys.logoutConfirmationTitle.value,
+                          message: LocaleKeys.areYouSureYouWantToLogout.value,
+                          primaryButtonTitle: LocaleKeys.yes.value,
+                          onPrimaryButtonPressed: () => context.read<AdminProfileBloc>().add(LogoutUser()),
+                          secondaryButtonTitle: LocaleKeys.no.value,
+                        );
+                      },
                     );
                   },
-                );
-              },
-              child: Text(
-                "Logout",
-                style: theme.textTheme.titleMedium,
-              ),
-            ),
-          ]),
+                  child: Text(
+                    "Logout",
+                    style: theme.textTheme.titleMedium,
+                  ),
+                ),
+              ]),
+            );
+          },
         ),
       ),
     );

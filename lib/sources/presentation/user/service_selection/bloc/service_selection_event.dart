@@ -4,6 +4,8 @@ abstract class ServiceSelectionEvent {}
 
 class FetchServiceType extends ServiceSelectionEvent {}
 
+class ValidateService extends ServiceSelectionEvent {}
+
 class ServiceTypeSelected extends ServiceSelectionEvent {
   final ServiceType serviceType;
   ServiceTypeSelected(this.serviceType);

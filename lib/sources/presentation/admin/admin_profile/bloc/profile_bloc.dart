@@ -11,8 +11,32 @@ class AdminProfileBloc extends Bloc<AdminProfileEvent, AdminProfileState> {
   final UserUtilitiesRepository userUtilitiesRepository;
 
   AdminProfileBloc({required this.userUtilitiesRepository}) : super(AdminProfileState()) {
+    on<GetAdminInfo>(_onGetAdminInfo);
+
+    on<AdminInfoSubscriptionRequested>(_onAdminInfoSubscriptionRequested);
     on<LogoutUser>(_onLogoutUser);
   }
+
+  _onAdminInfoSubscriptionRequested(
+    AdminInfoSubscriptionRequested event,
+    Emitter<AdminProfileState> emit,
+  ) async {
+    await emit.forEach<DetailedUser?>(
+      userUtilitiesRepository.userInfo(),
+      onData: (adminInfo) => adminInfo != null ? state.copyWith(adminInfo: adminInfo) : state,
+      onError: (error, __) {
+        final failure = error as Exception;
+        return state.copyWith(status: SubmissionFailure(failure));
+      },
+    );
+  }
+
+  _onGetAdminInfo(GetAdminInfo event, Emitter<AdminProfileState> emit) async {
+    emit(state.copyWith(status: InProgress()));
+    await userUtilitiesRepository.getUserInfo();
+    emit(state.copyWith(status: InitialStatus()));
+  }
+
   Future<void> _onLogoutUser(
     LogoutUser event,
     Emitter<AdminProfileState> emit,
