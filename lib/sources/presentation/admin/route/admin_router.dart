@@ -40,9 +40,13 @@ class AdminRouter {
         );
 
       case AdminRoute.addLocation:
+        final args = tryCast<Location>(settings.arguments);
+
+        final locationBloc = sl<AddLocationBloc>();
+        locationBloc.location = args;
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
-            create: (_) => sl<AddLocationBloc>(),
+            create: (_) => locationBloc,
             child: const AddLocationPage(),
           ),
         );
@@ -55,7 +59,7 @@ class AdminRouter {
           ),
         );
 
-        case AdminRoute.operatorList:
+      case AdminRoute.operatorList:
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
             create: (_) => sl<OperatorListBloc>(),
@@ -79,7 +83,7 @@ class AdminRouter {
           ),
         );
 
-        case AdminRoute.userList:
+      case AdminRoute.userList:
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
             create: (_) => sl<UserListBloc>(),
@@ -87,7 +91,7 @@ class AdminRouter {
           ),
         );
 
-        case AdminRoute.profile:
+      case AdminRoute.profile:
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
             create: (_) => sl<AdminProfileBloc>(),

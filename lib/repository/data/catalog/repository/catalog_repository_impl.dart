@@ -34,11 +34,18 @@ class CatalogRepositoryImpl implements CatalogRepository {
 
   @override
   Future<Either<Exception, String>> addLocation(CatalogFilter filter) async {
-    final requestData = filter.toAddLocation();
-    final requestQuery = requestData.toJson();
+    // final requestData = filter.toAddLocation();
+    // final requestBody = requestData.toJson();
+
+       final requestBody = {
+      "country": filter.country,
+      "city": filter.city,
+      "neighbourhood": filter.neighborhood,
+     
+    };
 
     try {
-      final response = await userNetworkClient.post(AppServiceEndpoints.createLocation, queryParameters: requestQuery);
+      final response = await userNetworkClient.post(AppServiceEndpoints.createLocation, body: requestBody);
       final responseJson = json.decode(response.asString);
       final _ = CatalogResponseModel.fromJson(responseJson);
 
@@ -80,10 +87,10 @@ class CatalogRepositoryImpl implements CatalogRepository {
   @override
   Future<Either<Exception, String>> addServiceType(CatalogFilter filter) async {
     final requestData = filter.toAddService();
-    final requestQuery = requestData.toJson();
+    final requestBody = requestData.toJson();
 
     try {
-      final response = await userNetworkClient.post(AppServiceEndpoints.fetchLocation, queryParameters: requestQuery);
+      final response = await userNetworkClient.post(AppServiceEndpoints.fetchLocation, body: requestBody);
       final responseJson = json.decode(response.asString);
       final _ = CatalogResponseModel.fromJson(responseJson);
 

@@ -78,7 +78,9 @@ class LocationView extends StatelessWidget {
                           child: Row(
                             children: [
                               IconButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.pushNamed(context, AdminRoute.addLocation, arguments: location);
+                                },
                                 icon: const Icon(
                                   Icons.edit,
                                   color: Colors.white,

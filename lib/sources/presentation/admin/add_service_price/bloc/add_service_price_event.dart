@@ -1,8 +1,18 @@
 part of 'add_service_price_bloc.dart';
 
-sealed class AddServicePriceEvent extends Equatable {
-  const AddServicePriceEvent();
+abstract class AddServicePriceEvent {}
 
-  @override
-  List<Object> get props => [];
+class ServiceTypeChanged extends AddServicePriceEvent {
+  final String serviceType;
+  ServiceTypeChanged(this.serviceType);
+}
+
+class PriceChanged extends AddServicePriceEvent {
+  final String price;
+  PriceChanged(this.price);
+}
+
+class SubmitService extends AddServicePriceEvent {
+  final CatalogFilter catalogFilter;
+  SubmitService(this.catalogFilter);
 }
