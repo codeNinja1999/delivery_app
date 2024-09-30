@@ -3,11 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dotted_border/dotted_border.dart';
 
 import 'package:fresh_fold_delivery/sources/core/app_core.dart';
-import 'package:fresh_fold_delivery/sources/presentation/user/checkout/bloc/checkout_bloc.dart';
-import 'package:fresh_fold_delivery/sources/presentation/user/route/user_route.dart';
-import 'package:fresh_fold_delivery/sources/presentation/widgets/widgets.dart';
 
+import '../../../resources/resources.dart';
+import '../../widgets/widgets.dart';
 import '../bloc/user_bloc.dart';
+import '../route/user_route.dart';
+import 'bloc/checkout_bloc.dart';
 
 class CheckoutPage extends StatefulWidget {
   const CheckoutPage({super.key});
@@ -189,11 +190,13 @@ class _CheckoutPageState extends State<CheckoutPage> {
                                         leading: Icon(icon, color: theme.colorScheme.primary),
                                         contentPadding: EdgeInsets.zero,
                                         trailing: Radio(
-                                            value: paymentType.id,
-                                            groupValue: state.selectedPaymentType?.id,
-                                            onChanged: (value) {
-                                              null;
-                                            }),
+                                          value: paymentType.id,
+                                          groupValue: state.selectedPaymentType?.id,
+                                          activeColor: AppColors.primary,
+                                          onChanged: (_) => context.read<CheckoutBloc>().add(
+                                                PaymentTypeSelected(paymentType),
+                                              ),
+                                        ),
                                         onTap: () => context.read<CheckoutBloc>().add(
                                               PaymentTypeSelected(paymentType),
                                             ),
@@ -312,9 +315,12 @@ class _CheckoutPageState extends State<CheckoutPage> {
                       title: "Continue",
                       onPressed: () {
                         final mainState = context.read<UserBloc>().state;
-                        context
-                            .read<CheckoutBloc>()
-                            .add(CreateOrder(mainState.makeData(state.additionalInformation, state.receiptImage)));
+                        context.read<CheckoutBloc>().add(CreateOrder(
+                              mainState.makeData(
+                                state.additionalInformation,
+                                state.receiptImage,
+                              ),
+                            ));
                       });
                 },
               ),

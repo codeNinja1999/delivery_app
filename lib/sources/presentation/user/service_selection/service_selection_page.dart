@@ -35,7 +35,7 @@ class _ServiceSelectionPageState extends State<ServiceSelectionPage> {
         listener: (context, state) {
           final status = state.status;
           (status is InProgress) ? LoadingView.show() : LoadingView.hide();
-          if (status is Success) {
+          if (status is ValidationSuccess) {
             context.read<UserBloc>().add(
                   SaveServiceType(
                     state.selectedServiceType,

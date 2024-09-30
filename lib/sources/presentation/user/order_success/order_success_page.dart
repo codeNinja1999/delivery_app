@@ -16,50 +16,53 @@ class _OrderSuccessPageState extends State<OrderSuccessPage> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return Scaffold(
-      backgroundColor: theme.colorScheme.surface,
-      body: Padding(
-        padding: const EdgeInsets.all(AppSize.viewMargin),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Expanded(
-              child: Center(
-                child: SingleChildScrollView(
-                  padding: const EdgeInsets.all(AppSize.viewMargin),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Image.asset(
-                        AppImages.orderSuccess,
-                        height: MediaQuery.of(context).size.width / 2,
-                      ),
-                      Text(
-                        "Order submitted successfully",
-                        textAlign: TextAlign.center,
-                        style: theme.textTheme.titleLarge?.copyWith(
-                          fontSize: AppSize.viewSpacing,
-                          color: theme.colorScheme.primary,
+    return PopScope(
+      canPop: false,
+      child: Scaffold(
+        backgroundColor: theme.colorScheme.surface,
+        body: Padding(
+          padding: const EdgeInsets.all(AppSize.viewMargin),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Expanded(
+                child: Center(
+                  child: SingleChildScrollView(
+                    padding: const EdgeInsets.all(AppSize.viewMargin),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          AppImages.orderSuccess,
+                          height: MediaQuery.of(context).size.width / 2,
                         ),
-                      ),
-                      const SizedBox(height: AppSize.viewSpacing),
-                      Text(
-                        "We will let you know once the operator is on their way",
-                        textAlign: TextAlign.center,
-                        style: theme.textTheme.bodyLarge,
-                      ),
-                      const SizedBox(height: AppSize.inset),
-                    ],
+                        Text(
+                          "Order submitted successfully",
+                          textAlign: TextAlign.center,
+                          style: theme.textTheme.titleLarge?.copyWith(
+                            fontSize: AppSize.viewSpacing,
+                            color: theme.colorScheme.primary,
+                          ),
+                        ),
+                        const SizedBox(height: AppSize.viewSpacing),
+                        Text(
+                          "We will let you know once the operator is on their way",
+                          textAlign: TextAlign.center,
+                          style: theme.textTheme.bodyLarge,
+                        ),
+                        const SizedBox(height: AppSize.inset),
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ),
-            CustomButton(
-                title: "Go to homepage",
-                onPressed: () {
-                  Navigator.of(context).pushNamedAndRemoveUntil(UserRoute.dashboard, (Route route) => false);
-                }),
-          ],
+              CustomButton(
+                  title: "Go to homepage",
+                  onPressed: () {
+                    Navigator.of(context).pushNamedAndRemoveUntil(UserRoute.dashboard, (Route route) => false);
+                  }),
+            ],
+          ),
         ),
       ),
     );

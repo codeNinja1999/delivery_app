@@ -88,7 +88,7 @@ void blocsInjection() {
   sl.registerFactory(() => UserBloc());
   sl.registerFactory(() => CheckoutBloc(userUtilitiesRepository: sl()));
   sl.registerFactory(() => LocationBloc(catalogRepository: sl()));
-  sl.registerFactory(() => OrderHistoryBloc());
+  sl.registerFactory(() => OrderHistoryBloc(userUtilitiesRepository: sl()));
   sl.registerFactory(() => DateSelectionBloc());
   sl.registerFactory(() => AddUserLocationBloc());
   sl.registerFactory(() => ServiceSelectionBloc(catalogRepository: sl()));

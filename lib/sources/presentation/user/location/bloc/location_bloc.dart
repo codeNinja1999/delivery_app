@@ -6,6 +6,8 @@ import 'package:fresh_fold_delivery/sources/core/app_core.dart';
 part 'location_event.dart';
 part 'location_state.dart';
 
+class ValidateLocationSuccess extends FormStatus{}
+
 class LocationBloc extends Bloc<LocationEvent, LocationState> {
   final CatalogRepository catalogRepository;
 
@@ -22,7 +24,7 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
     Emitter<LocationState> emit,
   ) {
     if (state.selectedLocation != null) {
-      emit(state.copyWith(status: Success()));
+      emit(state.copyWith(status: ValidateLocationSuccess()));
     } else {
       emit(state.copyWith(status: SubmissionFailure(Exception("Location is not selected"))));
     }

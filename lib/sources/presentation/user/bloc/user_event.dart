@@ -7,6 +7,11 @@ class SaveLocation extends UserEvent {
   SaveLocation(this.location);
 }
 
+class SaveUser extends UserEvent {
+  final DetailedUser? userInfo;
+  SaveUser(this.userInfo);
+}
+
 class SaveServiceType extends UserEvent {
   final String totalWeight;
   final String totalAmount;

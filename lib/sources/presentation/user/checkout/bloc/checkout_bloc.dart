@@ -25,7 +25,7 @@ class CheckoutBloc extends Bloc<CheckoutEvent, CheckoutState> {
     final response = await userUtilitiesRepository.createOrder(event.pickupOrder);
     emit(response.fold(
       (error) => state.copyWith(status: SubmissionFailure(error)),
-      (serviceTypeList) => state.copyWith(status: Success()),
+      (_) => state.copyWith(status: Success()),
     ));
   }
 

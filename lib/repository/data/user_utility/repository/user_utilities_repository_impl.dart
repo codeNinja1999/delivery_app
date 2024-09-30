@@ -19,9 +19,11 @@ import 'package:rxdart/subjects.dart';
 import '../../../domain/common/model/date_filter.dart';
 import '../../../domain/common/model/pagination_filter.dart';
 import '../../../domain/pickup_order/pickup_order.dart';
+import '../../../domain/pickup_order/pickup_order_result.dart';
 import '../../../domain/user/entities/analytic_data_info.dart';
 import '../../../domain/user/entities/operator/operator_entities.dart';
 import '../mapping/operator_list_mapping.dart';
+import '../mapping/order_history_data_mapping.dart';
 import '../model/get_userinfo/get_userinfo_reponse_model.dart';
 import '../mapping/user_list_mapping.dart';
 
@@ -89,10 +91,15 @@ class UserUtilitiesRepositoryImpl implements UserUtilitiesRepository {
   @override
   Future<Either<Exception, String>> createOrder(PickupOrder data) async {
     final requestData = data.toCreateOrderRequest();
-    final postBody = requestData.toJson().toMultipartFile();
+    final requestFormData = await requestData.toJson().toMultipartFile();
     try {
-      final response = await networkClient.post(AppServiceEndpoints.createPickupRequest, body: postBody);
-      var _ = json.decode(response.asString);
+      // final response = await networkClient.post(AppServiceEndpoints.createPickupRequest, body: postBody);
+      final response = await networkClient.send(
+        AppServiceEndpoints.createPickupRequest,
+        method: HttpMethod.post,
+        body: requestFormData,
+      );
+      final _ = json.decode(response.asString);
       return const Right("Success");
     } on Exception catch (error) {
       return Left(error);
@@ -130,6 +137,25 @@ class UserUtilitiesRepositoryImpl implements UserUtilitiesRepository {
   }
 
   @override
+  Future<Either<Exception, List<PickupOrderResult>>> getOrderHistory(PaginationFilter filter) async {
+    final query = {
+      "page": filter.page,
+      "pageSize": filter.pageSize,
+    };
+
+    try {
+      final response = await networkClient.get(AppServiceEndpoints.getAllOrder, queryParameters: query);
+      final responseJson = json.decode(response.asString);
+      final pickupOrderHistory =
+          responseJson.map((orderHistory) => OrderHistoryMapper.toPickUpOrderHistory(orderHistory)).toList();
+
+      return Right(pickupOrderHistory);
+    } on Exception catch (error) {
+      return Left(error);
+    }
+  }
+
+  @override
   Future<Either<Exception, AnalyticDataInfo>> fetchAnalyticData(DateFilter filter) async {
     final query = {
       "from": filter.from,
@@ -158,7 +184,7 @@ class UserUtilitiesRepositoryImpl implements UserUtilitiesRepository {
   //   } on Exception catch (error) {
   //     return Left(error);
   //   }
- @override
+  @override
   Future<Either<Exception, String>> addOperator(Operator operatorInfo) async {
     final requestData = operatorInfo.toCreateOperator();
     final postBody = jsonEncode(requestData.toJson());
@@ -219,6 +245,7 @@ class UserUtilitiesRepositoryImpl implements UserUtilitiesRepository {
       return Left(error);
     }
   }
+
   @override
   Future<Either<Exception, String>> logoutUser() async {
     try {

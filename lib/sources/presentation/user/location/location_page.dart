@@ -36,7 +36,7 @@ class _LocationPageState extends State<LocationPage> {
         listener: (context, state) {
           final status = state.status;
           (status is InProgress) ? LoadingView.show() : LoadingView.hide();
-          if (status is Success) {
+          if (status is ValidateLocationSuccess) {
             context.read<UserBloc>().add(SaveLocation(state.selectedLocation));
             Navigator.pushNamed(context, UserRoute.serviceSelection);
           }

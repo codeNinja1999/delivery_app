@@ -4,10 +4,9 @@ abstract class OrderHistoryEvent {}
 
 class TransactionListSubscriptionRequested extends OrderHistoryEvent {}
 
-class GetTransactionList extends OrderHistoryEvent {
+class GetOrderHistory extends OrderHistoryEvent {
   final int pageNumber;
-  final bool? refresh;
-  GetTransactionList(this.pageNumber, this.refresh);
+  GetOrderHistory(this.pageNumber);
 }
 
 class SearchTextChanged extends OrderHistoryEvent {

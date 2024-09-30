@@ -18,7 +18,9 @@ class _UserPageState extends State<UserPage> {
   Widget build(BuildContext context) {
     return NavigatorPopHandler(
       onPop: () {
-        _navigatorKey.currentState!.maybePop();
+        if (currentRoute != UserRoute.orderSuccess) {
+          _navigatorKey.currentState!.maybePop();
+        }
       },
       child: Navigator(
         key: _navigatorKey,

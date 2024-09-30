@@ -8,9 +8,9 @@ class UserState extends Equatable {
   final String? totalAmount;
   final HygieneInfo? hygieneInfo;
   final File? receiptImage;
-  final User? user;
+  final DetailedUser? user;
 
-  PickupOrder makeData(String? additionalInformation, File? receiptImage) => _makeData(additionalInformation, receiptImage);
+  // PickupOrder makeData(String? additionalInformation, File? receiptImage) => _makeData(additionalInformation, receiptImage);
 
   const UserState({
     this.location,
@@ -31,7 +31,7 @@ class UserState extends Equatable {
     String? totalAmount,
     HygieneInfo? hygieneInfo,
     File? receiptImage,
-    User? user,
+    DetailedUser? user,
   }) {
     return UserState(
       location: location ?? this.location,
@@ -45,13 +45,25 @@ class UserState extends Equatable {
     );
   }
 
-  _makeData(String? additionalInformation, File? receiptImage ) {
+  PickupOrder makeData(String? additionalInformation, File? receiptImage) {
     return PickupOrder(
       serviceType: service,
       pickupDate: pickupDate,
-      actualWeight: totalWeight,
+      totalWeight: totalWeight,
       totalAmount: totalAmount,
-      userContactInfo: user?.contactInfo,
+      userContactInfo: UserContactInfo(
+        id: location?.id,
+        locationId: location?.id,
+        city: location?.city,
+        dropboxNumber: user?.contactInfo?.dropboxNumber,
+        address: user?.contactInfo?.address,
+        unitNumber: user?.contactInfo?.unitNumber,
+        mobileNumber: user?.contactInfo?.mobileNumber,
+        postalCode: location?.postalCode,
+        houseNumber: location?.houseNumber,
+        neighborhood: location?.neighborhood,
+      ),
+      hygieneInfo: hygieneInfo,
       additionalInformation: additionalInformation,
       receiptImage: receiptImage,
     );
@@ -62,7 +74,8 @@ class UserState extends Equatable {
         location,
         service,
         totalWeight,
-        pickupDate,totalAmount,
+        pickupDate,
+        totalAmount,
         hygieneInfo,
         receiptImage,
         user,

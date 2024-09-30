@@ -7,6 +7,8 @@ import 'package:fresh_fold_delivery/sources/core/app_core.dart';
 part 'service_selection_event.dart';
 part 'service_selection_state.dart';
 
+class ValidationSuccess extends FormStatus{}
+
 class ServiceSelectionBloc extends Bloc<ServiceSelectionEvent, ServiceSelectionState> {
   final CatalogRepository catalogRepository;
 
@@ -49,7 +51,7 @@ class ServiceSelectionBloc extends Bloc<ServiceSelectionEvent, ServiceSelectionS
     Emitter<ServiceSelectionState> emit,
   ) {
     if (state.selectedServiceType != null && state.totalWeight != "") {
-      emit(state.copyWith(status: Success()));
+      emit(state.copyWith(status: ValidationSuccess()));
     } else {
       emit(state.copyWith(status: SubmissionFailure(Exception("Service or weight is not selected"))));
     }

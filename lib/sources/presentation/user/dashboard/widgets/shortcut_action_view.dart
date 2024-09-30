@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fresh_fold_delivery/sources/core/app_core.dart';
 import 'package:fresh_fold_delivery/sources/resources/app_colors.dart';
 import 'package:fresh_fold_delivery/sources/presentation/user/route/user_route.dart';
+import '../../bloc/user_bloc.dart';
 import '../bloc/dashboard_bloc.dart';
 
 class ShortcutActionView extends StatelessWidget {
@@ -20,6 +21,7 @@ class ShortcutActionView extends StatelessWidget {
             Expanded(
               child: GestureDetector(
                 onTap: () {
+                  context.read<UserBloc>().add(SaveUser(state.userInfo));
                   Navigator.pushNamed(context, UserRoute.location);
                 },
                 child: Container(

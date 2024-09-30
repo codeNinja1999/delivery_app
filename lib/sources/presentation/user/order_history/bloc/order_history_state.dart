@@ -5,11 +5,13 @@ class OrderHistoryState extends Equatable {
   final int pageNumber;
   final bool paginationEnd;
   final FormStatus status;
+  final List<PickupOrderResult>? orderList;
   final FormStatus paginationStatus;
 
   OrderHistoryState({
     this.transactionId,
     this.pageNumber = 1,
+    this.orderList,
     this.paginationEnd = false,
     paginationStatus,
     status,
@@ -21,12 +23,14 @@ class OrderHistoryState extends Equatable {
     FormStatus? status,
     int? pageNumber,
     bool? paginationEnd,
+    List<PickupOrderResult>? orderList,
     FormStatus? paginationStatus,
   }) {
     return OrderHistoryState(
       transactionId: transactionId ?? this.transactionId,
       status: status ?? InitialStatus(),
       pageNumber: pageNumber ?? this.pageNumber,
+      orderList: orderList ?? this.orderList,
       paginationEnd: paginationEnd ?? this.paginationEnd,
       paginationStatus: paginationStatus ?? InitialStatus(),
     );
@@ -37,6 +41,7 @@ class OrderHistoryState extends Equatable {
         transactionId,
         status,
         pageNumber,
+        orderList,
         paginationEnd,
       ];
 }

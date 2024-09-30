@@ -5,13 +5,15 @@ import '../model/get_userinfo/get_userinfo_reponse_model.dart';
 extension UserAuthenticationResponseMapping on GetUserInfoResponseModel {
   DetailedUser toUserInfoDomain() {
     final address = UserContactInfo(
-      id: this.userAddress?.id.toString() ?? "",
-      address: this.userAddress?.location,
-      createdTime: this.userAddress?.createdAt.toString(),
-      houseNumber: this.userAddress?.houseNumber,
-      locationId: this.userAddress?.locationId,
-      latitude: this.userAddress?.latitude,
-      longitude: this.userAddress?.longitude,
+      id: userAddress?.id.toString() ?? "",
+      address: userAddress?.location,
+      createdTime: userAddress?.createdAt.toString(),
+      houseNumber: userAddress?.houseNumber,
+      locationId: userAddress?.locationId,
+      latitude: userAddress?.latitude,
+      longitude: userAddress?.longitude,
+      mobileNumber: phoneNumber,
+      emailAddress: email,
     );
 
     return DetailedUser(

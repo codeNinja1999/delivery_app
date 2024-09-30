@@ -38,7 +38,7 @@ class _HistoryTypeSelectionState extends State<HistoryTypeSelection> {
                 onTap: () {
                   setState(() {
                     sIndex = index;
-                    context.read<OrderHistoryBloc>().add(GetTransactionList(state.pageNumber, false));
+                    // context.read<OrderHistoryBloc>().add(GetTransactionList(state.pageNumber, false));
                   });
                 },
                 title: filterList[index].filterType,
