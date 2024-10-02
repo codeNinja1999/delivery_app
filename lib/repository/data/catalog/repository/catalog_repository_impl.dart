@@ -1,7 +1,7 @@
-import 'package:fresh_fold_delivery/repository/data/catalog/repository/mapping/catalog_request_model.dart';
+import 'dart:convert';
+
 import 'package:fresh_fold_delivery/repository/data/core/core.dart';
 import 'package:fresh_fold_delivery/repository/repository.dart';
-import 'dart:convert';
 
 import '../model/catalog_request_model.dart';
 import '../model/catalog_response_model.dart';
@@ -37,12 +37,11 @@ class CatalogRepositoryImpl implements CatalogRepository {
     // final requestData = filter.toAddLocation();
     // final requestBody = requestData.toJson();
 
-       final requestBody = {
+    final requestBody = json.encode({
       "country": filter.country,
       "city": filter.city,
       "neighbourhood": filter.neighborhood,
-     
-    };
+    });
 
     try {
       final response = await userNetworkClient.post(AppServiceEndpoints.createLocation, body: requestBody);
@@ -56,9 +55,15 @@ class CatalogRepositoryImpl implements CatalogRepository {
   }
 
   @override
-  Future<Either<Exception, String>> deleteLocation(String locationId) async {
+  Future<Either<Exception, String>> deleteLocation(CatalogFilter filter) async {
+    final requestBody = json.encode({
+      "country": filter.country,
+      "city": filter.city,
+      "neighbourhood": filter.neighborhood,
+    });
+    final endPoint = "${AppServiceEndpoints.deleteLocation}${filter.id}";
     try {
-      final response = await userNetworkClient.get(AppServiceEndpoints.deleteLocation + locationId);
+      final response = await userNetworkClient.delete(endPoint, body: requestBody);
       final responseJson = json.decode(response.asString);
       final _ = CatalogResponseModel.fromJson(responseJson);
 
@@ -70,11 +75,15 @@ class CatalogRepositoryImpl implements CatalogRepository {
 
   @override
   Future<Either<Exception, String>> updateLocation(CatalogFilter filter) async {
-    final requestData = filter.toAddLocation();
-    final requestQuery = requestData.toJson();
+    // final requestData = filter.toAddLocation();
+    final requestBody = json.encode({
+      "country": filter.country,
+      "city": filter.city,
+      "neighbourhood": filter.neighborhood,
+    });
+    final endPoint = "${AppServiceEndpoints.updateLocation}${filter.id}";
     try {
-      final response =
-          await userNetworkClient.patch(AppServiceEndpoints.updateLocation + filter.id.toString(), body: requestQuery);
+      final response = await userNetworkClient.patch(endPoint, body: requestBody);
       final responseJson = json.decode(response.asString);
       final _ = CatalogResponseModel.fromJson(responseJson);
 
@@ -86,11 +95,15 @@ class CatalogRepositoryImpl implements CatalogRepository {
 
   @override
   Future<Either<Exception, String>> addServiceType(CatalogFilter filter) async {
-    final requestData = filter.toAddService();
-    final requestBody = requestData.toJson();
+    // final requestData = filter.toAddService();
+    // final requestBody = requestData.toJson();
+    final requestBody = json.encode({
+      "name": filter.serviceName,
+      "price": filter.price,
+    });
 
     try {
-      final response = await userNetworkClient.post(AppServiceEndpoints.fetchLocation, body: requestBody);
+      final response = await userNetworkClient.post(AppServiceEndpoints.createService, body: requestBody);
       final responseJson = json.decode(response.asString);
       final _ = CatalogResponseModel.fromJson(responseJson);
 
@@ -103,7 +116,7 @@ class CatalogRepositoryImpl implements CatalogRepository {
   @override
   Future<Either<Exception, List<ServiceType>>> fetchServiceType() async {
     try {
-      final response = await userNetworkClient.get(AppServiceEndpoints.service);
+      final response = await userNetworkClient.get(AppServiceEndpoints.fetchService);
       final responseJson = json.decode(response.asString);
       final serviceType = (responseJson as List<dynamic>)
           .map((item) => ServiceType(
@@ -119,9 +132,14 @@ class CatalogRepositoryImpl implements CatalogRepository {
   }
 
   @override
-  Future<Either<Exception, String>> deleteServiceType(String serviceId) async {
+  Future<Either<Exception, String>> deleteServiceType(CatalogFilter filter) async {
+    final requestBody = json.encode({
+      "name": filter.serviceName,
+      "price": filter.price,
+    });
+    final endPoint = "${AppServiceEndpoints.deleteService}${filter.id}";
     try {
-      final response = await userNetworkClient.get(AppServiceEndpoints.deleteService + serviceId);
+      final response = await userNetworkClient.delete(endPoint, body: requestBody);
       final responseJson = json.decode(response.asString);
       final _ = CatalogResponseModel.fromJson(responseJson);
 
@@ -133,11 +151,16 @@ class CatalogRepositoryImpl implements CatalogRepository {
 
   @override
   Future<Either<Exception, String>> updateServiceType(CatalogFilter filter) async {
-    final requestData = filter.toAddLocation();
-    final requestQuery = requestData.toJson();
+    // final requestData = filter.toAddLocation();
+    // final requestQuery = requestData.toJson();
+    final requestBody = json.encode({
+      "name": filter.serviceName,
+      "price": filter.price,
+    });
+    final endPoint = "${AppServiceEndpoints.updateService}${filter.id}";
+
     try {
-      final response =
-          await userNetworkClient.patch(AppServiceEndpoints.updateService + filter.id.toString(), body: requestQuery);
+      final response = await userNetworkClient.patch(endPoint, body: requestBody);
       final responseJson = json.decode(response.asString);
       final _ = CatalogResponseModel.fromJson(responseJson);
 

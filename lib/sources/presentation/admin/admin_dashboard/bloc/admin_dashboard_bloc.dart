@@ -24,10 +24,11 @@ class AdminDashboardBloc extends Bloc<AdminDashboardEvent, AdminDashboardState> 
           _onGetAdminInfo(event, emit),
           _onUserList(event, emit),
           _onOperatorList(event, emit),
-          _onGetLocation(event, emit),
+          _onFetchLocation(event, emit),
           _onGetSales(event, emit),
           _onGetServices(event, emit),
         ]);
+
         if (result.every((e) => e == true)) {
           emit(state.copyWith(status: Success()));
         } else {
@@ -37,6 +38,10 @@ class AdminDashboardBloc extends Bloc<AdminDashboardEvent, AdminDashboardState> 
     );
 
     on<UserInfoSubscriptionRequested>(_onUserInfoSubscriptionRequested);
+    on<DeleteLocation>(_onDeleteLocation);
+    on<GetLocation>(_onGetLocation);
+    on<GetServiceType>(_onGetServiceType);
+    on<DeleteService>(_onDeleteService);
   }
 
   Future<void> _onUserInfoSubscriptionRequested(
@@ -50,6 +55,57 @@ class AdminDashboardBloc extends Bloc<AdminDashboardEvent, AdminDashboardState> 
         final failure = error as Exception;
         return state.copyWith(status: SubmissionFailure(failure));
       },
+    );
+  }
+
+  _onDeleteLocation(
+    DeleteLocation event,
+    Emitter<AdminDashboardState> emit,
+  ) async {
+    final location = event.location;
+    final response = await catalogRepository.deleteLocation(CatalogFilter(
+      id: location?.id,
+      country: location?.countryCode,
+      city: location?.city,
+      neighborhood: location?.neighborhood,
+    ));
+
+    response.fold(
+      (error) => emit(state.copyWith(status: SubmissionFailure(error))),
+      (userList) => add(GetLocation()),
+    );
+  }
+
+  _onGetLocation(GetLocation event, Emitter<AdminDashboardState> emit) async {
+    final response = await catalogRepository.fetchLocation();
+    return response.fold(
+      (error) => emit(state.copyWith(status: SubmissionFailure(error))),
+      (locationList) => emit(state.copyWith(locationList: locationList)),
+    );
+  }
+
+  _onDeleteService(
+    DeleteService event,
+    Emitter<AdminDashboardState> emit,
+  ) async {
+    final service = event.serviceType;
+    final response = await catalogRepository.deleteServiceType(CatalogFilter(
+      id: service?.id,
+      serviceName: service?.value,
+      price: service?.price.toString(),
+    ));
+
+    response.fold(
+      (error) => emit(state.copyWith(status: SubmissionFailure(error))),
+      (userList) => add(GetServiceType()),
+    );
+  }
+
+  _onGetServiceType(GetServiceType event, Emitter<AdminDashboardState> emit) async {
+    final response = await catalogRepository.fetchServiceType();
+    return response.fold(
+      (error) => emit(state.copyWith(status: SubmissionFailure(error))),
+      (serviceTypeList) => emit(state.copyWith(serviceTypeList: serviceTypeList)),
     );
   }
 
@@ -86,7 +142,7 @@ class AdminDashboardBloc extends Bloc<AdminDashboardEvent, AdminDashboardState> 
     });
   }
 
-  Future<bool> _onGetLocation(GetDashboardData event, Emitter<AdminDashboardState> emit) async {
+  Future<bool> _onFetchLocation(GetDashboardData event, Emitter<AdminDashboardState> emit) async {
     final response = await catalogRepository.fetchLocation();
     return response.fold((error) {
       emit(state.copyWith(status: SubmissionFailure(error)));

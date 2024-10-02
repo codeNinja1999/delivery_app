@@ -4,8 +4,8 @@ import 'package:fresh_fold_delivery/sources/core/app_core.dart';
 import 'package:fresh_fold_delivery/sources/presentation/widgets/widgets.dart';
 import 'package:fresh_fold_delivery/sources/resources/app_colors.dart';
 
-class UpdateOperatorPage extends StatelessWidget {
-  const UpdateOperatorPage({super.key});
+class AddOperatorPage extends StatelessWidget {
+  const AddOperatorPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +13,7 @@ class UpdateOperatorPage extends StatelessWidget {
 
     return Scaffold(
       appBar: const MyAppBar(
-        title: "Update Operator",
+        title: "Add/Update Operator",
       ),
       backgroundColor: theme.colorScheme.surface,
       body: SingleChildScrollView(

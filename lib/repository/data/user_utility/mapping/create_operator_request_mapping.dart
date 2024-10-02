@@ -1,13 +1,13 @@
-import '../../../domain/user/entities/operator/operator_entities.dart';
+import '../../../domain/user/entities/user_info/user.dart';
 import '../model/operator/create_operator_request_model.dart';
 
-extension CreateOperatorRequestMapping on Operator {
+extension CreateOperatorRequestMapping on OperatorUser {
   CreateOperatorRequestModel toCreateOperator() {
     return CreateOperatorRequestModel(
-      fullName: fullName,
-      phoneNumber: phoneNumber,
-      address: address,
-      emailAddress: emailAddress,
+      fullName: personalInfo?.fullName,
+      phoneNumber: personalInfo?.phoneNumber,
+      address: contactInfo?.address,
+      emailAddress: personalInfo?.email,
       password: password,
       confirmPassword: confirmPassword,
     );

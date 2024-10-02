@@ -184,11 +184,14 @@ abstract class  LocaleKeys {
   static const contactNumber = 'contactNumber';
   static const contactErrorMessage = 'contactErrorMessage';
   static const countryErrorMessage = 'countryErrorMessage';
+  static const priceErrorMessage = 'priceErrorMessage';
+  static const serviceNameErrorMessage = 'serviceNameErrorMessage';
   static const streetCodePlaceholder = 'streetCodePlaceholder';
   static const streetPlaceholder = 'streetPlaceholder';
   static const streetErrorMessage = 'streetErrorMessage';
   static const cityPlaceHolder = 'cityPlaceHolder';
   static const cityErrorMessage = 'cityErrorMessage';
+  static const neighbourhoodErrorMessage = 'neighbourhoodErrorMessage';
   static const suburbPlaceholder = 'suburbPlaceholder';
   static const suburbErrorMessage = 'suburbErrorMessage';
   static const postalCodeLabel = 'postalCodeLabel';

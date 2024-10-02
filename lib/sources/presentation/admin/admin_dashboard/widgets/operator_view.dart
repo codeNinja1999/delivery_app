@@ -45,14 +45,14 @@ class OperatorView extends StatelessWidget {
           BlocBuilder<AdminDashboardBloc, AdminDashboardState>(
             buildWhen: (previous, current) => previous.operatorList != current.operatorList,
             builder: (context, state) {
-              if (state.userList == []) {
+              if (state.operatorList == []) {
                 return const SizedBox.expand(
                   child: Center(child: Text("No Operator")),
                 );
               } else {
                 return ListView.separated(
                   shrinkWrap: true,
-                  itemCount: state.operatorList?.length ?? 0,
+                  itemCount: (state.operatorList?.length ?? 0) >= 3 ? 3 : state.operatorList?.length ?? 0,
                   physics: const NeverScrollableScrollPhysics(),
                   separatorBuilder: (context, index) => const SizedBox(height: AppSize.inset),
                   itemBuilder: (context, index) {
@@ -91,7 +91,7 @@ class OperatorView extends StatelessWidget {
                             children: [
                               Expanded(
                                   child: Text(
-                                "Address",
+                                "Neighbourhood",
                                 style: theme.textTheme.bodySmall,
                               )),
                               Expanded(
@@ -124,8 +124,10 @@ class OperatorView extends StatelessWidget {
                               ),
                             ],
                           ),
-                          const SizedBox(height: AppSize.inset),
-                          CustomButton(backgroundColor: AppColors.primary, title: "View Details", onPressed: () {})
+                          // const SizedBox(height: AppSize.inset),
+                          // CustomButton(backgroundColor: AppColors.primary, title: "View Details", onPressed: () {
+
+                          // })
                         ],
                       ),
                     );
@@ -134,6 +136,9 @@ class OperatorView extends StatelessWidget {
               }
             },
           ),
+          const SizedBox(height: AppSize.viewSpacing),
+          CustomButton(backgroundColor: AppColors.primary, title: "Add New Operator", onPressed: () {}),
+          const SizedBox(height: AppSize.inset),
         ],
       ),
     );

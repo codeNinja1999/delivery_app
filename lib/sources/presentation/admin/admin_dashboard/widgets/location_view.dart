@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:fresh_fold_delivery/sources/core/app_core.dart';
-import 'package:fresh_fold_delivery/sources/presentation/admin/admin_dashboard/admin_dashboard.dart';
 import 'package:fresh_fold_delivery/sources/presentation/widgets/widgets.dart';
 import 'package:fresh_fold_delivery/sources/resources/app_colors.dart';
 
 import '../../route/admin_route.dart';
+import '../bloc/admin_dashboard_bloc.dart';
 
 class LocationView extends StatelessWidget {
   const LocationView({super.key});
@@ -34,125 +34,114 @@ class LocationView extends StatelessWidget {
                 Row(
                   children: [
                     Expanded(
-                      flex: 1,
+                      // flex: 2,
                       child: Text(
                         "State",
-                        style: theme.textTheme.titleMedium,
+                        style: theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w700),
                       ),
                     ),
+                    const SizedBox(width: AppSize.cornerRadiusMedium),
                     Expanded(
-                      flex: 2,
+                      flex: 1,
                       child: Text(
                         "Neighborhood",
-                        style: theme.textTheme.titleMedium,
+                        textAlign: TextAlign.center,
+                        style: theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w700),
                       ),
                     ),
+                    const SizedBox(width: AppSize.inset),
                     Text(
                       "Actions",
-                      style: theme.textTheme.titleMedium,
+                      textAlign: TextAlign.center,
+                      style: theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w700),
                     )
                   ],
                 ),
+                const SizedBox(height: AppSize.viewSpacing),
                 ListView.separated(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
+                  padding: EdgeInsets.zero,
                   itemCount: state.locationList?.length ?? 0,
                   separatorBuilder: (context, index) => const SizedBox(height: AppSize.inset),
                   itemBuilder: (context, index) {
                     final location = state.locationList?[index];
-                    return Row(
-                      children: [
-                        Expanded(
-                          child: Text(
-                            location?.city ?? "",
-                            style: theme.textTheme.titleMedium,
+                    return Container(
+                      // color: Colors.red,
+                      child: Row(
+                        textBaseline: TextBaseline.alphabetic,
+                        crossAxisAlignment: CrossAxisAlignment.baseline,
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Expanded(
+                            // flex: 2,
+                            child: Text(
+                              location?.city ?? "",
+                              maxLines: 2,
+                              style: theme.textTheme.bodyMedium,
+                            ),
                           ),
-                        ),
-                        Expanded(
-                          child: Text(
-                            location?.neighborhood ?? "",
-                            style: theme.textTheme.titleMedium,
+                          const SizedBox(width: AppSize.cornerRadiusMedium),
+                          Expanded(
+                            flex: 1,
+                            child: Text(
+                              location?.neighborhood ?? "", textAlign: TextAlign.center,
+
+                              // "adsfasdfadsfadsfdsfasdfadsfsdfsda",
+                              maxLines: 2,
+                              style: theme.textTheme.bodyMedium,
+                            ),
                           ),
-                        ),
-                        Expanded(
-                          child: Row(
+                          const SizedBox(width: AppSize.inset),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              IconButton(
-                                onPressed: () {
+                              GestureDetector(
+                                onTap: () {
                                   Navigator.pushNamed(context, AdminRoute.addLocation, arguments: location);
                                 },
-                                icon: const Icon(
-                                  Icons.edit,
-                                  color: Colors.white,
+                                child: Container(
+                                  padding: const EdgeInsets.all(AppSize.cornerRadiusSmall),
+                                  decoration: const BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: Colors.white,
+                                  ),
+                                  child: const Icon(
+                                    Icons.edit,
+                                    size: AppSize.inset,
+                                    color: Colors.black,
+                                  ),
                                 ),
                               ),
-                              IconButton(
-                                onPressed: () {},
-                                icon: Icon(Icons.delete),
+                              const SizedBox(width: AppSize.cornerRadiusMedium),
+                              GestureDetector(
+                                onTap: () {
+                                  context.read<AdminDashboardBloc>().add(DeleteLocation(location));
+                                },
+                                child: Container(
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 6,
+                                    horizontal: AppSize.cornerRadiusMedium,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: Colors.redAccent.withOpacity(0.2),
+                                  ),
+                                  child: const Icon(
+                                    Icons.delete,
+                                    color: Colors.red,
+                                    size: AppSize.inset,
+                                  ),
+                                ),
                               )
                             ],
-                          ),
-                        )
-                      ],
+                          )
+                        ],
+                      ),
                     );
                   },
                 ),
-                // Table(
-                //   border: const TableBorder(),
-                //   defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-                //   children: [
-                //     TableRow(children: [
-                //       Text(
-                //         "State",
-                //         style: theme.textTheme.titleMedium,
-                //       ),
-                //       Text(
-                //         "Neighborhood",
-                //         style: theme.textTheme.titleMedium,
-                //       ),
-                //       Text(
-                //         "Actions",
-                //         style: theme.textTheme.titleMedium,
-                //       )
-                //     ]),
-                //     makeRow(
-                //       theme,
-                //       state.locationList?.first.city ?? "",
-                //       state.locationList?.first.neighborhood ?? "",
-                //       () {},
-                //       () {},
-                //     ),
-                //     makeRow(
-                //       theme,
-                //       "Phrae",
-                //       "Amphoe Mueang",
-                //       () {},
-                //       () {},
-                //     ),
-                //     makeRow(
-                //       theme,
-                //       "Maha Sarakham",
-                //       "Kantharawichai ",
-                //       () {},
-                //       () {},
-                //     ),
-                //     makeRow(
-                //       theme,
-                //       "Kamphaeng Phet",
-                //       "Mueang Loei",
-                //       () {},
-                //       () {},
-                //     ),
-                //     makeRow(
-                //       theme,
-                //       "Kanchanaburi",
-                //       "Tha Li",
-                //       () {},
-                //       () {},
-                //     ),
-                //   ],
-                // ),
-                const SizedBox(height: AppSize.inset),
+                const SizedBox(height: AppSize.viewSpacing),
                 CustomButton(
                   backgroundColor: AppColors.primary,
                   title: "Add New Location",
@@ -165,33 +154,6 @@ class LocationView extends StatelessWidget {
           }
         },
       ),
-    );
-  }
-
-  TableRow makeRow(ThemeData theme, String id, String price, Function() onEdit, Function() onDelete) {
-    return TableRow(
-      children: [
-        Text(
-          id,
-          style: theme.textTheme.titleMedium,
-        ),
-        Text(
-          price,
-          style: theme.textTheme.titleMedium,
-        ),
-        Row(
-          children: [
-            IconButton(
-              onPressed: onEdit,
-              icon: Icon(Icons.edit),
-            ),
-            IconButton(
-              onPressed: onDelete,
-              icon: Icon(Icons.delete),
-            )
-          ],
-        ),
-      ],
     );
   }
 }

@@ -139,6 +139,7 @@ class UserUtilitiesRepositoryImpl implements UserUtilitiesRepository {
   @override
   Future<Either<Exception, List<PickupOrderResult>>> getOrderHistory(PaginationFilter filter) async {
     final query = {
+      "status": "pending",
       "page": filter.page,
       "pageSize": filter.pageSize,
     };
@@ -185,7 +186,7 @@ class UserUtilitiesRepositoryImpl implements UserUtilitiesRepository {
   //     return Left(error);
   //   }
   @override
-  Future<Either<Exception, String>> addOperator(Operator operatorInfo) async {
+  Future<Either<Exception, String>> addOperator(OperatorUser operatorInfo) async {
     final requestData = operatorInfo.toCreateOperator();
     final postBody = jsonEncode(requestData.toJson());
 

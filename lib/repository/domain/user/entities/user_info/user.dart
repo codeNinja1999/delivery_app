@@ -26,3 +26,9 @@ class DetailedUser {
     this.additionalInformation,
   });
 }
+
+class OperatorUser extends User {
+  final String password;
+  final String confirmPassword;
+  OperatorUser({required this.password, required this.confirmPassword, required super.personalInfo});
+}

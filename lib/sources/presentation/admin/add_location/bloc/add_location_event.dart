@@ -4,10 +4,7 @@ abstract class AddLocationEvent {}
 
 class GetLocation extends AddLocationEvent {}
 
-class SubmitLocation extends AddLocationEvent {
-  final CatalogFilter catalogFilter;
-  SubmitLocation(this.catalogFilter);
-}
+class SubmitLocation extends AddLocationEvent {}
 
 class CountryChanged extends AddLocationEvent {
   final String country;
@@ -19,12 +16,12 @@ class AddStateEvent extends AddLocationEvent {
   AddStateEvent(this.state);
 }
 
-class AddNeighborhoodEvent extends AddLocationEvent {
+class NeighborhoodChanged extends AddLocationEvent {
   final String neighborhood;
-  AddNeighborhoodEvent(this.neighborhood);
+  NeighborhoodChanged(this.neighborhood);
 }
 
-class AddCityEvent extends AddLocationEvent {
+class CityChanged extends AddLocationEvent {
   final String city;
-  AddCityEvent(this.city);
+  CityChanged(this.city);
 }

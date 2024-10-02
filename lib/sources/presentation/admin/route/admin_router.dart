@@ -6,7 +6,7 @@ import 'package:fresh_fold_delivery/sources/di/injector.dart';
 import 'package:fresh_fold_delivery/repository/repository.dart';
 import 'package:fresh_fold_delivery/sources/presentation/admin/operator_details/operator_details_page.dart';
 import 'package:fresh_fold_delivery/sources/presentation/admin/route/admin_route.dart';
-import 'package:fresh_fold_delivery/sources/presentation/admin/update_operator/update_operator.dart';
+import 'package:fresh_fold_delivery/sources/presentation/admin/add_operator/add_operator_page.dart';
 import '../add_location/add_location_page.dart';
 import '../add_location/bloc/add_location_bloc.dart';
 import '../add_service_price/add_service_price_page.dart';
@@ -18,7 +18,7 @@ import '../admin_profile/bloc/profile_bloc.dart';
 import '../operator_details/bloc/operator_details_bloc.dart';
 import '../operator_list/bloc/operator_list_bloc.dart';
 import '../operator_list/operator_list_page.dart';
-import '../update_operator/bloc/update_operator_bloc.dart';
+import '../add_operator/bloc/add_operator_bloc.dart';
 import '../user_details/bloc/user_details_bloc.dart';
 import '../user_details/user_details.dart';
 import '../user_list/bloc/user_list_bloc.dart';
@@ -52,9 +52,13 @@ class AdminRouter {
         );
 
       case AdminRoute.addServicePrice:
+        final args = tryCast<ServiceType>(settings.arguments);
+
+        final serviceBloc = sl<AddServicePriceBloc>();
+        serviceBloc.service = args;
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
-            create: (_) => sl<AddServicePriceBloc>(),
+            create: (_) => serviceBloc,
             child: const AddServicePricePage(),
           ),
         );
@@ -75,11 +79,11 @@ class AdminRouter {
           ),
         );
 
-      case AdminRoute.updateOperator:
+      case AdminRoute.addOperator:
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
-            create: (_) => sl<UpdateOperatorBloc>(),
-            child: const UpdateOperatorPage(),
+            create: (_) => sl<AddOperatorBloc>(),
+            child: const AddOperatorPage(),
           ),
         );
 

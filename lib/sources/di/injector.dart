@@ -21,7 +21,7 @@ import '../presentation/admin/admin_profile/bloc/profile_bloc.dart';
 import '../presentation/admin/bloc/admin_bloc.dart';
 import '../presentation/admin/operator_details/bloc/operator_details_bloc.dart';
 import '../presentation/admin/operator_list/bloc/operator_list_bloc.dart';
-import '../presentation/admin/update_operator/bloc/update_operator_bloc.dart';
+import '../presentation/admin/add_operator/bloc/add_operator_bloc.dart';
 import '../presentation/admin/user_details/bloc/user_details_bloc.dart';
 import '../presentation/admin/user_list/bloc/user_list_bloc.dart';
 import '../presentation/admin/user_update/bloc/user_update_bloc.dart';
@@ -110,7 +110,7 @@ void blocsInjection() {
   sl.registerFactory(() => AddServicePriceBloc(catalogRepository: sl()));
   sl.registerFactory(() => OperatorListBloc());
   sl.registerFactory(() => OperatorDetailsBloc());
-  sl.registerFactory(() => UpdateOperatorBloc());
+  sl.registerFactory(() => AddOperatorBloc(userUtilitiesRepository: sl()));
   sl.registerFactory(() => UserListBloc());
   sl.registerFactory(() => UserDetailsBloc());
   sl.registerFactory(() => UserUpdateBloc());

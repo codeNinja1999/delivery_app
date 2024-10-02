@@ -13,7 +13,7 @@ class AppServiceEndpoints {
   static const getDetails = "auth/me";
 
   static const location = "locations";
-  static const service = "laundry/services";
+  static const fetchService = "laundry/services";
 
   static const userUpdate = "admin/user";
   static const verifyPendingOrder = "admin/dashboard/pending-confirmations/:id/verify";
@@ -22,10 +22,10 @@ class AppServiceEndpoints {
   static const createOperator = "admin/operator";
   static const createLocation = "admin/location/create";
   static const updateLocation = "admin/location/";
-  static const deleteLocation = "admin/location/1";
+  static const deleteLocation = "admin/location/";
   static const fetchServiceType = "admin/dashboard/services";
-  static const updateService = "admin/service/3";
-  static const deleteService = "admin/service/1";
+  static const updateService = "admin/service/";
+  static const deleteService = "admin/service/";
   static const createService = "admin/service/create";
   static const getAllUser = "admin/dashboard/users";
   static const getAllOperator = "admin/dashboard/operators";

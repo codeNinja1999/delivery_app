@@ -2,9 +2,11 @@ part of 'add_service_price_bloc.dart';
 
 abstract class AddServicePriceEvent {}
 
-class ServiceTypeChanged extends AddServicePriceEvent {
-  final String serviceType;
-  ServiceTypeChanged(this.serviceType);
+class GetServiceType extends AddServicePriceEvent {}
+
+class ServiceNameChanged extends AddServicePriceEvent {
+  final String serviceName;
+  ServiceNameChanged(this.serviceName);
 }
 
 class PriceChanged extends AddServicePriceEvent {
@@ -12,7 +14,4 @@ class PriceChanged extends AddServicePriceEvent {
   PriceChanged(this.price);
 }
 
-class SubmitService extends AddServicePriceEvent {
-  final CatalogFilter catalogFilter;
-  SubmitService(this.catalogFilter);
-}
+class SubmitService extends AddServicePriceEvent {}

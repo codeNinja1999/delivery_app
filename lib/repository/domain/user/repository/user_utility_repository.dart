@@ -22,7 +22,7 @@ abstract class UserUtilitiesRepository {
   Future<Either<Exception, List<NotificationData>>> getUserNotification();
 
   Future<Either<Exception, String?>> deleteOperator(String operatorId);
-  Future<Either<Exception, String?>> addOperator(Operator operatorInfo);
+  Future<Either<Exception, String?>> addOperator(OperatorUser operatorInfo);
   Future<Either<Exception, String?>> updateOperator(Operator operatorInfo);
   Future<Either<Exception, List<DetailedOperator>>> getOperatorList(PaginationFilter filter);
   // Future<Either<Exception, DetailedUser>> updateUserInfo(UserUpdateInfo data);
