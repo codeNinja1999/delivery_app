@@ -1,5 +1,4 @@
 class AppServiceEndpoints {
-  static const generateKey = "common/session-id";
   static const login = "auth/login";
   static const logout = "auth/logout";
   static const resendOtp = "auth/resend-otp";
@@ -19,7 +18,7 @@ class AppServiceEndpoints {
   static const verifyPendingOrder = "admin/dashboard/pending-confirmations/:id/verify";
   static const getAllPendingOrder = "admin/dashboard/pending-confirmations";
   static const fetchLocation = "admin/dashboard/locations";
-  static const createOperator = "admin/operator";
+  static const registerOperator = "admin/operator";
   static const createLocation = "admin/location/create";
   static const updateLocation = "admin/location/";
   static const deleteLocation = "admin/location/";

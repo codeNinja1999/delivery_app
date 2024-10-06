@@ -41,8 +41,8 @@ class AddLocationBloc extends Bloc<AddLocationEvent, AddLocationState> {
   _onSubmitLocation(SubmitLocation event, Emitter<AddLocationState> emit) async {
     emit(state.copyWith(status: InProgress()));
     final response = (state.locationId != "")
-        ? await catalogRepository.updateLocation(state.makeData())
-        : await catalogRepository.addLocation(state.makeData());
+        ? await catalogRepository.updateLocation(state.getData)
+        : await catalogRepository.addLocation(state.getData);
     response.fold(
       (error) => emit(state.copyWith(status: SubmissionFailure(error))),
       (right) => emit(state.copyWith(status: SubmissionSuccess())),

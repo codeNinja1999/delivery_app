@@ -80,9 +80,13 @@ class AdminRouter {
         );
 
       case AdminRoute.addOperator:
+        final args = tryCast<DetailedUser>(settings.arguments);
+
+        final operatorBloc = sl<AddOperatorBloc>();
+        operatorBloc.detailedUser = args;
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
-            create: (_) => sl<AddOperatorBloc>(),
+            create: (_) => operatorBloc,
             child: const AddOperatorPage(),
           ),
         );

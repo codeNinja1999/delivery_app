@@ -1,5 +1,6 @@
-import 'package:fresh_fold_delivery/repository/data/user_utility/model/update_user_info/update_user_info.dart';
 import 'package:fresh_fold_delivery/repository/domain/user/entities/user_info/user.dart';
+
+import '../model/update_user_info/update_user_info_request_model.dart';
 
 extension UpdateUserProfileRequestDataMapping on User {
   UserUpdateRequestModel toUpdateUserProfile() {

@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:fresh_fold_delivery/repository/data/core/core.dart';
 import 'package:fresh_fold_delivery/repository/data/user/repository/mapping/user_registration_request_mapping.dart';
+import 'package:fresh_fold_delivery/repository/domain/user/entities/registration/operator_registration_info.dart';
 import 'package:fresh_fold_delivery/repository/repository.dart';
 
 import '../models/registration/user_registration_response_model.dart';
@@ -21,6 +22,20 @@ class UserRegistrationRepositoryImpl implements UserRegistrationRepository {
       final responseData = UserRegistrationResponseModel.fromJson(response.asMap ?? {});
 
       return Right(responseData.toString());
+    } on Exception catch (error) {
+      return Left(error);
+    }
+  }
+  @override
+  Future<Either<Exception, String>> registerOperator(OperatorRegistrationInfo registrationInfo) async {
+    final requestData = registrationInfo.toRegisterOperator();
+    final postBody = jsonEncode(requestData.toJson());
+
+    try {
+      final _ = await networkClient.patch(AppServiceEndpoints.registerOperator, body: postBody);
+      // final responseData = UserRegistrationResponseModel.fromJson(response.asMap ?? {});
+
+      return Right("Success");
     } on Exception catch (error) {
       return Left(error);
     }

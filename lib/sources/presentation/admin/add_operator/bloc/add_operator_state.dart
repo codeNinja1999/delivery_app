@@ -1,10 +1,7 @@
 part of 'add_operator_bloc.dart';
 
 class AddOperatorState extends Equatable {
-  final String firstName;
-  final String middleName;
-  final String lastName;
-  final String address;
+  final String fullName;
   final String phoneNumber;
   final String emailAddress;
   final String password;
@@ -12,10 +9,7 @@ class AddOperatorState extends Equatable {
   final FormStatus status;
 
   AddOperatorState({
-    this.firstName = "",
-    this.middleName = "",
-    this.lastName = "",
-    this.address = "",
+    this.fullName = "",
     this.phoneNumber = "",
     this.emailAddress = "",
     this.password = "",
@@ -23,7 +17,7 @@ class AddOperatorState extends Equatable {
     status,
   }) : status = (status != null) ? status : InitialStatus();
 
-  OperatorUser get getData => _makeData();
+  OperatorRegistrationInfo get getData => _makeData();
 
   String? get emailValidation =>
       (AppRegex.email.hasMatch(emailAddress)) || emailAddress == "" ? null : LocaleKeys.emailAddressErrorMessage.value;
@@ -34,14 +28,12 @@ class AddOperatorState extends Equatable {
       : LocaleKeys.passwordErrorMessage.value;
   String? get confirmPasswordValidation =>
       (confirmPassword != password) ? LocaleKeys.confirmPasswordErrorMessage.value : null;
-  String? get addressValidation => (address != "") ? null : LocaleKeys.addressErrorMessage.value;
+  String? get fullNameValidation => (fullName != "") ? null : LocaleKeys.fullNameErrorMessage.value;
   String? get phoneNumberValidation => (phoneNumber != "") ? null : LocaleKeys.phoneNumberErrorMessage.value;
 
   AddOperatorState copyWith({
-    String? firstName,
-    String? middleName,
-    String? lastName,
-    String? address,
+    String? fullName,
+    String? userName,
     String? phoneNumber,
     String? emailAddress,
     String? password,
@@ -49,10 +41,7 @@ class AddOperatorState extends Equatable {
     FormStatus? status,
   }) {
     final state = AddOperatorState(
-      firstName: firstName ?? this.firstName,
-      middleName: middleName ?? this.middleName,
-      lastName: lastName ?? this.lastName,
-      address: address ?? this.address,
+      fullName: fullName ?? this.fullName,
       phoneNumber: phoneNumber ?? this.phoneNumber,
       emailAddress: emailAddress ?? this.emailAddress,
       password: password ?? this.password,
@@ -62,27 +51,36 @@ class AddOperatorState extends Equatable {
     return state;
   }
 
-  OperatorUser _makeData() {
-    return OperatorUser(
+  OperatorRegistrationInfo _makeData() {
+    List<String> nameParts = fullName.trim().split(" ");
+    String? firstName = "";
+    String? middleName = "";
+    String? lastName = "";
+
+    if (nameParts.length == 1) {
+      firstName = fullName;
+    } else if (nameParts.length == 2) {
+      firstName = nameParts[0];
+      lastName = nameParts[1];
+    } else if (nameParts.length >= 3) {
+      firstName = nameParts[0];
+      middleName = nameParts.sublist(1, nameParts.length - 1).join(' ');
+      lastName = nameParts.last;
+    }
+    return OperatorRegistrationInfo(
+      firstName: firstName,
+      middleName: middleName,
+      lastName: lastName,
+      email: emailAddress,
+      phoneNumber: phoneNumber,
       password: password,
       confirmPassword: confirmPassword,
-      personalInfo: UserPersonalInfo(
-        firstName: firstName,
-        middleName: middleName,
-        lastName: lastName,
-        phoneNumber: phoneNumber,
-        userName: middleName != "" ? '$firstName $middleName $lastName' : '$firstName $lastName',
-        fullName: middleName != "" ? '$firstName $middleName $lastName' : '$firstName $lastName',
-      ),
     );
   }
 
   @override
   List<Object> get props => [
-        firstName,
-        middleName,
-        lastName,
-        address,
+        fullName,
         phoneNumber,
         emailAddress,
         password,

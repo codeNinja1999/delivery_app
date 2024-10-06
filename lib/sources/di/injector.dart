@@ -110,7 +110,7 @@ void blocsInjection() {
   sl.registerFactory(() => AddServicePriceBloc(catalogRepository: sl()));
   sl.registerFactory(() => OperatorListBloc());
   sl.registerFactory(() => OperatorDetailsBloc());
-  sl.registerFactory(() => AddOperatorBloc(userUtilitiesRepository: sl()));
+  sl.registerFactory(() => AddOperatorBloc(userUtilitiesRepository: sl(), userRegistrationRepository: sl()));
   sl.registerFactory(() => UserListBloc());
   sl.registerFactory(() => UserDetailsBloc());
   sl.registerFactory(() => UserUpdateBloc());

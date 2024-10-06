@@ -7,7 +7,7 @@ import '../../common/model/pagination_filter.dart';
 import '../../pickup_order/pickup_order.dart';
 import '../../pickup_order/pickup_order_result.dart';
 import '../entities/analytic_data_info.dart';
-import '../entities/operator/operator_entities.dart';
+import '../entities/registration/operator_registration_info.dart';
 
 abstract class UserUtilitiesRepository {
   clearSavedUser();
@@ -21,9 +21,8 @@ abstract class UserUtilitiesRepository {
   Future<Either<Exception, List<PickupOrderResult>>> getOrderHistory(PaginationFilter filter);
   Future<Either<Exception, List<NotificationData>>> getUserNotification();
 
-  Future<Either<Exception, String?>> deleteOperator(String operatorId);
-  Future<Either<Exception, String?>> addOperator(OperatorUser operatorInfo);
-  Future<Either<Exception, String?>> updateOperator(Operator operatorInfo);
-  Future<Either<Exception, List<DetailedOperator>>> getOperatorList(PaginationFilter filter);
+  Future<Either<Exception, String?>> deleteOperator(DetailedUser operator);
+  Future<Either<Exception, String?>> updateOperator(OperatorRegistrationInfo operator);
+  Future<Either<Exception, List<DetailedUser>>> getOperatorList(PaginationFilter filter);
   // Future<Either<Exception, DetailedUser>> updateUserInfo(UserUpdateInfo data);
 }

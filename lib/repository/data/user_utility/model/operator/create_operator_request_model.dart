@@ -1,26 +1,26 @@
-class CreateOperatorRequestModel {
-  final String? fullName;
-  final String? address;
-  final String? password;
-  final String? confirmPassword;
-  final String? emailAddress;
-  final String? phoneNumber;
+// class OperatorRequestModel {
+//   final String? firstName;
+//   final String? lastName;
+//   final String? password;
+//   final String? confirmPassword;
+//   final String? phoneCode;
+//   final String? phoneNumber;
 
-  CreateOperatorRequestModel({
-    this.fullName,
-    this.address,
-    this.password,
-    this.confirmPassword,
-    this.emailAddress,
-    this.phoneNumber,
-  });
+//   OperatorRequestModel({
+//     this.firstName,
+//     this.lastName,
+//     this.password,
+//     this.confirmPassword,
+//     this.phoneCode,
+//     this.phoneNumber,
+//   });
 
-  Map<String, dynamic> toJson() => {
-        "full_name": fullName,
-        "location": address,
-        "password": password,
-        "confirm_password": confirmPassword,
-        "email_address": emailAddress,
-        "phone_number": phoneNumber,
-      };
-}
+//   Map<String, dynamic> toJson() => {
+//         "first_name": firstName,
+//         "last_name": lastName,
+//         "password": password,
+//         "confirm_password": confirmPassword,
+//         "phone_code": phoneCode,
+//         "phone_number": phoneNumber,
+//       };
+// }

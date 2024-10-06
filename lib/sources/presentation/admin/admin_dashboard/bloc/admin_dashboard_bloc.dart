@@ -5,7 +5,7 @@ import 'package:fresh_fold_delivery/sources/core/app_core.dart';
 import 'package:fresh_fold_delivery/repository/domain/domain.dart';
 
 import '../../../../../repository/domain/user/entities/analytic_data_info.dart';
-import '../../../../../repository/domain/user/entities/operator/operator_entities.dart';
+
 
 part 'admin_dashboard_event.dart';
 part 'admin_dashboard_state.dart';

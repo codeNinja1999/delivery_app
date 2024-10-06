@@ -8,6 +8,7 @@ class UserContactInfo {
   final String? unitNumber;
   final String? address;
   final String? city;
+  final String? country;
   final String? neighborhood;
   final String? houseNumber;
   final String? dropboxNumber;
@@ -21,6 +22,7 @@ class UserContactInfo {
     this.longitude,
     this.address,
     this.city,
+    this.country,
     this.neighborhood,
     this.createdTime,
     this.postalCode,

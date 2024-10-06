@@ -4,8 +4,8 @@ class AdminDashboardState extends Equatable {
   final bool isPickupOrder;
   final DetailedUser? userInfo;
   final List<DetailedUser>? userList;
-  final List<DetailedOperator>? operatorList;
-  final DetailedOperator? operatorInfo;
+  final List<DetailedUser>? operatorList;
+  final DetailedUser? operatorInfo;
   final List<Location>? locationList;
   final AnalyticDataInfo? analyticsInfo;
   final List<ServiceType>? serviceTypeList;
@@ -27,8 +27,8 @@ class AdminDashboardState extends Equatable {
     bool? isPickupOrder,
     DetailedUser? userInfo,
     List<DetailedUser>? userList,
-    List<DetailedOperator>? operatorList,
-    DetailedOperator? operatorInfo,
+    List<DetailedUser>? operatorList,
+    DetailedUser? operatorInfo,
     List<Location>? locationList,
     AnalyticDataInfo? analyticsInfo,
     List<ServiceType>? serviceTypeList,

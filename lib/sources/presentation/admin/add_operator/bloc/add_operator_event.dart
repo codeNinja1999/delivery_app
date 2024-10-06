@@ -4,19 +4,11 @@ abstract class AddOperatorEvent {}
 
 class SubmitOperator extends AddOperatorEvent {}
 
-class FirstNameChanged extends AddOperatorEvent {
-  final String firstName;
-  FirstNameChanged(this.firstName);
-}
+class GetOperator extends AddOperatorEvent {}
 
-class MiddleNameChanged extends AddOperatorEvent {
-  final String firstName;
-  MiddleNameChanged(this.firstName);
-}
-
-class LastNameChanged extends AddOperatorEvent {
-  final String lastName;
-  LastNameChanged(this.lastName);
+class FullNameChanged extends AddOperatorEvent {
+  final String fullName;
+  FullNameChanged(this.fullName);
 }
 
 class EmailAddressChanged extends AddOperatorEvent {
@@ -28,12 +20,6 @@ class PhoneNumberChanged extends AddOperatorEvent {
   final String phoneNumber;
   PhoneNumberChanged({required this.phoneNumber});
 }
-
-// class UpdateEmailAddress extends AddOperatorEvent {
-//   final String emailAddress;
-
-//   UpdateEmailAddress({required this.emailAddress});
-// }
 
 class PasswordChanged extends AddOperatorEvent {
   final String password;

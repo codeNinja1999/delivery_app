@@ -72,12 +72,12 @@ class OperatorView extends StatelessWidget {
                             children: [
                               Expanded(
                                   child: Text(
-                                operator?.fullName ?? "",
+                                operator?.personalInfo?.fullName ?? "",
                                 style: theme.textTheme.titleMedium,
                               )),
                               Expanded(
                                 child: Text(
-                                  operator?.phoneNumber ?? "",
+                                  operator?.contactInfo?.mobileNumber ?? "",
                                   style: theme.textTheme.titleMedium,
                                   textAlign: TextAlign.end,
                                 ),
@@ -91,14 +91,12 @@ class OperatorView extends StatelessWidget {
                             children: [
                               Expanded(
                                   child: Text(
-                                "Neighbourhood",
+                                "Email",
                                 style: theme.textTheme.bodySmall,
                               )),
                               Expanded(
                                 child: Text(
-                                  (operator?.neighborhood != null)
-                                      ? "${operator?.neighborhood} ${operator?.postalCode ?? ""}"
-                                      : "",
+                                  operator?.contactInfo?.emailAddress ?? "",
                                   style: theme.textTheme.bodySmall,
                                   textAlign: TextAlign.end,
                                 ),
@@ -106,24 +104,24 @@ class OperatorView extends StatelessWidget {
                             ],
                           ),
                           const SizedBox(height: AppSize.inset),
-                          Row(
-                            textBaseline: TextBaseline.alphabetic,
-                            crossAxisAlignment: CrossAxisAlignment.baseline,
-                            children: [
-                              Expanded(
-                                  child: Text(
-                                "Type",
-                                style: theme.textTheme.bodySmall,
-                              )),
-                              Expanded(
-                                child: Text(
-                                  "Pickup",
-                                  style: theme.textTheme.bodySmall,
-                                  textAlign: TextAlign.end,
-                                ),
-                              ),
-                            ],
-                          ),
+                          // Row(
+                          //   textBaseline: TextBaseline.alphabetic,
+                          //   crossAxisAlignment: CrossAxisAlignment.baseline,
+                          //   children: [
+                          //     Expanded(
+                          //         child: Text(
+                          //       "Type",
+                          //       style: theme.textTheme.bodySmall,
+                          //     )),
+                          //     Expanded(
+                          //       child: Text(
+                          //         "Pickup",
+                          //         style: theme.textTheme.bodySmall,
+                          //         textAlign: TextAlign.end,
+                          //       ),
+                          //     ),
+                          //   ],
+                          // ),
                           // const SizedBox(height: AppSize.inset),
                           // CustomButton(backgroundColor: AppColors.primary, title: "View Details", onPressed: () {
 
@@ -137,7 +135,12 @@ class OperatorView extends StatelessWidget {
             },
           ),
           const SizedBox(height: AppSize.viewSpacing),
-          CustomButton(backgroundColor: AppColors.primary, title: "Add New Operator", onPressed: () {}),
+          CustomButton(
+              backgroundColor: AppColors.primary,
+              title: "Add New Operator",
+              onPressed: () {
+                Navigator.of(context).pushNamed(AdminRoute.addOperator);
+              }),
           const SizedBox(height: AppSize.inset),
         ],
       ),

@@ -13,6 +13,8 @@ class AddLocationState extends Equatable {
   String? get cityValidation => (city != "") ? null : LocaleKeys.cityErrorMessage.value;
   String? get neighborhoodValidation => (neighborhood != "") ? null : LocaleKeys.neighbourhoodErrorMessage.value;
 
+  CatalogFilter get getData => _makeData();
+
   AddLocationState({
     this.state = "",
     this.city = "",
@@ -43,7 +45,7 @@ class AddLocationState extends Equatable {
     );
   }
 
-  CatalogFilter makeData() {
+  CatalogFilter _makeData() {
     return CatalogFilter(
       id: locationId,
       city: city,

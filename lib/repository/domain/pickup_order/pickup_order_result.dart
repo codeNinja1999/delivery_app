@@ -1,4 +1,4 @@
-import '../user/entities/operator/operator_entities.dart';
+import '../user/entities/user_info/user.dart';
 
 class PickupOrderResult {
   final int? id;
@@ -20,7 +20,7 @@ class PickupOrderResult {
   final bool? isSanitary;
   final bool? containsPetHair;
   final DateTime? createdAt;
-  final DetailedOperator? operator;
+  final DetailedUser? operator;
   final PickupLocation? pickupLocation;
   final List<Service>? services;
   final List<OrderPayment>? orderPayments;

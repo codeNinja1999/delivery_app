@@ -1,29 +1,29 @@
 import 'dart:convert';
 import 'dart:core';
-import 'package:either_dart/either.dart';
-import 'package:fresh_fold_delivery/repository/data/core/core.dart';
-import 'package:fresh_fold_delivery/repository/data/user/data_store/user_credential_data.dart';
-import 'package:fresh_fold_delivery/repository/data/user_utility/mapping/analytics_data_mapping.dart';
-import 'package:fresh_fold_delivery/repository/data/user_utility/mapping/create_laundry_request.dart';
-import 'package:fresh_fold_delivery/repository/data/user_utility/mapping/create_operator_request_mapping.dart';
-import 'package:fresh_fold_delivery/repository/data/user_utility/mapping/update_operator_request_mapping.dart';
-import 'package:fresh_fold_delivery/repository/data/user_utility/mapping/update_user_profile_request_mapping.dart';
-import 'package:fresh_fold_delivery/repository/data/user_utility/mapping/user_utility_data_mapping.dart';
-import 'package:fresh_fold_delivery/repository/data/user_utility/model/analytics_data_response_model.dart';
-import 'package:fresh_fold_delivery/repository/domain/user/entities/user_info/user.dart';
-import 'package:fresh_fold_delivery/repository/domain/user/entities/notification/notification_data.dart';
-import 'package:fresh_fold_delivery/repository/domain/user/repository/user_utility_repository.dart';
+
+import 'package:fresh_fold_delivery/repository/data/user/repository/mapping/user_registration_request_mapping.dart';
 import 'package:network/network.dart';
 import 'package:rxdart/subjects.dart';
+import 'package:either_dart/either.dart';
 
+import 'package:fresh_fold_delivery/repository/data/core/core.dart';
+import '../../../data/user_utility/mapping/analytics_data_mapping.dart';
+import '../../../data/user_utility/mapping/create_laundry_request.dart';
+import '../../../data/user_utility/mapping/update_user_profile_request_mapping.dart';
+import '../../../data/user_utility/mapping/user_utility_data_mapping.dart';
 import '../../../domain/common/model/date_filter.dart';
 import '../../../domain/common/model/pagination_filter.dart';
 import '../../../domain/pickup_order/pickup_order.dart';
 import '../../../domain/pickup_order/pickup_order_result.dart';
 import '../../../domain/user/entities/analytic_data_info.dart';
-import '../../../domain/user/entities/operator/operator_entities.dart';
+import '../../../domain/user/entities/notification/notification_data.dart';
+import '../../../domain/user/entities/registration/operator_registration_info.dart';
+import '../../../domain/user/entities/user_info/user.dart';
+import '../../../domain/user/repository/user_utility_repository.dart';
+import '../../user/data_store/user_credential_data.dart';
 import '../mapping/operator_list_mapping.dart';
 import '../mapping/order_history_data_mapping.dart';
+import '../model/analytics_data_response_model.dart';
 import '../model/get_userinfo/get_userinfo_reponse_model.dart';
 import '../mapping/user_list_mapping.dart';
 
@@ -186,22 +186,7 @@ class UserUtilitiesRepositoryImpl implements UserUtilitiesRepository {
   //     return Left(error);
   //   }
   @override
-  Future<Either<Exception, String>> addOperator(OperatorUser operatorInfo) async {
-    final requestData = operatorInfo.toCreateOperator();
-    final postBody = jsonEncode(requestData.toJson());
-
-    try {
-      final _ = await networkClient.patch(AppServiceEndpoints.register, body: postBody);
-      // final responseData = UserRegistrationResponseModel.fromJson(response.asMap ?? {});
-
-      return const Right("Success");
-    } on Exception catch (error) {
-      return Left(error);
-    }
-  }
-
-  @override
-  Future<Either<Exception, List<DetailedOperator>>> getOperatorList(PaginationFilter filter) async {
+  Future<Either<Exception, List<DetailedUser>>> getOperatorList(PaginationFilter filter) async {
     final query = {
       "page": filter.page,
       "pageSize": filter.pageSize,
@@ -217,15 +202,14 @@ class UserUtilitiesRepositoryImpl implements UserUtilitiesRepository {
     }
   }
 
+
   @override
-  Future<Either<Exception, String>> updateOperator(Operator operatorInfo) async {
-    final requestData = operatorInfo.toUpdateOperator();
+  Future<Either<Exception, String>> updateOperator(OperatorRegistrationInfo operatorInfo) async {
+    final requestData = operatorInfo.toRegisterOperator();
     final postBody = jsonEncode(requestData.toJson());
 
     try {
-      final _ = await networkClient.patch(AppServiceEndpoints.register, body: postBody);
-      // final responseData = UserRegistrationResponseModel.fromJson(response.asMap ?? {});
-
+      final _ = await networkClient.patch(AppServiceEndpoints.registerOperator, body: postBody);
       return const Right("Success");
     } on Exception catch (error) {
       return Left(error);
@@ -233,7 +217,7 @@ class UserUtilitiesRepositoryImpl implements UserUtilitiesRepository {
   }
 
   @override
-  Future<Either<Exception, String>> deleteOperator(String operatorId) async {
+  Future<Either<Exception, String>> deleteOperator(DetailedUser detailedUser) async {
     // final requestData = registrationInfo.toRegisterUser();
     // final postBody = jsonEncode(requestData.toJson());
 
