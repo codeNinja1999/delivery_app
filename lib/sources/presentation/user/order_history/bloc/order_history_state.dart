@@ -5,13 +5,13 @@ class OrderHistoryState extends Equatable {
   final int pageNumber;
   final bool paginationEnd;
   final FormStatus status;
-  final List<PickupOrderResult>? orderList;
+  final List<PickupOrderResult?> orderList;
   final FormStatus paginationStatus;
 
   OrderHistoryState({
     this.transactionId,
     this.pageNumber = 1,
-    this.orderList,
+    this.orderList = const [],
     this.paginationEnd = false,
     paginationStatus,
     status,

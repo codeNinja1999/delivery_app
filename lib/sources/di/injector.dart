@@ -101,7 +101,7 @@ void blocsInjection() {
   sl.registerFactory(() => OperatorDashBoardBloc(userUtilitiesRepository: sl()));
   sl.registerFactory(() => OperatorProfileBloc(userUtilitiesRepository: sl()));
   sl.registerFactory(() => PickupOrderBloc());
-  sl.registerFactory(() => OperatorHistoryBloc());
+  sl.registerFactory(() => OperatorHistoryBloc(userUtilitiesRepository: sl()));
 
   //admin
   sl.registerFactory(() => AdminBloc());

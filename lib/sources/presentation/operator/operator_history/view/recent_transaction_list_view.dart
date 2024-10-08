@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:fresh_fold_delivery/repository/domain/pickup_order/pickup_order_result.dart';
 
 import 'package:fresh_fold_delivery/sources/core/app_core.dart';
 import 'package:fresh_fold_delivery/sources/resources/resources.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class RecentOrderHistoryListView extends StatelessWidget {
-  const RecentOrderHistoryListView({super.key, this.onTap});
+  const RecentOrderHistoryListView({super.key, this.onTap, this.data});
   final Function()? onTap;
+  final PickupOrderResult? data;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +35,7 @@ class RecentOrderHistoryListView extends StatelessWidget {
             children: [
               ListItemView(
                 title: "08 Feb 2024",
-                value: "฿2200",
+                value: "\$${data?.orderPayments?[0].paidPrice}",
                 titleTextStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w700),
                 valueTextStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w700),
               ),
@@ -52,22 +55,22 @@ class RecentOrderHistoryListView extends StatelessWidget {
               const SizedBox(height: AppSize.inset),
               ListItemView(
                 title: LocaleKeys.typeOfService.value,
-                value: "Regular wash",
+                value: data?.services?[0].name,
               ),
               const SizedBox(height: AppSize.inset),
               ListItemView(
                 title: LocaleKeys.weightOfLaundry.value,
-                value: "12kg",
+                value: "${data?.actualWeightInKg}kg",
               ),
               const SizedBox(height: AppSize.inset),
               ListItemView(
                 title: LocaleKeys.pickupAddress.value,
-                value: "Phuket, Ban Tawan, 1415 Unit Near ABC Bus Stand ",
+                value: "${data?.pickupLocation?.city} ${data?.pickupLocation?.neighbourhood}",
               ),
               const SizedBox(height: AppSize.inset),
               ListItemView(
                 title: LocaleKeys.deliveryDateAndTime.value,
-                value: "10 Feb 2024, 8-9AM",
+                value: (data?.pickupTimeFrom != null) ? DateFormat('yyyy-MM-dd').format(data!.pickupTimeFrom!) : "",
               ),
             ],
           )),

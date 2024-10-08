@@ -19,16 +19,14 @@ class _OperatorHistoryViewState extends State<OperatorHistoryView> {
   @override
   void initState() {
     super.initState();
-    // _scrollController.addListener(_loadMoreData);
+    _scrollController.addListener(_loadMoreData);
   }
 
   void _loadMoreData() {
     if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent) {
-      // User has reached the end of the list
-      // Load more data or trigger pagination in flutter
       final mainBloc = context.read<OperatorHistoryBloc>();
       if (!mainBloc.state.paginationEnd) {
-        mainBloc.add(GetTransactionList(mainBloc.state.pageNumber + 1, false));
+        mainBloc.add(GetOrderHistory(mainBloc.state.pageNumber + 1));
       }
     }
   }
@@ -62,27 +60,15 @@ class OrderHistoryListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final theme = Theme.of(context);
-    return
-       RefreshIndicator(
-        onRefresh: () async {},
-        child: BlocBuilder<OperatorHistoryBloc, OperatorHistoryState>(
-          buildWhen: (previous, current) =>
-              previous.status != current.status || previous.paginationStatus != current.paginationStatus,
-          builder: (context, state) {
-            // if (state.status is InProgress) {
-            // return Skeleton.fromColors(
-            //   baseColor: theme.highlightColor.withOpacity(0.3),
-            //   highlightColor: theme.highlightColor.withOpacity(0.1),
-            //   enabled: true,
-            //   child: ListView.builder(
-            //     padding: EdgeInsets.zero,
-            //     itemCount: 5,
-            //     itemBuilder: (context, index) => const RecentOrderHistoryListView(),
-            //   ),
-            // );
-            // // } else {
-            // //   if (state.transactionList.isNotEmpty) {
+    return RefreshIndicator(
+      onRefresh: () async {
+        context.read<OperatorHistoryBloc>().add(GetOrderHistory(1));
+      },
+      child: BlocBuilder<OperatorHistoryBloc, OperatorHistoryState>(
+        buildWhen: (previous, current) =>
+            previous.status != current.status || previous.paginationStatus != current.paginationStatus,
+        builder: (context, state) {
+          if (state.orderList.isNotEmpty) {
             return SizedBox.expand(
               child: SingleChildScrollView(
                 controller: scrollController,
@@ -97,18 +83,11 @@ class OrderHistoryListView extends StatelessWidget {
                       separatorBuilder: (context, index) => const SizedBox(height: AppSize.viewMargin),
                       physics: const NeverScrollableScrollPhysics(),
                       itemBuilder: (context, index) {
-                        // final menuItem = state.transactionList[index];
-                        // return menuItem.itemType == RemittanceMenuItemType.heading
-                        //     ? RecentTransactionHeaderView(title: menuItem.date)
-                        //     :
-                        return const RecentOrderHistoryListView(
-                            // data: state.transactionList[index],
-                            // onTap: () {
-                            //   context.read<OperatorHistoryBloc>().add(
-                            //         ValidateTransactionId(state.transactionList[index].transactionId ?? ""),
-                            //       );
-                            // },
-                            );
+                        final pickUpOrder = state.orderList[index];
+
+                        return RecentOrderHistoryListView(
+                          data: pickUpOrder,
+                        );
                       },
                     ),
                     (state.paginationStatus is InProgress) ? const CupertinoActivityIndicator() : Container(),
@@ -122,37 +101,13 @@ class OrderHistoryListView extends StatelessWidget {
                 ),
               ),
             );
-            //   } else {
-            //     return SingleChildScrollView(
-            //       physics: const AlwaysScrollableScrollPhysics(),
-            //       child: Container(
-            //         height: MediaQuery.of(context).size.height * 0.6,
-            //         alignment: Alignment.center,
-            //         child: Column(
-            //           mainAxisAlignment: MainAxisAlignment.center,
-            //           crossAxisAlignment: CrossAxisAlignment.center,
-            //           mainAxisSize: MainAxisSize.min,
-            //           children: [
-            //             Image.asset(
-            //               AppImages.noBeneficiary,
-            //               height: AppSize.viewSpacing * 6,
-            //             ),
-            //             Padding(
-            //               padding: const EdgeInsets.only(top: AppSize.inset, bottom: AppSize.inset),
-            //               child: Text(
-            //                 LocaleKeys.noTransactionCreatedYet.value,
-            //                 style: theme.textTheme.bodyLarge,
-            //               ),
-            //             ),
-            //           ],
-            //         ),
-            //       ),
-            //     );
-            //   }
-            // }
-          },
-        ),
-      );
-
+          } else {
+            return const SizedBox.expand(
+              child: Text('No order yet'),
+            );
+          }
+        },
+      ),
+    );
   }
 }

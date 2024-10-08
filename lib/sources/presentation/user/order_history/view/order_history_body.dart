@@ -19,7 +19,7 @@ class _OrderHistoryBodyState extends State<OrderHistoryBody> {
   @override
   void initState() {
     super.initState();
-    // _scrollController.addListener(_loadMoreData);
+    _scrollController.addListener(_loadMoreData);
   }
 
   void _loadMoreData() {
@@ -62,93 +62,58 @@ class OrderHistoryListView extends StatelessWidget {
   Widget build(BuildContext context) {
     // final theme = Theme.of(context);
     return RefreshIndicator(
-      onRefresh: () async {},
+      onRefresh: () async {
+        context.read<OrderHistoryBloc>().add(GetOrderHistory(1));
+      },
       child: BlocBuilder<OrderHistoryBloc, OrderHistoryState>(
         buildWhen: (previous, current) =>
             previous.status != current.status ||
             previous.paginationStatus != current.paginationStatus ||
             previous.orderList != current.orderList,
         builder: (context, state) {
-          // if (state.status is InProgress) {
-          // return Skeleton.fromColors(
-          //   baseColor: theme.highlightColor.withOpacity(0.3),
-          //   highlightColor: theme.highlightColor.withOpacity(0.1),
-          //   enabled: true,
-          //   child: ListView.builder(
-          //     padding: EdgeInsets.zero,
-          //     itemCount: 5,
-          //     itemBuilder: (context, index) => const RecentOrderHistoryListView(),
-          //   ),
-          // );
-          // // } else {
-          // //   if (state.transactionList.isNotEmpty) {
-          return SizedBox.expand(
-            child: SingleChildScrollView(
-              controller: scrollController,
-              padding: const EdgeInsets.all(AppSize.viewMargin),
-              physics: const AlwaysScrollableScrollPhysics(),
-              child: Column(
-                children: [
-                  ListView.separated(
-                    shrinkWrap: true,
-                    padding: EdgeInsets.zero,
-                    itemCount: state.orderList?.length??0,
-                    separatorBuilder: (context, index) => const SizedBox(height: AppSize.viewMargin),
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemBuilder: (context, index) {
-                      final pickUpOrder = state.orderList?[index];
-                      // return menuItem.itemType == RemittanceMenuItemType.heading
-                      //     ? RecentTransactionHeaderView(title: menuItem.date)
-                      //     :
-                      return  RecentOrderHistoryListView(
+          if (state.orderList.isNotEmpty) {
+            return SizedBox.expand(
+              child: SingleChildScrollView(
+                controller: scrollController,
+                padding: const EdgeInsets.all(AppSize.viewMargin),
+                physics: const AlwaysScrollableScrollPhysics(),
+                child: Column(
+                  children: [
+                    ListView.separated(
+                      shrinkWrap: true,
+                      padding: EdgeInsets.zero,
+                      itemCount: state.orderList?.length ?? 0,
+                      separatorBuilder: (context, index) => const SizedBox(height: AppSize.viewMargin),
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemBuilder: (context, index) {
+                        final pickUpOrder = state.orderList?[index];
+
+                        return RecentOrderHistoryListView(
                           data: pickUpOrder,
                           // onTap: () {
                           //   context.read<OrderHistoryBloc>().add(
                           //         ValidateTransactionId(state.transactionList[index].transactionId ?? ""),
                           //       );
                           // },
-                          );
-                    },
-                  ),
-                  (state.paginationStatus is InProgress) ? const CupertinoActivityIndicator() : Container(),
-                  state.paginationEnd
-                      ? const Padding(
-                          padding: EdgeInsets.only(bottom: AppSize.cornerRadiusMedium),
-                          child: Text("No more data available"),
-                        )
-                      : const SizedBox(),
-                ],
+                        );
+                      },
+                    ),
+                    (state.paginationStatus is InProgress) ? const CupertinoActivityIndicator() : Container(),
+                    state.paginationEnd
+                        ? const Padding(
+                            padding: EdgeInsets.only(bottom: AppSize.cornerRadiusMedium),
+                            child: Text("No more data available"),
+                          )
+                        : const SizedBox(),
+                  ],
+                ),
               ),
-            ),
-          );
-          //   } else {
-          //     return SingleChildScrollView(
-          //       physics: const AlwaysScrollableScrollPhysics(),
-          //       child: Container(
-          //         height: MediaQuery.of(context).size.height * 0.6,
-          //         alignment: Alignment.center,
-          //         child: Column(
-          //           mainAxisAlignment: MainAxisAlignment.center,
-          //           crossAxisAlignment: CrossAxisAlignment.center,
-          //           mainAxisSize: MainAxisSize.min,
-          //           children: [
-          //             Image.asset(
-          //               AppImages.noBeneficiary,
-          //               height: AppSize.viewSpacing * 6,
-          //             ),
-          //             Padding(
-          //               padding: const EdgeInsets.only(top: AppSize.inset, bottom: AppSize.inset),
-          //               child: Text(
-          //                 LocaleKeys.noTransactionCreatedYet.value,
-          //                 style: theme.textTheme.bodyLarge,
-          //               ),
-          //             ),
-          //           ],
-          //         ),
-          //       ),
-          //     );
-          //   }
-          // }
+            );
+          } else {
+            return const SizedBox.expand(
+              child: Text('No order yet'),
+            );
+          }
         },
       ),
     );
