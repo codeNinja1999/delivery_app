@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:fresh_fold_delivery/sources/core/app_core.dart';
+import 'package:fresh_fold_delivery/sources/presentation/widgets/widgets.dart';
 import '../bloc/order_history_bloc.dart';
 import 'recent_transaction_list_view.dart';
 
@@ -60,7 +61,7 @@ class OrderHistoryListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final theme = Theme.of(context);
+    final theme = Theme.of(context);
     return RefreshIndicator(
       onRefresh: () async {
         context.read<OrderHistoryBloc>().add(GetOrderHistory(1));
@@ -71,7 +72,18 @@ class OrderHistoryListView extends StatelessWidget {
             previous.paginationStatus != current.paginationStatus ||
             previous.orderList != current.orderList,
         builder: (context, state) {
-          if (state.orderList.isNotEmpty) {
+          if (state.status is InProgress) {
+            return Skeleton.fromColors(
+              baseColor: theme.highlightColor.withOpacity(0.4),
+              highlightColor: theme.highlightColor.withOpacity(0.2),
+              enabled: true,
+              child: ListView.builder(
+                padding: EdgeInsets.zero,
+                itemCount: 7,
+                itemBuilder: (context, index) => const RecentOrderHistoryListView(),
+              ),
+            );
+          } else if (state.orderList.isNotEmpty) {
             return SizedBox.expand(
               child: SingleChildScrollView(
                 controller: scrollController,
@@ -82,26 +94,19 @@ class OrderHistoryListView extends StatelessWidget {
                     ListView.separated(
                       shrinkWrap: true,
                       padding: EdgeInsets.zero,
-                      itemCount: state.orderList?.length ?? 0,
+                      itemCount: state.orderList.length,
                       separatorBuilder: (context, index) => const SizedBox(height: AppSize.viewMargin),
                       physics: const NeverScrollableScrollPhysics(),
                       itemBuilder: (context, index) {
-                        final pickUpOrder = state.orderList?[index];
+                        final pickUpOrder = state.orderList[index];
 
-                        return RecentOrderHistoryListView(
-                          data: pickUpOrder,
-                          // onTap: () {
-                          //   context.read<OrderHistoryBloc>().add(
-                          //         ValidateTransactionId(state.transactionList[index].transactionId ?? ""),
-                          //       );
-                          // },
-                        );
+                        return RecentOrderHistoryListView(data: pickUpOrder);
                       },
                     ),
                     (state.paginationStatus is InProgress) ? const CupertinoActivityIndicator() : Container(),
                     state.paginationEnd
                         ? const Padding(
-                            padding: EdgeInsets.only(bottom: AppSize.cornerRadiusMedium),
+                            padding: EdgeInsets.symmetric(vertical: AppSize.cornerRadiusMedium),
                             child: Text("No more data available"),
                           )
                         : const SizedBox(),
@@ -110,9 +115,9 @@ class OrderHistoryListView extends StatelessWidget {
               ),
             );
           } else {
-            return const SizedBox.expand(
-              child: Text('No order yet'),
-            );
+            return const SingleChildScrollView(
+                physics: const AlwaysScrollableScrollPhysics(),
+                child: Center(child: SizedBox.expand(child: Text('No order yet'))));
           }
         },
       ),

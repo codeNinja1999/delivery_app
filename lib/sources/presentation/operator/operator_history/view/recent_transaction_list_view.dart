@@ -55,7 +55,7 @@ class RecentOrderHistoryListView extends StatelessWidget {
               const SizedBox(height: AppSize.inset),
               ListItemView(
                 title: LocaleKeys.typeOfService.value,
-                value: data?.services?[0].name,
+                value: data?.services?[0].value,
               ),
               const SizedBox(height: AppSize.inset),
               ListItemView(
@@ -65,7 +65,7 @@ class RecentOrderHistoryListView extends StatelessWidget {
               const SizedBox(height: AppSize.inset),
               ListItemView(
                 title: LocaleKeys.pickupAddress.value,
-                value: "${data?.pickupLocation?.city} ${data?.pickupLocation?.neighbourhood}",
+                value: "${data?.pickupLocation?.city} ${data?.pickupLocation?.neighborhood}",
               ),
               const SizedBox(height: AppSize.inset),
               ListItemView(

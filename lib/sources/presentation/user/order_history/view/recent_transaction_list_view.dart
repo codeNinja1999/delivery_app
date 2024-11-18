@@ -20,13 +20,8 @@ class RecentOrderHistoryListView extends StatelessWidget {
         splashColor: theme.colorScheme.shadow,
       ),
       child: Container(
-          padding: const EdgeInsets.only(
-            left: AppSize.inset,
-            top: AppSize.inset,
-            bottom: AppSize.inset,
-            right: AppSize.inset,
-          ),
-          // margin: const EdgeInsets.all(AppSize.viewMargin),
+          margin: const EdgeInsets.only(top: AppSize.cornerRadiusMedium),
+          padding: const EdgeInsets.all(AppSize.inset),
           decoration: BoxDecoration(
             color: theme.colorScheme.surfaceContainer,
             borderRadius: BorderRadius.circular(AppSize.inset),
@@ -35,15 +30,15 @@ class RecentOrderHistoryListView extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               ListItemView(
-                title: "08 Feb 2024",
+                title: (data?.createdAt != null) ? DateFormat('dd MMM yyyy').format(data!.createdAt!) : "",
                 value: "\$${data?.orderPayments?[0].paidPrice}",
                 titleTextStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w700),
                 valueTextStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w700),
               ),
-              const SizedBox(height: AppSize.inset),
+              const SizedBox(height: AppSize.cornerRadiusMedium),
               Row(
                 children: List.generate(
-                  20,
+                  (MediaQuery.of(context).size.width / 19).floor(),
                   (ii) => Padding(
                       padding: const EdgeInsets.only(right: 8),
                       child: Container(
@@ -53,25 +48,34 @@ class RecentOrderHistoryListView extends StatelessWidget {
                       )),
                 ),
               ),
-              const SizedBox(height: AppSize.inset),
+              const SizedBox(height: AppSize.cornerRadiusMedium),
               ListItemView(
                 title: LocaleKeys.typeOfService.value,
-                value: data?.services?[0].name,
+                value: data?.services?.map((service) => service.value).join(', '), // Concatenate services
               ),
-              const SizedBox(height: AppSize.inset),
+              const SizedBox(height: AppSize.cornerRadiusMedium),
               ListItemView(
                 title: LocaleKeys.weightOfLaundry.value,
                 value: "${data?.actualWeightInKg}kg",
               ),
-              const SizedBox(height: AppSize.inset),
+              (data?.pickupLocation?.city != null)
+                  ? Padding(
+                      padding: const EdgeInsets.only(top: AppSize.cornerRadiusMedium),
+                      child: ListItemView(
+                        title: LocaleKeys.pickupAddress.value,
+                        value: "${data?.pickupLocation?.city}, ${data?.pickupLocation?.neighborhood}",
+                      ),
+                    )
+                  : Container(),
+              const SizedBox(height: AppSize.cornerRadiusMedium),
               ListItemView(
-                title: LocaleKeys.pickupAddress.value,
-                value: "${data?.pickupLocation?.city} ${data?.pickupLocation?.neighbourhood}",
-              ),
-              const SizedBox(height: AppSize.inset),
-              ListItemView(
-                title: LocaleKeys.deliveryDateAndTime.value,
+                title: "Pickup Date",
                 value: (data?.pickupTimeFrom != null) ? DateFormat('yyyy-MM-dd').format(data!.pickupTimeFrom!) : "",
+              ),
+              const SizedBox(height: AppSize.cornerRadiusMedium),
+              ListItemView(
+                title: "Pickup status",
+                value: data?.status ?? "",
               ),
             ],
           )),

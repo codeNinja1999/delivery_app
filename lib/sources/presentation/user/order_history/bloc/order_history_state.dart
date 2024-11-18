@@ -5,7 +5,7 @@ class OrderHistoryState extends Equatable {
   final int pageNumber;
   final bool paginationEnd;
   final FormStatus status;
-  final List<PickupOrderResult?> orderList;
+  final List<PickupOrderResult> orderList;
   final FormStatus paginationStatus;
 
   OrderHistoryState({

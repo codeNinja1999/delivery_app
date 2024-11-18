@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:core';
 
 import 'package:fresh_fold_delivery/repository/data/user/repository/mapping/user_registration_request_mapping.dart';
+import 'package:fresh_fold_delivery/repository/data/user_utility/mapping/order_history_data_mapping.dart';
 import 'package:network/network.dart';
 import 'package:rxdart/subjects.dart';
 import 'package:either_dart/either.dart';
@@ -22,10 +23,10 @@ import '../../../domain/user/entities/user_info/user.dart';
 import '../../../domain/user/repository/user_utility_repository.dart';
 import '../../user/data_store/user_credential_data.dart';
 import '../mapping/operator_list_mapping.dart';
-import '../mapping/order_history_data_mapping.dart';
 import '../model/analytics_data_response_model.dart';
 import '../model/get_userinfo/get_userinfo_reponse_model.dart';
 import '../mapping/user_list_mapping.dart';
+import '../model/pickup_order_response_model.dart';
 
 class UserUtilitiesRepositoryImpl implements UserUtilitiesRepository {
   UserUtilitiesRepositoryImpl({required this.networkClient});
@@ -146,10 +147,9 @@ class UserUtilitiesRepositoryImpl implements UserUtilitiesRepository {
 
     try {
       final response = await networkClient.get(AppServiceEndpoints.getAllOrder, queryParameters: query);
-      final responseJson = json.decode(response.asString);
-      final pickupOrderHistory =
-          responseJson.map((orderHistory) => OrderHistoryMapper.toPickUpOrderHistory(orderHistory)).toList();
-
+      final List<dynamic> responseJson = json.decode(response.asString);
+      final historyModel = responseJson.map((orderHistory) => PickupOrderResponseModel.fromJson(orderHistory)).toList();
+      final List<PickupOrderResult> pickupOrderHistory = historyModel.map((model) => model.toOrderHistory()).toList();
       return Right(pickupOrderHistory);
     } on Exception catch (error) {
       return Left(error);
@@ -201,7 +201,6 @@ class UserUtilitiesRepositoryImpl implements UserUtilitiesRepository {
       return Left(error);
     }
   }
-
 
   @override
   Future<Either<Exception, String>> updateOperator(OperatorRegistrationInfo operatorInfo) async {

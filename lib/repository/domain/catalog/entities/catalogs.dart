@@ -38,3 +38,21 @@ class Location extends Catalog {
     this.neighborhood,
   });
 }
+
+class OrderPayment {
+  final int? id;
+  final String? status;
+  final String? paymentMethod;
+  final String? transactionId;
+  final DateTime? paymentDate;
+  final int? paidPrice;
+
+  OrderPayment({
+    this.id,
+    this.status,
+    this.paymentMethod,
+    this.transactionId,
+    this.paymentDate,
+    this.paidPrice,
+  });
+}

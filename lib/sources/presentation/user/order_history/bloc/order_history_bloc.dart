@@ -25,11 +25,11 @@ class OrderHistoryBloc extends Bloc<OrderHistoryEvent, OrderHistoryState> {
       pageSize: 10,
     ));
     response.fold((error) => emit(state.copyWith(status: SubmissionFailure(error))), (pickupOrderList) {
-      final updatedList = (state.orderList != null) ? List.of(state.orderList as Iterable) : [];
-      if (pickupOrderList.isNotEmpty) {
-        updatedList.addAll(pickupOrderList);
+      if (pickupOrderList.isEmpty) {
+        emit(state.copyWith(paginationEnd: true));
       } else {
-        emit(state);
+        final updatedOrderList = [...state.orderList, ...pickupOrderList];
+        emit(state.copyWith(orderList: updatedOrderList));
       }
     });
   }
