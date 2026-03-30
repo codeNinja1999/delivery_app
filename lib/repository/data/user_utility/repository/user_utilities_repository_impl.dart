@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:core';
 
 import 'package:fresh_fold_delivery/repository/data/user/repository/mapping/user_registration_request_mapping.dart';
+import 'package:fresh_fold_delivery/repository/data/user_utility/mapping/admin_order_history_data_mapping.dart';
 import 'package:fresh_fold_delivery/repository/data/user_utility/mapping/order_history_data_mapping.dart';
 import 'package:network/network.dart';
 import 'package:rxdart/subjects.dart';
@@ -14,6 +15,7 @@ import '../../../data/user_utility/mapping/update_user_profile_request_mapping.d
 import '../../../data/user_utility/mapping/user_utility_data_mapping.dart';
 import '../../../domain/common/model/date_filter.dart';
 import '../../../domain/common/model/pagination_filter.dart';
+import '../../../domain/pickup_order/admin_order_result.dart';
 import '../../../domain/pickup_order/pickup_order.dart';
 import '../../../domain/pickup_order/pickup_order_result.dart';
 import '../../../domain/user/entities/analytic_data_info.dart';
@@ -26,6 +28,7 @@ import '../mapping/operator_list_mapping.dart';
 import '../model/analytics_data_response_model.dart';
 import '../model/get_userinfo/get_userinfo_reponse_model.dart';
 import '../mapping/user_list_mapping.dart';
+import '../model/order_history/admin_order_history_response_model.dart';
 import '../model/pickup_order_response_model.dart';
 
 class UserUtilitiesRepositoryImpl implements UserUtilitiesRepository {
@@ -150,6 +153,26 @@ class UserUtilitiesRepositoryImpl implements UserUtilitiesRepository {
       final List<dynamic> responseJson = json.decode(response.asString);
       final historyModel = responseJson.map((orderHistory) => PickupOrderResponseModel.fromJson(orderHistory)).toList();
       final List<PickupOrderResult> pickupOrderHistory = historyModel.map((model) => model.toOrderHistory()).toList();
+      return Right(pickupOrderHistory);
+    } on Exception catch (error) {
+      return Left(error);
+    }
+  }
+
+  @override
+  Future<Either<Exception, List<AdminPickupOrderResult>>> getAdminOrderHistory(PaginationFilter filter) async {
+    final query = {
+      "status": "pending",
+      "page": filter.page,
+      "pageSize": filter.pageSize,
+    };
+
+    try {
+      final response = await networkClient.get(AppServiceEndpoints.getAdminAllOrder, queryParameters: query);
+      final List<dynamic> responseJson = json.decode(response.asString);
+      final historyModel = responseJson.map((orderHistory) => AdminPickupOrderResponseModel.fromJson(orderHistory)).toList();
+      final List<AdminPickupOrderResult> pickupOrderHistory =
+          historyModel.map((model) => model.toAdminOrderHistory()).toList();
       return Right(pickupOrderHistory);
     } on Exception catch (error) {
       return Left(error);

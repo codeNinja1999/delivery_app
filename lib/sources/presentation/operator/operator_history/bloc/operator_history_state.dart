@@ -4,7 +4,7 @@ class OperatorHistoryState extends Equatable {
   final String? transactionId;
   final int pageNumber;
   final bool paginationEnd;
-  final List<PickupOrderResult?> orderList;
+  final List<PickupOrderResult> orderList;
 
   final FormStatus status;
   final FormStatus paginationStatus;

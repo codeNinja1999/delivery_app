@@ -49,7 +49,7 @@ final ThemeData lightTheme = ThemeData.light(useMaterial3: true).copyWith(
     fillColor: AppColors.fillColorLight,
     focusColor: AppColors.primary,
   ),
-  cardTheme: CardTheme(
+  cardTheme: CardThemeData(
     color: AppColors.lightPrimary,
     elevation: 0,
     surfaceTintColor: Colors.transparent,
@@ -168,7 +168,7 @@ final ThemeData darkTheme = ThemeData.dark(useMaterial3: true).copyWith(
     focusColor: AppColors.primary,
   ),
   cardColor: AppColors.surfaceContainerDark,
-  cardTheme: CardTheme(
+  cardTheme: CardThemeData(
     color: AppColors.surfaceContainerDark,
     elevation: 0,
     surfaceTintColor: Colors.transparent,

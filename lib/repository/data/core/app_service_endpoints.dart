@@ -33,6 +33,7 @@ class AppServiceEndpoints {
   static const updateUserProfile = "user/me/update-profile";
   static const createPickupRequest = "user/order/create";
   static const getAllOrder = "user/order/all";
+  static const getAdminAllOrder = "admin/dashboard/orders/pick-ups";
   static const getOneTransaction = "user/order/:id";
 
   static const getAllPickup = "operator/order/pick-ups";

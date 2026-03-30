@@ -4,8 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fresh_fold_delivery/sources/core/app_core.dart';
 import 'package:fresh_fold_delivery/repository/domain/domain.dart';
 
+import '../../../../../repository/domain/pickup_order/admin_order_result.dart';
 import '../../../../../repository/domain/user/entities/analytic_data_info.dart';
-
 
 part 'admin_dashboard_event.dart';
 part 'admin_dashboard_state.dart';
@@ -22,6 +22,7 @@ class AdminDashboardBloc extends Bloc<AdminDashboardEvent, AdminDashboardState> 
         emit(state.copyWith(status: InProgress()));
         final result = await Future.wait([
           _onGetAdminInfo(event, emit),
+          _onGetOrderHistory(event, emit),
           _onUserList(event, emit),
           _onOperatorList(event, emit),
           _onFetchLocation(event, emit),
@@ -112,6 +113,21 @@ class AdminDashboardBloc extends Bloc<AdminDashboardEvent, AdminDashboardState> 
   Future<bool> _onGetAdminInfo(GetDashboardData event, Emitter<AdminDashboardState> emit) async {
     await userUtilitiesRepository.getUserInfo();
     return true;
+  }
+
+  Future<bool> _onGetOrderHistory(GetDashboardData event, Emitter<AdminDashboardState> emit) async {
+    emit(state.copyWith(status: InProgress()));
+    final response = await userUtilitiesRepository.getAdminOrderHistory(PaginationFilter(
+      page: 1,
+      pageSize: 10,
+    ));
+    return response.fold((error) {
+      emit(state.copyWith(status: SubmissionFailure(error)));
+      return false;
+    }, (pickupOrderList) {
+      emit(state.copyWith(orderList: pickupOrderList));
+      return true;
+    });
   }
 
   Future<bool> _onUserList(GetDashboardData event, Emitter<AdminDashboardState> emit) async {

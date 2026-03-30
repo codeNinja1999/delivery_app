@@ -4,6 +4,7 @@ import 'package:fresh_fold_delivery/repository/domain/user/entities/user_info/us
 
 import '../../common/model/date_filter.dart';
 import '../../common/model/pagination_filter.dart';
+import '../../pickup_order/admin_order_result.dart';
 import '../../pickup_order/pickup_order.dart';
 import '../../pickup_order/pickup_order_result.dart';
 import '../entities/analytic_data_info.dart';
@@ -19,6 +20,7 @@ abstract class UserUtilitiesRepository {
   Future<Either<Exception, String>> updateUserProfile(User userInfo);
   Future<Either<Exception, String>> createOrder(PickupOrder pickupOrder);
   Future<Either<Exception, List<PickupOrderResult>>> getOrderHistory(PaginationFilter filter);
+  Future<Either<Exception, List<AdminPickupOrderResult>>> getAdminOrderHistory(PaginationFilter filter);
   Future<Either<Exception, List<NotificationData>>> getUserNotification();
 
   Future<Either<Exception, String?>> deleteOperator(DetailedUser operator);

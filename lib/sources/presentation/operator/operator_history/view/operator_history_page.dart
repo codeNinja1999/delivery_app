@@ -17,7 +17,7 @@ class OperatorHistoryPageState extends State<OperatorHistoryPage> {
   @override
   void initState() {
     super.initState();
-    // context.read<OperatorHistoryBloc>().add(GetOrderHistory(1));
+    context.read<OperatorHistoryBloc>().add(GetOrderHistory(1));
   }
 
   @override
