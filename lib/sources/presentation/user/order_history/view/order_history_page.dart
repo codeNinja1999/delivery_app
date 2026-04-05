@@ -23,7 +23,7 @@ class OrderHistoryPageState extends State<OrderHistoryPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.surface,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: MyAppBar(title: LocaleKeys.orderHistoryTitle.value),
       body: const OrderHistoryBody(),
     );

@@ -12,7 +12,7 @@ class SupportView extends StatelessWidget {
     final theme = Theme.of(context);
 
     return Card(
-      color: theme.colorScheme.surface,
+      color: Theme.of(context).scaffoldBackgroundColor,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(AppSize.cornerRadius - 4),
         side: BorderSide(color: theme.dividerColor),

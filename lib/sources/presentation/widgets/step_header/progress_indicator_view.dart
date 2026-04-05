@@ -11,7 +11,7 @@ class ProgressIndicatorView extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return SliverAppBar(
-      backgroundColor: theme.colorScheme.surface,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       surfaceTintColor: theme.colorScheme.shadow,
       automaticallyImplyLeading: false,
       pinned: true,

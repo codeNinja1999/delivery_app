@@ -27,7 +27,7 @@ class _LocationPageState extends State<LocationPage> {
     final theme = Theme.of(context);
 
     return Scaffold(
-      backgroundColor: theme.colorScheme.surface,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: const MyAppBar(
         title: "Location Selection",
       ),
@@ -78,7 +78,7 @@ class _LocationPageState extends State<LocationPage> {
                                 return ListTile(
                                     dense: true,
                                     minLeadingWidth: AppSize.cornerRadiusSmall,
-                                    tileColor: theme.colorScheme.surfaceContainer,
+                                    tileColor: Theme.of(context).scaffoldBackgroundColor,
                                     contentPadding: const EdgeInsets.all(AppSize.inset),
                                     leading: Radio(
                                         value: location.id,
@@ -102,7 +102,7 @@ class _LocationPageState extends State<LocationPage> {
                       ),
                       const SizedBox(height: AppSize.inset),
                       ListTile(
-                          tileColor: theme.colorScheme.surfaceContainer,
+                          tileColor: Theme.of(context).scaffoldBackgroundColor,
                           contentPadding: const EdgeInsets.all(AppSize.inset),
                           title: Text(
                             "Add different address",

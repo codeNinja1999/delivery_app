@@ -27,7 +27,7 @@ class _OperatorDashboardPageState extends State<OperatorDashboardPage> {
     return PopScope(
       canPop: false,
       child: Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.surface,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         appBar: MyAppBar(
           allowBack: false,
           actions: [

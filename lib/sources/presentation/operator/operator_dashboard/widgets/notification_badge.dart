@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 class NotificationBadge extends StatelessWidget {
   const NotificationBadge({super.key});
 
@@ -8,8 +7,7 @@ class NotificationBadge extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return GestureDetector(
-      onTap: () {
-      },
+      onTap: () {},
       child: Container(
         height: 40,
         width: 40,
@@ -19,7 +17,7 @@ class NotificationBadge extends StatelessWidget {
         ),
         child: Icon(
           Icons.notifications,
-          color: theme.colorScheme.surfaceContainer,
+          color: Theme.of(context).scaffoldBackgroundColor,
         ),
       ),
     );

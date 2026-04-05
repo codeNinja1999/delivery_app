@@ -23,23 +23,23 @@ class RecentNotificationListView extends StatelessWidget {
             backgroundColor: theme.colorScheme.primary,
             child: Icon(
               Icons.notifications_none_outlined,
-              color: theme.colorScheme.surface,
+              color: Theme.of(context).scaffoldBackgroundColor,
             ),
           ),
           title: Container(
             margin: const EdgeInsets.only(bottom: AppSize.cornerRadiusMedium),
-            color: theme.colorScheme.surface,
+            color: Theme.of(context).scaffoldBackgroundColor,
             child: Text("${data?.msgTitle}", style: theme.textTheme.titleMedium),
           ),
           subtitle: Container(
-            color: theme.colorScheme.surface,
+            color: Theme.of(context).scaffoldBackgroundColor,
             child: Text(
               "${data?.msgBody}",
               style: theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w400),
             ),
           ),
           trailing: Container(
-            color: theme.colorScheme.surface,
+            color: Theme.of(context).scaffoldBackgroundColor,
             child: Text(
               "${data?.dateDifference}",
               style: theme.textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w400),

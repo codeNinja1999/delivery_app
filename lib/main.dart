@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:fresh_fold_delivery/sources/presentation/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -8,6 +9,8 @@ import 'sources/core/app_core.dart';
 import 'sources/di/injector.dart' as di;
 import 'sources/route/route.dart';
 
+final AppNavigatorObserver routeObserver = AppNavigatorObserver();
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 void main() async {
   await initializeApp();
   runApp(configureApp());
@@ -44,51 +47,68 @@ class FreshFoldApp extends StatefulWidget {
 class FreshFoldAppState extends State<FreshFoldApp> with WidgetsBindingObserver {
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    super.didChangeAppLifecycleState(state);
-    final stateDescriptions = {
-      AppLifecycleState.resumed: "app in resumed",
-      AppLifecycleState.inactive: "app in inactive",
-      AppLifecycleState.paused: "app in paused",
-      AppLifecycleState.detached: "app in detached",
-      AppLifecycleState.hidden: null,
-    };
-    final message = stateDescriptions[state];
-    if (message != null) {
-      print(message);
+    switch (state) {
+      case AppLifecycleState.resumed:
+        // ignore: avoid_print
+        print("app in resumed");
+        break;
+      case AppLifecycleState.inactive:
+        // ignore: avoid_print
+        print("app in inactive");
+        break;
+      case AppLifecycleState.paused:
+        // ignore: avoid_print
+        print("app in paused");
+        break;
+      case AppLifecycleState.detached:
+        // ignore: avoid_print
+        print("app in detached");
+        break;
+      case AppLifecycleState.hidden:
+        break;
     }
+  }
+
+  Widget appBuilder(BuildContext context, Widget? child) {
+    final easyChild = EasyLoading.init()(context, child);
+
+    final themeMode = context.watch<ThemeConfig>().themeMode;
+
+    // Wrapping global system UI overlay
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: AppOverlays.of(context, mode: themeMode),
+      child: easyChild,
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    _initializeUI(context);
+    _initializeUI();
+
+
+    final themeMode = context.watch<ThemeConfig>().themeMode;
 
     return GestureDetector(
       onTap: _handleTap(context),
       child: MaterialApp(
+        navigatorKey: navigatorKey,
         debugShowCheckedModeBanner: false,
         localizationsDelegates: context.localizationDelegates,
         supportedLocales: context.supportedLocales,
         locale: context.locale,
         theme: lightTheme,
         darkTheme: darkTheme,
-        themeMode: ThemeMode.light,
-        builder: EasyLoading.init(),
-        navigatorObservers: [AppNavigatorObserver()],
+        themeMode: themeMode,
+        builder: appBuilder,
+        navigatorObservers: [routeObserver],
         onGenerateRoute: (settings) => AppRouter.onGenerateRoute(settings, context),
         initialRoute: AppRoute.splash,
       ),
     );
   }
 
-  void _initializeUI(BuildContext context) {
+  void _initializeUI() {
     AppSize().init(context);
-    SystemChrome.setSystemUIOverlayStyle(
-      const SystemUiOverlayStyle(
-        statusBarColor: Colors.transparent,
-        statusBarBrightness: Brightness.dark,
-        statusBarIconBrightness: Brightness.dark,
-      ),
-    );
   }
 
   VoidCallback _handleTap(BuildContext context) {

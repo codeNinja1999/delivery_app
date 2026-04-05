@@ -16,10 +16,16 @@ class RegisterFormPage extends StatefulWidget {
 class _RegisterPersonalInfoPageState extends State<RegisterFormPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.surface,
+    return AppPage(
       appBar: MyAppBar(backButtonAction: cancelRegistration),
-      body: const RegisterForm(),
+      body: Padding(
+        padding: EdgeInsets.only(
+          left: context.hInset,
+          right: context.hInsetR,
+          bottom: AppSize.bottomSafeInset,
+        ),
+        child: const RegisterForm(),
+      ),
     );
   }
 

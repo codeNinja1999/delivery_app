@@ -23,7 +23,7 @@
 //   Widget build(BuildContext context) {
 //     final ThemeData theme = Theme.of(context);
 //     return Scaffold(
-//       backgroundColor: theme.colorScheme.surface,
+//       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
 //       appBar: const MyAppBar(title: "Change Currency"),
 //       body: SingleChildScrollView(
 //         padding: const EdgeInsets.symmetric(

@@ -87,7 +87,7 @@ class _AdminDashboardViewState extends State<AdminDashboardView> {
                     padding: const EdgeInsets.all(AppSize.inset * 0.75),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(AppSize.cornerRadiusMedium),
-                      color: theme.colorScheme.surfaceContainer,
+                      color: Theme.of(context).scaffoldBackgroundColor,
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -200,7 +200,8 @@ class _AdminDashboardViewState extends State<AdminDashboardView> {
                         label: Text(list[index]),
                         side: BorderSide(color: theme.colorScheme.shadow),
                         labelStyle: TextStyle(
-                          color: selectedIndex == index ? theme.colorScheme.surfaceContainer : AppColors.darkTextColor,
+                          color:
+                              selectedIndex == index ? Theme.of(context).scaffoldBackgroundColor : AppColors.darkTextColor,
                         ),
                         backgroundColor: selectedIndex == index ? AppColors.primary : theme.colorScheme.shadow,
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppSize.cornerRadiusMedium)),

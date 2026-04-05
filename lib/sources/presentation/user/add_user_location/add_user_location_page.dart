@@ -23,7 +23,7 @@ class _AddUserLocationPageState extends State<AddUserLocationPage> {
     final theme = Theme.of(context);
 
     return Scaffold(
-      backgroundColor: theme.colorScheme.surface,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: const MyAppBar(
         title: "Add New Location",
       ),

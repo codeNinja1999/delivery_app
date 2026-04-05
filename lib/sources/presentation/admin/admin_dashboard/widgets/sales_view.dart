@@ -16,11 +16,10 @@ class SalesView extends StatelessWidget {
       padding: const EdgeInsets.all(AppSize.inset),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(AppSize.cornerRadiusMedium),
-        color: theme.colorScheme.surfaceContainer,
+        color: Theme.of(context).scaffoldBackgroundColor,
       ),
       child: BlocBuilder<AdminDashboardBloc, AdminDashboardState>(
-                buildWhen: (previous, current) => previous.analyticsInfo != current.analyticsInfo,
-
+        buildWhen: (previous, current) => previous.analyticsInfo != current.analyticsInfo,
         builder: (context, state) {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,

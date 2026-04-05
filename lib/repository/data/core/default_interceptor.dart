@@ -33,8 +33,9 @@ class DefaultInterceptor {
       log(name: "Actual body:", newRequest.body.toString());
       return newRequest;
     }, onResponse: (apiResponse) async {
+      log(name: "Actual url:", apiResponse.request.url.toString());
+      log(name: "Actual body:", apiResponse.request.body.toString());
       log(name: "Actual Response:", apiResponse.asString);
-
       if (apiResponse.statusCode >= 200 && apiResponse.statusCode < 300) {
         return apiResponse;
       } else if (apiResponse.statusCode == 401) {

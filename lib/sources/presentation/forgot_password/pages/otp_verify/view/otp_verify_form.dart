@@ -123,8 +123,10 @@ class _OtpVerifyFormState extends State<OtpVerifyForm> {
                       child: CustomButton(
                         title: LocaleKeys.nextButtonTitle.value,
                         onPressed: () {
-                          KeyboardUtil.hideKeyboard(context);
-                          context.read<OtpVerifyBloc>().add(VerifyResetOTP());
+                          Navigator.of(context).pushReplacementNamed(ResetPasswordRoute.resetPassword);
+
+                          // KeyboardUtil.hideKeyboard(context);
+                          // context.read<OtpVerifyBloc>().add(VerifyResetOTP());
                         },
                       ),
                     ),

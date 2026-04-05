@@ -136,7 +136,7 @@ class _AppTextfieldState extends State<AppTextfield> {
             hintStyle: theme.textTheme.bodyLarge?.copyWith(color: AppColors.placeholder, fontWeight: FontWeight.w400),
             counterText: "",
             counter: const Offstage(),
-            fillColor: widget.fillColor ?? theme.colorScheme.surfaceContainer,
+            fillColor: widget.fillColor ?? Theme.of(context).scaffoldBackgroundColor,
             filled: true,
             contentPadding: const EdgeInsets.symmetric(
               horizontal: AppSize.inset,

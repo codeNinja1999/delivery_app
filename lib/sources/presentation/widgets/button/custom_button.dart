@@ -47,7 +47,7 @@ class CustomButton extends StatelessWidget {
     final Color? color = (backgroundColor == null)
         ? (buttonType == ButtonType.primary)
             ? theme.colorScheme.primary
-            : theme.colorScheme.surface
+            : Theme.of(context).scaffoldBackgroundColor
         : backgroundColor;
 
     final ShapeBorder? shape = buttonType == ButtonType.bordered

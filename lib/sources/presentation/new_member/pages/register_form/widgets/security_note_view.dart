@@ -11,7 +11,7 @@ class SecurityNotes extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         border: Border.all(color: theme.dividerColor),
-        color: theme.colorScheme.surface,
+        color: Theme.of(context).scaffoldBackgroundColor,
         borderRadius: BorderRadius.circular(AppSize.cornerRadiusSmall * 2),
       ),
       padding: const EdgeInsets.all(AppSize.inset),

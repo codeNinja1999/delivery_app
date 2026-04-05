@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fresh_fold_delivery/sources/core/app_core.dart';
 
 import 'package:fresh_fold_delivery/sources/presentation/widgets/widgets.dart';
 
@@ -14,10 +15,17 @@ class UsernameVerifyPage extends StatefulWidget {
 class _NewAccountMobileVerifyPageState extends State<UsernameVerifyPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.surface,
+    return AppPage(
       appBar: MyAppBar(backButtonAction: () => Navigator.of(context, rootNavigator: true).pop()),
-      body: const UsernameVerifyForm(),
+      body: Padding(
+        padding: EdgeInsets.only(
+          left: context.hInset,
+          right: context.hInsetR,
+          top: AppSize.viewMargin,
+          bottom: AppSize.bottomSafeInset,
+        ),
+        child: const UsernameVerifyForm(),
+      ),
     );
   }
 }

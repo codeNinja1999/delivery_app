@@ -29,7 +29,7 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.surface,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: MyAppBar(
         title: "Profile",
         actions: [
@@ -132,7 +132,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       padding: const EdgeInsets.all(AppSize.inset),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(AppSize.cornerRadiusMedium),
-                        color: theme.colorScheme.surfaceContainer,
+                        color: Theme.of(context).scaffoldBackgroundColor,
                       ),
                       child: Column(
                         children: [
@@ -143,7 +143,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           Text(
                             "20",
                             style: theme.textTheme.bodyMedium
-                                ?.copyWith(fontWeight: FontWeight.w700, fontSize: AppSize.titleFont),
+                                ?.copyWith(fontWeight: FontWeight.w700),
                           )
                         ],
                       ),
@@ -153,7 +153,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       padding: const EdgeInsets.all(AppSize.inset),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(AppSize.cornerRadiusMedium),
-                        color: theme.colorScheme.surfaceContainer,
+                        color: Theme.of(context).scaffoldBackgroundColor,
                       ),
                       child: Column(
                         children: [
@@ -164,7 +164,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           Text(
                             "17",
                             style: theme.textTheme.bodyMedium
-                                ?.copyWith(fontWeight: FontWeight.w700, fontSize: AppSize.titleFont),
+                                ?.copyWith(fontWeight: FontWeight.w700),
                           )
                         ],
                       ),

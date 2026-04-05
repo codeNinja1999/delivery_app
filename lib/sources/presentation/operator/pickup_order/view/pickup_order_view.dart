@@ -39,7 +39,7 @@ class OrderHistoryListView extends StatelessWidget {
     return SingleChildScrollView(
       padding: const EdgeInsets.all(AppSize.viewMargin),
       child: Container(
-        color: theme.colorScheme.surfaceContainer,
+        color: Theme.of(context).scaffoldBackgroundColor,
         padding: const EdgeInsets.all(AppSize.viewMargin),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,

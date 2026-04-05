@@ -9,7 +9,7 @@ Future<void> showOptionsDialog(BuildContext context, {required Function(ScanBy) 
     barrierDismissible: true,
     builder: (BuildContext context) {
       return AlertDialog(
-        backgroundColor: theme.colorScheme.surface,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         titlePadding: const EdgeInsets.only(
           top: AppSize.inset,
           left: AppSize.viewMargin,

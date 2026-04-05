@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fresh_fold_delivery/sources/core/app_core.dart';
 
 import 'package:fresh_fold_delivery/sources/presentation/widgets/widgets.dart';
 
@@ -14,10 +15,16 @@ class AccountOtpVerifyPage extends StatefulWidget {
 class _AccountOtpVerifyPageState extends State<AccountOtpVerifyPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.surface,
+    return AppPage(
       appBar: const MyAppBar(),
-      body: const OtpVerifyForm(),
+      body: Padding(
+        padding: EdgeInsets.only(
+          left: context.hInset,
+          right: context.hInsetR,
+          bottom: AppSize.bottomSafeInset,
+        ),
+        child: const OtpVerifyForm(),
+      ),
     );
   }
 }

@@ -14,7 +14,7 @@ class _NewAccountOtpVerifyPageState extends State<OtpVerifyPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.surface,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: const MyAppBar(),
       body: OtpVerifyForm(),
     );

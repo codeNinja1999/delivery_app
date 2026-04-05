@@ -18,7 +18,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Scaffold(
-      backgroundColor: theme.colorScheme.surface,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: const MyAppBar(title: "Edit Profile"),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(AppSize.viewMargin),

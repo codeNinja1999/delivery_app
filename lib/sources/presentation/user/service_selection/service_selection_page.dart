@@ -26,7 +26,7 @@ class _ServiceSelectionPageState extends State<ServiceSelectionPage> {
     final theme = Theme.of(context);
 
     return Scaffold(
-      backgroundColor: theme.colorScheme.surface,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: const MyAppBar(
         title: "Service Location",
       ),
@@ -85,7 +85,7 @@ class _ServiceSelectionPageState extends State<ServiceSelectionPage> {
                               final service = state.serviceTypeList[index];
                               return ListTile(
                                 minLeadingWidth: AppSize.inset,
-                                tileColor: theme.colorScheme.surfaceContainer,
+                                tileColor: Theme.of(context).scaffoldBackgroundColor,
                                 leading: Radio(
                                     value: service.id,
                                     groupValue: state.selectedServiceType?.id,

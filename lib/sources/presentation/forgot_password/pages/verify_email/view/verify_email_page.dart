@@ -15,7 +15,7 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.surface,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: MyAppBar(backButtonAction: () => Navigator.of(context, rootNavigator: true).pop()),
       body: const VerifyEmailForm(),
     );

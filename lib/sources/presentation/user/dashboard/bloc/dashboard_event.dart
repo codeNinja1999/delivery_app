@@ -3,6 +3,7 @@ part of 'dashboard_bloc.dart';
 abstract class DashboardEvent {}
 
 class GetDashboardData extends DashboardEvent {}
+class GetUserDetail extends DashboardEvent {}
 
 class UserInfoSubscriptionRequested extends DashboardEvent {}
 

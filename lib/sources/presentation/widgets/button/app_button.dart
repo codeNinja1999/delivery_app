@@ -50,7 +50,7 @@ class AppButton extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               if (leadingIcon != null) ...[
-                Icon(leadingIcon, color: theme.colorScheme.surface, size: leadingIconSize),
+                Icon(leadingIcon, color: Theme.of(context).scaffoldBackgroundColor, size: leadingIconSize),
                 const SizedBox(width: AppSize.cornerRadiusSmall),
                 Text(title, maxLines: 1, style: titleTextStyle),
               ] else if (trailingIcon != null) ...[

@@ -3,17 +3,23 @@ import 'package:fresh_fold_delivery/sources/core/app_core.dart';
 class AppColors {
   // static final primary = HexColor("#3045B3");  //blue
   static final primary = HexColor("#F2890C"); //orange
-  static final moderatePrimary = HexColor('#E6E8FF');
+  static final tertiary = HexColor('#E6E8FF');
 
-  static final lightPrimary = HexColor('#F8F9FE');
+  static final secondary = HexColor('#F8F9FE');
+  static final primaryContainer = HexColor("#D4F1DF");
+  static final onPrimary = HexColor("#23964e");
+  static final secondaryContainer = HexColor("#C2DBFF");
+  static final tertiaryContainer = HexColor("#F8F9FE");
+  static final canvasColor = HexColor("#FFFFFF");
+
   static final textColor = HexColor("#101318");
   static final homeTabBarBackgroundColor = HexColor("#1C2431");
   static final homeTabBarBorderColor = HexColor("#27002E");
   static final backgroundContainerLight = HexColor('#FFFFFF');
   static final surfaceContainerDark = HexColor('#1B2026');
   static final secondaryContainerDark = HexColor('#32373b');
-  static final backgroundLight = HexColor('#F5F5F5');
-  static final backgroundDark = HexColor('#010101');
+  static final background = HexColor('#F5F5F5');
+  // static final backgroundDark = HexColor('#010101');
   static const bottomApBarColor = Color(0xFF1C2431);
   static final hintTextColor = HexColor('#767C8A');
   static final errorColor = HexColor('#B3261E');
@@ -32,12 +38,12 @@ class AppColors {
   static final cancelled = HexColor("#B3261E"); //red
 
   static final hightLightColorLight = HexColor("#f8f7ff");
-  static final iconColorLight = HexColor("#838079");
+  static final iconColor = HexColor("#838079");
   static final disabledColorLight = HexColor("#494D56");
   static final darkPrimaryColor = HexColor("#261543");
   static final indicatorColorLight = HexColor("#A56BFF"); //secondarycolor
   static final placeholder = HexColor("#767C8A");
-  static final card = HexColor("#2E1C4B");
+  static final cardColor = HexColor("#2E1C4B");
   static final darkTextColor = HexColor("#9F9F9F");
   static final avatar = HexColor("#FF9AD6");
   static final pink = HexColor("#FB4AB2");
@@ -60,4 +66,57 @@ class AppColors {
   static final tabBarButton1 = HexColor("#8655D1");
   static final tabBarButton2 = HexColor("#FB4AB2");
   static final lightRed = HexColor("#DC6868");
+}
+
+class AppColorsDark {
+  // Core
+  static final primary = HexColor("#F2890C"); // brighter for dark bg
+  static final primaryContainer = HexColor("#0F2E1D");
+
+  static final secondary = HexColor("#7FB3FF");
+  static final secondaryContainer = HexColor("#1A2A44");
+
+  static final tertiary = HexColor("#C6B8FF");
+  static final tertiaryContainer = HexColor("#2A2544");
+
+  // Background & Surface
+  static final background = HexColor("#010101");
+  static final canvasColor = HexColor("#121212");
+  static final cardColor = HexColor("#1E1E1E");
+
+  // Text
+  static final textColor = HexColor("#FFFFFF");
+  static final placeholder = HexColor("#99FFFFFF");
+  static final subtitleColor = HexColor("#B0B0B0");
+
+  // Borders & Divider
+  static final dividerColor = HexColor("#1FFFFFFF");
+  static final outlineColor = HexColor("#BDBDBD");
+  static final outlineVariantColor = HexColor("#424242");
+
+  // States
+  static final errorColor = HexColor("#CF6679");
+  static final disabledColor = HexColor("#61FFFFFF");
+
+  // Icons
+  static final iconColor = HexColor("#CFCFCF");
+
+  // Containers
+  static final infoContainerColor = HexColor("#2A2A2A");
+  static final warningContainerColor = HexColor("#2E2A1F");
+
+  // Buttons
+  static final buttonBorderColor = HexColor("#5C6CFF");
+
+  // Special UI
+  static final homeTabBarBackgroundColor = HexColor("#1A1F2B");
+  static final homeTabBarBorderColor = HexColor("#2C2C2C");
+
+  // Status Colors (slightly adjusted for dark)
+  static final success = HexColor("#6FD3A3");
+  static final pending = HexColor("#FFD166");
+  static final hold = HexColor("#4DA3FF");
+  static final cancelled = HexColor("#FF6B6B");
+  static final info = HexColor("#4DA3FF");
+  static final processing = HexColor("#F5A6A3");
 }

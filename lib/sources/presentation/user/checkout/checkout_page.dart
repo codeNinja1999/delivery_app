@@ -23,7 +23,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
     final theme = Theme.of(context);
 
     return Scaffold(
-      backgroundColor: theme.colorScheme.surface,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: const MyAppBar(
         title: "Checkout",
       ),
@@ -66,7 +66,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                             child: Container(
                               padding: const EdgeInsets.all(AppSize.inset),
                               decoration: BoxDecoration(
-                                color: theme.colorScheme.surfaceContainer,
+                                color: Theme.of(context).scaffoldBackgroundColor,
                                 borderRadius: BorderRadius.circular(AppSize.cornerRadiusMedium),
                               ),
                               child: Row(
@@ -100,7 +100,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                             padding: const EdgeInsets.all(AppSize.viewMargin),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(AppSize.cornerRadiusMedium),
-                              color: Theme.of(context).colorScheme.surfaceContainer,
+                              color: Theme.of(context).scaffoldBackgroundColor,
                             ),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -163,7 +163,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                             padding: const EdgeInsets.all(AppSize.viewMargin),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(AppSize.cornerRadiusMedium),
-                              color: Theme.of(context).colorScheme.surfaceContainer,
+                              color: Theme.of(context).scaffoldBackgroundColor,
                             ),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.stretch,

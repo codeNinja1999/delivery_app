@@ -41,7 +41,7 @@ class _AddLocationPageState extends State<AddLocationPage> {
       appBar: const MyAppBar(
         title: "Add/Edit Location",
       ),
-      backgroundColor: theme.colorScheme.surface,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: BlocListener<AddLocationBloc, AddLocationState>(
         listenWhen: (previous, current) => previous.status != current.status,
         listener: (context, state) {

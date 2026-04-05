@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fresh_fold_delivery/sources/core/app_core.dart';
 import 'package:fresh_fold_delivery/sources/resources/resources.dart';
 import 'package:fresh_fold_delivery/sources/presentation/widgets/widgets.dart';
+import 'package:fresh_fold_delivery/sources/route/app_route.dart';
 
 import '../bloc/register_form_bloc.dart';
 import '../widgets/password_rule_view.dart';
@@ -31,62 +32,58 @@ class _RegistrationFormState extends State<RegisterForm> {
           ErrorResolver.resolve(context, status);
         }
       },
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: AppSize.viewMargin),
-        child: Form(
-          key: formKey,
-          child: CustomScrollView(
-            slivers: [
-              SliverToBoxAdapter(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SizedBox(height: AppSize.spacedViewSpacing),
-                    Text(
-                      LocaleKeys.tellUsAboutYourself.value,
-                      style: Theme.of(context).textTheme.titleMedium?.copyWith(fontSize: AppSize.inset * 2),
-                    ),
-                    const SizedBox(height: AppSize.viewMargin),
-                    const FullNameInput(),
-                    const SizedBox(height: AppSize.inset),
-                    const MobileNumberInput(),
-                    const SizedBox(height: AppSize.inset),
-                    const PasswordInput(),
-                    const SizedBox(height: AppSize.inset),
-                    const ConfirmPasswordInput(),
-                    const SizedBox(height: AppSize.inset),
-                    const PasswordRulView(),
-                  ],
-                ),
+      child: Form(
+        key: formKey,
+        child: CustomScrollView(
+          slivers: [
+            SliverToBoxAdapter(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(height: AppSize.spacedViewSpacing),
+                  Text(
+                    LocaleKeys.tellUsAboutYourself.value,
+                    style: Theme.of(context).textTheme.titleMedium?.copyWith(fontSize: AppSize.inset * 2),
+                  ),
+                  const SizedBox(height: AppSize.viewMargin),
+                  const FullNameInput(),
+                  const SizedBox(height: AppSize.inset),
+                  const MobileNumberInput(),
+                  const SizedBox(height: AppSize.inset),
+                  const PasswordInput(),
+                  const SizedBox(height: AppSize.inset),
+                  const ConfirmPasswordInput(),
+                  const SizedBox(height: AppSize.inset),
+                  const PasswordRulView(),
+                ],
               ),
-              SliverFillRemaining(
-                hasScrollBody: false,
-                child: Column(
-                  children: [
-                    const Spacer(),
-                    Padding(
-                        padding: const EdgeInsets.symmetric(vertical: AppSize.viewSpacing),
-                        child: CustomButton(
-                            title: LocaleKeys.register.value,
-                            onPressed: () {
-                              KeyboardUtil.hideKeyboard(context);
-                              Navigator.of(context, rootNavigator: true).pop();
-                              // if (formKey.currentState!.validate()) {
-                              // final mainState = context.read<NewMemberBloc>().state;
-                              // context.read<RegisterFormBloc>().add(
-                              //       RegisterUser(
-                              //         username: mainState.userName,
-                              //         processId: mainState.registerProcessID,
-                              //       ),
-                              //     );
-                              // }
-                            })),
-                  ],
-                ),
+            ),
+            SliverFillRemaining(
+              hasScrollBody: false,
+              child: Column(
+                children: [
+                  const Spacer(),
+                  Padding(
+                      padding: const EdgeInsets.symmetric(vertical: AppSize.viewSpacing),
+                      child: CustomButton(
+                          title: LocaleKeys.register.value,
+                          onPressed: () {
+                            _showSuccessDialog(); // KeyboardUtil.hideKeyboard(context);
+                            // if (formKey.currentState!.validate()) {
+                            // final mainState = context.read<NewMemberBloc>().state;
+                            // context.read<RegisterFormBloc>().add(
+                            //       RegisterUser(
+                            //         username: mainState.userName,
+                            //         processId: mainState.registerProcessID,
+                            //       ),
+                            //     );
+                            // }
+                          })),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
@@ -105,7 +102,7 @@ class _RegistrationFormState extends State<RegisterForm> {
             message: LocaleKeys.yourAccountHasBeenRegisteredSuccessfully.value,
             primaryButtonTitle: LocaleKeys.logIn.value,
             onPrimaryButtonPressed: () {
-              Navigator.of(context, rootNavigator: true).pop();
+              Navigator.of(context, rootNavigator: true).pushReplacementNamed(AppRoute.user);
             },
           ),
         );

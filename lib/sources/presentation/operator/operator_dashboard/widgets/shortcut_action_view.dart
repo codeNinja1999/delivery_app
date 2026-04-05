@@ -62,7 +62,7 @@ class ShortcutActionView extends StatelessWidget {
               ),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(AppSize.inset),
-                color: theme.colorScheme.surfaceContainer,
+                color: Theme.of(context).scaffoldBackgroundColor,
                 border: Border.all(color: theme.colorScheme.outline),
               ),
               child: Column(

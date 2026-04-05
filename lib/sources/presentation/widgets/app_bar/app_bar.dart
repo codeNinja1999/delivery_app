@@ -29,7 +29,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
     final theme = Theme.of(context);
     return AppBar(
       automaticallyImplyLeading: false,
-      surfaceTintColor: theme.colorScheme.shadow,
+      surfaceTintColor: Colors.transparent,
       leadingWidth: 65,
       leading: allowBack
           ? Padding(
@@ -58,7 +58,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
               ),
             )
           : null,
-      backgroundColor: backgroundColor ?? theme.colorScheme.surface,
+      backgroundColor: backgroundColor ?? Theme.of(context).scaffoldBackgroundColor,
       centerTitle: true,
       title: Text(
         title ?? "",

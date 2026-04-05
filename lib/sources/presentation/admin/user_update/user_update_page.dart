@@ -15,7 +15,7 @@ class UserUpdatePage extends StatelessWidget {
       appBar: const MyAppBar(
         title: "Update User",
       ),
-      backgroundColor: theme.colorScheme.surface,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: AppSize.viewMargin, vertical: AppSize.viewSpacing),
         child: Column(

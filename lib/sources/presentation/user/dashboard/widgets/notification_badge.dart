@@ -21,7 +21,7 @@ class NotificationBadge extends StatelessWidget {
         ),
         child: Icon(
           Icons.notifications,
-          color: theme.colorScheme.surfaceContainer,
+          color: Theme.of(context).scaffoldBackgroundColor,
         ),
       ),
     );

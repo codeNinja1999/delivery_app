@@ -43,7 +43,7 @@ class WithdrawAppDropDown<T> extends StatelessWidget {
         leading: allowBack
             ? IconButton(
                 icon: const Icon(Icons.arrow_back_ios_new_rounded),
-                color: Theme.of(context).colorScheme.surface,
+                color: Theme.of(context).scaffoldBackgroundColor,
                 onPressed: () {
                   if (FocusScope.of(context).hasFocus) {
                     FocusScope.of(context).requestFocus(FocusNode());

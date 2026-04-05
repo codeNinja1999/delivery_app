@@ -62,7 +62,7 @@ class ResetPasswordForm extends StatelessWidget {
                           nextTitle: LocaleKeys.resetPassword.value,
                           nextButtonAction: () {
                             KeyboardUtil.hideKeyboard(context);
-                            Navigator.of(context, rootNavigator: true).pushNamed(AppRoute.login);
+                            showSuccessDialog(context);
                             // if (formKey.currentState!.validate()) {
                             //   context.read<ResetPasswordBloc>().add(
                             //         SetPassword(
@@ -96,7 +96,7 @@ class ResetPasswordForm extends StatelessWidget {
           message: LocaleKeys.resetSuccessfulMessage.value,
           primaryButtonTitle: LocaleKeys.login.value,
           onPrimaryButtonPressed: () {
-            Navigator.of(context, rootNavigator: true).pushNamed(AppRoute.login);
+            Navigator.of(context, rootNavigator: true).pushNamed(AppRoute.user);
           },
         );
       },

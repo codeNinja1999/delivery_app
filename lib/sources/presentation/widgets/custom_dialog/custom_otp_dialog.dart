@@ -33,7 +33,7 @@ class CustomOtpDialog extends StatelessWidget {
         padding: const EdgeInsetsDirectional.symmetric(vertical: 40, horizontal: AppSize.inset),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(AppSize.inset),
-          color: theme.colorScheme.surface,
+          color: Theme.of(context).scaffoldBackgroundColor,
         ),
         width: MediaQuery.of(context).size.width - 24,
         child: SingleChildScrollView(

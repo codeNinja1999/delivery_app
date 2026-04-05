@@ -19,7 +19,7 @@ class _DashboardHomeState extends State<DashboardPage> {
     super.initState();
     final bloc = context.read<DashboardBloc>();
     bloc.add(GetDashboardData());
-    bloc.add(UserInfoSubscriptionRequested());
+    // bloc.add(UserInfoSubscriptionRequested());
   }
 
   @override
@@ -27,7 +27,7 @@ class _DashboardHomeState extends State<DashboardPage> {
     return PopScope(
       canPop: false,
       child: Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.surface,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         appBar: MyAppBar(
           allowBack: false,
           actions: [

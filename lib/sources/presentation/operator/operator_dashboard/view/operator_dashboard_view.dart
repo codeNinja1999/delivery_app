@@ -59,7 +59,7 @@ class OperatorDashboardView extends StatelessWidget {
                         side: BorderSide(color: theme.colorScheme.primary),
                         labelStyle: TextStyle(color: (state.isPickupOrder) ? Colors.white : Colors.black),
                         backgroundColor:
-                            (state.isPickupOrder) ? theme.colorScheme.primary : theme.colorScheme.surfaceContainer,
+                            (state.isPickupOrder) ? theme.colorScheme.primary : Theme.of(context).scaffoldBackgroundColor,
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppSize.inset)),
                       ),
                     ),
@@ -73,7 +73,7 @@ class OperatorDashboardView extends StatelessWidget {
                         side: BorderSide(color: theme.colorScheme.primary),
                         labelStyle: TextStyle(color: (state.isPickupOrder) ? Colors.black : Colors.white),
                         backgroundColor:
-                            (state.isPickupOrder) ? theme.colorScheme.surfaceContainer : theme.colorScheme.primary,
+                            (state.isPickupOrder) ? Theme.of(context).scaffoldBackgroundColor : theme.colorScheme.primary,
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppSize.inset)),
                       ),
                     ),
@@ -92,7 +92,7 @@ class OperatorDashboardView extends StatelessWidget {
                   return Container(
                     padding: const EdgeInsets.all(AppSize.inset),
                     decoration: BoxDecoration(
-                      color: theme.colorScheme.surfaceContainer,
+                      color: Theme.of(context).scaffoldBackgroundColor,
                       borderRadius: BorderRadius.circular(AppSize.cornerRadiusMedium),
                     ),
                     child: Column(

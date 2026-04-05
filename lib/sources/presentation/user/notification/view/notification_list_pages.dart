@@ -25,7 +25,7 @@ class _NotificationListPageState extends State<NotificationListPage> {
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     return Scaffold(
-      backgroundColor: theme.colorScheme.surface,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: MyAppBar(title: LocaleKeys.notifications.value),
       body: BlocListener<NotificationListBloc, NotificationListState>(
         listenWhen: (previous, current) => previous.status != current.status,

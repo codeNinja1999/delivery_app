@@ -1,4 +1,5 @@
 //app size
+export 'app_size/app_size_extension.dart';
 export 'app_size/app_size.dart';
 
 //app constant

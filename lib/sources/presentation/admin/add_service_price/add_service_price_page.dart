@@ -38,7 +38,7 @@ class _AddServicePricePageState extends State<AddServicePricePage> {
       appBar: const MyAppBar(
         title: "Add/Edit Service",
       ),
-      backgroundColor: theme.colorScheme.surface,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: BlocListener<AddServicePriceBloc, AddServicePriceState>(
         listenWhen: (previous, current) => previous.status != current.status,
         listener: (context, state) {

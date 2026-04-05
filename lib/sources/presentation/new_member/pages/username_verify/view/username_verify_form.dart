@@ -35,46 +35,45 @@ class _UsernameVerifyFormState extends State<UsernameVerifyForm> {
           ErrorResolver.resolve(context, status);
         }
       },
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: AppSize.viewMargin),
-        child: Form(
-          key: formKey,
-          child: CustomScrollView(
-            physics: const BouncingScrollPhysics(),
-            slivers: [
-              SliverToBoxAdapter(
-                child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-                  const SizedBox(height: AppSize.viewMargin),
-                  Text(
-                    LocaleKeys.signUp.value,
-                    style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold, fontSize: 36),
+      child: Form(
+        key: formKey,
+        child: CustomScrollView(
+          physics: const BouncingScrollPhysics(),
+          slivers: [
+            SliverToBoxAdapter(
+              child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+                const SizedBox(height: AppSize.viewMargin),
+                Text(
+                  LocaleKeys.signUp.value,
+                  style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold, fontSize: 36),
+                ),
+                const SizedBox(height: AppSize.viewSpacing),
+                const EmailAddressInput(),
+                const SizedBox(height: AppSize.inset * 0.5),
+              ]),
+            ),
+            SliverFillRemaining(
+              hasScrollBody: false,
+              child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+                const Spacer(),
+                const SizedBox(height: AppSize.viewSpacing),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: AppSize.viewSpacing),
+                  child: CustomButton(
+                    title: LocaleKeys.nextButtonTitle.value,
+                    onPressed: () {
+                      Navigator.of(context).pushNamed(NewMemberRoute.otpVerify);
+
+                      // if (formKey.currentState!.validate()) {
+                      //   KeyboardUtil.hideKeyboard(context);
+                      //   context.read<UsernameVerifyBloc>().add(VerifyEmailAddress());
+                      // }
+                    },
                   ),
-                  const SizedBox(height: AppSize.viewSpacing),
-                  const EmailAddressInput(),
-                  const SizedBox(height: AppSize.inset * 0.5),
-                ]),
-              ),
-              SliverFillRemaining(
-                hasScrollBody: false,
-                child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-                  const Spacer(),
-                  const SizedBox(height: AppSize.viewSpacing),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: AppSize.viewSpacing),
-                    child: CustomButton(
-                      title: LocaleKeys.nextButtonTitle.value,
-                      onPressed: () {
-                        if (formKey.currentState!.validate()) {
-                          KeyboardUtil.hideKeyboard(context);
-                          context.read<UsernameVerifyBloc>().add(VerifyEmailAddress());
-                        }
-                      },
-                    ),
-                  ),
-                ]),
-              )
-            ],
-          ),
+                ),
+              ]),
+            )
+          ],
         ),
       ),
     );

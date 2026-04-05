@@ -12,107 +12,115 @@ class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
 
   @override
-  State<LoginForm> createState() => _LoginBodyState();
+  State<LoginForm> createState() => _LoginFormState();
 }
 
-class _LoginBodyState extends State<LoginForm> {
-  final formKey = GlobalKey<FormState>();
-  final textController = TextEditingController();
+class _LoginFormState extends State<LoginForm> {
+  final _formKey = GlobalKey<FormState>();
+  final _usernameController = TextEditingController();
+
+  @override
+  void dispose() {
+    _usernameController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+
     return BlocListener<LoginBloc, LoginState>(
-      listenWhen: (previous, current) => previous.status != current.status,
-      listener: (context, state) {
-        final status = state.status;
-        (status is InProgress) ? LoadingView.show() : LoadingView.hide();
-        if (status is Success) {
-          if (state.userType.id == "admin") {
-            Navigator.of(context).pushReplacementNamed(AppRoute.admin);
-          } else if (state.userType.id == "operator") {
-            Navigator.of(context).pushReplacementNamed(AppRoute.operator);
-          } else {
-            Navigator.of(context).pushReplacementNamed(AppRoute.user);
-          }
-        } else if (status is SubmissionFailure) {
-          ErrorResolver.resolve(context, status);
-        }
-      },
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: AppSize.viewMargin),
-        child: Form(
-          key: formKey,
-          child: CustomScrollView(
-            slivers: [
-              SliverToBoxAdapter(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SizedBox(height: AppSize.spacedViewSpacing),
-                    Center(child: Image.asset(AppImages.logo, width: MediaQuery.of(context).size.width / 2.5)),
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 8.0, top: AppSize.inset),
-                      child: Text(
-                        "${LocaleKeys.hi.value} ${LocaleKeys.welcome.value}",
-                        style: theme.textTheme.titleMedium?.copyWith(fontSize: 36),
-                      ),
+      listenWhen: _listenWhenStatusChanged,
+      listener: (context, state) => _handleState(context, state),
+      child: Form(
+        key: _formKey,
+        child: CustomScrollView(
+          slivers: [
+            SliverToBoxAdapter(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  const SizedBox(height: AppSize.spacedViewSpacing),
+                  Center(
+                    child: Image.asset(
+                      AppImages.logo,
+                      width: MediaQuery.of(context).size.width / 2.5,
                     ),
-                    const SizedBox(height: AppSize.viewSpacing),
-                    UserNameInput(textController: textController),
-                    const SizedBox(height: AppSize.inset),
-                    _PasswordInput(),
-                    const SizedBox(height: AppSize.inset),
-                    _UserTypeInput(),
-                    const SizedBox(height: AppSize.inset),
-                    const RememberView(),
-                    const SizedBox(height: AppSize.viewSpacing * 2),
-                    CustomButton(
-                      title: LocaleKeys.login.value,
-                      onPressed: () {
-                        KeyboardUtil.hideKeyboard(context);
-                        // Navigator.of(context).pushReplacementNamed(AppRoute.operator);
-
-                        if (formKey.currentState!.validate()) {
-                        BlocProvider.of<LoginBloc>(context).add(AuthenticateUser());
-                        }
-                      },
-                    ),
-                    const SizedBox(height: AppSize.inset),
-                  ],
-                ),
+                  ),
+                  const SizedBox(height: AppSize.viewSpacing),
+                  Text(
+                    "${LocaleKeys.hi.value} ${LocaleKeys.welcome.value}",
+                    style: theme.textTheme.titleMedium?.copyWith(fontSize: 36),
+                  ),
+                  const SizedBox(height: AppSize.viewSpacing),
+                  UserNameInput(textController: _usernameController),
+                  const SizedBox(height: AppSize.inset),
+                  _PasswordInput(),
+                  const SizedBox(height: AppSize.inset),
+                  _UserTypeInput(),
+                  const SizedBox(height: AppSize.inset),
+                  const RememberView(),
+                  const SizedBox(height: AppSize.viewSpacing * 2),
+                  CustomButton(
+                    title: LocaleKeys.login.value,
+                    onPressed: () => _onLoginPressed(context),
+                  ),
+                  const SizedBox(height: AppSize.inset),
+                ],
               ),
-              // Use the SliverFillRemaining for the sub tree that uses Expanded / Flexible / Spacer etc.
-              _FooterWidget(),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class _FooterWidget extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return SliverFillRemaining(
-      hasScrollBody: false,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: AppSize.viewSpacing),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            const Spacer(),
-            TextButton(
-              onPressed: () {},
-              child: Text(LocaleKeys.loginAsGuest.value, style: Theme.of(context).textTheme.bodyLarge),
             ),
-            const CreateAccountView(),
+            const SliverFillRemaining(
+              hasScrollBody: false,
+              child: BuildBottomSection(),
+            ),
           ],
         ),
       ),
     );
+  }
+
+
+  void _onLoginPressed(BuildContext context) {
+    KeyboardUtil.hideKeyboard(context);
+
+    if (_formKey.currentState!.validate()) {
+      context.read<LoginBloc>().add(AuthenticateUser());
+    }
+  }
+
+  // -------------------- LISTENER --------------------
+
+  bool _listenWhenStatusChanged(LoginState prev, LoginState curr) {
+    return prev.status != curr.status;
+  }
+
+  void _handleState(BuildContext context, LoginState state) {
+    final status = state.status;
+
+    (status is InProgress) ? LoadingView.show() : LoadingView.hide();
+
+    if (status is Success) {
+      _navigate(context, state.userType.id);
+    } else if (status is SubmissionFailure) {
+      ErrorResolver.resolve(context, status);
+    }
+  }
+
+  void _navigate(BuildContext context, String userType) {
+    Navigator.of(context).pushReplacementNamed(
+      _resolveRoute(userType),
+    );
+  }
+
+  String _resolveRoute(String userType) {
+    switch (userType) {
+      case "admin":
+        return AppRoute.admin;
+      case "operator":
+        return AppRoute.operator;
+      default:
+        return AppRoute.user;
+    }
   }
 }
 
@@ -252,41 +260,58 @@ class RememberView extends StatelessWidget {
   }
 }
 
-class CreateAccountView extends StatelessWidget {
-  const CreateAccountView({super.key});
+class BuildBottomSection extends StatelessWidget {
+  const BuildBottomSection({super.key});
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Flexible(
-          child: Text(
-            LocaleKeys.notHaveAnOptions.value,
-            style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w500),
-            maxLines: 2,
-            softWrap: true,
-            textAlign: TextAlign.center,
-          ),
-        ),
-        const SizedBox(width: AppSize.cornerRadiusMedium),
-        InkWell(
-          onTap: () {
-            Navigator.pushNamed(context, AppRoute.newMemberPage);
-          },
-          child: Text(
-            LocaleKeys.signUp.value,
-            style: theme.textTheme.titleMedium?.copyWith(
-              decoration: TextDecoration.underline,
-              color: theme.primaryColor,
-              fontWeight: FontWeight.w500,
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        vertical: AppSize.viewSpacing,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          const Spacer(),
+          TextButton(
+            onPressed: () {},
+            child: Text(
+              LocaleKeys.loginAsGuest.value,
+              style: Theme.of(context).textTheme.bodyLarge,
             ),
           ),
-        ),
-      ],
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Flexible(
+                child: Text(
+                  LocaleKeys.notHaveAnOptions.value,
+                  style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w500),
+                  maxLines: 2,
+                  softWrap: true,
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              const SizedBox(width: AppSize.cornerRadiusMedium),
+              InkWell(
+                onTap: () {
+                  Navigator.pushNamed(context, AppRoute.newMemberPage);
+                },
+                child: Text(
+                  LocaleKeys.signUp.value,
+                  style: theme.textTheme.titleMedium?.copyWith(
+                    decoration: TextDecoration.underline,
+                    color: theme.primaryColor,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }

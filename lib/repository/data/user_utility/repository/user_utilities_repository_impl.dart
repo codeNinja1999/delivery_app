@@ -37,10 +37,22 @@ class UserUtilitiesRepositoryImpl implements UserUtilitiesRepository {
   NetworkClient networkClient;
 
   final _userInfoStreamController = BehaviorSubject<DetailedUser?>.seeded(null);
+  DetailedUser? _cachedUserInfo;
 
   @override
   clearSavedUser() {
-    throw UnimplementedError();
+    _cachedUserInfo = null;
+    _userInfoStreamController.add(null);
+  }
+
+  @override
+  void dispose() {
+    _userInfoStreamController.close();
+  }
+
+  @override
+  DetailedUser? getUserDetailed() {
+    return _cachedUserInfo;
   }
 
   @override
@@ -50,7 +62,9 @@ class UserUtilitiesRepositoryImpl implements UserUtilitiesRepository {
       final responseJson = json.decode(response.asString);
       final responseModel = GetUserInfoResponseModel.fromJson(responseJson);
       if (responseModel.userId != null) {
-        _userInfoStreamController.add(responseModel.toUserInfoDomain());
+        final userDetail = responseModel.toUserInfoDomain();
+        _cachedUserInfo = userDetail;
+        _userInfoStreamController.add(userDetail);
       } else {
         _userInfoStreamController.addError(Exception("Data not found"));
       }

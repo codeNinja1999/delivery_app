@@ -18,7 +18,7 @@ class OperatorView extends StatelessWidget {
       padding: const EdgeInsets.all(AppSize.inset),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(AppSize.cornerRadiusMedium),
-        color: theme.colorScheme.surfaceContainer,
+        color: Theme.of(context).scaffoldBackgroundColor,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,

@@ -26,7 +26,7 @@ class _OperatorProfilePageState extends State<OperatorProfilePage> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.surface,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: const MyAppBar(
         title: "Profile",
       ),

@@ -45,96 +45,94 @@ class _OtpVerifyFormState extends State<OtpVerifyForm> {
           ErrorResolver.resolve(context, status);
         }
       },
-      child: Padding(
-        padding: const EdgeInsets.all(AppSize.viewMargin),
-        child: Form(
-          key: formKey,
-          child: CustomScrollView(
-            slivers: [
-              SliverToBoxAdapter(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    const SizedBox(height: AppSize.viewMargin),
-                    Text(LocaleKeys.verificationCode.value, style: theme.textTheme.titleMedium?.copyWith(fontSize: 36)),
-                    const SizedBox(height: AppSize.inset),
-                    Text(LocaleKeys.verificationCodeSentMessage.tr(args: [emailAddress]), style: theme.textTheme.bodyLarge),
-                    const SizedBox(height: AppSize.viewSpacing),
-                    PinputExample(
-                      onChanged: (pin) => context.read<AccountOtpVerifyBloc>().add(VerificationCodeChanged(pin)),
-                    ),
-                    const SizedBox(height: AppSize.inset),
-                  ],
-                ),
+      child: Form(
+        key: formKey,
+        child: CustomScrollView(
+          slivers: [
+            SliverToBoxAdapter(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  const SizedBox(height: AppSize.viewMargin),
+                  Text(LocaleKeys.verificationCode.value, style: theme.textTheme.titleMedium?.copyWith(fontSize: 36)),
+                  const SizedBox(height: AppSize.inset),
+                  Text(LocaleKeys.verificationCodeSentMessage.tr(args: [emailAddress]), style: theme.textTheme.bodyLarge),
+                  const SizedBox(height: AppSize.viewSpacing),
+                  PinputExample(
+                    onChanged: (pin) => context.read<AccountOtpVerifyBloc>().add(VerificationCodeChanged(pin)),
+                  ),
+                  const SizedBox(height: AppSize.inset),
+                ],
               ),
-              SliverFillRemaining(
-                hasScrollBody: false,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    const Spacer(),
-                    const SizedBox(height: AppSize.spacedViewSpacing),
-                    BlocBuilder<AccountOtpVerifyBloc, AccountOtpVerifyState>(
-                      buildWhen: (previous, current) => previous.resendDuration != current.resendDuration,
-                      builder: (context, state) {
-                        return (state.resendDuration.inSeconds) >= 0
-                            ? RichText(
-                                textAlign: TextAlign.start,
-                                overflow: TextOverflow.visible,
-                                text: TextSpan(
-                                  text: LocaleKeys.didNotGeTheCodeResendIn.value,
-                                  style: theme.textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w400),
-                                  children: [
-                                    TextSpan(
-                                      text:
-                                          "${strDigits(state.resendDuration.inMinutes.remainder(60))}:${strDigits(state.resendDuration.inSeconds.remainder(60))}",
-                                      style: theme.textTheme.titleMedium?.copyWith(color: theme.colorScheme.error),
+            ),
+            SliverFillRemaining(
+              hasScrollBody: false,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  const Spacer(),
+                  const SizedBox(height: AppSize.spacedViewSpacing),
+                  BlocBuilder<AccountOtpVerifyBloc, AccountOtpVerifyState>(
+                    buildWhen: (previous, current) => previous.resendDuration != current.resendDuration,
+                    builder: (context, state) {
+                      return (state.resendDuration.inSeconds) >= 0
+                          ? RichText(
+                              textAlign: TextAlign.start,
+                              overflow: TextOverflow.visible,
+                              text: TextSpan(
+                                text: LocaleKeys.didNotGeTheCodeResendIn.value,
+                                style: theme.textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w400),
+                                children: [
+                                  TextSpan(
+                                    text:
+                                        "${strDigits(state.resendDuration.inMinutes.remainder(60))}:${strDigits(state.resendDuration.inSeconds.remainder(60))}",
+                                    style: theme.textTheme.titleMedium?.copyWith(color: theme.colorScheme.error),
+                                  ),
+                                ],
+                              ),
+                            )
+                          : RichText(
+                              textAlign: TextAlign.start,
+                              overflow: TextOverflow.visible,
+                              text: TextSpan(
+                                text: LocaleKeys.didNotGeTheCode.value,
+                                style: theme.textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w400),
+                                children: [
+                                  TextSpan(
+                                    text: LocaleKeys.resendOtp.value,
+                                    style: theme.textTheme.titleMedium?.copyWith(
+                                      color: theme.colorScheme.error,
+                                      decoration: TextDecoration.underline,
                                     ),
-                                  ],
-                                ),
-                              )
-                            : RichText(
-                                textAlign: TextAlign.start,
-                                overflow: TextOverflow.visible,
-                                text: TextSpan(
-                                  text: LocaleKeys.didNotGeTheCode.value,
-                                  style: theme.textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w400),
-                                  children: [
-                                    TextSpan(
-                                      text: LocaleKeys.resendOtp.value,
-                                      style: theme.textTheme.titleMedium?.copyWith(
-                                        color: theme.colorScheme.error,
-                                        decoration: TextDecoration.underline,
-                                      ),
-                                      recognizer: TapGestureRecognizer()
-                                        ..onTap = () {
-                                          final mainState = context.read<NewMemberBloc>().state;
-                                          context.read<AccountOtpVerifyBloc>().add(
-                                                ResendOtp(emailAddress: mainState.emailAddress),
-                                              );
-                                        },
-                                    ),
-                                  ],
-                                ),
-                              );
+                                    recognizer: TapGestureRecognizer()
+                                      ..onTap = () {
+                                        final mainState = context.read<NewMemberBloc>().state;
+                                        context.read<AccountOtpVerifyBloc>().add(
+                                              ResendOtp(emailAddress: mainState.emailAddress),
+                                            );
+                                      },
+                                  ),
+                                ],
+                              ),
+                            );
+                    },
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: AppSize.viewSpacing),
+                    child: CustomButton(
+                      title: LocaleKeys.nextButtonTitle.value,
+                      onPressed: () {
+                        Navigator.of(context).pushReplacementNamed(NewMemberRoute.registerForm);
+
+                        // KeyboardUtil.hideKeyboard(context);
+                        // context.read<AccountOtpVerifyBloc>().add(VerifyRegisterOTP());
                       },
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: AppSize.viewSpacing),
-                      child: CustomButton(
-                        title: LocaleKeys.nextButtonTitle.value,
-                        onPressed: () {
-                          KeyboardUtil.hideKeyboard(context);
-                          context.read<AccountOtpVerifyBloc>().add(VerifyRegisterOTP());
-                        },
-                      ),
-                    ),
-                    Padding(padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom)),
-                  ],
-                ),
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

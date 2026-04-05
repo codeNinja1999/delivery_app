@@ -19,7 +19,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
     final theme = Theme.of(context);
 
     return Scaffold(
-      backgroundColor: theme.colorScheme.surface,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: MyAppBar(backButtonAction: cancelNewPasswordDialog),
       body: const ResetPasswordForm(),
     );

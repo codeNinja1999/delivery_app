@@ -23,7 +23,7 @@ class RecentOrderHistoryListView extends StatelessWidget {
           margin: const EdgeInsets.only(top: AppSize.cornerRadiusMedium),
           padding: const EdgeInsets.all(AppSize.inset),
           decoration: BoxDecoration(
-            color: theme.colorScheme.surfaceContainer,
+            color: Theme.of(context).scaffoldBackgroundColor,
             borderRadius: BorderRadius.circular(AppSize.inset),
           ),
           child: Column(

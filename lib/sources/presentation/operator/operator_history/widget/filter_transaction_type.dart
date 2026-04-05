@@ -24,7 +24,8 @@ class FilterTransactionType extends StatelessWidget {
         onPressed: onTap,
         style: TextButton.styleFrom(
           side: BorderSide(color: theme.colorScheme.primary),
-          backgroundColor: (selectedIndex == currentIndex) ? theme.colorScheme.primary : theme.colorScheme.surface,
+          backgroundColor:
+              (selectedIndex == currentIndex) ? theme.colorScheme.primary : Theme.of(context).scaffoldBackgroundColor,
           padding: const EdgeInsets.symmetric(
             vertical: AppSize.cornerRadiusMedium,
             horizontal: AppSize.inset,
@@ -33,7 +34,7 @@ class FilterTransactionType extends StatelessWidget {
         child: Text(
           title,
           style: theme.textTheme.titleMedium?.copyWith(
-            color: (selectedIndex == currentIndex) ? theme.colorScheme.surface : theme.colorScheme.primary,
+            color: (selectedIndex == currentIndex) ? Theme.of(context).scaffoldBackgroundColor : theme.colorScheme.primary,
           ),
         ),
       ),

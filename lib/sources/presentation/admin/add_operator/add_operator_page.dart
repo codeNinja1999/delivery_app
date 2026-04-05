@@ -41,7 +41,7 @@ class _AddOperatorPageState extends State<AddOperatorPage> {
       appBar: const MyAppBar(
         title: "Add/Update Operator",
       ),
-      backgroundColor: theme.colorScheme.surface,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: BlocListener<AddOperatorBloc, AddOperatorState>(
         listener: (context, state) {
           final status = state.status;

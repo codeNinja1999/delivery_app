@@ -43,7 +43,7 @@ class _VerifyEmailFormState extends State<VerifyEmailForm> {
                 child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
                   const SizedBox(height: AppSize.spacedViewSpacing),
                   Text(
-                    LocaleKeys.signUp.value,
+                    LocaleKeys.enterEmail.value,
                     style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold, fontSize: 36),
                   ),
                   const SizedBox(height: AppSize.viewSpacing),
@@ -61,10 +61,12 @@ class _VerifyEmailFormState extends State<VerifyEmailForm> {
                     child: CustomButton(
                       title: LocaleKeys.nextButtonTitle.value,
                       onPressed: () {
-                        if (formKey.currentState!.validate()) {
-                          KeyboardUtil.hideKeyboard(context);
-                          context.read<VerifyEmailBloc>().add(VerifyEmailAddress());
-                        }
+                        Navigator.of(context).pushNamed(ResetPasswordRoute.otpVerify);
+
+                        // if (formKey.currentState!.validate()) {
+                        //   KeyboardUtil.hideKeyboard(context);
+                        //   context.read<VerifyEmailBloc>().add(VerifyEmailAddress());
+                        // }
                       },
                     ),
                   ),

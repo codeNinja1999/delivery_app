@@ -19,7 +19,7 @@ class _OrderSuccessPageState extends State<OrderSuccessPage> {
     return PopScope(
       canPop: false,
       child: Scaffold(
-        backgroundColor: theme.colorScheme.surface,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         body: Padding(
           padding: const EdgeInsets.all(AppSize.viewMargin),
           child: Column(

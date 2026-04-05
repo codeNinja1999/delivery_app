@@ -22,7 +22,7 @@ class VerifyEmailBloc extends Bloc<VerifyEmailEvent, VerifyEmailState> {
         emit(state.copyWith(status: InProgress()));
 
         final data = GenerateOTP(email: state.emailAddress);
-        final response = await otpRepository.generateRegisterOTP(data);
+        final response = await otpRepository.generateForgotPasswordOTP(data);
         emit(
           response.fold(
             (error) => state.copyWith(status: SubmissionFailure(error)),

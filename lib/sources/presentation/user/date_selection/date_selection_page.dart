@@ -20,7 +20,7 @@ class _DateSelectionPageState extends State<DateSelectionPage> {
     final theme = Theme.of(context);
 
     return Scaffold(
-      backgroundColor: theme.colorScheme.surface,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: const MyAppBar(
         title: "Pickup Time",
       ),

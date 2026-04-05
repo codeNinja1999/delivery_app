@@ -12,8 +12,10 @@ import '../entities/registration/operator_registration_info.dart';
 
 abstract class UserUtilitiesRepository {
   clearSavedUser();
+  dispose();
   Future<String> getUserInfo();
   Stream<DetailedUser?> userInfo();
+  DetailedUser? getUserDetailed();
   Future<Either<Exception, String>> logoutUser();
   Future<Either<Exception, AnalyticDataInfo>> fetchAnalyticData(DateFilter filter);
   Future<Either<Exception, List<DetailedUser>>> getUserList(PaginationFilter filter);

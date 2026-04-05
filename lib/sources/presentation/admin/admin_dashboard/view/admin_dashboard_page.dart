@@ -28,7 +28,7 @@ class _DashboardHomeState extends State<AdminDashboardPage> {
     return PopScope(
       canPop: false,
       child: Scaffold(
-        backgroundColor: theme.colorScheme.surface,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         appBar: MyAppBar(
           allowBack: false,
           actions: [

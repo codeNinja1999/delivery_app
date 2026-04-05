@@ -53,7 +53,9 @@ class _CustomSwitchState extends State<CustomSwitch> with SingleTickerProviderSt
                     : theme.colorScheme.primary.withOpacity(0.4),
               ),
               borderRadius: BorderRadius.circular(24.0),
-              color: _circleAnimation!.value == Alignment.centerLeft ? theme.colorScheme.shadow : theme.colorScheme.surface,
+              color: _circleAnimation!.value == Alignment.centerLeft
+                  ? theme.colorScheme.shadow
+                  : Theme.of(context).scaffoldBackgroundColor,
             ),
             child: Padding(
               padding: const EdgeInsets.only(top: 2.0, bottom: 2.0, right: 2.0, left: 2.0),

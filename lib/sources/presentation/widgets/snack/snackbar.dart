@@ -35,7 +35,7 @@ class SnackbarUtils {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          Icon(icon, color: AppColors.backgroundLight),
+          Icon(icon, color: AppColors.background),
           const SizedBox(width: 12),
           Expanded(
             child: Text(message ?? "", maxLines: 2),

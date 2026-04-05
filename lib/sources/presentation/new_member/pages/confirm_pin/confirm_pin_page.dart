@@ -18,7 +18,7 @@ class _ConfirmTransactionPinState extends State<ConfirmTransactionPinPage> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Scaffold(
-      backgroundColor: theme.colorScheme.surface,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: const MyAppBar(),
       bottomNavigationBar: Column(
         mainAxisSize: MainAxisSize.min,

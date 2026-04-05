@@ -11,11 +11,10 @@ class PickupOrderPage extends StatefulWidget {
 }
 
 class PickupOrderPageState extends State<PickupOrderPage> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.surface,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: MyAppBar(title: "Pickup Order"),
       body: const PickupOrderView(),
     );

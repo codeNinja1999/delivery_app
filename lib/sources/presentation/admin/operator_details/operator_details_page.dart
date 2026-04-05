@@ -11,7 +11,7 @@ class OperatorDetailsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Scaffold(
-      backgroundColor: theme.colorScheme.surface,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: const MyAppBar(title: "Operators"),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(AppSize.viewMargin),

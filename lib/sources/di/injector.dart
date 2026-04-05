@@ -77,9 +77,7 @@ void blocsInjection() {
   sl.registerFactory(() => OtpVerifyBloc(otpRepository: sl()));
   sl.registerFactory(() => VerifyEmailBloc(otpRepository: sl()));
   sl.registerFactory(() => LoginBloc(userAuthenticationRepository: sl()));
-  sl.registerFactory(
-    () => ResetPasswordBloc(passwordRepository: PasswordRepositoryImpl(networkClient: sl())),
-  );
+  sl.registerFactory(() => ResetPasswordBloc(passwordRepository: sl()));
 
   //dashboard
   sl.registerFactory(() => DashboardBloc(userUtilitiesRepository: sl(), catalogRepository: sl()));
@@ -123,7 +121,7 @@ void repositoriesInjection() {
     () => UserAuthenticationRepositoryImpl(networkClient: defaultNetworkClient()),
   );
   sl.registerFactory<PasswordRepository>(
-    () => PasswordRepositoryImpl(networkClient: userAuthenticationNetworkClient()),
+    () => PasswordRepositoryImpl(networkClient: defaultNetworkClient()),
   );
   sl.registerFactory<UserRegistrationRepository>(
     () => UserRegistrationRepositoryImpl(networkClient: userAuthenticationNetworkClient()),
