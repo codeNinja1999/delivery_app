@@ -22,24 +22,27 @@ class _CheckoutPageState extends State<CheckoutPage> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return Scaffold(
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+    return AppPage(
       appBar: const MyAppBar(
         title: "Checkout",
       ),
-      body: BlocListener<CheckoutBloc, CheckoutState>(
-        listenWhen: (previous, current) => previous.status != current.status,
-        listener: (context, state) {
-          final status = state.status;
-          (status is InProgress) ? LoadingView.show() : LoadingView.hide();
-          if (status is Success) {
-            Navigator.pushNamed(context, UserRoute.orderSuccess);
-          } else if (status is SubmissionFailure) {
-            ErrorResolver.resolve(context, status);
-          }
-        },
-        child: Padding(
-          padding: const EdgeInsets.all(AppSize.viewMargin),
+      body: Padding(
+        padding: EdgeInsets.only(
+          left: context.hInset,
+          right: context.hInsetR,
+          bottom: AppSize.bottomSafeInset,
+        ),
+        child: BlocListener<CheckoutBloc, CheckoutState>(
+          listenWhen: (previous, current) => previous.status != current.status,
+          listener: (context, state) {
+            final status = state.status;
+            (status is InProgress) ? LoadingView.show() : LoadingView.hide();
+            if (status is Success) {
+              Navigator.pushNamed(context, UserRoute.orderSuccess);
+            } else if (status is SubmissionFailure) {
+              ErrorResolver.resolve(context, status);
+            }
+          },
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
@@ -48,14 +51,14 @@ class _CheckoutPageState extends State<CheckoutPage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
+                      const SizedBox(height: AppSize.inset),
                       Text(
                         "Choose your Location",
                         style: theme.textTheme.titleLarge,
                       ),
-                      const SizedBox(height: AppSize.cornerRadiusMedium),
+                      const SizedBox(height: AppSize.inset * 0.5),
                       Text(
                         "Where do you like your laundry picked up?",
-                        style: theme.textTheme.bodySmall,
                       ),
                       const SizedBox(height: AppSize.inset),
                       BlocBuilder<UserBloc, UserState>(
@@ -66,8 +69,9 @@ class _CheckoutPageState extends State<CheckoutPage> {
                             child: Container(
                               padding: const EdgeInsets.all(AppSize.inset),
                               decoration: BoxDecoration(
-                                color: Theme.of(context).scaffoldBackgroundColor,
+                                color: Theme.of(context).colorScheme.primaryContainer,
                                 borderRadius: BorderRadius.circular(AppSize.cornerRadiusMedium),
+                                border: Border.all(color: Theme.of(context).colorScheme.outline),
                               ),
                               child: Row(
                                 children: [
@@ -76,11 +80,11 @@ class _CheckoutPageState extends State<CheckoutPage> {
                                       crossAxisAlignment: CrossAxisAlignment.stretch,
                                       children: [
                                         Text(
-                                          "${state.location?.city ?? ""} ${state.location?.postalCode ?? ""}",
+                                          "${state.location?.city ?? "Naxal, Kathmandu"} ${state.location?.postalCode ?? "34200"}",
                                           style: theme.textTheme.titleMedium,
                                         ),
                                         Text(
-                                          state.location?.neighborhood ?? "",
+                                          state.location?.neighborhood ?? "Bagbazar",
                                           style: theme.textTheme.titleSmall,
                                         ),
                                       ],
@@ -99,8 +103,9 @@ class _CheckoutPageState extends State<CheckoutPage> {
                           return Container(
                             padding: const EdgeInsets.all(AppSize.viewMargin),
                             decoration: BoxDecoration(
+                              color: Theme.of(context).cardColor,
                               borderRadius: BorderRadius.circular(AppSize.cornerRadiusMedium),
-                              color: Theme.of(context).scaffoldBackgroundColor,
+                              border: Border.all(color: Theme.of(context).colorScheme.outline),
                             ),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -162,8 +167,9 @@ class _CheckoutPageState extends State<CheckoutPage> {
                           return Container(
                             padding: const EdgeInsets.all(AppSize.viewMargin),
                             decoration: BoxDecoration(
+                              color: Theme.of(context).cardColor,
                               borderRadius: BorderRadius.circular(AppSize.cornerRadiusMedium),
-                              color: Theme.of(context).scaffoldBackgroundColor,
+                              border: Border.all(color: Theme.of(context).colorScheme.outline),
                             ),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -189,13 +195,15 @@ class _CheckoutPageState extends State<CheckoutPage> {
                                         ),
                                         leading: Icon(icon, color: theme.colorScheme.primary),
                                         contentPadding: EdgeInsets.zero,
-                                        trailing: Radio(
-                                          value: paymentType.id,
+                                        trailing: RadioGroup(
                                           groupValue: state.selectedPaymentType?.id,
-                                          activeColor: AppColors.primary,
                                           onChanged: (_) => context.read<CheckoutBloc>().add(
                                                 PaymentTypeSelected(paymentType),
                                               ),
+                                          child: Radio(
+                                            value: paymentType.id,
+                                            activeColor: AppColors.primary,
+                                          ),
                                         ),
                                         onTap: () => context.read<CheckoutBloc>().add(
                                               PaymentTypeSelected(paymentType),
@@ -314,16 +322,19 @@ class _CheckoutPageState extends State<CheckoutPage> {
                   return CustomButton(
                       title: "Continue",
                       onPressed: () {
-                        final mainState = context.read<UserBloc>().state;
-                        context.read<CheckoutBloc>().add(CreateOrder(
-                              mainState.makeData(
-                                state.additionalInformation,
-                                state.receiptImage,
-                              ),
-                            ));
+                        Navigator.pushNamed(context, UserRoute.orderSuccess);
+
+                        // final mainState = context.read<UserBloc>().state;
+                        // context.read<CheckoutBloc>().add(CreateOrder(
+                        //       mainState.makeData(
+                        //         state.additionalInformation,
+                        //         state.receiptImage,
+                        //       ),
+                        // ));
                       });
                 },
               ),
+              const SizedBox(height: AppSize.viewSpacing),
             ],
           ),
         ),

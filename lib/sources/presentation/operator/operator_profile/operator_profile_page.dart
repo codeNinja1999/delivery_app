@@ -18,15 +18,14 @@ class _OperatorProfilePageState extends State<OperatorProfilePage> {
   @override
   void initState() {
     super.initState();
-    context.read<OperatorProfileBloc>().add(GetOperatorInfo());
-    context.read<OperatorProfileBloc>().add(OperatorInfoSubscriptionRequested());
+    // context.read<OperatorProfileBloc>().add(GetOperatorInfo());
+    // context.read<OperatorProfileBloc>().add(OperatorInfoSubscriptionRequested());
   }
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return Scaffold(
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+    return AppPage.scroll(
       appBar: const MyAppBar(
         title: "Profile",
       ),
@@ -37,7 +36,8 @@ class _OperatorProfilePageState extends State<OperatorProfilePage> {
           status is InProgress ? LoadingView.show() : LoadingView.hide();
           if (status is Success) {
             AppRouter.logoutUser(context);
-          } else if (status is SubmissionFailure) {
+          }
+          if (status is SubmissionFailure) {
             ErrorResolver.resolve(context, status);
           }
         },
@@ -45,39 +45,40 @@ class _OperatorProfilePageState extends State<OperatorProfilePage> {
           buildWhen: (previous, current) => previous.operatorInfo != current.operatorInfo,
           builder: (context, state) {
             return SingleChildScrollView(
-              padding: const EdgeInsets.all(AppSize.viewMargin),
-              child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-                const SizedBox(height: AppSize.inset),
-                Row(
-                  children: [
-                    const Icon(Icons.people),
-                    const SizedBox(width: AppSize.inset),
-                    Expanded(
-                      child: Text(
-                        state.operatorInfo?.personalInfo?.fullName ?? "",
-                        style: theme.textTheme.titleMedium,
-                      ),
-                    )
-                  ],
-                ),
-                const SizedBox(height: AppSize.inset),
-                Row(
-                  children: [
-                    const Icon(Icons.email),
-                    const SizedBox(width: AppSize.inset),
-                    Expanded(
-                      child: Text(
-                        state.operatorInfo?.personalInfo?.email ?? "",
-                        style: theme.textTheme.titleMedium,
-                      ),
-                    )
-                  ],
-                ),
-                const SizedBox(height: AppSize.spacedViewSpacing),
-                Center(
-                  child: SizedBox(
-                    width: 100,
-                    child: CustomButton(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  const SizedBox(height: AppSize.inset),
+                  Row(
+                    children: [
+                      const Icon(Icons.people),
+                      const SizedBox(width: AppSize.inset),
+                      Expanded(
+                        child: Text(
+                          state.operatorInfo?.personalInfo?.fullName ?? "operator",
+                          style: theme.textTheme.titleMedium,
+                        ),
+                      )
+                    ],
+                  ),
+                  const SizedBox(height: AppSize.inset),
+                  Row(
+                    children: [
+                      const Icon(Icons.email),
+                      const SizedBox(width: AppSize.inset),
+                      Expanded(
+                        child: Text(
+                          state.operatorInfo?.personalInfo?.email ?? "operator@gmail.com",
+                          style: theme.textTheme.titleMedium,
+                        ),
+                      )
+                    ],
+                  ),
+                  const SizedBox(height: AppSize.spacedViewSpacing),
+                  Center(
+                    child: SizedBox(
+                      width: 100,
+                      child: CustomButton(
                         title: "Logout",
                         buttonType: ButtonType.bordered,
                         onPressed: () {
@@ -88,15 +89,20 @@ class _OperatorProfilePageState extends State<OperatorProfilePage> {
                                 title: LocaleKeys.logoutConfirmationTitle.value,
                                 message: LocaleKeys.areYouSureYouWantToLogout.value,
                                 primaryButtonTitle: LocaleKeys.yes.value,
-                                onPrimaryButtonPressed: () => context.read<OperatorProfileBloc>().add(LogoutUser()),
+                                onPrimaryButtonPressed: () {
+                                  Navigator.of(context, rootNavigator: true).pop();
+// context.read<OperatorProfileBloc>().add(LogoutUser());
+                                },
                                 secondaryButtonTitle: LocaleKeys.no.value,
                               );
                             },
                           );
-                        }),
+                        },
+                      ),
+                    ),
                   ),
-                ),
-              ]),
+                ],
+              ),
             );
           },
         ),

@@ -52,6 +52,7 @@ export 'information_box/custom_information_box.dart';
 
 //date picker
 export 'date_picker/date_picker.dart';
+export 'date_picker/cupertino_date_picker.dart';
 export 'image_picker/document_image_picker.dart';
 
 //custom switch

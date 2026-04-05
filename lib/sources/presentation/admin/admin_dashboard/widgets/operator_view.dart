@@ -19,6 +19,7 @@ class OperatorView extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(AppSize.cornerRadiusMedium),
         color: Theme.of(context).scaffoldBackgroundColor,
+        border: Border.all(color: Theme.of(context).colorScheme.outline),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,

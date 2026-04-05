@@ -92,7 +92,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
       obscureText: (widget.isObscure ?? false) ? isSecureNow : false,
       decoration: InputDecoration(
         filled: widget.filled ?? true,
-        fillColor: Theme.of(context).scaffoldBackgroundColor,
+        fillColor: Theme.of(context).colorScheme.surface,
         counter: const Offstage(),
         labelText: widget.labelText,
         hintText: widget.placeholder,

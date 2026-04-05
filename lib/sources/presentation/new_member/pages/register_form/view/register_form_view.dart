@@ -41,7 +41,6 @@ class _RegistrationFormState extends State<RegisterForm> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const SizedBox(height: AppSize.spacedViewSpacing),
                   Text(
                     LocaleKeys.tellUsAboutYourself.value,
                     style: Theme.of(context).textTheme.titleMedium?.copyWith(fontSize: AppSize.inset * 2),

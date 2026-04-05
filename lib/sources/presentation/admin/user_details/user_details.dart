@@ -10,11 +10,9 @@ class UserDetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return Scaffold(
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+    return AppPage.scroll(
       appBar: const MyAppBar(title: "Users"),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(AppSize.viewMargin),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -64,7 +62,11 @@ class UserDetailsPage extends StatelessWidget {
                   Navigator.pushNamed(context, AdminRoute.userUpdate);
                 }),
             const SizedBox(height: AppSize.inset),
-            CustomButton(title: "Delete", onPressed: () {}),
+            CustomButton(
+                title: "Delete",
+                onPressed: () {
+                  Navigator.of(context).pop();
+                }),
           ],
         ),
       ),

@@ -92,6 +92,10 @@ class AppRouter {
   }
 
   static void logoutUser(BuildContext context) {
+    final userUtilities = sl<UserUtilitiesRepository>();
+    userUtilities.clearSavedUser();
+    userUtilities.dispose();
+
     sl.resetLazySingleton<UserUtilitiesRepository>();
 
     Navigator.of(context, rootNavigator: true).pushNamedAndRemoveUntil(AppRoute.splash, (Route<dynamic> route) => false);

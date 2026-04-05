@@ -46,96 +46,94 @@ class _OtpVerifyFormState extends State<OtpVerifyForm> {
           ErrorResolver.resolve(context, status);
         }
       },
-      child: Padding(
-        padding: const EdgeInsets.all(AppSize.viewMargin),
-        child: Form(
-          key: formKey,
-          child: CustomScrollView(
-            slivers: [
-              SliverToBoxAdapter(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    const SizedBox(height: AppSize.spacedViewSpacing),
-                    Text(LocaleKeys.verificationCode.value, style: theme.textTheme.titleMedium?.copyWith(fontSize: 36)),
-                    const SizedBox(height: AppSize.inset),
-                    Text(LocaleKeys.verificationCodeSentMessage.tr(args: [emailAddress]), style: theme.textTheme.bodyLarge),
-                    const SizedBox(height: AppSize.viewSpacing),
-                    PinputExample(
-                      onChanged: (pin) => context.read<OtpVerifyBloc>().add(VerificationCodeChanged(pin)),
-                    ),
-                    const SizedBox(height: AppSize.inset),
-                  ],
-                ),
+      child: Form(
+        key: formKey,
+        child: CustomScrollView(
+          slivers: [
+            SliverToBoxAdapter(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  const SizedBox(height: AppSize.spacedViewSpacing),
+                  Text(LocaleKeys.verificationCode.value, style: theme.textTheme.titleMedium?.copyWith(fontSize: 36)),
+                  const SizedBox(height: AppSize.inset),
+                  Text(LocaleKeys.verificationCodeSentMessage.tr(args: [emailAddress]), style: theme.textTheme.bodyLarge),
+                  const SizedBox(height: AppSize.viewSpacing),
+                  PinputExample(
+                    onChanged: (pin) => context.read<OtpVerifyBloc>().add(VerificationCodeChanged(pin)),
+                  ),
+                  const SizedBox(height: AppSize.inset),
+                ],
               ),
-              SliverFillRemaining(
-                hasScrollBody: false,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    const Spacer(),
-                    const SizedBox(height: AppSize.spacedViewSpacing),
-                    BlocBuilder<OtpVerifyBloc, OtpVerifyState>(
-                      buildWhen: (previous, current) => previous.resendDuration != current.resendDuration,
-                      builder: (context, state) {
-                        return (state.resendDuration.inSeconds) >= 0
-                            ? RichText(
-                                textAlign: TextAlign.start,
-                                overflow: TextOverflow.visible,
-                                text: TextSpan(
-                                  text: LocaleKeys.didNotGeTheCodeResendIn.value,
-                                  style: theme.textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w400),
-                                  children: [
-                                    TextSpan(
-                                      text:
-                                          "${strDigits(state.resendDuration.inMinutes.remainder(60))}:${strDigits(state.resendDuration.inSeconds.remainder(60))}",
-                                      style: theme.textTheme.titleMedium?.copyWith(color: theme.colorScheme.error),
+            ),
+            SliverFillRemaining(
+              hasScrollBody: false,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  const Spacer(),
+                  BlocBuilder<OtpVerifyBloc, OtpVerifyState>(
+                    buildWhen: (previous, current) => previous.resendDuration != current.resendDuration,
+                    builder: (context, state) {
+                      return (state.resendDuration.inSeconds) >= 0
+                          ? RichText(
+                              textAlign: TextAlign.start,
+                              overflow: TextOverflow.visible,
+                              text: TextSpan(
+                                text: LocaleKeys.didNotGeTheCodeResendIn.value,
+                                style: theme.textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w400),
+                                children: [
+                                  TextSpan(
+                                    text:
+                                        "${strDigits(state.resendDuration.inMinutes.remainder(60))}:${strDigits(state.resendDuration.inSeconds.remainder(60))}",
+                                    style: theme.textTheme.titleMedium?.copyWith(color: theme.colorScheme.error),
+                                  ),
+                                ],
+                              ),
+                            )
+                          : RichText(
+                              textAlign: TextAlign.start,
+                              overflow: TextOverflow.visible,
+                              text: TextSpan(
+                                text: LocaleKeys.didNotGeTheCode.value,
+                                style: theme.textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w400),
+                                children: [
+                                  TextSpan(
+                                    text: LocaleKeys.resendOtp.value,
+                                    style: theme.textTheme.titleMedium?.copyWith(
+                                      color: theme.colorScheme.error,
+                                      decoration: TextDecoration.underline,
                                     ),
-                                  ],
-                                ),
-                              )
-                            : RichText(
-                                textAlign: TextAlign.start,
-                                overflow: TextOverflow.visible,
-                                text: TextSpan(
-                                  text: LocaleKeys.didNotGeTheCode.value,
-                                  style: theme.textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w400),
-                                  children: [
-                                    TextSpan(
-                                      text: LocaleKeys.resendOtp.value,
-                                      style: theme.textTheme.titleMedium?.copyWith(
-                                        color: theme.colorScheme.error,
-                                        decoration: TextDecoration.underline,
-                                      ),
-                                      recognizer: TapGestureRecognizer()
-                                        ..onTap = () {
-                                          final emailAddress = context.read<ForgotPasswordBloc>().state.emailAddress;
-                                          context.read<OtpVerifyBloc>().add(ResendOtp(emailAddress));
-                                        },
-                                    ),
-                                  ],
-                                ),
-                              );
+                                    recognizer: TapGestureRecognizer()
+                                      ..onTap = () {
+                                        final emailAddress = context.read<ForgotPasswordBloc>().state.emailAddress;
+                                        context.read<OtpVerifyBloc>().add(ResendOtp(emailAddress));
+                                      },
+                                  ),
+                                ],
+                              ),
+                            );
+                    },
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: AppSize.viewSpacing),
+                    child: CustomButton(
+                      title: LocaleKeys.nextButtonTitle.value,
+                      onPressed: () {
+                        Navigator.of(context).pushReplacementNamed(ResetPasswordRoute.resetPassword);
+
+                        // KeyboardUtil.hideKeyboard(context);
+                        // context.read<OtpVerifyBloc>().add(VerifyResetOTP());
                       },
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: AppSize.viewSpacing),
-                      child: CustomButton(
-                        title: LocaleKeys.nextButtonTitle.value,
-                        onPressed: () {
-                          Navigator.of(context).pushReplacementNamed(ResetPasswordRoute.resetPassword);
-
-                          // KeyboardUtil.hideKeyboard(context);
-                          // context.read<OtpVerifyBloc>().add(VerifyResetOTP());
-                        },
-                      ),
-                    ),
-                    Padding(padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom)),
-                  ],
-                ),
+                  ),
+                  const SizedBox(
+                    height: AppSize.viewSpacing,
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

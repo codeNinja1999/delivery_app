@@ -61,9 +61,13 @@ class _LoginFormState extends State<LoginForm> {
                   const SizedBox(height: AppSize.inset),
                   const RememberView(),
                   const SizedBox(height: AppSize.viewSpacing * 2),
-                  CustomButton(
-                    title: LocaleKeys.login.value,
-                    onPressed: () => _onLoginPressed(context),
+                  BlocBuilder<LoginBloc, LoginState>(
+                    builder: (context, state) {
+                      return CustomButton(
+                        title: LocaleKeys.login.value,
+                        onPressed: () => _onLoginPressed(context, state),
+                      );
+                    },
                   ),
                   const SizedBox(height: AppSize.inset),
                 ],
@@ -79,13 +83,14 @@ class _LoginFormState extends State<LoginForm> {
     );
   }
 
+  void _onLoginPressed(BuildContext context, LoginState state) {
+    _navigate(context, state.userType.id);
 
-  void _onLoginPressed(BuildContext context) {
-    KeyboardUtil.hideKeyboard(context);
+    // KeyboardUtil.hideKeyboard(context);
 
-    if (_formKey.currentState!.validate()) {
-      context.read<LoginBloc>().add(AuthenticateUser());
-    }
+    // if (_formKey.currentState!.validate()) {
+    //   context.read<LoginBloc>().add(AuthenticateUser());
+    // }
   }
 
   // -------------------- LISTENER --------------------
@@ -107,7 +112,7 @@ class _LoginFormState extends State<LoginForm> {
   }
 
   void _navigate(BuildContext context, String userType) {
-    Navigator.of(context).pushReplacementNamed(
+    Navigator.of(context).pushNamed(
       _resolveRoute(userType),
     );
   }

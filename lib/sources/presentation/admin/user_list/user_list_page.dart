@@ -10,11 +10,9 @@ class UserListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return Scaffold(
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+    return AppPage.scroll(
       appBar: const MyAppBar(title: "User"),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(AppSize.viewMargin),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [

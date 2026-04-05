@@ -42,7 +42,6 @@ class _ChangePasswordFormState extends State<ChangePasswordForm> {
       child: Form(
         key: formKey,
         child: SingleChildScrollView(
-          padding: const EdgeInsets.all(AppSize.viewMargin),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
@@ -55,21 +54,34 @@ class _ChangePasswordFormState extends State<ChangePasswordForm> {
               CustomButton(
                 title: LocaleKeys.saveChangesButton.value,
                 onPressed: () {
-                  if (formKey.currentState!.validate()) {
-                    KeyboardUtil.hideKeyboard(context);
-                    showDialog(
-                      context: context,
-                      builder: (newContext) {
-                        return CustomDialog(
-                          title: LocaleKeys.changePasswordConfirmation.value,
-                          message: LocaleKeys.areYouSureYouWantToChangePassword.value,
-                          primaryButtonTitle: LocaleKeys.yes.value,
-                          onPrimaryButtonPressed: () => context.read<ChangePasswordBloc>().add(ChangedPassword()),
-                          secondaryButtonTitle: LocaleKeys.no.value,
-                        );
-                      },
-                    );
-                  }
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      return CustomDialog(
+                          title: "Password Changed",
+                          message: "Your password was successfully updated. Please log back in to continue.",
+                          primaryButtonTitle: "Okay",
+                          onPrimaryButtonPressed: () => Navigator.of(context, rootNavigator: true).pop());
+                    },
+                  );
+                  // if (formKey.currentState!.validate()) {
+                  //   KeyboardUtil.hideKeyboard(context);
+                  //   showDialog(
+                  //     context: context,
+                  //     builder: (newContext) {
+                  //       return CustomDialog(
+                  //         title: LocaleKeys.changePasswordConfirmation.value,
+                  //         message: LocaleKeys.areYouSureYouWantToChangePassword.value,
+                  //         primaryButtonTitle: LocaleKeys.yes.value,
+                  //         onPrimaryButtonPressed: () {
+                  //           context.read<ChangePasswordBloc>().add(ChangedPassword());
+
+                  //         },
+                  //         secondaryButtonTitle: LocaleKeys.no.value,
+                  //       );
+                  //     },
+                  //   );
+                  // }
                 },
               ),
             ],

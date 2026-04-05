@@ -20,16 +20,15 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   void initState() {
     super.initState();
-    final bloc = context.read<ProfileBloc>();
-    bloc.add(GetUserData());
-    bloc.add(UserInfoSubscriptionRequested());
+    // final bloc = context.read<ProfileBloc>();
+    // bloc.add(GetUserData());
+    // bloc.add(UserInfoSubscriptionRequested());
   }
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return Scaffold(
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+    return AppPage.scroll(
       appBar: MyAppBar(
         title: "Profile",
         actions: [
@@ -68,139 +67,162 @@ class _ProfilePageState extends State<ProfilePage> {
           buildWhen: (previous, current) => previous.userInfo != current.userInfo,
           builder: (context, state) {
             return SingleChildScrollView(
-              padding: const EdgeInsets.all(AppSize.viewMargin),
-              child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-                const SizedBox(height: AppSize.inset),
-                Row(
-                  children: [
-                    const Icon(Icons.people),
-                    const SizedBox(width: AppSize.inset),
-                    Expanded(
-                      child: Text(
-                        state.userInfo?.personalInfo?.fullName ?? "John doe",
-                        style: theme.textTheme.titleMedium,
-                      ),
-                    )
-                  ],
-                ),
-                const SizedBox(height: AppSize.inset),
-                Row(
-                  children: [
-                    const Icon(Icons.email),
-                    const SizedBox(width: AppSize.inset),
-                    Expanded(
-                      child: Text(
-                        state.userInfo?.personalInfo?.email ?? "johndoe@gmail.com",
-                        style: theme.textTheme.titleMedium,
-                      ),
-                    )
-                  ],
-                ),
-                const SizedBox(height: AppSize.inset),
-                Row(
-                  children: [
-                    const Icon(Icons.phone),
-                    const SizedBox(width: AppSize.inset),
-                    Expanded(
-                      child: Text(
-                        state.userInfo?.personalInfo?.phoneNumber ?? "123-345-567",
-                        style: theme.textTheme.titleMedium,
-                      ),
-                    )
-                  ],
-                ),
-                const SizedBox(height: AppSize.inset),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Icon(Icons.location_on),
-                    const SizedBox(width: AppSize.inset),
-                    Expanded(
-                      child: Text(
-                        "${state.userInfo?.contactInfo?.address} ${state.userInfo?.contactInfo?.houseNumber}",
-                        // "Phuket - Ban Tawan House: 1415 ,Dropbox: 122Beside ABC train station",
-                        style: theme.textTheme.titleMedium,
-                      ),
-                    )
-                  ],
-                ),
-                const SizedBox(height: AppSize.inset),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.all(AppSize.inset),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(AppSize.cornerRadiusMedium),
-                        color: Theme.of(context).scaffoldBackgroundColor,
-                      ),
-                      child: Column(
-                        children: [
-                          Text(
-                            "Total Orders",
-                            style: theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w700),
-                          ),
-                          Text(
-                            "20",
-                            style: theme.textTheme.bodyMedium
-                                ?.copyWith(fontWeight: FontWeight.w700),
-                          )
-                        ],
-                      ),
-                    ),
-                    const SizedBox(width: AppSize.inset),
-                    Container(
-                      padding: const EdgeInsets.all(AppSize.inset),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(AppSize.cornerRadiusMedium),
-                        color: Theme.of(context).scaffoldBackgroundColor,
-                      ),
-                      child: Column(
-                        children: [
-                          Text(
-                            "Completed Orders",
-                            style: theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w700),
-                          ),
-                          Text(
-                            "17",
-                            style: theme.textTheme.bodyMedium
-                                ?.copyWith(fontWeight: FontWeight.w700),
-                          )
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: AppSize.viewSpacing),
-                TextButton(
-                  onPressed: () => Navigator.of(context).pushNamed(UserRoute.changePassword),
-                  child: Text(
-                    "Change Password",
-                    style: theme.textTheme.titleMedium?.copyWith(color: theme.colorScheme.primary),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  const SizedBox(height: AppSize.inset),
+                  Row(
+                    children: [
+                      const Icon(Icons.people),
+                      const SizedBox(width: AppSize.inset),
+                      Expanded(
+                        child: Text(
+                          state.userInfo?.personalInfo?.fullName ?? "John doe",
+                          style: theme.textTheme.titleMedium,
+                        ),
+                      )
+                    ],
                   ),
-                ),
-                const SizedBox(height: AppSize.inset),
-                TextButton(
-                  onPressed: () {
-                    showDialog(
-                      context: context,
-                      builder: (newContext) {
-                        return CustomDialog(
-                          title: LocaleKeys.logoutConfirmationTitle.value,
-                          message: LocaleKeys.areYouSureYouWantToLogout.value,
-                          primaryButtonTitle: LocaleKeys.yes.value,
-                          onPrimaryButtonPressed: () => context.read<ProfileBloc>().add(LogoutUser()),
-                          secondaryButtonTitle: LocaleKeys.no.value,
-                        );
-                      },
-                    );
-                  },
-                  child: Text(
-                    "Logout",
-                    style: theme.textTheme.titleMedium?.copyWith(color: theme.colorScheme.primary),
+                  const SizedBox(height: AppSize.inset),
+                  Row(
+                    children: [
+                      const Icon(Icons.email),
+                      const SizedBox(width: AppSize.inset),
+                      Expanded(
+                        child: Text(
+                          state.userInfo?.personalInfo?.email ?? "johndoe@gmail.com",
+                          style: theme.textTheme.titleMedium,
+                        ),
+                      )
+                    ],
                   ),
-                ),
-              ]),
+                  const SizedBox(height: AppSize.inset),
+                  Row(
+                    children: [
+                      const Icon(Icons.phone),
+                      const SizedBox(width: AppSize.inset),
+                      Expanded(
+                        child: Text(
+                          state.userInfo?.personalInfo?.phoneNumber ?? "123-345-567",
+                          style: theme.textTheme.titleMedium,
+                        ),
+                      )
+                    ],
+                  ),
+                  const SizedBox(height: AppSize.inset),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Icon(Icons.location_on),
+                      const SizedBox(width: AppSize.inset),
+                      Expanded(
+                        child: Text(
+                          "${state.userInfo?.contactInfo?.address ?? "Naxal, Kkathmandu"} ${state.userInfo?.contactInfo?.houseNumber ?? "34411"}",
+                          // "Phuket - Ban Tawan House: 1415 ,Dropbox: 122Beside ABC train station",
+                          style: theme.textTheme.titleMedium,
+                        ),
+                      )
+                    ],
+                  ),
+                  const SizedBox(height: AppSize.inset),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(AppSize.inset),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(AppSize.cornerRadiusMedium),
+                          color: Theme.of(context).scaffoldBackgroundColor,
+                          border: Border.all(color: Theme.of(context).colorScheme.outline),
+                        ),
+                        child: Column(
+                          children: [
+                            Text(
+                              "Total Orders",
+                              style: theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w700),
+                            ),
+                            Text(
+                              "20",
+                              style: theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w700),
+                            )
+                          ],
+                        ),
+                      ),
+                      const SizedBox(width: AppSize.inset),
+                      Container(
+                        padding: const EdgeInsets.all(AppSize.inset),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(AppSize.cornerRadiusMedium),
+                          color: Theme.of(context).scaffoldBackgroundColor,
+                          border: Border.all(color: Theme.of(context).colorScheme.outline),
+                        ),
+                        child: Column(
+                          children: [
+                            Text(
+                              "Completed Orders",
+                              style: theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w700),
+                            ),
+                            Text(
+                              "17",
+                              style: theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w700),
+                            )
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: AppSize.viewSpacing),
+                  TextButton(
+                    onPressed: () => Navigator.of(context).pushNamed(UserRoute.changePassword),
+                    style: TextButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: AppSize.cornerRadius,
+                        vertical: AppSize.cornerRadiusMedium,
+                      ),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppSize.cornerRadiusMedium)),
+                      side: BorderSide(color: theme.colorScheme.primary),
+                      backgroundColor: Colors.transparent,
+                    ),
+                    child: Text(
+                      "Change Password",
+                      style: theme.textTheme.titleMedium?.copyWith(color: theme.colorScheme.primary),
+                    ),
+                  ),
+                  const SizedBox(height: AppSize.inset),
+                  TextButton(
+                    style: TextButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: AppSize.cornerRadius,
+                        vertical: AppSize.cornerRadiusMedium,
+                      ),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppSize.cornerRadiusMedium)),
+                      side: BorderSide(color: theme.colorScheme.primary),
+                      backgroundColor: Colors.transparent,
+                    ),
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (newContext) {
+                          return CustomDialog(
+                            title: LocaleKeys.logoutConfirmationTitle.value,
+                            message: LocaleKeys.areYouSureYouWantToLogout.value,
+                            primaryButtonTitle: LocaleKeys.yes.value,
+                            onPrimaryButtonPressed: () {
+                              Navigator.of(context, rootNavigator: true).pop();
+                              // context.read<ProfileBloc>().add(LogoutUser());
+                            },
+                            secondaryButtonTitle: LocaleKeys.no.value,
+                          );
+                        },
+                      );
+                    },
+                    child: Text(
+                      "Logout",
+                      style: theme.textTheme.titleMedium?.copyWith(color: theme.colorScheme.primary),
+                    ),
+                  ),
+                ],
+              ),
             );
           },
         ),

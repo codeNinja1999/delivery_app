@@ -37,11 +37,10 @@ class _AddLocationPageState extends State<AddLocationPage> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return Scaffold(
+    return AppPage.scroll(
       appBar: const MyAppBar(
         title: "Add/Edit Location",
       ),
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: BlocListener<AddLocationBloc, AddLocationState>(
         listenWhen: (previous, current) => previous.status != current.status,
         listener: (context, state) {
@@ -62,7 +61,6 @@ class _AddLocationPageState extends State<AddLocationPage> {
         child: Form(
           key: _formKey,
           child: SingleChildScrollView(
-            padding: const EdgeInsets.symmetric(horizontal: AppSize.viewMargin, vertical: AppSize.viewSpacing),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
@@ -75,9 +73,11 @@ class _AddLocationPageState extends State<AddLocationPage> {
                 CustomButton(
                     title: "Save Location",
                     onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        context.read<AddLocationBloc>().add(SubmitLocation());
-                      }
+                      Navigator.of(context).pop();
+
+                      // if (_formKey.currentState!.validate()) {
+                      //   context.read<AddLocationBloc>().add(SubmitLocation());
+                      // }
                     }),
               ],
             ),

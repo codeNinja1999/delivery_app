@@ -32,30 +32,28 @@ class _VerifyEmailFormState extends State<VerifyEmailForm> {
           ErrorResolver.resolve(context, status);
         }
       },
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: AppSize.viewMargin),
-        child: Form(
-          key: formKey,
-          child: CustomScrollView(
-            physics: const BouncingScrollPhysics(),
-            slivers: [
-              SliverToBoxAdapter(
-                child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-                  const SizedBox(height: AppSize.spacedViewSpacing),
-                  Text(
-                    LocaleKeys.enterEmail.value,
-                    style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold, fontSize: 36),
-                  ),
-                  const SizedBox(height: AppSize.viewSpacing),
-                  const EmailAddressInput(),
-                  const SizedBox(height: AppSize.inset * 0.5),
-                ]),
-              ),
-              SliverFillRemaining(
-                hasScrollBody: false,
-                child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+      child: Form(
+        key: formKey,
+        child: CustomScrollView(
+          physics: const BouncingScrollPhysics(),
+          slivers: [
+            SliverToBoxAdapter(
+              child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+                const SizedBox(height: AppSize.spacedViewSpacing),
+                Text(
+                  LocaleKeys.enterEmail.value,
+                  style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold, fontSize: 36),
+                ),
+                const SizedBox(height: AppSize.viewSpacing),
+                const EmailAddressInput(),
+              ]),
+            ),
+            SliverFillRemaining(
+              hasScrollBody: false,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
                   const Spacer(),
-                  const SizedBox(height: AppSize.viewSpacing),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: AppSize.viewSpacing),
                     child: CustomButton(
@@ -70,10 +68,10 @@ class _VerifyEmailFormState extends State<VerifyEmailForm> {
                       },
                     ),
                   ),
-                ]),
-              )
-            ],
-          ),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );

@@ -15,8 +15,7 @@ class ChangePasswordPage extends StatefulWidget {
 class _ChangePasswordPageState extends State<ChangePasswordPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+    return AppPage.scroll(
       appBar: MyAppBar(title: LocaleKeys.changePassword.value),
       body: const ChangePasswordForm(),
     );

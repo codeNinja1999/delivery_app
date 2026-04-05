@@ -18,15 +18,14 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
   @override
   void initState() {
     super.initState();
-    context.read<AdminProfileBloc>().add(GetAdminInfo());
-    context.read<AdminProfileBloc>().add(AdminInfoSubscriptionRequested());
+    // context.read<AdminProfileBloc>().add(GetAdminInfo());
+    // context.read<AdminProfileBloc>().add(AdminInfoSubscriptionRequested());
   }
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return Scaffold(
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+    return AppPage.scroll(
       appBar: const MyAppBar(
         title: "Profile",
       ),
@@ -45,7 +44,6 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
           buildWhen: (previous, current) => previous.adminInfo != current.adminInfo,
           builder: (context, state) {
             return SingleChildScrollView(
-              padding: const EdgeInsets.all(AppSize.viewMargin),
               child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
                 const SizedBox(height: AppSize.inset),
                 Row(
@@ -54,7 +52,7 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
                     const SizedBox(width: AppSize.inset),
                     Expanded(
                       child: Text(
-                        state.adminInfo?.personalInfo?.userName ?? "",
+                        state.adminInfo?.personalInfo?.userName ?? "Admin",
                         style: theme.textTheme.titleMedium,
                       ),
                     )
@@ -67,7 +65,7 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
                     const SizedBox(width: AppSize.inset),
                     Expanded(
                       child: Text(
-                        state.adminInfo?.personalInfo?.email ?? "",
+                        state.adminInfo?.personalInfo?.email ?? "admin@gmail.com",
                         style: theme.textTheme.titleMedium,
                       ),
                     )
@@ -83,7 +81,10 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
                           title: LocaleKeys.logoutConfirmationTitle.value,
                           message: LocaleKeys.areYouSureYouWantToLogout.value,
                           primaryButtonTitle: LocaleKeys.yes.value,
-                          onPrimaryButtonPressed: () => context.read<AdminProfileBloc>().add(LogoutUser()),
+                          onPrimaryButtonPressed: () {
+                            Navigator.of(context, rootNavigator: true).pop();
+                            // context.read<AdminProfileBloc>().add(LogoutUser());
+                          },
                           secondaryButtonTitle: LocaleKeys.no.value,
                         );
                       },

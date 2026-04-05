@@ -32,28 +32,26 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
       surfaceTintColor: Colors.transparent,
       leadingWidth: 65,
       leading: allowBack
-          ? Padding(
-              padding: const EdgeInsets.only(top: AppSize.inset, left: AppSize.viewMargin),
-              child: GestureDetector(
-                onTap: () {
-                  if (FocusScope.of(context).hasFocus) {
-                    FocusScope.of(context).requestFocus(FocusNode());
-                  }
-                  (backButtonAction != null) ? backButtonAction!() : Navigator.of(context).pop();
-                },
-                child: Container(
-                  padding: const EdgeInsets.only(left: AppSize.cornerRadiusMedium),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(AppSize.cornerRadiusMedium),
-                    border: Border.all(color: theme.colorScheme.outline),
-                    color: backButtonBackgroundColor ?? AppColors.backgroundContainerLight,
-                  ),
-                  alignment: Alignment.center,
-                  child: Icon(
-                    Icons.arrow_back_ios,
-                    size: 18,
-                    color: arrowColor ?? AppColors.black,
-                  ),
+          ? GestureDetector(
+              onTap: () {
+                if (FocusScope.of(context).hasFocus) {
+                  FocusScope.of(context).requestFocus(FocusNode());
+                }
+                (backButtonAction != null) ? backButtonAction!() : Navigator.of(context).pop();
+              },
+              child: Container(
+                padding: const EdgeInsets.only(left: AppSize.inset * 0.5),
+                margin: const EdgeInsets.all(AppSize.inset * 0.5),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(AppSize.cornerRadiusMedium),
+                  border: Border.all(color: theme.colorScheme.outline),
+                  color: backButtonBackgroundColor ?? AppColors.backgroundContainerLight,
+                ),
+                alignment: Alignment.center,
+                child: Icon(
+                  Icons.arrow_back_ios,
+                  size: 18,
+                  color: arrowColor ?? AppColors.black,
                 ),
               ),
             )
@@ -62,7 +60,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
       centerTitle: true,
       title: Text(
         title ?? "",
-        style: titleStyle ?? theme.textTheme.titleLarge?.copyWith(fontSize: 18, color: theme.primaryColor),
+        style: titleStyle ?? theme.textTheme.titleLarge?.copyWith(color: theme.primaryColor),
       ),
       elevation: 0,
       iconTheme: theme.iconTheme,

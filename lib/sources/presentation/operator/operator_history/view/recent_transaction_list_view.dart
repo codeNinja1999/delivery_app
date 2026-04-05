@@ -13,72 +13,66 @@ class RecentOrderHistoryListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
-    return Theme(
-      data: ThemeData(
-        highlightColor: theme.colorScheme.shadow,
-        splashColor: theme.colorScheme.shadow,
-      ),
-      child: Container(
-          margin: const EdgeInsets.only(top: AppSize.cornerRadiusMedium),
-          padding: const EdgeInsets.all(AppSize.inset),
-          decoration: BoxDecoration(
-            color: Theme.of(context).scaffoldBackgroundColor,
-            borderRadius: BorderRadius.circular(AppSize.inset),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              ListItemView(
-                title: (data?.createdAt != null) ? DateFormat('dd MMM yyyy').format(data!.createdAt!) : "",
-                value: "\$${data?.orderPayments?[0].paidPrice}",
-                titleTextStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w700),
-                valueTextStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w700),
+    return Container(
+        margin: const EdgeInsets.only(top: AppSize.cornerRadiusMedium),
+        padding: const EdgeInsets.all(AppSize.inset),
+        decoration: BoxDecoration(
+          color: Theme.of(context).scaffoldBackgroundColor,
+          borderRadius: BorderRadius.circular(AppSize.inset),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            ListItemView(
+              title: (data?.createdAt != null) ? DateFormat('dd MMM yyyy').format(data!.createdAt!) : "",
+              value: "\$${data?.orderPayments?[0].paidPrice}",
+              titleTextStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w700),
+              valueTextStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w700),
+            ),
+            const SizedBox(height: AppSize.cornerRadiusMedium),
+            Row(
+              children: List.generate(
+                (MediaQuery.of(context).size.width / 19).floor(),
+                (ii) => Padding(
+                    padding: const EdgeInsets.only(right: 8),
+                    child: Container(
+                      height: 2,
+                      width: 8,
+                      color: theme.colorScheme.primary,
+                    )),
               ),
-              const SizedBox(height: AppSize.cornerRadiusMedium),
-              Row(
-                children: List.generate(
-                  (MediaQuery.of(context).size.width / 19).floor(),
-                  (ii) => Padding(
-                      padding: const EdgeInsets.only(right: 8),
-                      child: Container(
-                        height: 2,
-                        width: 8,
-                        color: theme.colorScheme.primary,
-                      )),
-                ),
-              ),
-              const SizedBox(height: AppSize.cornerRadiusMedium),
-              ListItemView(
-                title: LocaleKeys.typeOfService.value,
-                value: data?.services?.map((service) => service.value).join(', '), // Concatenate services
-              ),
-              const SizedBox(height: AppSize.cornerRadiusMedium),
-              ListItemView(
-                title: LocaleKeys.weightOfLaundry.value,
-                value: "${data?.actualWeightInKg}kg",
-              ),
-              (data?.pickupLocation?.city != null)
-                  ? Padding(
-                      padding: const EdgeInsets.only(top: AppSize.cornerRadiusMedium),
-                      child: ListItemView(
-                        title: LocaleKeys.pickupAddress.value,
-                        value: "${data?.pickupLocation?.city}, ${data?.pickupLocation?.neighborhood}",
-                      ),
-                    )
-                  : Container(),
-              const SizedBox(height: AppSize.cornerRadiusMedium),
-              ListItemView(
-                title: "Pickup Date",
-                value: (data?.pickupTimeFrom != null) ? DateFormat('yyyy-MM-dd').format(data!.pickupTimeFrom!) : "",
-              ),
-              const SizedBox(height: AppSize.cornerRadiusMedium),
-              ListItemView(
-                title: "Pickup status",
-                value: data?.status ?? "",
-              ),
-            ],
-          )),
-    );
+            ),
+            const SizedBox(height: AppSize.cornerRadiusMedium),
+            ListItemView(
+              title: LocaleKeys.typeOfService.value,
+              value: data?.services?.map((service) => service.value).join(', '), // Concatenate services
+            ),
+            const SizedBox(height: AppSize.cornerRadiusMedium),
+            ListItemView(
+              title: LocaleKeys.weightOfLaundry.value,
+              value: "${data?.actualWeightInKg}kg",
+            ),
+            (data?.pickupLocation?.city != null)
+                ? Padding(
+                    padding: const EdgeInsets.only(top: AppSize.cornerRadiusMedium),
+                    child: ListItemView(
+                      title: LocaleKeys.pickupAddress.value,
+                      value: "${data?.pickupLocation?.city}, ${data?.pickupLocation?.neighborhood}",
+                    ),
+                  )
+                : Container(),
+            const SizedBox(height: AppSize.cornerRadiusMedium),
+            ListItemView(
+              title: "Pickup Date",
+              value: (data?.pickupTimeFrom != null) ? DateFormat('yyyy-MM-dd').format(data!.pickupTimeFrom!) : "",
+            ),
+            const SizedBox(height: AppSize.cornerRadiusMedium),
+            ListItemView(
+              title: "Pickup status",
+              value: data?.status ?? "",
+            ),
+          ],
+        ));
   }
 }
 

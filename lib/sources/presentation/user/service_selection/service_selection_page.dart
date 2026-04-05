@@ -18,39 +18,42 @@ class _ServiceSelectionPageState extends State<ServiceSelectionPage> {
   @override
   void initState() {
     super.initState();
-    context.read<ServiceSelectionBloc>().add(FetchServiceType());
+    // context.read<ServiceSelectionBloc>().add(FetchServiceType());
   }
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return Scaffold(
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+    return AppPage(
       appBar: const MyAppBar(
         title: "Service Location",
       ),
-      body: BlocListener<ServiceSelectionBloc, ServiceSelectionState>(
-        listenWhen: (previous, current) => previous.status != current.status,
-        listener: (context, state) {
-          final status = state.status;
-          (status is InProgress) ? LoadingView.show() : LoadingView.hide();
-          if (status is ValidationSuccess) {
-            context.read<UserBloc>().add(
-                  SaveServiceType(
-                    state.selectedServiceType,
-                    state.totalWeight,
-                    state.totalAmount.toString(),
-                  ),
-                );
-            showProtectionModel(context);
-          }
-          if (status is SubmissionFailure) {
-            ErrorResolver.resolve(context, status);
-          }
-        },
-        child: Padding(
-          padding: const EdgeInsets.all(AppSize.viewMargin),
+      body: Padding(
+        padding: EdgeInsets.only(
+          left: context.hInset,
+          right: context.hInsetR,
+          bottom: AppSize.bottomSafeInset,
+        ),
+        child: BlocListener<ServiceSelectionBloc, ServiceSelectionState>(
+          listenWhen: (previous, current) => previous.status != current.status,
+          listener: (context, state) {
+            final status = state.status;
+            (status is InProgress) ? LoadingView.show() : LoadingView.hide();
+            if (status is ValidationSuccess) {
+              context.read<UserBloc>().add(
+                    SaveServiceType(
+                      state.selectedServiceType,
+                      state.totalWeight,
+                      state.totalAmount.toString(),
+                    ),
+                  );
+              showProtectionModel(context);
+            }
+            if (status is SubmissionFailure) {
+              ErrorResolver.resolve(context, status);
+            }
+          },
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
@@ -59,14 +62,14 @@ class _ServiceSelectionPageState extends State<ServiceSelectionPage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
+                      const SizedBox(height: AppSize.inset),
                       Text(
                         "Choose your Service",
                         style: theme.textTheme.titleLarge,
                       ),
-                      const SizedBox(height: AppSize.cornerRadiusMedium),
+                      const SizedBox(height: AppSize.inset * 0.5),
                       Text(
-                        "Select  how you wish to do your laundry",
-                        style: theme.textTheme.bodySmall,
+                        "Select how you wish to do your laundry",
                       ),
                       const SizedBox(height: AppSize.inset),
                       BlocBuilder<ServiceSelectionBloc, ServiceSelectionState>(
@@ -108,7 +111,10 @@ class _ServiceSelectionPageState extends State<ServiceSelectionPage> {
                       const SizedBox(height: AppSize.viewSpacing),
                       Text(
                         "Laundry Details",
-                        style: theme.textTheme.titleLarge?.copyWith(color: theme.colorScheme.primary),
+                        style: theme.textTheme.titleMedium?.copyWith(
+                          color: theme.colorScheme.primary,
+                          fontSize: 18,
+                        ),
                       ),
                       const SizedBox(height: AppSize.inset),
                       AppTextfield(
@@ -147,9 +153,12 @@ class _ServiceSelectionPageState extends State<ServiceSelectionPage> {
               CustomButton(
                 title: "Continue",
                 onPressed: () {
-                  context.read<ServiceSelectionBloc>().add(ValidateService());
+                  showProtectionModel(context);
+
+                  // context.read<ServiceSelectionBloc>().add(ValidateService());
                 },
               ),
+              // const SizedBox(height: AppSize.viewSpacing),
             ],
           ),
         ),
@@ -160,6 +169,7 @@ class _ServiceSelectionPageState extends State<ServiceSelectionPage> {
   showProtectionModel(BuildContext context) {
     return showModalBottomSheet(
       context: context,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       builder: (newContext) {
         final theme = Theme.of(context);
         return BlocProvider.value(
@@ -189,6 +199,7 @@ class _ServiceSelectionPageState extends State<ServiceSelectionPage> {
                     ),
                     const SizedBox(height: AppSize.inset),
                     ListTile(
+                      contentPadding: EdgeInsets.zero,
                       leading: Checkbox(
                           value: state.noBiohazard,
                           onChanged: (value) {
@@ -201,6 +212,7 @@ class _ServiceSelectionPageState extends State<ServiceSelectionPage> {
                     ),
                     const SizedBox(height: AppSize.inset),
                     ListTile(
+                      contentPadding: EdgeInsets.zero,
                       leading: Checkbox(
                           value: state.noBlood,
                           onChanged: (value) {
@@ -213,6 +225,7 @@ class _ServiceSelectionPageState extends State<ServiceSelectionPage> {
                     ),
                     const SizedBox(height: AppSize.inset),
                     ListTile(
+                      contentPadding: EdgeInsets.zero,
                       leading: Checkbox(
                           value: state.noPetHair,
                           onChanged: (value) {

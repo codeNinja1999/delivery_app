@@ -56,16 +56,15 @@ class _AdminDashboardViewState extends State<AdminDashboardView> {
         },
         child: LayoutBuilder(builder: (context, constraints) {
           return SingleChildScrollView(
-            padding: const EdgeInsets.all(AppSize.viewMargin),
             physics: const AlwaysScrollableScrollPhysics(),
             child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text("${getGreeting()} ${LocaleKeys.appName.value}", style: Theme.of(context).textTheme.bodyLarge),
+              Text("${getGreeting()}", style: Theme.of(context).textTheme.bodyLarge),
+              Text("Admin,", style: Theme.of(context).textTheme.bodyLarge),
               const SizedBox(height: AppSize.viewSpacing),
-              Text("Admin", style: Theme.of(context).textTheme.titleLarge),
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(""),
+                  Text("Admin", style: Theme.of(context).textTheme.titleLarge),
                   GestureDetector(
                     onTap: () {},
                     child: Chip(
@@ -88,6 +87,7 @@ class _AdminDashboardViewState extends State<AdminDashboardView> {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(AppSize.cornerRadiusMedium),
                       color: Theme.of(context).scaffoldBackgroundColor,
+                      border: Border.all(color: Theme.of(context).colorScheme.outline),
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -120,7 +120,7 @@ class _AdminDashboardViewState extends State<AdminDashboardView> {
                             ),
                             Expanded(
                               child: Text(
-                                state.analyticsInfo?.totalActiveRequests ?? "",
+                                state.analyticsInfo?.totalActiveRequests ?? "9",
                                 style: theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w700),
                               ),
                             )
@@ -137,7 +137,7 @@ class _AdminDashboardViewState extends State<AdminDashboardView> {
                             ),
                             Expanded(
                               child: Text(
-                                state.analyticsInfo?.totalUser ?? "",
+                                state.analyticsInfo?.totalUser ?? "50",
                                 style: theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w700),
                               ),
                             )
@@ -154,7 +154,7 @@ class _AdminDashboardViewState extends State<AdminDashboardView> {
                             ),
                             Expanded(
                               child: Text(
-                                state.analyticsInfo?.totalOperator ?? "",
+                                state.analyticsInfo?.totalOperator ?? "5",
                                 style: theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w700),
                               ),
                             )
@@ -171,7 +171,7 @@ class _AdminDashboardViewState extends State<AdminDashboardView> {
                             ),
                             Expanded(
                               child: Text(
-                                "\$${state.analyticsInfo?.totalActiveRequests ?? ""}",
+                                "Rs.${state.analyticsInfo?.totalActiveRequests ?? "5,000"}",
                                 style: theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w700),
                               ),
                             )
@@ -196,15 +196,18 @@ class _AdminDashboardViewState extends State<AdminDashboardView> {
                           selectedIndex = index;
                         });
                       },
-                      child: Chip(
-                        label: Text(list[index]),
-                        side: BorderSide(color: theme.colorScheme.shadow),
-                        labelStyle: TextStyle(
-                          color:
-                              selectedIndex == index ? Theme.of(context).scaffoldBackgroundColor : AppColors.darkTextColor,
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: AppSize.inset * 0.5),
+                        child: Chip(
+                          label: Text(list[index]),
+                          side: BorderSide(color: theme.colorScheme.shadow),
+                          labelStyle: TextStyle(
+                            color:
+                                selectedIndex == index ? Theme.of(context).scaffoldBackgroundColor : AppColors.darkTextColor,
+                          ),
+                          backgroundColor: selectedIndex == index ? AppColors.primary : theme.cardColor,
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppSize.cornerRadiusMedium)),
                         ),
-                        backgroundColor: selectedIndex == index ? AppColors.primary : theme.colorScheme.shadow,
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppSize.cornerRadiusMedium)),
                       ),
                     );
                   },

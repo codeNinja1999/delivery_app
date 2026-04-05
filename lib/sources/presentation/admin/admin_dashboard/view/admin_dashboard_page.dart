@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fresh_fold_delivery/sources/core/app_core.dart';
+import 'package:fresh_fold_delivery/sources/presentation/widgets/widgets.dart';
 
 import '../../../../resources/resources.dart';
 import '../../../widgets/app_bar/app_bar.dart';
@@ -19,16 +20,15 @@ class _DashboardHomeState extends State<AdminDashboardPage> {
   @override
   void initState() {
     super.initState();
-    context.read<AdminDashboardBloc>().add(GetDashboardData());
+    // context.read<AdminDashboardBloc>().add(GetDashboardData());
   }
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return PopScope(
-      canPop: false,
-      child: Scaffold(
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      // canPop: false,
+      child: AppPage(
         appBar: MyAppBar(
           allowBack: false,
           actions: [
@@ -49,7 +49,14 @@ class _DashboardHomeState extends State<AdminDashboardPage> {
             ),
           ],
         ),
-        body: const AdminDashboardView(),
+        body: Padding(
+          padding: EdgeInsets.only(
+            left: context.hInset,
+            right: context.hInsetR,
+            bottom: AppSize.bottomSafeInset,
+          ),
+          child: const AdminDashboardView(),
+        ),
       ),
     );
   }

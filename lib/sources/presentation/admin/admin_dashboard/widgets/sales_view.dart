@@ -17,6 +17,7 @@ class SalesView extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(AppSize.cornerRadiusMedium),
         color: Theme.of(context).scaffoldBackgroundColor,
+        border: Border.all(color: Theme.of(context).colorScheme.outline),
       ),
       child: BlocBuilder<AdminDashboardBloc, AdminDashboardState>(
         buildWhen: (previous, current) => previous.analyticsInfo != current.analyticsInfo,

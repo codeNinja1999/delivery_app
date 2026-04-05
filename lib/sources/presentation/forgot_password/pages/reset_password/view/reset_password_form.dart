@@ -32,7 +32,10 @@ class ResetPasswordForm extends StatelessWidget {
           slivers: [
             SliverToBoxAdapter(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: AppSize.inset),
+                padding: EdgeInsets.only(
+                  left: context.hInset,
+                  right: context.hInsetR,
+                ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -89,14 +92,14 @@ class ResetPasswordForm extends StatelessWidget {
     showDialog(
       barrierDismissible: false,
       context: context,
-      builder: (BuildContext context) {
+      builder: (BuildContext bc) {
         return CustomDialog(
           imageString: AppImages.resetSuccess,
           title: LocaleKeys.resetSuccessful.value,
           message: LocaleKeys.resetSuccessfulMessage.value,
           primaryButtonTitle: LocaleKeys.login.value,
           onPrimaryButtonPressed: () {
-            Navigator.of(context, rootNavigator: true).pushNamed(AppRoute.user);
+            Navigator.of(context, rootNavigator: true).pop();
           },
         );
       },

@@ -37,117 +37,112 @@ class OrderHistoryListView extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(AppSize.viewMargin),
-      child: Container(
-        color: Theme.of(context).scaffoldBackgroundColor,
-        padding: const EdgeInsets.all(AppSize.viewMargin),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Text(
-              "User Information",
-              style: theme.textTheme.titleLarge?.copyWith(color: theme.colorScheme.primary),
-            ),
-            const SizedBox(height: AppSize.viewSpacing),
-            Row(
-              children: [
-                Expanded(child: Text("Customer Name")),
-                Expanded(
-                  child: Text(
-                    "John doe",
-                    style: theme.textTheme.labelLarge,
-                    textAlign: TextAlign.end,
-                  ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Text(
+            "User Information",
+            style: theme.textTheme.titleLarge?.copyWith(color: theme.colorScheme.primary),
+          ),
+          const SizedBox(height: AppSize.viewSpacing),
+          Row(
+            children: [
+              Expanded(child: Text("Customer Name")),
+              Expanded(
+                child: Text(
+                  "John doe",
+                  style: theme.textTheme.labelLarge,
+                  textAlign: TextAlign.end,
                 ),
-              ],
-            ),
-            const SizedBox(height: AppSize.inset),
-            Row(
-              children: [
-                Expanded(child: Text("Address Name")),
-                Expanded(
-                  child: Text(
-                    "123 Street Name",
-                    style: theme.textTheme.labelLarge,
-                    textAlign: TextAlign.end,
-                  ),
+              ),
+            ],
+          ),
+          const SizedBox(height: AppSize.inset),
+          Row(
+            children: [
+              Expanded(child: Text("Address Name")),
+              Expanded(
+                child: Text(
+                  "123 Street Name",
+                  style: theme.textTheme.labelLarge,
+                  textAlign: TextAlign.end,
                 ),
-              ],
-            ),
-            const SizedBox(height: AppSize.inset),
-            Row(
-              children: [
-                Expanded(child: Text("Contact Number")),
-                Expanded(
-                  child: Text(
-                    "(989)-223-222",
-                    style: theme.textTheme.labelLarge,
-                    textAlign: TextAlign.end,
-                  ),
+              ),
+            ],
+          ),
+          const SizedBox(height: AppSize.inset),
+          Row(
+            children: [
+              Expanded(child: Text("Contact Number")),
+              Expanded(
+                child: Text(
+                  "(989)-223-222",
+                  style: theme.textTheme.labelLarge,
+                  textAlign: TextAlign.end,
                 ),
-              ],
-            ),
-            const SizedBox(height: AppSize.inset),
-            Row(
-              children: [
-                Expanded(child: Text("Home Number Name")),
-                Expanded(
-                  child: Text(
-                    "1415",
-                    style: theme.textTheme.labelLarge,
-                    textAlign: TextAlign.end,
-                  ),
+              ),
+            ],
+          ),
+          const SizedBox(height: AppSize.inset),
+          Row(
+            children: [
+              Expanded(child: Text("Home Number Name")),
+              Expanded(
+                child: Text(
+                  "1415",
+                  style: theme.textTheme.labelLarge,
+                  textAlign: TextAlign.end,
                 ),
-              ],
-            ),
-            const SizedBox(height: AppSize.inset),
-            Row(
-              children: [
-                Expanded(child: Text("Dropbox Number")),
-                Expanded(
-                  child: Text(
-                    "1223",
-                    style: theme.textTheme.labelLarge,
-                    textAlign: TextAlign.end,
-                  ),
+              ),
+            ],
+          ),
+          const SizedBox(height: AppSize.inset),
+          Row(
+            children: [
+              Expanded(child: Text("Dropbox Number")),
+              Expanded(
+                child: Text(
+                  "1223",
+                  style: theme.textTheme.labelLarge,
+                  textAlign: TextAlign.end,
                 ),
-              ],
-            ),
-            const SizedBox(height: AppSize.inset),
-            Row(
-              children: [
-                Expanded(child: Text("Service Type")),
-                Expanded(
-                  child: Text(
-                    "Regular washing",
-                    style: theme.textTheme.labelLarge,
-                    textAlign: TextAlign.end,
-                  ),
+              ),
+            ],
+          ),
+          const SizedBox(height: AppSize.inset),
+          Row(
+            children: [
+              Expanded(child: Text("Service Type")),
+              Expanded(
+                child: Text(
+                  "Regular washing",
+                  style: theme.textTheme.labelLarge,
+                  textAlign: TextAlign.end,
                 ),
-              ],
-            ),
-            const SizedBox(height: AppSize.inset),
-            Row(
-              children: [
-                Expanded(child: Text("Total weight")),
-                Expanded(
-                  child: Text(
-                    "12kg",
-                    style: theme.textTheme.labelLarge,
-                    textAlign: TextAlign.end,
-                  ),
+              ),
+            ],
+          ),
+          const SizedBox(height: AppSize.inset),
+          Row(
+            children: [
+              Expanded(child: Text("Total weight")),
+              Expanded(
+                child: Text(
+                  "12kg",
+                  style: theme.textTheme.labelLarge,
+                  textAlign: TextAlign.end,
                 ),
-              ],
-            ),
-            const SizedBox(height: AppSize.inset),
-            Text("Image"),
-            const SizedBox(height: AppSize.inset),
-            AppTextfield(
-              title: "Review",
-              placeHolder: "Add review",
-            ),
-          ],
-        ),
+              ),
+            ],
+          ),
+          const SizedBox(height: AppSize.inset),
+          Text("Image"),
+          const SizedBox(height: AppSize.inset),
+          AppTextfield(
+            title: "Review",
+            placeHolder: "Add review",
+          ),
+        ],
       ),
     );
   }

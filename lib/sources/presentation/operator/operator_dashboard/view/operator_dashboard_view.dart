@@ -36,12 +36,12 @@ class OperatorDashboardView extends StatelessWidget {
       },
       child: RefreshIndicator(
         onRefresh: () async {},
-        child: Padding(
-          padding: const EdgeInsets.all(AppSize.viewMargin),
-          child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
             Text(getGreeting(), style: theme.textTheme.bodyLarge),
             const SizedBox(height: AppSize.cornerRadiusMedium),
-            Text("Operator name", style: theme.textTheme.bodyLarge),
+            Text("Operator", style: theme.textTheme.bodyLarge),
             const SizedBox(height: AppSize.viewSpacing),
             const ShortcutActionView(),
             const SizedBox(height: AppSize.viewSpacing),
@@ -94,6 +94,7 @@ class OperatorDashboardView extends StatelessWidget {
                     decoration: BoxDecoration(
                       color: Theme.of(context).scaffoldBackgroundColor,
                       borderRadius: BorderRadius.circular(AppSize.cornerRadiusMedium),
+                      border: Border.all(color: Theme.of(context).colorScheme.outline),
                     ),
                     child: Column(
                       children: [
@@ -102,10 +103,11 @@ class OperatorDashboardView extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.baseline,
                           children: [
                             Expanded(
-                                child: Text(
-                              "John Doe",
-                              style: theme.textTheme.titleMedium,
-                            )),
+                              child: Text(
+                                "John Doe",
+                                style: theme.textTheme.titleMedium,
+                              ),
+                            ),
                             Expanded(
                               child: Text(
                                 "(989)-223-222",
@@ -121,10 +123,11 @@ class OperatorDashboardView extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.baseline,
                           children: [
                             Expanded(
-                                child: Text(
-                              "Address",
-                              style: theme.textTheme.bodySmall,
-                            )),
+                              child: Text(
+                                "Address",
+                                style: theme.textTheme.bodySmall,
+                              ),
+                            ),
                             Expanded(
                               child: Text(
                                 "Phuket, Ban Tawan, 1415 Unit Near ABC Bus Stand ",
@@ -142,7 +145,7 @@ class OperatorDashboardView extends StatelessWidget {
                 },
               ),
             ),
-          ]),
+          ],
         ),
       ),
     );

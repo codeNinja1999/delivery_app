@@ -37,7 +37,7 @@ class _PinputExampleState extends State<PinputExample> {
   @override
   Widget build(BuildContext context) {
     Color focusedBorderColor = AppColors.black;
-    Color fillColor = Theme.of(context).scaffoldBackgroundColor;
+    Color fillColor = Theme.of(context).colorScheme.surface;
     Color borderColor = Theme.of(context).colorScheme.outline;
 
     final defaultPinTheme = PinTheme(

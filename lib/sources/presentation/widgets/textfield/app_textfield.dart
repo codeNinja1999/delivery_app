@@ -85,8 +85,8 @@ class _AppTextfieldState extends State<AppTextfield> {
         Text(
           widget.title ?? '',
           style: widget.titleColor != null
-              ? Theme.of(context).textTheme.bodyLarge?.copyWith(color: widget.titleColor)
-              : Theme.of(context).textTheme.bodyLarge,
+              ? Theme.of(context).textTheme.bodyMedium?.copyWith(color: widget.titleColor)
+              : Theme.of(context).textTheme.bodyMedium,
           textAlign: TextAlign.left,
         ),
         const SizedBox(height: AppSize.inset * 0.75),
@@ -104,7 +104,7 @@ class _AppTextfieldState extends State<AppTextfield> {
           validator: widget.validator,
           maxLength: (widget.isObscure ?? false) ? 20 : widget.maxLength,
           textInputAction: widget.textInputAction,
-          style: theme.textTheme.bodyLarge,
+          style: theme.textTheme.bodyMedium,
           autofocus: widget.autoFocus ?? false,
           focusNode: widget.focusNode,
           keyboardType: widget.textInputType,
@@ -133,10 +133,10 @@ class _AppTextfieldState extends State<AppTextfield> {
             errorText: widget.errorMessage,
             errorMaxLines: 3,
             hintText: widget.placeHolder ?? '',
-            hintStyle: theme.textTheme.bodyLarge?.copyWith(color: AppColors.placeholder, fontWeight: FontWeight.w400),
+            hintStyle: theme.textTheme.bodyMedium?.copyWith(color: AppColors.placeholder, fontWeight: FontWeight.w400),
             counterText: "",
             counter: const Offstage(),
-            fillColor: widget.fillColor ?? Theme.of(context).scaffoldBackgroundColor,
+            fillColor: widget.fillColor ?? Theme.of(context).colorScheme.surface,
             filled: true,
             contentPadding: const EdgeInsets.symmetric(
               horizontal: AppSize.inset,

@@ -16,12 +16,14 @@ class ResetPasswordPage extends StatefulWidget {
 class _ResetPasswordPageState extends State<ResetPasswordPage> {
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
-    return Scaffold(
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+    return AppPage(
       appBar: MyAppBar(backButtonAction: cancelNewPasswordDialog),
-      body: const ResetPasswordForm(),
+      body: Padding(
+        padding: EdgeInsets.only(
+          bottom: AppSize.bottomSafeInset,
+        ),
+        child: const ResetPasswordForm(),
+      ),
     );
   }
 

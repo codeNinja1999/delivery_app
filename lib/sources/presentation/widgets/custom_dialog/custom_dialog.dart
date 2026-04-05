@@ -36,6 +36,7 @@ class CustomDialog extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(AppSize.inset),
           color: Theme.of(context).scaffoldBackgroundColor,
+          border: Border.all(color: Theme.of(context).colorScheme.outline),
         ),
         width: MediaQuery.of(context).size.width - 24,
         child: SingleChildScrollView(
@@ -46,7 +47,7 @@ class CustomDialog extends StatelessWidget {
             children: [
               CircleAvatar(
                 radius: 50,
-                backgroundColor: theme.colorScheme.shadow,
+                backgroundColor: Colors.transparent,
                 child: (imageString != null)
                     ? Image.asset(imageString ?? AppImages.dashboardCard, fit: BoxFit.contain)
                     : SvgPicture.asset(svgImage ?? AppSvg.receiptSuccess, fit: BoxFit.contain),
@@ -78,6 +79,12 @@ class CustomDialog extends StatelessWidget {
                   ? Padding(
                       padding: const EdgeInsets.only(top: AppSize.inset),
                       child: TextButton(
+                        style: TextButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: AppSize.cornerRadius, vertical: AppSize.cornerRadiusMedium),
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppSize.cornerRadiusMedium)),
+                          side: BorderSide(color: theme.colorScheme.primary),
+                        ),
                         onPressed: () {
                           Navigator.of(context).pop();
                           if (onSecondaryButtonPressed != null) {
@@ -88,7 +95,6 @@ class CustomDialog extends StatelessWidget {
                           secondaryButtonTitle!,
                           style: theme.textTheme.titleMedium?.copyWith(
                             decoration: TextDecoration.underline,
-                            color: AppColors.hintTextColor,
                           ),
                         ),
                       ),

@@ -37,11 +37,10 @@ class _AddOperatorPageState extends State<AddOperatorPage> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return Scaffold(
+    return AppPage.scroll(
       appBar: const MyAppBar(
         title: "Add/Update Operator",
       ),
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: BlocListener<AddOperatorBloc, AddOperatorState>(
         listener: (context, state) {
           final status = state.status;
@@ -61,7 +60,6 @@ class _AddOperatorPageState extends State<AddOperatorPage> {
         child: Form(
           key: _formKey,
           child: SingleChildScrollView(
-            padding: const EdgeInsets.symmetric(horizontal: AppSize.viewMargin, vertical: AppSize.viewSpacing),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
@@ -76,12 +74,15 @@ class _AddOperatorPageState extends State<AddOperatorPage> {
                 const ConfirmPasswordInput(),
                 const SizedBox(height: AppSize.viewSpacing),
                 CustomButton(
-                    title: "Save Operator",
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        context.read<AddOperatorBloc>().add(SubmitOperator());
-                      }
-                    })
+                  title: "Save Operator",
+                  onPressed: () {
+                    Navigator.of(context).pop();
+
+                    // if (_formKey.currentState!.validate()) {
+                    //   context.read<AddOperatorBloc>().add(SubmitOperator());
+                    // }
+                  },
+                )
               ],
             ),
           ),

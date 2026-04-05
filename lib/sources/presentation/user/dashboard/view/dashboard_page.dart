@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fresh_fold_delivery/sources/core/app_core.dart';
+import 'package:fresh_fold_delivery/sources/core/helper/helper.dart';
 import 'package:fresh_fold_delivery/sources/presentation/user/dashboard/dashboard.dart';
 
 import 'package:fresh_fold_delivery/sources/presentation/widgets/widgets.dart';
@@ -17,17 +17,21 @@ class _DashboardHomeState extends State<DashboardPage> {
   @override
   void initState() {
     super.initState();
-    final bloc = context.read<DashboardBloc>();
-    bloc.add(GetDashboardData());
+    // final bloc = context.read<DashboardBloc>();
+    // bloc.add(GetDashboardData());
     // bloc.add(UserInfoSubscriptionRequested());
   }
 
   @override
   Widget build(BuildContext context) {
     return PopScope(
-      canPop: false,
-      child: Scaffold(
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      // canPop: false,
+      // onPopInvokedWithResult: (didPop, result) async {
+      //   if (didPop) return; // ← already popped, skip
+
+      //   await AppExitHelper.handleBackPress(context);
+      // },
+      child: AppPage(
         appBar: MyAppBar(
           allowBack: false,
           actions: [
@@ -46,7 +50,14 @@ class _DashboardHomeState extends State<DashboardPage> {
             ),
           ],
         ),
-        body: const DashboardView(),
+        body: Padding(
+          padding: EdgeInsets.only(
+            left: context.hInset,
+            right: context.hInsetR,
+            bottom: AppSize.bottomSafeInset,
+          ),
+          child: const DashboardView(),
+        ),
       ),
     );
   }

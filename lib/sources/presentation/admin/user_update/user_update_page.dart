@@ -11,13 +11,11 @@ class UserUpdatePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return Scaffold(
+    return AppPage.scroll(
       appBar: const MyAppBar(
         title: "Update User",
       ),
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(horizontal: AppSize.viewMargin, vertical: AppSize.viewSpacing),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -39,7 +37,13 @@ class UserUpdatePage extends StatelessWidget {
             const SizedBox(height: AppSize.inset),
             AppTextfield(title: "Location"),
             const SizedBox(height: AppSize.viewSpacing),
-            CustomButton(backgroundColor: AppColors.primary, title: "Save Details", onPressed: () {})
+            CustomButton(
+              backgroundColor: AppColors.primary,
+              title: "Save Details",
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
           ],
         ),
       ),

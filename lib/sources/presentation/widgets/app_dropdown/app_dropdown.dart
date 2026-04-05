@@ -163,7 +163,7 @@ class _AppDropDownState<T> extends State<AppDropDown<T>> {
                   prefixIconConstraints: widget.prefixIconConstraints,
                   hintStyle: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant),
                   counterText: "",
-                  fillColor: widget.fillColor ?? Colors.transparent,
+                  fillColor: widget.fillColor ?? Theme.of(context).colorScheme.surface,
                   filled: true,
                   contentPadding: const EdgeInsets.symmetric(
                     horizontal: AppSize.inset,
@@ -227,11 +227,11 @@ class _AppDropDownState<T> extends State<AppDropDown<T>> {
             url,
             height: 25,
             width: 25,
-            placeholderBuilder: (context) => SizedBox(
+            placeholderBuilder: (context) => const SizedBox(
               height: 25,
               width: 25,
             ),
-            errorBuilder: (context, error, stackTrace) => SizedBox(
+            errorBuilder: (context, error, stackTrace) => const SizedBox(
               height: 25,
               width: 25,
             ),
@@ -351,6 +351,7 @@ class _AppDropDownState<T> extends State<AppDropDown<T>> {
           fit: FlexFit.loose,
           menuProps: MenuProps(
             elevation: 5,
+            backgroundColor: theme.scaffoldBackgroundColor,
             shadowColor: Colors.black,
             barrierColor: Colors.black12,
           ),
@@ -371,6 +372,7 @@ class _AppDropDownState<T> extends State<AppDropDown<T>> {
           searchFieldProps: searchFieldProps,
           bottomSheetProps: BottomSheetProps(
             elevation: 100,
+            backgroundColor: theme.scaffoldBackgroundColor,
             shape: RoundedRectangleBorder(
               borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(AppSize.viewSpacing),
@@ -403,6 +405,7 @@ class _AppDropDownState<T> extends State<AppDropDown<T>> {
                 topRight: Radius.circular(AppSize.viewSpacing),
               ),
             ),
+            backgroundColor: theme.scaffoldBackgroundColor,
           ),
           onDismissed: () => FocusManager.instance.primaryFocus?.unfocus(),
           searchDelay: const Duration(milliseconds: 1),

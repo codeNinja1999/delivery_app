@@ -17,15 +17,21 @@ class OrderHistoryPageState extends State<OrderHistoryPage> {
   @override
   void initState() {
     super.initState();
-    context.read<OrderHistoryBloc>().add(GetOrderHistory(1));
+    // context.read<OrderHistoryBloc>().add(GetOrderHistory(1));
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+    return AppPage(
       appBar: MyAppBar(title: LocaleKeys.orderHistoryTitle.value),
-      body: const OrderHistoryBody(),
+      body: Padding(
+        padding: EdgeInsets.only(
+          left: context.hInset,
+          right: context.hInsetR,
+          bottom: AppSize.bottomSafeInset,
+        ),
+        child: const OrderHistoryBody(),
+      ),
     );
   }
 }

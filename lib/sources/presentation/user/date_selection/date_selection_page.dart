@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fresh_fold_delivery/sources/config/config.dart';
 import 'package:fresh_fold_delivery/sources/core/app_core.dart';
 import 'package:fresh_fold_delivery/sources/presentation/user/route/user_route.dart';
 import 'package:fresh_fold_delivery/sources/presentation/widgets/widgets.dart';
@@ -19,8 +20,7 @@ class _DateSelectionPageState extends State<DateSelectionPage> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return Scaffold(
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+    return AppPage(
       appBar: const MyAppBar(
         title: "Pickup Time",
       ),
@@ -38,7 +38,11 @@ class _DateSelectionPageState extends State<DateSelectionPage> {
           }
         },
         child: Padding(
-          padding: const EdgeInsets.all(AppSize.viewMargin),
+          padding: EdgeInsets.only(
+            left: context.hInset,
+            right: context.hInsetR,
+            bottom: AppSize.bottomSafeInset,
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
@@ -47,14 +51,14 @@ class _DateSelectionPageState extends State<DateSelectionPage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
+                      const SizedBox(height: AppSize.inset),
                       Text(
                         "Choose your date and time",
                         style: theme.textTheme.titleLarge,
                       ),
-                      const SizedBox(height: AppSize.cornerRadiusMedium),
+                      const SizedBox(height: AppSize.inset * 0.5),
                       Text(
                         "Select  the date and the time for laundry pickup",
-                        style: theme.textTheme.bodySmall,
                       ),
                       const SizedBox(height: AppSize.viewSpacing),
                       _DateSelectionInput(),
@@ -63,10 +67,12 @@ class _DateSelectionPageState extends State<DateSelectionPage> {
                 ),
               ),
               CustomButton(
-                  title: "Save and Continue",
-                  onPressed: () {
-                    context.read<DateSelectionBloc>().add(ValidateDate());
-                  }),
+                title: "Save and Continue",
+                onPressed: () {
+                  // context.read<DateSelectionBloc>().add(ValidateDate());
+                  Navigator.pushNamed(context, UserRoute.checkout);
+                },
+              ),
             ],
           ),
         ),
@@ -84,9 +90,14 @@ class _DateSelectionInput extends StatelessWidget {
       builder: (context, state) {
         return GestureDetector(
           onTap: () async {
-            final datePicked = await openDatePicker(
+            // final datePicked = await openDatePicker(
+            //   context: context,
+            //   date: (state.pickupDateView != "") ? DateTime.parse(state.pickupDateView) : null,
+            // );
+            final datePicked = await openCupertinoDatePicker(
               context: context,
-              date: (state.pickupDateView != "") ? DateTime.parse(state.pickupDateView) : null,
+              type: PickerType.expiryDate,
+              selectedDate: (state.pickupDateView != "") ? DateFormat('yyyy-MM-dd').parse(state.pickupDateView) : null,
             );
             if (datePicked != null) {
               if (context.mounted) {

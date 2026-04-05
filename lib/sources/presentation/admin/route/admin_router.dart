@@ -35,7 +35,7 @@ class AdminRouter {
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
             create: (_) => sl<AdminDashboardBloc>(),
-            child: Theme(data: darkTheme, child: const AdminDashboardPage()),
+            child: const AdminDashboardPage(),
           ),
         );
 

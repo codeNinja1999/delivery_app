@@ -87,7 +87,7 @@ class OrderHistoryListView extends StatelessWidget {
             return SizedBox.expand(
               child: SingleChildScrollView(
                 controller: scrollController,
-                padding: const EdgeInsets.all(AppSize.viewMargin),
+                padding: EdgeInsets.zero,
                 physics: const AlwaysScrollableScrollPhysics(),
                 child: Column(
                   children: [
@@ -115,9 +115,22 @@ class OrderHistoryListView extends StatelessWidget {
               ),
             );
           } else {
-            return const SingleChildScrollView(
-                physics: const AlwaysScrollableScrollPhysics(),
-                child: Center(child: SizedBox.expand(child: Text('No order yet'))));
+            return SingleChildScrollView(
+              controller: scrollController,
+              physics: const AlwaysScrollableScrollPhysics(),
+              child: Container(
+                height: MediaQuery.of(context).size.height * 0.8,
+                alignment: Alignment.center,
+                child: const Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text('No order yet'),
+                  ],
+                ),
+              ),
+            );
           }
         },
       ),

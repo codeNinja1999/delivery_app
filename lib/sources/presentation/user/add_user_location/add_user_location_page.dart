@@ -87,10 +87,11 @@ class _AddUserLocationPageState extends State<AddUserLocationPage> {
               ),
               const SizedBox(height: AppSize.viewSpacing),
               CustomButton(
-                  title: "Save and Continue",
-                  onPressed: () {
-                    Navigator.pop(context, true);
-                  }),
+                title: "Save and Continue",
+                onPressed: () {
+                  Navigator.pop(context, true);
+                },
+              ),
             ],
           ),
         ),

@@ -43,8 +43,8 @@ class _OperatorHistoryViewState extends State<OperatorHistoryView> {
       listenWhen: (previous, current) => previous.status != current.status,
       listener: (context, state) {
         final status = state.status;
-        if (status is Success) {
-        } else if (status is SubmissionFailure) {
+        if (status is Success) {}
+        if (status is SubmissionFailure) {
           ErrorResolver.resolve(context, status);
         }
       },
@@ -102,8 +102,21 @@ class OrderHistoryListView extends StatelessWidget {
               ),
             );
           } else {
-            return const SizedBox.expand(
-              child: Text('No order yet'),
+            return SingleChildScrollView(
+              controller: scrollController,
+              physics: const AlwaysScrollableScrollPhysics(),
+              child: Container(
+                height: MediaQuery.of(context).size.height * 0.8,
+                alignment: Alignment.center,
+                child: const Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text('No order yet'),
+                  ],
+                ),
+              ),
             );
           }
         },

@@ -19,15 +19,14 @@ class _OperatorDashboardPageState extends State<OperatorDashboardPage> {
   @override
   void initState() {
     super.initState();
-    context.read<OperatorDashBoardBloc>().add(GetOperatorInfo());
+    // context.read<OperatorDashBoardBloc>().add(GetOperatorInfo());
   }
 
   @override
   Widget build(BuildContext context) {
     return PopScope(
-      canPop: false,
-      child: Scaffold(
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      // canPop: false,
+      child: AppPage(
         appBar: MyAppBar(
           allowBack: false,
           actions: [
@@ -46,7 +45,14 @@ class _OperatorDashboardPageState extends State<OperatorDashboardPage> {
             ),
           ],
         ),
-        body: const OperatorDashboardView(),
+        body: Padding(
+          padding: EdgeInsets.only(
+            left: context.hInset,
+            right: context.hInsetR,
+            bottom: AppSize.bottomSafeInset,
+          ),
+          child: const OperatorDashboardView(),
+        ),
       ),
     );
   }

@@ -3,14 +3,14 @@ import 'package:fresh_fold_delivery/sources/core/app_core.dart';
 class AppColors {
   // static final primary = HexColor("#3045B3");  //blue
   static final primary = HexColor("#F2890C"); //orange
-  static final tertiary = HexColor('#E6E8FF');
+  static final tertiary = HexColor('#6366F1');
 
-  static final secondary = HexColor('#F8F9FE');
-  static final primaryContainer = HexColor("#D4F1DF");
-  static final onPrimary = HexColor("#23964e");
-  static final secondaryContainer = HexColor("#C2DBFF");
-  static final tertiaryContainer = HexColor("#F8F9FE");
-  static final canvasColor = HexColor("#FFFFFF");
+  static final secondary = HexColor('#6B7280');
+  static final primaryContainer = HexColor("#FFE7CC");
+  static final onPrimary = HexColor("#4A2A00");
+  static final secondaryContainer = HexColor("#E5E7EB");
+  static final tertiaryContainer = HexColor("#E0E7FF");
+  static final canvasColor = HexColor("#F5F5F5");
 
   static final textColor = HexColor("#101318");
   static final homeTabBarBackgroundColor = HexColor("#1C2431");
@@ -43,7 +43,7 @@ class AppColors {
   static final darkPrimaryColor = HexColor("#261543");
   static final indicatorColorLight = HexColor("#A56BFF"); //secondarycolor
   static final placeholder = HexColor("#767C8A");
-  static final cardColor = HexColor("#2E1C4B");
+  static final cardColor = HexColor("#FFFFFF");
   static final darkTextColor = HexColor("#9F9F9F");
   static final avatar = HexColor("#FF9AD6");
   static final pink = HexColor("#FB4AB2");

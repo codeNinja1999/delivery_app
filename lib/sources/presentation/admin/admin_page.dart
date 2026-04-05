@@ -17,20 +17,17 @@ class _AdminPageState extends State<AdminPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Theme(
-      data: darkTheme,
-      child: NavigatorPopHandler(
-        onPop: () {
-          _navigatorKey.currentState!.maybePop();
+    return NavigatorPopHandler(
+      onPop: () {
+        _navigatorKey.currentState!.maybePop();
+      },
+      child: Navigator(
+        key: _navigatorKey,
+        initialRoute: AdminRoute.adminDashboard,
+        onGenerateRoute: (setting) {
+          currentRoute = setting.name ?? AdminRoute.adminDashboard;
+          return AdminRouter.onGenerateRoute(setting, context);
         },
-        child: Navigator(
-          key: _navigatorKey,
-          initialRoute: AdminRoute.adminDashboard,
-          onGenerateRoute: (setting) {
-            currentRoute = setting.name ?? AdminRoute.adminDashboard;
-            return AdminRouter.onGenerateRoute(setting, context);
-          },
-        ),
       ),
     );
   }

@@ -18,7 +18,7 @@ class _LocationPageState extends State<LocationPage> {
   @override
   void initState() {
     super.initState();
-    context.read<LocationBloc>().add(FetchLocation());
+    // context.read<LocationBloc>().add(FetchLocation());
   }
 
   final a = true;
@@ -26,26 +26,29 @@ class _LocationPageState extends State<LocationPage> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return Scaffold(
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+    return AppPage(
       appBar: const MyAppBar(
         title: "Location Selection",
       ),
-      body: BlocListener<LocationBloc, LocationState>(
-        listenWhen: (previous, current) => previous.status != current.status,
-        listener: (context, state) {
-          final status = state.status;
-          (status is InProgress) ? LoadingView.show() : LoadingView.hide();
-          if (status is ValidateLocationSuccess) {
-            context.read<UserBloc>().add(SaveLocation(state.selectedLocation));
-            Navigator.pushNamed(context, UserRoute.serviceSelection);
-          }
-          if (status is SubmissionFailure) {
-            ErrorResolver.resolve(context, status);
-          }
-        },
-        child: Padding(
-          padding: const EdgeInsets.all(AppSize.viewMargin),
+      body: Padding(
+        padding: EdgeInsets.only(
+          left: context.hInset,
+          right: context.hInsetR,
+          bottom: AppSize.bottomSafeInset,
+        ),
+        child: BlocListener<LocationBloc, LocationState>(
+          listenWhen: (previous, current) => previous.status != current.status,
+          listener: (context, state) {
+            final status = state.status;
+            (status is InProgress) ? LoadingView.show() : LoadingView.hide();
+            if (status is ValidateLocationSuccess) {
+              context.read<UserBloc>().add(SaveLocation(state.selectedLocation));
+              Navigator.pushNamed(context, UserRoute.serviceSelection);
+            }
+            if (status is SubmissionFailure) {
+              ErrorResolver.resolve(context, status);
+            }
+          },
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
@@ -54,11 +57,12 @@ class _LocationPageState extends State<LocationPage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
+                      const SizedBox(height: AppSize.inset),
                       Text(
                         "Choose your Location",
                         style: theme.textTheme.titleLarge,
                       ),
-                      const SizedBox(height: AppSize.cornerRadiusMedium),
+                      const SizedBox(height: AppSize.inset * 0.5),
                       Text(
                         "Where do you like your laundry picked up?",
                         style: theme.textTheme.bodySmall,
@@ -101,20 +105,33 @@ class _LocationPageState extends State<LocationPage> {
                         },
                       ),
                       const SizedBox(height: AppSize.inset),
-                      ListTile(
-                          tileColor: Theme.of(context).scaffoldBackgroundColor,
-                          contentPadding: const EdgeInsets.all(AppSize.inset),
-                          title: Text(
-                            "Add different address",
-                            style: theme.textTheme.titleMedium,
+                      GestureDetector(
+                        onTap: () async {
+                          final result = await Navigator.pushNamed(context, UserRoute.addLocation);
+                          // if (result == true) {
+                          //   context.read<LocationBloc>().add(FetchLocation());
+                          // }
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.all(AppSize.inset),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(AppSize.cornerRadiusMedium),
+                            color: Theme.of(context).scaffoldBackgroundColor,
+                            border: Border.all(color: Theme.of(context).colorScheme.primary),
                           ),
-                          trailing: IconButton(onPressed: () {}, icon: const Icon(Icons.add)),
-                          onTap: () async {
-                            final result = await Navigator.pushNamed(context, UserRoute.addLocation);
-                            if (result == true) {
-                              context.read<LocationBloc>().add(FetchLocation());
-                            }
-                          }),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              // contentPadding: const EdgeInsets.all(AppSize.inset),
+                              Text(
+                                "Add different address",
+                                style: theme.textTheme.titleMedium,
+                              ),
+                              const Icon(Icons.add),
+                            ],
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -122,9 +139,11 @@ class _LocationPageState extends State<LocationPage> {
               CustomButton(
                 title: "Save and Continue",
                 onPressed: () {
-                  context.read<LocationBloc>().add(ValidateLocation());
+                  // context.read<LocationBloc>().add(ValidateLocation());
+                  Navigator.pushNamed(context, UserRoute.serviceSelection);
                 },
               ),
+              const SizedBox(height: AppSize.viewMargin),
             ],
           ),
         ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fresh_fold_delivery/sources/core/app_core.dart';
 import 'package:fresh_fold_delivery/sources/presentation/user/route/user_route.dart';
 import 'package:fresh_fold_delivery/sources/presentation/widgets/button/custom_button.dart';
+import 'package:fresh_fold_delivery/sources/presentation/widgets/widgets.dart';
 import 'package:fresh_fold_delivery/sources/resources/resources.dart';
 
 class OrderSuccessPage extends StatefulWidget {
@@ -18,17 +19,19 @@ class _OrderSuccessPageState extends State<OrderSuccessPage> {
 
     return PopScope(
       canPop: false,
-      child: Scaffold(
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      child: AppPage(
         body: Padding(
-          padding: const EdgeInsets.all(AppSize.viewMargin),
+          padding: EdgeInsets.only(
+            left: context.hInset,
+            right: context.hInsetR,
+            bottom: AppSize.bottomSafeInset,
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Expanded(
                 child: Center(
                   child: SingleChildScrollView(
-                    padding: const EdgeInsets.all(AppSize.viewMargin),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
@@ -57,10 +60,12 @@ class _OrderSuccessPageState extends State<OrderSuccessPage> {
                 ),
               ),
               CustomButton(
-                  title: "Go to homepage",
-                  onPressed: () {
-                    Navigator.of(context).pushNamedAndRemoveUntil(UserRoute.dashboard, (Route route) => false);
-                  }),
+                title: "Go to homepage",
+                onPressed: () {
+                  Navigator.of(context).pushNamedAndRemoveUntil(UserRoute.dashboard, (Route route) => false);
+                },
+              ),
+              const SizedBox(height: AppSize.viewMargin),
             ],
           ),
         ),

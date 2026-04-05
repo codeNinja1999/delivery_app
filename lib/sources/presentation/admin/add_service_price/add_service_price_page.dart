@@ -34,11 +34,10 @@ class _AddServicePricePageState extends State<AddServicePricePage> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return Scaffold(
+    return AppPage.scroll(
       appBar: const MyAppBar(
         title: "Add/Edit Service",
       ),
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: BlocListener<AddServicePriceBloc, AddServicePriceState>(
         listenWhen: (previous, current) => previous.status != current.status,
         listener: (context, state) {
@@ -58,7 +57,6 @@ class _AddServicePricePageState extends State<AddServicePricePage> {
         child: Form(
           key: _formKey,
           child: SingleChildScrollView(
-            padding: const EdgeInsets.symmetric(horizontal: AppSize.viewMargin, vertical: AppSize.viewSpacing),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
@@ -69,9 +67,11 @@ class _AddServicePricePageState extends State<AddServicePricePage> {
                 CustomButton(
                     title: "Save Service",
                     onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        context.read<AddServicePriceBloc>().add(SubmitService());
-                      }
+                      Navigator.of(context).pop();
+
+                      // if (_formKey.currentState!.validate()) {
+                      //   context.read<AddServicePriceBloc>().add(SubmitService());
+                      // }
                     }),
               ],
             ),

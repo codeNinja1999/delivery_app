@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fresh_fold_delivery/sources/core/app_core.dart';
 
 import 'package:fresh_fold_delivery/sources/presentation/widgets/widgets.dart';
 
@@ -14,10 +15,16 @@ class VerifyEmailPage extends StatefulWidget {
 class _VerifyEmailPageState extends State<VerifyEmailPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+    return AppPage(
       appBar: MyAppBar(backButtonAction: () => Navigator.of(context, rootNavigator: true).pop()),
-      body: const VerifyEmailForm(),
+      body: Padding(
+        padding: EdgeInsets.only(
+          left: context.hInset,
+          right: context.hInsetR,
+          bottom: AppSize.bottomSafeInset,
+        ),
+        child: const VerifyEmailForm(),
+      ),
     );
   }
 }
